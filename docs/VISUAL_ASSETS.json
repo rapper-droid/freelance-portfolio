@@ -1,0 +1,37 @@
+{
+  "created": "2026-09-11",
+  "method": "built-in image_gen; optimized locally using sharp",
+  "totalBytes": 297502,
+  "assets": [
+    {
+      "file": "/visuals/forme-charcoal-v1.webp",
+      "bytes": 39756,
+      "sha256": "86dbd85e97eb46f624e809048cb48da0e7b8bd8b377bfb1b7a317d97fffde895"
+    },
+    {
+      "file": "/visuals/forme-sage-v1.webp",
+      "bytes": 40344,
+      "sha256": "f97d4cd8a5dbf850a493485e5bed59620af72a199459de098f379568651d5c1d"
+    },
+    {
+      "file": "/visuals/forme-sand-v1.webp",
+      "bytes": 39182,
+      "sha256": "2d7825377e6eea43fe76f8401d6dd9c5754bc202d00cb69964d37f599f5bf1aa"
+    },
+    {
+      "file": "/visuals/forme-texture-v1.webp",
+      "bytes": 11550,
+      "sha256": "26c79f5e64de6343a4aa7f14e1e8ece11da1242d1177187ea90bad5bd51a7f90"
+    },
+    {
+      "file": "/visuals/kissa-coffee-v1.webp",
+      "bytes": 75320,
+      "sha256": "32ad92b8f33b0eaf310ca7b5261e791a0b9f1d01a2920d48eaa975fef6840d2e"
+    },
+    {
+      "file": "/visuals/kissa-interior-v1.webp",
+      "bytes": 91350,
+      "sha256": "9ca6fccf280d7905c143f11b4c0914fba117831667d5a02f6334e3fef9883129"
+    }
+  ]
+}

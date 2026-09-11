@@ -2,6 +2,8 @@
 
 公開サイト: https://tetsu-works.netlify.app （2026-09-11 HTTP 200を確認）。今回の再設計は `codex/portfolio-figma-sales-ui`。main・Netlify設定・本番環境変数は変更せず、公開反映前のブランチとして提供します。
 
+[ページ別ビジュアル・素材一覧](docs/VISUAL_ASSETS.md) / [ビジュアル更新QA](docs/VISUAL_RELEASE_QA.md)
+
 [デザインとFigma対応表](docs/FIGMA_SALES_UI.md) / [最新QA](docs/RELEASE_QA.md) / [公開手順](docs/PRODUCTION.md)
 
 トップは代表4作品。全11作品は `/works`、既存12カテゴリ・全デモURLを維持。KISSA / FLOWSTATE / FORME / SMART INBOXの詳細に、実画面・価格・納期・納品物とメッセージ進行を整理しています。
