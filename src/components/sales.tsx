@@ -1,0 +1,97 @@
+﻿import Link from "next/link";
+import { ArrowUpRight, Check } from "lucide-react";
+import { flow, pricingNote, type categories } from "@/lib/portfolio";
+export function Process() {
+  return (
+    <section className="hub-section" id="process">
+      <div className="hub-section-head">
+        <div>
+          <span className="eyebrow">FROM BRIEF TO DELIVERY</span>
+          <h2>
+            依頼から納品まで、
+            <br />
+            見通しのある進め方。
+          </h2>
+        </div>
+        <p>
+          クラウドソーシングサービス上の
+          <br />
+          メッセージで進行可能です。
+        </p>
+      </div>
+      <ol className="delivery-flow">
+        {flow.map((s, i) => (
+          <li key={s}>
+            <span>{String(i + 1).padStart(2, "0")}</span>
+            <b>{s}</b>
+          </li>
+        ))}
+      </ol>
+      <div className="delivery-foot">
+        <Check size={18} />
+        <p>
+          制作範囲・確認日・納品形式を最初に共有。修正回数と対象範囲も着手前に合意します。
+        </p>
+      </div>
+    </section>
+  );
+}
+export function SalesInfo({
+  category,
+}: {
+  category: (typeof categories)[number];
+}) {
+  return (
+    <section
+      className="hub-section sales-info"
+      id="delivery"
+      data-delivery-info
+    >
+      <div className="hub-section-head">
+        <div>
+          <span className="eyebrow">WHAT YOU CAN ORDER</span>
+          <h2>
+            この種類の仕事を
+            <br />
+            依頼した場合。
+          </h2>
+        </div>
+        <Link href="#contact" className="button primary">
+          相談内容をまとめる <ArrowUpRight size={16} />
+        </Link>
+      </div>
+      <div className="sales-grid">
+        {[
+          ["対応可能内容", category.scope],
+          ["参考料金", category.price],
+          ["制作期間", category.duration],
+          [
+            "納品可能物",
+            "ソースコード・設定ファイル・README・必要な素材・確認項目一覧（契約範囲による）",
+          ],
+          [
+            "修正対応",
+            "確認用共有後、合意した範囲で修正。追加仕様は費用と日程を先に相談します。",
+          ],
+          ["必要素材", category.materials],
+          ["使用可能技術", category.tech],
+          [
+            "進め方",
+            "仕様・素材確認 → 設計 → 実装 → QA → 共有・修正 → 最終QA → 納品",
+          ],
+        ].map(([label, text]) => (
+          <div key={label}>
+            <span>{label}</span>
+            <p>{text}</p>
+          </div>
+        ))}
+      </div>
+      <p className="honesty-note">{pricingNote}</p>
+      {["api", "automation"].includes(category.id) && (
+        <p className="honesty-note">
+          公開デモはローカル処理です。AIモデル・外部APIの実接続は、利用条件・認証・費用・対象データを確認して個別に設計します。
+        </p>
+      )}
+    </section>
+  );
+}
