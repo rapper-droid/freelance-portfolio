@@ -1,9 +1,16 @@
 {
-  "checkedAt": "2026-09-11T01:54:41.942Z",
+  "checkedAt": "2026-09-11T02:26:27.839Z",
   "findings": [
     {
       "width": 320,
       "route": "/",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/privacy",
       "status": 200,
       "overflow": false,
       "brokenImages": 0
@@ -249,6 +256,13 @@
     {
       "width": 390,
       "route": "/",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/privacy",
       "status": 200,
       "overflow": false,
       "brokenImages": 0
@@ -494,6 +508,13 @@
     {
       "width": 768,
       "route": "/",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/privacy",
       "status": 200,
       "overflow": false,
       "brokenImages": 0
@@ -739,6 +760,13 @@
     {
       "width": 1440,
       "route": "/",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/privacy",
       "status": 200,
       "overflow": false,
       "brokenImages": 0

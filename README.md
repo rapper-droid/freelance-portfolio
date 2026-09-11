@@ -2,7 +2,7 @@
 
 AIを活用して制作を効率化しながら、人が使える完成品まで責任を持って仕上げる。その姿勢を、設計・制作・実装・テスト・納品の具体例で伝える営業用Webアプリです。クラウドワークス・ランサーズ等の応募では、依頼内容に合うカテゴリURLを1本案内できます。
 
-**全作品は SELF-INITIATED DEMO / 自主制作。** 架空企業・商品・顧客データは実案件や成果実績ではありません。公開ページに直接連絡先は掲載せず、相談文をコピーしてご利用中のクラウドソーシングサービス内で進める構成です。
+**全作品は SELF-INITIATED DEMO / 自主制作。** 架空企業・商品・顧客データは実案件や成果実績ではありません。相談文をコピーして案件サイト内で進められます。直接相談用のメールフォームは本番設定済みの場合に表示します。
 
 ![WORKS desktop](docs/screenshots/home-desktop-firstview.png)
 
@@ -41,7 +41,7 @@ AIを活用して制作を効率化しながら、人が使える完成品まで
 | inbox       | SMART INBOX（既存）          | 分類・担当・状況・返信案編集・コピー     |
 | admin       | ADMIN DASHBOARD（既存）      | 顧客CRUD・保存・検索・履歴               |
 
-AI API・メール送信・決済・実予約はありません。RELAYはAI連携を検討するための**固定ルール・定型文によるシミュレーション**です。FOLIOのプロダクト画面はLP内のデザインプレビューです。QAのチェックは手動操作デモであり、自動テストの実行・成功を意味しません。
+各作品デモにはAI API・メール送信・決済・実予約はありません。サイトの問い合わせフォームは別途サーバー送信に対応します。RELAYはAI連携を検討するための**固定ルール・定型文によるシミュレーション**です。FOLIOのプロダクト画面はLP内のデザインプレビューです。QAのチェックは手動操作デモであり、自動テストの実行・成功を意味しません。
 
 ## 技術構成
 
@@ -70,6 +70,7 @@ npm run verify            # lint + typecheck + Vitest + production build
 npm run test:e2e          # 自動サーバー起動: port 3100
 npm run screenshots      # 自動サーバー起動: port 3101
 npm run qa:visual        # 自動サーバー起動: port 3102
+npm run qa:links         # 全内部リンク・アンカーの読み取り検査
 npm run qa:performance   # Lighthouseのモバイル実測: port 3104
 npm run format:check
 npm run verify:all       # verify + format + E2E + screenshots + Visual QA
@@ -77,7 +78,7 @@ npm run verify:all       # verify + format + E2E + screenshots + Visual QA
 
 外部サービスの環境変数なしで動作します。画像がまだない新規作品を追加した場合は、build → screenshots → buildの順で画像を生成・取り込みしてください。既存のプレビュー画像はGit管理しています。
 
-E2EはChromiumのDesktop 1440×1000 / Tablet 768×1024 / Mobile 390×664で実行。Visual QAは320 / 390 / 768 / 1440pxで全35コンテンツルートを確認します。実機Safari/Androidの検証とは区別してください。
+E2EはChromiumのDesktop 1440×1000 / Tablet 768×1024 / Mobile 390×664で実行。Visual QAは320 / 390 / 768 / 1440pxで全36コンテンツルートを確認します。実機Safari/Androidの検証とは区別してください。
 
 ## スクリーンショット
 
@@ -101,62 +102,21 @@ E2EはChromiumのDesktop 1440×1000 / Tablet 768×1024 / Mobile 390×664で実�
 
 新規カテゴリは同ファイルの`categories`にID・営業説明・参考料金・期間・素材・技術を追加し、最低1作品にタグ付けします。`CategoryId`は自動で更新され、ルートと営業セクションは共通テンプレートから生成されます。12カテゴリ固定のテストは仕様変更時に更新してください。
 
-## 環境変数
+## 本番公開と外部サービス
 
-`.env.example`を`.env.local`へコピー。秘密情報はGitへ追加しません。
+最新の設定手順は [PRODUCTION.md](docs/PRODUCTION.md)、価格比較は [EXTERNAL_SERVICES.md](docs/EXTERNAL_SERVICES.md)。Netlify Freeを選択し、`netlify.toml` と公開用環境変数検査を追加しています。Node.js 24 / `npm ci` / `npm run build:production`。独自ドメインは後から接続可能です。
 
-| 変数                          | 用途                                 | 未設定時             |
-| ----------------------------- | ------------------------------------ | -------------------- |
-| NEXT_PUBLIC_SITE_URL          | 公開HTTPSオリジン                    | localhost:3000       |
-| NEXT_PUBLIC_ANALYTICS_ENABLED | `true`で計測送信を有効化             | 無効                 |
-| POSTHOG_PROJECT_KEY           | PostHogのProject token（サーバー用） | 無効                 |
-| POSTHOG_HOST                  | US/EU ingestion origin               | 不正・未設定なら無効 |
-| NEXT_PUBLIC_SENTRY_DSN        | 公開DSN、ブラウザエラー監視          | SDKもロードしない    |
+`.env.example`を参照し、秘密値は公開先のサーバー環境変数に設定。NEXT_PUBLIC_SITE_URLを正規HTTPSオリジンにし、metadata / canonical / OGP / sitemap / robotsへ反映します。セキュリティヘッダー、404、React/global error境界を実装。
 
-`NEXT_PUBLIC_*`はビルド時に確定するので、変更後は再ビルド・再デプロイしてください。SITE_URLは末尾パスなしのHTTPSオリジンを設定。canonical・OGP・Twitter Card・sitemap・robotsが同じ設定に追従します。未設定のlocalhost URLを営業で配布しないでください。
+問い合わせは既存の相談文コピーに加え、設定済みの場合だけ直接メール送信を表示。Resend / Turnstile / 共有Redis上限をサーバーで検証します。未設定時は準備中、障害時は失敗と表示して入力を保持します。メールアドレス・本文は通知以外の分析/障害監視へ送信しません。
 
-## PostHog接続
+PostHogは訪問→カテゴリ→作品→料金→相談開始→送信→成功の匿名30分ファネルを計測。utm_sourceはcrowdworks / lancers / direct / otherに限定。既存5イベントを維持し、DNT/GPCでは無効です。Sentryはブラウザ・React境界・Nextサーバー・問い合わせ/分析API障害を検知。両者とも設定時だけ動作し、実アカウントでの受信確認は接続後に必要です。
 
-1. 利用者のPostHogプロジェクトを作成し、Project tokenとUS/EUリージョンを確認。
-2. 公開先に`POSTHOG_PROJECT_KEY`、`POSTHOG_HOST`、`NEXT_PUBLIC_ANALYTICS_ENABLED=true`を設定して再ビルド。
-3. カテゴリ閲覧→作品閲覧→Live Demo→納品情報表示→相談文コピーを操作し、PostHogのEventsで確認します。
-
-イベントは`portfolio_category_view` / `portfolio_project_open` / `portfolio_live_demo_click` / `portfolio_delivery_info_view` / `portfolio_copy_contact_message`。自由入力、連絡先、URLクエリ、参照元、Cookie、永続ID、リプレイを送信しません。イベントごとにランダムIDを生成し、人物プロファイルを作りません。このためユニークユーザーやセッションをまたぐファネルの計測は目的にしていません。
-
-ブラウザ→同一オリジンの`/api/analytics`→PostHogの経路。サーバーは既知イベント・カタログIDのみ再構築し、訪問者IPやブラウザヘッダーを転送しません。IP属性は0.0.0.0、GeoIP無効。DNT/GPCでは送信しません。ネットワーク障害時も操作を妨げません。ホスティング自体のアクセスログは別管理です。
-
-[公式Capture API](https://posthog.com/docs/api/capture)。実アカウントでの受信確認は接続後に利用者が実施します。
-
-## Sentry接続
-
-1. 利用者のSentryでBrowser JavaScriptプロジェクトを作成。
-2. `NEXT_PUBLIC_SENTRY_DSN`を公開先へ設定し、本番ビルドを再デプロイ。
-3. 検証用Preview環境のブラウザコンソールで`setTimeout(() => { throw new Error('portfolio-monitoring-check'); }, 0)`を一度実行し、Sentryで受信確認。
-
-SDKは設定時のみ動的import。既定の統合は無効にしてglobal error / unhandled rejectionだけを捕捉。beforeSendでイベントを作り直し、エラー本文・利用者・リクエスト・URL・breadcrumbs・extraを除外します。Nextの静的チャンクのファイル名・行番号は残します。リプレイ・トレース・セッション収集は追加していません。
-
-**対応範囲は本番ブラウザの未処理エラーです。** サーバー監視・ソースマップのアップロード・Reactで処理済みのエラーはこの構成の対象外。サーバーエラーは公開先ログで確認します。ソースマップ導入時の認証Tokenはサーバー/CIの秘密変数へ設定してください。実アカウント受信は未検証です。
-
-## デプロイ / Vercel
-
-1. GitHubからこのリポジトリをインポート。Framework: Next.js、Node.js 24、Install: `npm ci`、Build: `npm run build`。
-2. まず作業ブランチのPreviewを作成し、`NEXT_PUBLIC_SITE_URL`をそのHTTPS URLへ設定して再ビルド。
-3. 全カテゴリ・作品・画像・コピー・404・metadataを確認。任意サービスは必要なものだけ接続。
-4. 利用者が承認した後にProductionを公開。ブランチのmainへのmergeは自動で行いません。
-
-営業用途のため、Vercelの[Hobbyは非商用用途限定](https://vercel.com/docs/plans/hobby)という条件を確認し、商用利用に適したプランを選んでください。アカウント作成・プラン購入・カード登録・DNS変更は利用者側の操作です。
-
-## Cloudflare / 独自ドメイン
-
-最小変更なら**Cloudflare DNS + Vercelホスティング**。Vercelに独自ドメインを登録し、そこで提示されたDNSレコードをCloudflare側へ設定します。特定のIPやCNAMEをコードに固定しません。TLS発行を確認し、SITE_URLを独自ドメインへ変更して再ビルドしてください。
-
-Cloudflare Workers単独でホストする場合は、[現行Next.jsガイド](https://developers.cloudflare.com/workers/framework-guides/web-apps/nextjs/)に従い、vinext等の現在の対応ランタイムへ適合させてください。2026-09-11確認時の公式推奨はvinextで、OpenNextは別経路として記載されています。本変更ではNext.jsの既存構成を維持し、**Cloudflare専用ランタイムへの移植・実行検証は行っていません**。移行時はRoute Handler、画像最適化、環境変数、SSG/404をWorkers Previewで再検証します。`.next`をそのままPagesへアップロードする構成ではありません。
-
-ドメインを変えたら、HTTPS・正規URL・canonical・OGP画像・sitemapのホストを確認。www有無は公開先で一方へリダイレクトします。
+実AI APIは追加していません。既存の自主制作デモ・料金・納品物・品質確認を営業の中心にします。ログイン・決済・管理画面追加も不要です。
 
 ## 品質・安全性
 
-- 全デモの入力はローカル処理。相談文の外部送信なし。
+- 全デモの入力はローカル処理。相談文コピーでは外部送信なし。直接フォームは明示的な同意と送信操作時のみ通知。
 - CSV: UTF-8 / 2MB / 10,000行 / 50列、引用符検証、BOM付き出力、Excel数式対策。`.xlsx`・Shift_JISは非対応。集計は全データ、出力は加工後全件。
 - inbox / automation: キーワード分類・固定返信、人による確認。再読み込みで初期化、メール送信なし。
 - admin: 最大1,000顧客、売上は0〜999,999,999円の整数。localStorage破損時・保存不可時の通知。複数端末同期・認証・共有DB・バックアップ・監査証跡は非対応。
@@ -164,4 +124,4 @@ Cloudflare Workers単独でホストする場合は、[現行Next.jsガイド](h
 - キーボード・focus-visible・semantic HTML・native dialog・フォームラベル・reduced motion。
 - 色・間隔・半径のトークンは`hub.css`、作品別CSSは`showcase.css`。Figmaレビュー手順は[DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md)。
 
-最新の実測結果・制限は[QA記録](docs/QA.md)。企画の根拠は[仕様書](docs/PORTFOLIO_SALES_HUB_V2.md)と[Issue #1](https://github.com/rapper-droid/freelance-portfolio/issues/1)、調査・設計は[IMPLEMENTATION_V2.md](docs/IMPLEMENTATION_V2.md)。
+最新の実測結果・制限は[今回のQA記録](docs/RELEASE_QA.md)。前回の詳細は[QA記録](docs/QA.md)。企画の根拠は[仕様書](docs/PORTFOLIO_SALES_HUB_V2.md)と[Issue #1](https://github.com/rapper-droid/freelance-portfolio/issues/1)、調査・設計は[IMPLEMENTATION_V2.md](docs/IMPLEMENTATION_V2.md)。

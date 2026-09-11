@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-09-11T01:35:30.583Z",
+  "measuredAt": "2026-09-11T02:28:42.421Z",
   "note": "Local production build; Lighthouse mobile simulated throttling. Not field Core Web Vitals.",
   "results": [
     {
@@ -11,41 +11,13 @@
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 2272.166,
+      "lcpMs": 2245.339,
       "cls": 0,
-      "tbtMs": 102,
-      "jsBytes": 158503
+      "tbtMs": 38,
+      "jsBytes": 161165
     },
     {
       "route": "/works/lp",
-      "mobile": true,
-      "scores": {
-        "performance": 96,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "lcpMs": 2081.0007,
-      "cls": 0,
-      "tbtMs": 191.99964999999997,
-      "jsBytes": 165684
-    },
-    {
-      "route": "/projects/cafe",
-      "mobile": true,
-      "scores": {
-        "performance": 98,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "lcpMs": 1566.8404,
-      "cls": 0,
-      "tbtMs": 144.5,
-      "jsBytes": 181998
-    },
-    {
-      "route": "/demos/booking",
       "mobile": true,
       "scores": {
         "performance": 99,
@@ -53,10 +25,38 @@
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 1662.9923000000001,
+      "lcpMs": 2239.5156,
       "cls": 0,
-      "tbtMs": 112,
-      "jsBytes": 181998
+      "tbtMs": 38,
+      "jsBytes": 161165
+    },
+    {
+      "route": "/projects/cafe",
+      "mobile": true,
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 1814.8329000000003,
+      "cls": 0,
+      "tbtMs": 42.5,
+      "jsBytes": 185158
+    },
+    {
+      "route": "/demos/booking",
+      "mobile": true,
+      "scores": {
+        "performance": 100,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 1811.4621000000002,
+      "cls": 0,
+      "tbtMs": 35,
+      "jsBytes": 185158
     }
   ]
 }
