@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-09-11T02:22:11.961Z",
-  "routes": 36,
+  "checkedAt": "2026-09-11T03:56:17.755Z",
+  "routes": 37,
   "links": [
     {
       "path": "/#main",
@@ -19,59 +19,15 @@
       "status": 200
     },
     {
-      "path": "/#profile",
-      "status": 200
-    },
-    {
-      "path": "/#contact",
-      "status": 200
-    },
-    {
       "path": "/#process",
       "status": 200
     },
     {
-      "path": "/projects/cafe",
+      "path": "/#qa",
       "status": 200
     },
     {
-      "path": "/projects/saas",
-      "status": 200
-    },
-    {
-      "path": "/projects/ec",
-      "status": 200
-    },
-    {
-      "path": "/projects/automation",
-      "status": 200
-    },
-    {
-      "path": "/projects/booking",
-      "status": 200
-    },
-    {
-      "path": "/projects/improvement",
-      "status": 200
-    },
-    {
-      "path": "/projects/creative",
-      "status": 200
-    },
-    {
-      "path": "/projects/qa",
-      "status": 200
-    },
-    {
-      "path": "/projects/csv",
-      "status": 200
-    },
-    {
-      "path": "/projects/inbox",
-      "status": 200
-    },
-    {
-      "path": "/projects/admin",
+      "path": "/#contact",
       "status": 200
     },
     {
@@ -83,22 +39,6 @@
       "status": 200
     },
     {
-      "path": "/works/coding",
-      "status": 200
-    },
-    {
-      "path": "/works/nextjs",
-      "status": 200
-    },
-    {
-      "path": "/works/responsive",
-      "status": 200
-    },
-    {
-      "path": "/works/improvement",
-      "status": 200
-    },
-    {
       "path": "/works/ec",
       "status": 200
     },
@@ -107,11 +47,11 @@
       "status": 200
     },
     {
-      "path": "/works/api",
+      "path": "/works/automation",
       "status": 200
     },
     {
-      "path": "/works/automation",
+      "path": "/works/api",
       "status": 200
     },
     {
@@ -123,11 +63,107 @@
       "status": 200
     },
     {
+      "path": "/works",
+      "status": 200
+    },
+    {
+      "path": "/projects/cafe",
+      "status": 200
+    },
+    {
+      "path": "/demos/cafe",
+      "status": 200
+    },
+    {
+      "path": "/projects/saas",
+      "status": 200
+    },
+    {
+      "path": "/demos/saas",
+      "status": 200
+    },
+    {
+      "path": "/projects/ec",
+      "status": 200
+    },
+    {
+      "path": "/demos/ec",
+      "status": 200
+    },
+    {
+      "path": "/projects/inbox",
+      "status": 200
+    },
+    {
+      "path": "/demos/inbox",
+      "status": 200
+    },
+    {
+      "path": "/projects/qa",
+      "status": 200
+    },
+    {
       "path": "/privacy",
       "status": 200
     },
     {
       "path": "/privacy#main",
+      "status": 200
+    },
+    {
+      "path": "/works#main",
+      "status": 200
+    },
+    {
+      "path": "/projects/automation",
+      "status": 200
+    },
+    {
+      "path": "/demos/automation",
+      "status": 200
+    },
+    {
+      "path": "/projects/booking",
+      "status": 200
+    },
+    {
+      "path": "/demos/booking",
+      "status": 200
+    },
+    {
+      "path": "/projects/improvement",
+      "status": 200
+    },
+    {
+      "path": "/demos/improvement",
+      "status": 200
+    },
+    {
+      "path": "/projects/creative",
+      "status": 200
+    },
+    {
+      "path": "/demos/creative",
+      "status": 200
+    },
+    {
+      "path": "/demos/qa",
+      "status": 200
+    },
+    {
+      "path": "/projects/csv",
+      "status": 200
+    },
+    {
+      "path": "/demos/csv",
+      "status": 200
+    },
+    {
+      "path": "/projects/admin",
+      "status": 200
+    },
+    {
+      "path": "/demos/admin",
       "status": 200
     },
     {
@@ -279,7 +315,15 @@
       "status": 200
     },
     {
-      "path": "/demos/cafe",
+      "path": "/works/coding",
+      "status": 200
+    },
+    {
+      "path": "/works/responsive",
+      "status": 200
+    },
+    {
+      "path": "/projects/cafe#contact",
       "status": 200
     },
     {
@@ -299,7 +343,11 @@
       "status": 200
     },
     {
-      "path": "/demos/saas",
+      "path": "/works/nextjs",
+      "status": 200
+    },
+    {
+      "path": "/projects/saas#contact",
       "status": 200
     },
     {
@@ -319,7 +367,7 @@
       "status": 200
     },
     {
-      "path": "/demos/ec",
+      "path": "/projects/ec#contact",
       "status": 200
     },
     {
@@ -335,7 +383,7 @@
       "status": 200
     },
     {
-      "path": "/demos/automation",
+      "path": "/projects/automation#contact",
       "status": 200
     },
     {
@@ -347,7 +395,7 @@
       "status": 200
     },
     {
-      "path": "/demos/booking",
+      "path": "/projects/booking#contact",
       "status": 200
     },
     {
@@ -359,7 +407,11 @@
       "status": 200
     },
     {
-      "path": "/demos/improvement",
+      "path": "/works/improvement",
+      "status": 200
+    },
+    {
+      "path": "/projects/improvement#contact",
       "status": 200
     },
     {
@@ -375,7 +427,7 @@
       "status": 200
     },
     {
-      "path": "/demos/creative",
+      "path": "/projects/creative#contact",
       "status": 200
     },
     {
@@ -387,7 +439,7 @@
       "status": 200
     },
     {
-      "path": "/demos/qa",
+      "path": "/projects/qa#contact",
       "status": 200
     },
     {
@@ -399,7 +451,7 @@
       "status": 200
     },
     {
-      "path": "/demos/csv",
+      "path": "/projects/csv#contact",
       "status": 200
     },
     {
@@ -411,7 +463,7 @@
       "status": 200
     },
     {
-      "path": "/demos/inbox",
+      "path": "/projects/inbox#contact",
       "status": 200
     },
     {
@@ -423,7 +475,7 @@
       "status": 200
     },
     {
-      "path": "/demos/admin",
+      "path": "/projects/admin#contact",
       "status": 200
     },
     {

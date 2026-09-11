@@ -1,0 +1,149 @@
+{
+  "checkedAt": "2026-09-11T03:58:26.368Z",
+  "checks": [
+    {
+      "width": 320,
+      "route": "/",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 320,
+      "route": "/works",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 320,
+      "route": "/projects/cafe",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 320,
+      "route": "/projects/saas",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 320,
+      "route": "/projects/ec",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 320,
+      "route": "/projects/inbox",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 390,
+      "route": "/",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 390,
+      "route": "/works",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 390,
+      "route": "/projects/cafe",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 390,
+      "route": "/projects/saas",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 390,
+      "route": "/projects/ec",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 390,
+      "route": "/projects/inbox",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 768,
+      "route": "/",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 768,
+      "route": "/works",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 768,
+      "route": "/projects/cafe",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 768,
+      "route": "/projects/saas",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 768,
+      "route": "/projects/ec",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 768,
+      "route": "/projects/inbox",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 1440,
+      "route": "/",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 1440,
+      "route": "/works",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 1440,
+      "route": "/projects/cafe",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 1440,
+      "route": "/projects/saas",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 1440,
+      "route": "/projects/ec",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    },
+    {
+      "width": 1440,
+      "route": "/projects/inbox",
+      "axeViolations": 0,
+      "keyboardFocus": true
+    }
+  ]
+}

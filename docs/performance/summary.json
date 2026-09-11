@@ -1,62 +1,118 @@
 {
-  "measuredAt": "2026-09-11T02:28:42.421Z",
+  "measuredAt": "2026-09-11T03:53:29.370Z",
   "note": "Local production build; Lighthouse mobile simulated throttling. Not field Core Web Vitals.",
   "results": [
     {
       "route": "/",
       "mobile": true,
       "scores": {
-        "performance": 98,
+        "performance": 81,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 2245.339,
+      "lcpMs": 2108.464,
       "cls": 0,
-      "tbtMs": 38,
-      "jsBytes": 161165
+      "tbtMs": 742.268,
+      "jsBytes": 157519
+    },
+    {
+      "route": "/works",
+      "mobile": true,
+      "scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2805.683375,
+      "cls": 0,
+      "tbtMs": 125,
+      "jsBytes": 159446
     },
     {
       "route": "/works/lp",
       "mobile": true,
       "scores": {
-        "performance": 99,
+        "performance": 93,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 2239.5156,
+      "lcpMs": 2977.1047500000004,
       "cls": 0,
-      "tbtMs": 38,
-      "jsBytes": 161165
+      "tbtMs": 111.99999999999977,
+      "jsBytes": 159446
     },
     {
       "route": "/projects/cafe",
       "mobile": true,
       "scores": {
-        "performance": 100,
+        "performance": 92,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 1814.8329000000003,
+      "lcpMs": 2808.72025,
       "cls": 0,
-      "tbtMs": 42.5,
-      "jsBytes": 185158
+      "tbtMs": 208,
+      "jsBytes": 184285
+    },
+    {
+      "route": "/projects/saas",
+      "mobile": true,
+      "scores": {
+        "performance": 96,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2678.4235000000003,
+      "cls": 0,
+      "tbtMs": 77,
+      "jsBytes": 184285
+    },
+    {
+      "route": "/projects/ec",
+      "mobile": true,
+      "scores": {
+        "performance": 93,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2675.1831,
+      "cls": 0,
+      "tbtMs": 226.20422499999972,
+      "jsBytes": 184285
+    },
+    {
+      "route": "/projects/inbox",
+      "mobile": true,
+      "scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2783.480125,
+      "cls": 0,
+      "tbtMs": 104.99999999999955,
+      "jsBytes": 169142
     },
     {
       "route": "/demos/booking",
       "mobile": true,
       "scores": {
-        "performance": 100,
+        "performance": 96,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 1811.4621000000002,
+      "lcpMs": 2692.1832,
       "cls": 0,
-      "tbtMs": 35,
-      "jsBytes": 185158
+      "tbtMs": 37.5,
+      "jsBytes": 182358
     }
   ]
 }

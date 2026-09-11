@@ -5,7 +5,7 @@
 募集内容を拝見しました。AIを活用して制作を効率化しながら、最終的には人が使える完成品まで責任を持って仕上げます。要件整理・設計・制作・実装から、動作確認・修正・ソースと手順書の整理まで、合意した範囲で一貫して対応します。
 
 関連する自主制作の例はこちらです。
-【公開オリジン + 該当カテゴリのURL】
+https://tetsu-works.netlify.app/works/web?utm_source=crowdworks
 
 作品詳細に想定依頼、実装した機能、参考料金・期間、納品物を記載しています。デモには実案件の顧客情報や成果実績を含みません。
 
@@ -21,6 +21,16 @@
 - アプリ・予約・管理 → /works/apps
 - 修正・スマホ対応 → /works/improvement または /works/responsive
 - テスト・README・納品整理 → /works/qa
+
+## そのまま貼れるURL
+
+- 総合 / CrowdWorks: https://tetsu-works.netlify.app/?utm_source=crowdworks
+- 総合 / Lancers: https://tetsu-works.netlify.app/?utm_source=lancers
+- LP: https://tetsu-works.netlify.app/works/lp?utm_source=crowdworks
+- EC: https://tetsu-works.netlify.app/works/ec?utm_source=crowdworks
+- AI自動化: https://tetsu-works.netlify.app/works/automation?utm_source=crowdworks
+
+Figma新UIは公開反映後に表示されます。上記の既存カテゴリURLは今回も維持。
 
 ## 独自ドメイン案
 

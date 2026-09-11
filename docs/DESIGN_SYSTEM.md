@@ -1,43 +1,36 @@
-﻿# WORKS / Design system & Figma review
+# TETSU / WORKS — Design system
 
-## Principles
+最新の正本は [Figma](https://www.figma.com/design/bv0O39N0hmW8bxMSYlwY0n) と [実装対応表](FIGMA_SALES_UI.md)。営業UIは `src/app/sales-ui.css`、デモ内部は既存 `globals.css` / `showcase.css`を維持します。
 
-仕事を選ぶ → 制作例を触る → 納品内容を知る → サービス内メッセージへ戻る。操作の目的が分かる見出し、強い文字組み、落ち着いた紙色、作品ごとに異なる表現を使う。
+| Token       | Value                     | 用途         |
+| ----------- | ------------------------- | ------------ |
+| hub-paper   | #0b0d0c                   | 背景         |
+| hub-ink     | #f3f1e9                   | 見出し・本文 |
+| hub-accent  | #b7f36b                   | CTA・ラベル  |
+| hub-muted   | #a6aaa2                   | 補足         |
+| hub-border  | #2a302a                   | 境界         |
+| sales-panel | #121512                   | カード       |
+| hub-space   | clamp(20px, 5.56vw, 80px) | 左右余白     |
 
-## Tokens
-
-`src/app/hub.css`の`:root`が営業サイト用の基準。既存デモのトークンは`globals.css`を維持。
-
-| Token      | Value                  | Use               |
-| ---------- | ---------------------- | ----------------- |
-| hub-paper  | #f7f8f4                | ページ背景        |
-| hub-ink    | #193b32                | 本文・見出し・CTA |
-| hub-accent | #d8ed9e                | 強調・補助面      |
-| hub-muted  | #52665e                | 補助テキスト      |
-| hub-border | #dce2d8                | 境界              |
-| hub-radius | 18px                   | 大きな面の基準    |
-| hub-space  | clamp(24px, 5vw, 80px) | ページ左右余白    |
-
-書体はシステム日本語サンセリフ、英字見出しはArial、カフェ等の編集表現はGeorgia / Yu Mincho。Webフォントの通信・レイアウトシフトなし。写真ではなく、コーヒー・タンブラー・プロダクトUIをCSSでオリジナル制作。広告はエクスポート可能なSVG。
+英語Hero・ブランド・カテゴリ見出しはInterのローカル可変フォント、本文はArialと日本語システムゴシックを使用。CSSは営業ページ内にスコープし、デモのトークンを上書きしません。ケースごとの暖色・ライム・明色・シアンはFigma由来。
 
 ## Component map
 
 - Header / Footer: `site.tsx`
-- CategoryFilter: `portfolio-grid.tsx`
-- ProjectCard (Server Component): `project-card.tsx`
-- ProjectArt: `project-art.tsx`
+- Hero / Service selector / Pricing: `app/page.tsx`
+- TrustPanel / Delivery / MessageOnly: `sales-sections.tsx`
+- 全11作品と12カテゴリフィルタ: `app/works/page.tsx` / `portfolio-grid.tsx`
+- ProjectCard: `project-card.tsx`（実画面・価格・納期・2つのCTA）
+- 代表作選定・プレビューURL: `lib/sales-ui.ts` / `lib/preview.ts`
 - SalesInfo / Process: `sales.tsx`
-- Contact: `contact.tsx`
+- Contact / ContactSend: 既存コンポーネントと安全なサーバー送信を維持
 - CaseStudy: `app/projects/[slug]/page.tsx`
-- Demo interactions: `showcase-demos.tsx`
+- Demo interactions: `showcase-demos.tsx` / csv・inbox・admin
 
-## Figmaで後からレビューする
+## QAと更新
 
-1. `npm run screenshots`で最新の実画面を生成。
-2. Desktop 1440、Tablet 768、Mobile 390のフレームを作成し、対応する画像を配置。画像は参照レイヤーとしてロックする。
-3. 上記トークンをFigma Variablesへ写し、ヘッダー・カテゴリ選択・カード・CTA・納品情報をコンポーネント化。
-4. Hover / Focus / Selected / Disabled / Empty / Error / Dialogの状態を確認。
-5. 特に320pxでの長い日本語、2列→1列の順序、ヘッダーのタップ領域、表の局所スクロールを確認。
-6. 修正は元コンポーネントとCSSトークンへ戻し、画像を再生成して照合する。
+`npm run qa:design`でFigma対応6ページの4画面幅を撮影・axe/focus検査。Desktop1440とMobile390のHero・カテゴリ・作品・料金・納品物を実画像で比較します。幅320でoverflowも確認します。
 
-今回Figmaファイルは作成していません。コードと実画面を設計の正本として、アカウント接続なしでもレビュー可能な構造を用意しています。
+プレビューは `npm run screenshots` で生成し、`src/lib/preview.ts` のリビジョンを更新してから再build。これはNext Image/CDNが旧画像を返すことを防ぎます。撮影時だけlazy imageをeagerにして全画像の読込・欠損を確認し、実サイトの遅延読込は維持します。
+
+Figmaの固定座標・文字重なりはCSSへ持ち込まず、可変高のGrid/Flexで意味のある順序を保持。hoverだけの操作は作らず、focus-visibleとreduced motionを提供します。

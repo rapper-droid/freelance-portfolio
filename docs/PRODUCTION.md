@@ -4,16 +4,21 @@
 
 ## 現状と公開方式
 
-初期状態: `codex/portfolio-sales-hub-v2` / `a0db7d31adef30e7567bccf33013772d5638d268`、未コミット0、fetch後のorigin/mainに対して10 commit先行・0遅れ。直前のポジショニング変更、12カテゴリ・11作品・既存テストを保持。
+今回の開始状態: `codex/portfolio-sales-hub-v2` / `b3c1781915feb660f0b7659b9f7b917d83042243`、未コミット0、fetch後のorigin/mainに対して13 commit先行・0遅れ。ここから `codex/portfolio-figma-sales-ui` を作成し、直前の変更、12カテゴリ・11作品・既存テストを保持。mainは `8ace0697e7eaf5450bd66cf328a1f154c5ae495b` から変更していません。
 
 Next.js 16をそのまま維持し、Netlify Free + 自動OpenNext adapterを採用。`netlify.toml`はNode 24 / npm ci（lockfile自動検出）/ `npm run build:production` / `.next`。このリポジトリをGitからインポートし、公開ブランチに現在の作業ブランチを指定できるので、公開のためだけのmain統合は不要です。HTMLのドラッグ＆ドロップ公開ではAPIが動きません。
 
-この作業ではアカウント作成、プラン契約、DNS変更、外部メール送信は実施していません。Netlifyの既存ブラウザはログイン画面、ローカルに接続環境変数なし。ホスティングadapter上の実行、実メール到達、PostHog/Sentry受信は接続後の確認事項です。ローカルNext production成功と混同しません。
+2026-09-11更新: 既存本番URLは **https://tetsu-works.netlify.app**。HTTPSのHTTP 200とNetlify応答・セキュリティヘッダーを確認しました。今回のFigma UI変更は新規ブランチ `codex/portfolio-figma-sales-ui` に保存し、Netlify設定・本番シークレット・mainは変更しません。公開URLが存在することと、この新UIが反映済みであることは別です。
 
-## ACTION REQUIRED — 一度だけ行う接続
+## ACTION REQUIRED — 新UIの本番反映
 
-1. Netlifyに本人ログインし、FreeプランでGitHubリポジトリ `rapper-droid/freelance-portfolio` をインポート。必要なGitHub連携を承認します。サイト名を決め、割り当てられる `https://サイト名.netlify.app` を控えます。有料契約は不要。
-2. `NEXT_PUBLIC_SITE_URL` に上記HTTPSオリジンを設定。`CONTACT_ENABLED=false`、分析もfalseで先に公開可能です。公開可視性がPrivateなら公開時にPublicへ切り替えます。Netlifyの本番ビルドを実行し、末尾の接続後チェックを実施。
+1. GitHubの `codex/portfolio-figma-sales-ui` の差分・CI・画面QAを確認してください。NetlifyでこのブランチのBranch deployまたはDeploy Previewを確認し、現在の公開対象ブランチへの統合／公開切替を本人判断で行います。自動公開設定・契約は今回変更していません。
+2. 既存の `NEXT_PUBLIC_SITE_URL=https://tetsu-works.netlify.app`、`CONTACT_ENABLED`、`NEXT_PUBLIC_ANALYTICS_ENABLED` とサーバー環境変数を保持し、`npm run build:production`で公開。新規サービス登録・新規キーはこのUI更新に不要。公開後に下記の接続後チェックを行います。
+
+## 任意サービスを未接続の場合のみ
+
+以下はフォーム・計測を有効にする場合の従来手順です。接続済みの設定を作り直さないでください。クラウドソーシングでの相談文コピーは、接続しなくても利用できます。
+
 3. Resend Freeで送信用APIキーと通知を受け取るメールを設定。初回はResendアカウント所有者への通知のみ、公式のonboarding送信元で受信検証できます。自分のドメインから送る場合は、所有ドメインの送信元認証（Resend提示のDNS）が必要です。任意宛先へ送れると誤解しないでください。
 4. Cloudflare Turnstile FreeでManaged widgetを作成。許可hostnameは実際の本番hostnameだけ。site keyを `NEXT_PUBLIC_TURNSTILE_SITE_KEY`、secretを `TURNSTILE_SECRET` に設定。サーバーはSITE_URLのhostnameとaction=contactを厳密検証します。
 5. Upstash Redis Freeを1つ作りREST URL/tokenを設定。本文保存用ではなく、インスタンス共通の上限・重複制御専用です。`RATE_LIMIT_SALT` は32文字以上の新しいランダム値。秘密値はホストの環境変数設定へ入力し、チャットやGitには貼らないでください。

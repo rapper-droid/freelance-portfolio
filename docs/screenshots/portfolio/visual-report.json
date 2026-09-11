@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-11T02:26:27.839Z",
+  "checkedAt": "2026-09-11T03:56:27.585Z",
   "findings": [
     {
       "width": 320,
@@ -17,6 +17,13 @@
     },
     {
       "width": 320,
+      "route": "/works",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
       "route": "/works/web",
       "status": 200,
       "overflow": false,
@@ -269,6 +276,13 @@
     },
     {
       "width": 390,
+      "route": "/works",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
       "route": "/works/web",
       "status": 200,
       "overflow": false,
@@ -515,6 +529,13 @@
     {
       "width": 768,
       "route": "/privacy",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/works",
       "status": 200,
       "overflow": false,
       "brokenImages": 0
@@ -767,6 +788,13 @@
     {
       "width": 1440,
       "route": "/privacy",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/works",
       "status": 200,
       "overflow": false,
       "brokenImages": 0

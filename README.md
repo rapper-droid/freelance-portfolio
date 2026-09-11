@@ -1,10 +1,16 @@
-﻿# WORKS — Portfolio Sales Hub v2
+# TETSU / WORKS — Figma Sales UI
+
+公開サイト: https://tetsu-works.netlify.app （2026-09-11 HTTP 200を確認）。今回の再設計は `codex/portfolio-figma-sales-ui`。main・Netlify設定・本番環境変数は変更せず、公開反映前のブランチとして提供します。
+
+[デザインとFigma対応表](docs/FIGMA_SALES_UI.md) / [最新QA](docs/RELEASE_QA.md) / [公開手順](docs/PRODUCTION.md)
+
+トップは代表4作品。全11作品は `/works`、既存12カテゴリ・全デモURLを維持。KISSA / FLOWSTATE / FORME / SMART INBOXの詳細に、実画面・価格・納期・納品物とメッセージ進行を整理しています。
 
 AIを活用して制作を効率化しながら、人が使える完成品まで責任を持って仕上げる。その姿勢を、設計・制作・実装・テスト・納品の具体例で伝える営業用Webアプリです。クラウドワークス・ランサーズ等の応募では、依頼内容に合うカテゴリURLを1本案内できます。
 
 **全作品は SELF-INITIATED DEMO / 自主制作。** 架空企業・商品・顧客データは実案件や成果実績ではありません。相談文をコピーして案件サイト内で進められます。直接相談用のメールフォームは本番設定済みの場合に表示します。
 
-![WORKS desktop](docs/screenshots/home-desktop-firstview.png)
+![WORKS desktop](docs/screenshots/sales-ui/home-1440-firstview.png)
 
 ## 案件別URL
 
@@ -29,9 +35,9 @@ AIを活用して制作を効率化しながら、人が使える完成品まで
 
 | slug        | 作品                         | 実際に操作できる内容                     |
 | ----------- | ---------------------------- | ---------------------------------------- |
-| cafe        | KOMOREBI / カフェ公式サイト  | Coffee・Foodメニュー切替、セクションナビ |
-| saas        | FOLIO / SaaS LP              | 月・年額比較、FAQ開閉                    |
-| ec          | FORM / 商品LP                | 色・数量・小計、カート確認・削除         |
+| cafe        | KISSA / カフェ公式サイト     | Coffee・Foodメニュー切替、セクションナビ |
+| saas        | FLOWSTATE / SaaS LP          | 月・年額比較、FAQ開閉                    |
+| ec          | FORME / 商品LP               | 色・数量・小計、カート確認・削除         |
 | automation  | RELAY / AI問い合わせ導入想定 | ローカル分類、下書き編集、確認・差戻し   |
 | booking     | DAYBOOK / 予約管理           | 日付・検索・追加・枠競合検証・取消確認   |
 | improvement | REFINE / 改善比較            | 同じ情報のBefore / After切替             |
@@ -41,11 +47,11 @@ AIを活用して制作を効率化しながら、人が使える完成品まで
 | inbox       | SMART INBOX（既存）          | 分類・担当・状況・返信案編集・コピー     |
 | admin       | ADMIN DASHBOARD（既存）      | 顧客CRUD・保存・検索・履歴               |
 
-各作品デモにはAI API・メール送信・決済・実予約はありません。サイトの問い合わせフォームは別途サーバー送信に対応します。RELAYはAI連携を検討するための**固定ルール・定型文によるシミュレーション**です。FOLIOのプロダクト画面はLP内のデザインプレビューです。QAのチェックは手動操作デモであり、自動テストの実行・成功を意味しません。
+各作品デモにはAI API・メール送信・決済・実予約はありません。サイトの問い合わせフォームは別途サーバー送信に対応します。RELAYはAI連携を検討するための**固定ルール・定型文によるシミュレーション**です。FLOWSTATEのプロダクト画面はLP内のデザインプレビューです。QAのチェックは手動操作デモであり、自動テストの実行・成功を意味しません。
 
 ## 技術構成
 
-Next.js 16 App Router / React 19 / TypeScript / Tailwind CSS 4 + CSS / Lucide / Vitest / Playwright / axe-core。依存バージョンの実体はpackage-lock.jsonに固定。任意のブラウザ監視にSentry公式SDKを使用します。外部フォント・有料素材・3Dライブラリは不要です。
+Next.js 16 App Router / React 19 / TypeScript / Tailwind CSS 4 + CSS / Lucide / Vitest / Playwright / axe-core。依存バージョンの実体はpackage-lock.jsonに固定。任意のブラウザ監視にSentry公式SDKを使用します。Interはローカル配信。有料素材・3Dライブラリは不要です。
 
 基本はServer Components。フィルタ・相談欄・デモ操作・任意計測だけをClient Componentsにしています。CSS/SVGのオリジナル素材と、Playwrightで撮影したWebPを使用します。
 
@@ -69,6 +75,7 @@ npx playwright install chromium
 npm run verify            # lint + typecheck + Vitest + production build
 npm run test:e2e          # 自動サーバー起動: port 3100
 npm run screenshots      # 自動サーバー起動: port 3101
+npm run qa:design        # Figma対応6画面・4幅のaxe/focusと実画像
 npm run qa:visual        # 自動サーバー起動: port 3102
 npm run qa:links         # 全内部リンク・アンカーの読み取り検査
 npm run qa:performance   # Lighthouseのモバイル実測: port 3104
@@ -78,7 +85,7 @@ npm run verify:all       # verify + format + E2E + screenshots + Visual QA
 
 外部サービスの環境変数なしで動作します。画像がまだない新規作品を追加した場合は、build → screenshots → buildの順で画像を生成・取り込みしてください。既存のプレビュー画像はGit管理しています。
 
-E2EはChromiumのDesktop 1440×1000 / Tablet 768×1024 / Mobile 390×664で実行。Visual QAは320 / 390 / 768 / 1440pxで全36コンテンツルートを確認します。実機Safari/Androidの検証とは区別してください。
+E2EはChromiumのDesktop 1440×1000 / Tablet 768×1024 / Mobile 390×664で実行。Visual QAは320 / 390 / 768 / 1440pxで全37コンテンツルートを確認します。実機Safari/Androidの検証とは区別してください。
 
 ## スクリーンショット
 
@@ -124,4 +131,4 @@ PostHogは訪問→カテゴリ→作品→料金→相談開始→送信→成�
 - キーボード・focus-visible・semantic HTML・native dialog・フォームラベル・reduced motion。
 - 色・間隔・半径のトークンは`hub.css`、作品別CSSは`showcase.css`。Figmaレビュー手順は[DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md)。
 
-最新の実測結果・制限は[今回のQA記録](docs/RELEASE_QA.md)。前回の詳細は[QA記録](docs/QA.md)。企画の根拠は[仕様書](docs/PORTFOLIO_SALES_HUB_V2.md)と[Issue #1](https://github.com/rapper-droid/freelance-portfolio/issues/1)、調査・設計は[IMPLEMENTATION_V2.md](docs/IMPLEMENTATION_V2.md)。
+最新の実測結果・制限は[今回のQA記録](docs/RELEASE_QA.md)。前回の詳細は[QA記録](docs/QA.md)。企画の根拠は[仕様書](docs/PORTFLOWSTATE_SALES_HUB_V2.md)と[Issue #1](https://github.com/rapper-droid/freelance-portfolio/issues/1)、調査・設計は[IMPLEMENTATION_V2.md](docs/IMPLEMENTATION_V2.md)。
