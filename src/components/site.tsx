@@ -28,7 +28,10 @@ export function Footer() {
       <Link className="brand" href="/">
         WORKS<span className="brand-note">WEB & AUTOMATION</span>
       </Link>
-      <p>人が使える完成品まで、責任を持って。</p>
+      <p>
+        人が使える完成品まで、責任を持って。{" "}
+        <Link href="/privacy">プライバシー</Link>
+      </p>
       <small>© {new Date().getFullYear()} WORKS · 自主制作ポートフォリオ</small>
     </footer>
   );

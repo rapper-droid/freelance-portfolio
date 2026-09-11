@@ -1,5 +1,6 @@
 ﻿"use client";
 import { useState } from "react";
+import { ContactSend } from "./contact-send";
 import { track } from "./analytics";
 import { Copy, Check, ArrowUpRight } from "lucide-react";
 export function Contact({
@@ -107,6 +108,7 @@ export function Contact({
         <p role="status" className="small">
           {message}
         </p>
+        <ContactSend kind={kind} detail={detail} budget={budget} />
         {message.includes("できません") && (
           <textarea
             aria-label="コピー用の相談内容"

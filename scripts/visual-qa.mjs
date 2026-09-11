@@ -26,6 +26,7 @@ try {
   browser = await chromium.launch();
   const routes = [
     "/",
+    "/privacy",
     ...categories.map((c) => `/works/${c.id}`),
     ...projects.flatMap((p) => [`/projects/${p.slug}`, `/demos/${p.slug}`]),
   ];
@@ -36,6 +37,9 @@ try {
       reducedMotion: "reduce",
     });
     const errors = [];
+    page.on("console", (message) => {
+      if (message.type() === "error") errors.push(message.text());
+    });
     page.on("pageerror", (e) => errors.push(e.message));
     for (const route of routes) {
       const response = await page.goto(origin + route);

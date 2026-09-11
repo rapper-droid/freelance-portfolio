@@ -1,4 +1,6 @@
-﻿import { analyticsEndpoint, posthogPayload } from "@/lib/analytics";
+import { limitedJson, quota, clientBucket } from "@/lib/abuse";
+import { reportFailure } from "@/lib/server-monitoring";
+import { analyticsEndpoint, posthogPayload, sessionId } from "@/lib/analytics";
 export async function POST(request: Request) {
   const endpoint = analyticsEndpoint(),
     key = process.env.POSTHOG_PROJECT_KEY;
@@ -9,10 +11,18 @@ export async function POST(request: Request) {
   if (Number(request.headers.get("content-length")) > 1024)
     return new Response(null, { status: 413 });
   try {
-    const text = await request.text();
-    if (text.length > 1024) return new Response(null, { status: 413 });
-    const payload = posthogPayload(JSON.parse(text), key, crypto.randomUUID());
+    const value = await limitedJson(request, 1024);
+    const payload = posthogPayload(
+      value,
+      key,
+      sessionId(value) || crypto.randomUUID(),
+    );
     if (!payload) return new Response(null, { status: 400 });
+    if (
+      !(await quota(`analytics-ip:${clientBucket(request)}`, 120, 600)) ||
+      !(await quota("analytics-30days", 20000, 2592000))
+    )
+      return new Response(null, { status: 429 });
     const upstream = await fetch(endpoint, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -20,8 +30,17 @@ export async function POST(request: Request) {
       signal: AbortSignal.timeout(2500),
       redirect: "error",
     });
+    if (!upstream.ok) await reportFailure("analytics_dependency");
     return new Response(null, { status: upstream.ok ? 204 : 502 });
-  } catch {
+  } catch (error) {
+    if (error instanceof Error && error.message === "body_too_large")
+      return new Response(null, { status: 413 });
+    if (
+      error instanceof SyntaxError ||
+      (error instanceof Error && error.message === "invalid_json")
+    )
+      return new Response(null, { status: 400 });
+    await reportFailure("analytics_dependency");
     return new Response(null, { status: 503 });
   }
 }

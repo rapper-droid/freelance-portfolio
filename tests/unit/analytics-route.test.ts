@@ -1,5 +1,10 @@
 ﻿import { afterEach, describe, expect, it, vi } from "vitest";
 import { POST } from "../../src/app/api/analytics/route";
+vi.mock("../../src/lib/abuse", async (importOriginal) => ({
+  ...(await importOriginal<typeof import("../../src/lib/abuse")>()),
+  quota: vi.fn().mockResolvedValue(true),
+  clientBucket: () => "test",
+}));
 afterEach(() => {
   vi.unstubAllEnvs();
   vi.unstubAllGlobals();
@@ -87,4 +92,24 @@ describe("optional analytics transport", () => {
       ).status,
     ).toBe(503);
   });
+});
+
+it("joins a short-lived anonymous funnel and drops free-form UTM values", async () => {
+  configured();
+  const mock = vi.fn().mockResolvedValue(new Response(null, { status: 200 }));
+  vi.stubGlobal("fetch", mock);
+  const session = "b37ae8a2-411a-4f03-963b-00e6ae6f8fca";
+  await POST(
+    request({
+      event: "portfolio_contact_success",
+      session,
+      source: "crowdworks",
+      utm_campaign: "private",
+      email: "private",
+    }),
+  );
+  const payload = JSON.parse(mock.mock.calls[0][1].body);
+  expect(payload.distinct_id).toBe(session);
+  expect(payload.properties.source).toBe("crowdworks");
+  expect(JSON.stringify(payload)).not.toContain("private");
 });

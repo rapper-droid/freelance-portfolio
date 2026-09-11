@@ -15,8 +15,10 @@
     "verify": "npm run lint && npm run typecheck && npm run test && npm run build",
     "screenshots": "node --experimental-strip-types scripts/portfolio-screenshots.mjs",
     "qa:visual": "node --experimental-strip-types scripts/visual-qa.mjs",
-    "verify:all": "npm run verify && npm run format:check && npm run test:e2e && npm run screenshots && npm run qa:visual",
-    "qa:performance": "node scripts/performance.mjs"
+    "verify:all": "npm run verify && npm run format:check && npm run test:e2e && npm run screenshots && npm run qa:visual && npm run qa:links",
+    "qa:performance": "node scripts/performance.mjs",
+    "build:production": "node scripts/check-production.mjs && next build",
+    "qa:links": "node --experimental-strip-types scripts/link-qa.mjs"
   },
   "keywords": [],
   "author": "",
@@ -24,6 +26,7 @@
   "type": "module",
   "dependencies": {
     "@sentry/browser": "^10.74.0",
+    "@sentry/node": "^10.74.0",
     "lucide-react": "^1.43.0",
     "next": "16.3.4",
     "react": "^19.2.8",

@@ -4,6 +4,7 @@ import { siteOrigin } from "@/lib/seo";
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
     "/",
+    "/privacy",
     ...categories.map((c) => `/works/${c.id}`),
     ...projects.flatMap((p) => [`/projects/${p.slug}`, `/demos/${p.slug}`]),
   ].map((path) => ({ url: new URL(path, siteOrigin()).href }));

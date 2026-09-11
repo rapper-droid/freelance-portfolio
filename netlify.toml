@@ -1,0 +1,6 @@
+[build]
+  command = "npm run build:production"
+  publish = ".next"
+[build.environment]
+  NODE_VERSION = "24"
+# Netlify automatically supplies its maintained Next.js OpenNext adapter.

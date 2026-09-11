@@ -1,5 +1,10 @@
 ﻿import { categories, projects } from "./portfolio";
 export const eventNames = [
+  "portfolio_visit",
+  "portfolio_price_view",
+  "portfolio_contact_open",
+  "portfolio_contact_submit",
+  "portfolio_contact_success",
   "portfolio_category_view",
   "portfolio_project_open",
   "portfolio_live_demo_click",
@@ -39,6 +44,7 @@ export function posthogPayload(value: unknown, key: string, id: string) {
     properties: {
       ...(event.category ? { category: event.category } : {}),
       ...(event.project ? { project: event.project } : {}),
+      ...attribution(value),
       $process_person_profile: false,
       $geoip_disable: true,
       $ip: "0.0.0.0",
@@ -50,5 +56,25 @@ export function analyticsEndpoint() {
   return host &&
     ["https://us.i.posthog.com", "https://eu.i.posthog.com"].includes(host)
     ? `${host}/i/v0/e/`
+    : null;
+}
+
+export function attribution(value: unknown) {
+  const row = value as Record<string, unknown>;
+  return {
+    source: ["crowdworks", "lancers", "direct", "other"].includes(
+      String(row?.source),
+    )
+      ? row.source
+      : "direct",
+  };
+}
+export function sessionId(value: unknown) {
+  const row = value as Record<string, unknown>;
+  return typeof row?.session === "string" &&
+    /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+      row.session,
+    )
+    ? row.session
     : null;
 }
