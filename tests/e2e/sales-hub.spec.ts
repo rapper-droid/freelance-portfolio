@@ -92,6 +92,23 @@ test("cafe menu and SaaS pricing are interactive", async ({ page }) => {
 });
 test("EC color, quantity, cart and keyboard cancellation", async ({ page }) => {
   await page.goto("/demos/ec");
+  for (const [label, file] of [
+    ["セージ", "sage"],
+    ["チャコール", "charcoal"],
+    ["サンド", "sand"],
+  ]) {
+    await page.getByRole("button", { name: label, exact: true }).click();
+    const photo = page.locator(".product-photo");
+    await expect(photo).toHaveAttribute("alt", new RegExp(label));
+    await expect(photo).toHaveAttribute("src", new RegExp(`forme-${file}-v1`));
+    await expect
+      .poll(() =>
+        photo.evaluate(
+          (image: HTMLImageElement) => image.complete && image.naturalWidth > 0,
+        ),
+      )
+      .toBe(true);
+  }
   await page.getByRole("button", { name: "サンド", exact: true }).click();
   await page.getByLabel("数量").selectOption("3");
   await page.getByRole("button", { name: "デモカートに追加" }).click();

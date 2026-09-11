@@ -1,4 +1,5 @@
 "use client";
+import { WorkflowVisual } from "./project-visuals";
 import { useState } from "react";
 import { Inbox, Search, Sparkles, Copy, RotateCcw } from "lucide-react";
 import { tickets, classify, replyDraft, type Ticket } from "@/lib/inbox";
@@ -55,6 +56,7 @@ export function InboxDemo() {
           <RotateCcw size={14} /> リセット
         </button>
       </div>
+      <WorkflowVisual />
       <div className="stats-grid inbox-stats">
         {["すべて", "未対応", "対応中", "完了"].map((s) => (
           <button

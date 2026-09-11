@@ -77,6 +77,11 @@ try {
         path: `docs/screenshots/sales-ui/${slug}-${width}-firstview.png`,
       });
       if (width === 390 || width === 1440) {
+        if (await page.locator(".visual-story").count()) {
+          await page.locator(".visual-story").screenshot({
+            path: `docs/screenshots/sales-ui/${slug}-${width}-visual-story.png`,
+          });
+        }
         await page.screenshot({
           path: `docs/screenshots/sales-ui/${slug}-${width}-full.png`,
           fullPage: true,

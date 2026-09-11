@@ -9,7 +9,7 @@ import {
   Download,
   ArrowRight,
 } from "lucide-react";
-import { ProjectArt } from "./project-art";
+import { WorkspaceVisual } from "./project-visuals";
 import { classify, replyDraft } from "@/lib/inbox";
 import {
   bookingSeed,
@@ -67,7 +67,14 @@ export function CafeDemo() {
           </a>
         </div>
         <div className="cafe-hero-art">
-          <ProjectArt project={{ theme: "cafe", title: "KISSA" }} />
+          <Image
+            src="/visuals/kissa-coffee-v1.webp"
+            alt="ラテアートのコーヒーと焼き菓子、奥に温かなカフェのカウンター"
+            width={1200}
+            height={800}
+            sizes="(max-width: 700px) 90vw, 45vw"
+            preload
+          />
         </div>
         <span className="cafe-vertical">A LITTLE PAUSE. A BETTER DAY.</span>
       </section>
@@ -86,6 +93,16 @@ export function CafeDemo() {
           KISSAは、そんな場所を想像してつくりました。
         </p>
       </section>
+      <figure className="cafe-space-photo">
+        <Image
+          src="/visuals/kissa-interior-v1.webp"
+          alt="自然光が差し込む、木の家具と落ち着いたカウンターの店内イメージ"
+          width={1200}
+          height={800}
+          sizes="(max-width: 700px) 100vw, 85vw"
+        />
+        <figcaption>A PLACE TO SLOW DOWN / AI生成の架空店舗イメージ</figcaption>
+      </figure>
       <section className="cafe-menu" id="cafe-menu" data-feature>
         <div className="demo-section-heading">
           <div>
@@ -151,9 +168,7 @@ export function SaasDemo() {
           プランを比較する <ArrowRight size={17} />
         </a>
         <div className="saas-product">
-          <ProjectArt
-            project={{ theme: "saas", title: "FLOWSTATE / WORKSPACE PREVIEW" }}
-          />
+          <WorkspaceVisual />
         </div>
       </section>
       <section className="demo-content-section" id="folio-features">
@@ -278,18 +293,15 @@ export function EcDemo() {
           <span className="eyebrow">
             FORME / 01 — {colors[color].name.toUpperCase()}
           </span>
-          <div
-            className="product-cylinder"
-            style={{
-              background: `linear-gradient(90deg, ${colors[color].value}, #ffffff55 25%, ${colors[color].value} 85%), ${colors[color].value}`,
-            }}
-          >
-            <span>
-              FORME
-              <br />
-              <small>01 / EVERYDAY</small>
-            </span>
-          </div>
+          <Image
+            className="product-photo"
+            src={`/visuals/forme-${colors[color].name.toLowerCase()}-v1.webp`}
+            alt={`${colors[color].label}のタンブラー。明るい石のデスクに置いた商品イメージ`}
+            width={1200}
+            height={800}
+            sizes="(max-width: 700px) 90vw, 43vw"
+            preload={color === 0}
+          />
           <span className="art-bottomline">LESS, BUT BETTER.</span>
         </div>
         <div className="ec-product-info" data-feature>
@@ -351,6 +363,28 @@ export function EcDemo() {
         </div>
       </section>
       <section className="demo-content-section" id="product-details">
+        <div className="product-editorial">
+          <figure>
+            <Image
+              src="/visuals/forme-sage-v1.webp"
+              alt="ノートと並べてデスクに置いたセージ色のタンブラー"
+              width={1200}
+              height={800}
+              sizes="(max-width: 700px) 90vw, 55vw"
+            />
+            <figcaption>01 / EVERYDAY — 暮らしに馴染む</figcaption>
+          </figure>
+          <figure>
+            <Image
+              src="/visuals/forme-texture-v1.webp"
+              alt="マットな表面とふたの接合部分の拡大イメージ"
+              width={480}
+              height={720}
+              sizes="(max-width: 700px) 65vw, 25vw"
+            />
+            <figcaption>02 / TEXTURE — 質感のディテール</figcaption>
+          </figure>
+        </div>
         <span className="eyebrow">THOUGHTFUL BY DESIGN</span>
         <h2>ずっと使いたくなる、理由。</h2>
         <div className="demo-three-columns">
@@ -366,7 +400,7 @@ export function EcDemo() {
           ))}
         </div>
         <p className="demo-fineprint">
-          想定商品仕様：容量350ml・ステンレス製。商品企画のデモであり実物の性能を保証するものではありません。
+          商品画像はAI生成のコンセプトです。想定商品仕様：容量350ml・ステンレス製。商品企画のデモであり実物の性能を保証するものではありません。
         </p>
       </section>
       <dialog ref={dialog} className="modal" aria-labelledby="cart-title">

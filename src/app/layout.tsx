@@ -7,6 +7,7 @@ import "./globals.css";
 import "./hub.css";
 import "./showcase.css";
 import "./sales-ui.css";
+import "./project-visuals.css";
 const inter = localFont({
   src: "../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
   variable: "--font-sales",

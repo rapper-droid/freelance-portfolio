@@ -4,6 +4,21 @@ import fs from "node:fs/promises";
 import sharp from "sharp";
 import { projects } from "../src/lib/portfolio.ts";
 import { previewPath } from "../src/lib/preview.ts";
+// Next scans public paths at startup. Register a new revision before starting
+// the server; each file is replaced by the real capture before case-page QA.
+for (const project of projects) {
+  for (const device of ["desktop", "tablet", "mobile"]) {
+    const destination = `public${previewPath(project.slug, device)}`;
+    try {
+      await fs.access(destination);
+    } catch {
+      await fs.copyFile(
+        `public/previews/${project.slug}-${device}.webp`,
+        destination,
+      );
+    }
+  }
+}
 const origin = process.env.QA_BASE_URL || "http://localhost:3101";
 const server = process.env.QA_BASE_URL
   ? null
@@ -39,6 +54,14 @@ try {
     if (slug === "automation")
       await page.getByRole("button", { name: "分類・下書きを実行" }).click();
     await page.evaluate(() => document.fonts.ready);
+    await page.evaluate(() =>
+      Promise.all(
+        Array.from(document.images).map((image) => {
+          image.loading = "eager";
+          return image.decode();
+        }),
+      ),
+    );
   }
   const captures = [];
   for (const p of projects) {
@@ -53,7 +76,7 @@ try {
       // Preview the deliverable itself, not the surrounding portfolio header.
       await page.evaluate((slug) => {
         const target = document.querySelector(
-          slug === "inbox" ? ".inbox-stats" : ".showcase",
+          slug === "inbox" ? ".workflow-visual" : ".showcase",
         );
         if (target)
           window.scrollTo(
@@ -107,7 +130,10 @@ try {
     await page.locator(".case-stories").scrollIntoViewIfNeeded();
     await page.evaluate(() =>
       Promise.all(
-        Array.from(document.images).map((i) => i.decode().catch(() => {})),
+        Array.from(document.images).map((i) => {
+          i.loading = "eager";
+          return i.decode();
+        }),
       ),
     );
     const name = `${p.slug}-desktop-case-study.png`;
