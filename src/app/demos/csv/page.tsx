@@ -1,10 +1,11 @@
+import { pageMetadata } from "@/lib/seo";
 import { DemoShell } from "@/components/site";
 import { CsvDemo } from "@/components/csv-demo";
-export const metadata = {
-  title: "CSV AUTOMATOR | CSV加工デモ",
-  description:
-    "CSVを読み込み、重複除去・整形・検索・集計・ダウンロードをブラウザで体験できる自主制作デモ。",
-};
+export const metadata = pageMetadata(
+  "CSV AUTOMATOR | CSV加工デモ",
+  "CSVを読み込み、重複除去・整形・検索・集計・ダウンロードをブラウザで体験できる自主制作デモ。",
+  "/demos/csv",
+);
 export default function Page() {
   return (
     <DemoShell

@@ -1,10 +1,11 @@
+import { pageMetadata } from "@/lib/seo";
 import { DemoShell } from "@/components/site";
 import { AdminDemo } from "@/components/admin-demo";
-export const metadata = {
-  title: "ADMIN DASHBOARD | 顧客管理デモ",
-  description:
-    "顧客の追加・編集・削除、ステータス管理、売上集計と履歴を備えた自主制作の管理画面。",
-};
+export const metadata = pageMetadata(
+  "ADMIN DASHBOARD | 顧客管理デモ",
+  "顧客の追加・編集・削除、ステータス管理、売上集計と履歴を備えた自主制作の管理画面。",
+  "/demos/admin",
+);
 export default function Page() {
   return (
     <DemoShell

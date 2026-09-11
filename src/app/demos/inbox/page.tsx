@@ -1,10 +1,11 @@
+import { pageMetadata } from "@/lib/seo";
 import { DemoShell } from "@/components/site";
 import { InboxDemo } from "@/components/inbox-demo";
-export const metadata = {
-  title: "SMART INBOX | 問い合わせ整理デモ",
-  description:
-    "問い合わせのカテゴリ・緊急度をルールで分類。担当状況と返信案生成を試せる自主制作デモ。",
-};
+export const metadata = pageMetadata(
+  "SMART INBOX | 問い合わせ整理デモ",
+  "問い合わせのカテゴリ・緊急度をルールで分類。担当状況と返信案生成を試せる自主制作デモ。",
+  "/demos/inbox",
+);
 export default function Page() {
   return (
     <DemoShell
