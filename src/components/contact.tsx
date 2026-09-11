@@ -27,7 +27,7 @@ export function Contact({
           まだ要件が曖昧でも、課題の整理から始められます。
         </p>
         <div className="contact-note">
-          <Check size={16} /> まず動くものを提示し、確認しながら仕上げます。
+          <Check size={16} /> 使う人の視点で確認・修正し、完成品まで仕上げます。
         </div>
         <p className="muted small">
           相談内容をコピーして、

@@ -10,7 +10,7 @@ import { categories, pricingNote, projects } from "@/lib/portfolio";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata(
   "Web制作からAI業務自動化まで",
-  "Webサイト・LP・Webアプリ・AI業務自動化の自主制作ポートフォリオ。設計・制作・テスト・納品物を、実際に動くデモで確認できます。",
+  "AIを活用して制作を効率化しながら、人が使える完成品まで責任を持って仕上げます。Webサイト・LP・Webアプリ・業務自動化の自主制作デモと、設計・テスト・納品内容をご紹介。",
   "/",
 );
 export default function Home() {
@@ -37,9 +37,9 @@ export default function Home() {
               使えるところまで。
             </h2>
             <p>
-              WebサイトからAI業務自動化まで。
+              AIを活用し、制作を効率化。
               <br />
-              設計・制作・実装・テスト・納品を一貫して。
+              人が使える完成品まで、責任を持って仕上げます。
             </p>
             <div className="hero-actions">
               <Link href="#works" className="button primary">
@@ -142,16 +142,16 @@ export default function Home() {
         <section id="profile" className="hub-section studio-note">
           <span className="eyebrow">BUILT TO BE HANDED OVER</span>
           <h2>
-            デザインだけでも、
+            AIを活かして、
             <br />
-            動くだけでも終わらせない。
+            使う人のために仕上げる。
           </h2>
           <div>
             <p>
-              目的を整理し、使う人の視点で設計する。画面とコードをつくり、操作を確かめ、引き継げる形に整える。この一連の工程を大切にしています。
+              AIを制作の補助に活用し、調査や実装を効率化します。要件の整理、設計の判断、動作確認、修正は責任を持って行い、使う人が迷わず扱える完成品へ仕上げます。
             </p>
             <p>
-              掲載しているのは、制作の考え方と実装を確認できる自主制作です。対応可能な業務とデモの実装範囲を明記し、ご依頼の際には実際の仕様に合わせてお見積もりします。
+              画面やコードに加え、必要な設定・操作手順・確認結果も整理して納品します。掲載しているのは、制作の考え方と実装を確認できる自主制作です。対応可能な業務とデモの実装範囲を明記し、ご依頼の際には実際の仕様に合わせてお見積もりします。
             </p>
             <Link href="/projects/qa" className="text-link">
               納品・品質確認のサンプルを見る <ArrowUpRight size={16} />
