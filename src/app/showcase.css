@@ -1398,3 +1398,11 @@
     margin-top: 26px;
   }
 }
+
+.qa-demo h2 {
+  text-wrap: balance;
+}
+
+.qa-demo h2 span {
+  display: inline-block;
+}

@@ -924,7 +924,10 @@ export function QaDemo() {
     <div className="qa-demo showcase">
       <div className="app-demo-heading">
         <span className="eyebrow">SHIP / CHECK — DELIVERY WORKSPACE</span>
-        <h2>最後の確認まで、つくる。</h2>
+        <h2>
+          <span>最後の確認まで、</span>
+          <span>つくる。</span>
+        </h2>
         <p>納品前チェックの操作体験です。実際の自動テストは実行しません。</p>
       </div>
       <div className="qa-workspace" data-feature>
