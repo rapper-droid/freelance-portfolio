@@ -6,7 +6,7 @@ export function Process() {
     <section className="hub-section" id="process">
       <div className="hub-section-head">
         <div>
-          <span className="eyebrow">FROM BRIEF TO DELIVERY</span>
+          <span className="eyebrow">05 / FROM BRIEF TO DELIVERY</span>
           <h2>
             依頼から納品まで、
             <br />

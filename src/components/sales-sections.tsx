@@ -50,7 +50,7 @@ export function Delivery() {
       id="delivery"
       data-delivery-info
     >
-      <span className="eyebrow">WHAT YOU GET / DELIVERY</span>
+      <span className="eyebrow">04 / WHAT YOU GET</span>
       <h2>完成品として、渡す。</h2>
       <p className="section-lead">
         制作物だけでなく、使い始めるために必要なファイルと手順まで。

@@ -2,7 +2,9 @@ import Link from "next/link";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { Header, Footer } from "@/components/site";
 import { Contact } from "@/components/contact";
-import { ProjectCard } from "@/components/project-card";
+import { ProjectFeature } from "@/components/project-feature";
+import { FAQ } from "@/components/faq";
+import { BrandMark } from "@/components/brand-mark";
 import { Process } from "@/components/sales";
 import { Delivery, MessageOnly, TrustPanel } from "@/components/sales-sections";
 import { pricingNote } from "@/lib/portfolio";
@@ -27,11 +29,9 @@ export default function Home() {
               <span className="mobile-copy">WEB / AI / DESIGN</span>
             </span>
             <h1>
-              BUILD.
-              <br />
-              AUTOMATE.
-              <br />
-              DELIVER.
+              <span>BUILD.</span>
+              <span>AUTOMATE.</span>
+              <span>DELIVER.</span>
             </h1>
             <p className="desktop-copy">
               WebサイトからAI業務自動化まで。
@@ -39,9 +39,9 @@ export default function Home() {
               設計・制作・実装・テスト・納品まで、一気通貫で。
             </p>
             <p className="mobile-copy">
-              設計から実装・テスト・納品まで。
+              Web制作からAI業務自動化まで。
               <br />
-              メッセージ中心で、納品まで進行可能。
+              設計・実装・テストを経て、完成品を納品。
             </p>
             <div className="hero-actions">
               <Link href="#services" className="button primary">
@@ -53,9 +53,17 @@ export default function Home() {
             </div>
           </div>
           <TrustPanel />
+          <BrandMark className="hero-monogram" />
+          <div className="hero-colophon">
+            <span>INDEPENDENT DESIGN & DEVELOPMENT</span>
+            <span>JAPAN / REMOTE / MESSAGE-ONLY OK</span>
+          </div>
         </section>
         <section className="hub-section service-selector" id="services">
-          <span className="eyebrow">SELECT WHAT YOU NEED</span>
+          <span className="eyebrow">01 / CAPABILITIES</span>
+          <p className="editorial-heading" lang="en">
+            WHAT DO YOU NEED?
+          </p>
           <h2>何を依頼したいですか？</h2>
           <p className="section-lead">
             案件に近いカテゴリを選ぶと、関連する作品・料金・納品物だけを表示。
@@ -82,11 +90,11 @@ export default function Home() {
         <section className="hub-section selected-works" id="works">
           <div className="hub-section-head">
             <div>
-              <span className="eyebrow">SELECTED WORKS</span>
-              <h2>
-                作品は、依頼内容に
-                <br className="mobile-copy" />
-                近いものから。
+              <span className="eyebrow">02 / SELECTED WORKS</span>
+              <h2 className="editorial-heading">
+                SELECTED
+                <br />
+                WORKS.
               </h2>
               <p className="section-lead">
                 店舗サイト、サービスLP、商品ページ、業務ツール。
@@ -98,9 +106,9 @@ export default function Home() {
               ALL WORKS <ArrowRight size={16} />
             </Link>
           </div>
-          <div className="project-grid">
-            {selectedProjects.map((p) => (
-              <ProjectCard key={p.slug} project={p} />
+          <div className="featured-projects">
+            {selectedProjects.map((p, index) => (
+              <ProjectFeature key={p.slug} project={p} index={index} />
             ))}
           </div>
           <p className="honesty-note">
@@ -113,7 +121,7 @@ export default function Home() {
           id="pricing"
           data-price-info
         >
-          <span className="eyebrow">PRICE GUIDE / EST. DELIVERY</span>
+          <span className="eyebrow">03 / PRICE GUIDE</span>
           <h2>料金と納期の目安。</h2>
           <p className="section-lead">必要な範囲からご依頼いただけます。</p>
           <div className="price-grid">
@@ -146,7 +154,7 @@ export default function Home() {
         <Process />
         <section id="qa" className="hub-section sales-quality">
           <div>
-            <span className="eyebrow">BUILT WITH CARE / QA</span>
+            <span className="eyebrow">06 / BUILT WITH CARE</span>
             <h2>
               AIを活かして、
               <br />
@@ -167,6 +175,7 @@ export default function Home() {
             </Link>
           </div>
         </section>
+        <FAQ />
         <div className="hub-section message-wrap">
           <MessageOnly />
         </div>
