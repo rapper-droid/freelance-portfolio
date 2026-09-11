@@ -1,0 +1,985 @@
+{
+  "checkedAt": "2026-09-11T01:49:21.856Z",
+  "findings": [
+    {
+      "width": 320,
+      "route": "/",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/works/web",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/works/lp",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/works/coding",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/works/nextjs",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/works/responsive",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/works/improvement",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/works/ec",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/works/apps",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/works/api",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/works/automation",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/works/design",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/works/qa",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/projects/cafe",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/demos/cafe",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/projects/saas",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/demos/saas",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/projects/ec",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/demos/ec",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/projects/automation",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/demos/automation",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/projects/booking",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/demos/booking",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/projects/improvement",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/demos/improvement",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/projects/creative",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/demos/creative",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/projects/qa",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/demos/qa",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/projects/csv",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/demos/csv",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/projects/inbox",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/demos/inbox",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/projects/admin",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/demos/admin",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/works/web",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/works/lp",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/works/coding",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/works/nextjs",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/works/responsive",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/works/improvement",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/works/ec",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/works/apps",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/works/api",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/works/automation",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/works/design",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/works/qa",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/projects/cafe",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/demos/cafe",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/projects/saas",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/demos/saas",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/projects/ec",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/demos/ec",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/projects/automation",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/demos/automation",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/projects/booking",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/demos/booking",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/projects/improvement",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/demos/improvement",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/projects/creative",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/demos/creative",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/projects/qa",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/demos/qa",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/projects/csv",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/demos/csv",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/projects/inbox",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/demos/inbox",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/projects/admin",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/demos/admin",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/works/web",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/works/lp",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/works/coding",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/works/nextjs",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/works/responsive",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/works/improvement",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/works/ec",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/works/apps",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/works/api",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/works/automation",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/works/design",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/works/qa",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/projects/cafe",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/demos/cafe",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/projects/saas",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/demos/saas",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/projects/ec",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/demos/ec",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/projects/automation",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/demos/automation",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/projects/booking",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/demos/booking",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/projects/improvement",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/demos/improvement",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/projects/creative",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/demos/creative",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/projects/qa",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/demos/qa",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/projects/csv",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/demos/csv",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/projects/inbox",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/demos/inbox",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/projects/admin",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/demos/admin",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/works/web",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/works/lp",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/works/coding",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/works/nextjs",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/works/responsive",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/works/improvement",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/works/ec",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/works/apps",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/works/api",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/works/automation",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/works/design",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/works/qa",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/projects/cafe",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/demos/cafe",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/projects/saas",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/demos/saas",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/projects/ec",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/demos/ec",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/projects/automation",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/demos/automation",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/projects/booking",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/demos/booking",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/projects/improvement",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/demos/improvement",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/projects/creative",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/demos/creative",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/projects/qa",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/demos/qa",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/projects/csv",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/demos/csv",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/projects/inbox",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/demos/inbox",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/projects/admin",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/demos/admin",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    }
+  ]
+}

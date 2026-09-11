@@ -1,0 +1,62 @@
+{
+  "measuredAt": "2026-09-11T01:35:30.583Z",
+  "note": "Local production build; Lighthouse mobile simulated throttling. Not field Core Web Vitals.",
+  "results": [
+    {
+      "route": "/",
+      "mobile": true,
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2272.166,
+      "cls": 0,
+      "tbtMs": 102,
+      "jsBytes": 158503
+    },
+    {
+      "route": "/works/lp",
+      "mobile": true,
+      "scores": {
+        "performance": 96,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2081.0007,
+      "cls": 0,
+      "tbtMs": 191.99964999999997,
+      "jsBytes": 165684
+    },
+    {
+      "route": "/projects/cafe",
+      "mobile": true,
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 1566.8404,
+      "cls": 0,
+      "tbtMs": 144.5,
+      "jsBytes": 181998
+    },
+    {
+      "route": "/demos/booking",
+      "mobile": true,
+      "scores": {
+        "performance": 99,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 1662.9923000000001,
+      "cls": 0,
+      "tbtMs": 112,
+      "jsBytes": 181998
+    }
+  ]
+}
