@@ -1,10 +1,9 @@
 ﻿import Link from "next/link";
 import { notFound } from "next/navigation";
-import { ArrowUpRight } from "lucide-react";
 import { categories, getCategory, projectsFor } from "@/lib/portfolio";
 import { pageMetadata } from "@/lib/seo";
 import { Header, Footer } from "@/components/site";
-import { ProjectArt } from "@/components/project-art";
+import { ProjectCard } from "@/components/project-card";
 import { SalesInfo, Process } from "@/components/sales";
 import { Contact } from "@/components/contact";
 // Known paths are prerendered; unknown paths render the explicit notFound() boundary.
@@ -33,15 +32,15 @@ export default async function CategoryPage({
   return (
     <>
       <Header />
-      <main id="main" className="sales-hub" data-category={c.id}>
+      <main id="main" className="sales-hub sales-ui" data-category={c.id}>
         <section className="hub-section category-intro">
-          <Link className="back" href="/#works">
+          <Link className="back" href="/works">
             ← すべての制作カテゴリ
           </Link>
           <span className="eyebrow">SERVICE / {c.id.toUpperCase()}</span>
           <h1>{c.name}</h1>
           <p className="category-lead">{c.description}</p>
-          <div className="category-estimate">
+          <div className="category-estimate" data-price-info>
             <span>
               参考料金 <b>{c.price}</b>
             </span>
@@ -63,25 +62,7 @@ export default async function CategoryPage({
           </div>
           <div className="project-grid">
             {projectsFor(c.id).map((p) => (
-              <Link
-                href={`/projects/${p.slug}`}
-                className="project-card"
-                key={p.slug}
-                data-project={p.slug}
-              >
-                <ProjectArt project={p} />
-                <div className="project-card-copy">
-                  <div className="project-card-meta">
-                    <span>SELF-INITIATED DEMO</span>
-                    <ArrowUpRight size={20} />
-                  </div>
-                  <h3>
-                    {p.title}
-                    <small>{p.name}</small>
-                  </h3>
-                  <p>{p.summary}</p>
-                </div>
-              </Link>
+              <ProjectCard key={p.slug} project={p} />
             ))}
           </div>
         </section>

@@ -1,22 +1,18 @@
 ﻿import Link from "next/link";
-import { ArrowUpRight, Command, ArrowLeft, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, ArrowLeft, ShieldCheck } from "lucide-react";
 export function Header() {
   return (
     <header className="site-header">
-      <Link href="/" className="brand" aria-label="WORKS ホーム">
-        <span className="brand-icon">
-          <Command size={20} />
-        </span>
-        WORKS<span className="brand-note">WEB & AUTOMATION</span>
+      <Link href="/" className="brand" aria-label="TETSU / WORKS ホーム">
+        TETSU / WORKS
       </Link>
       <nav aria-label="メインナビゲーション">
-        <Link href="/#works">制作デモ</Link>
-        <Link href="/#services">できること</Link>
-        <Link href="/#profile" className="nav-profile">
-          プロフィール
-        </Link>
+        <Link href="/#works">WORKS</Link>
+        <Link href="/#services">SERVICES</Link>
+        <Link href="/#process">PROCESS</Link>
+        <Link href="/#qa">QA</Link>
         <Link href="/#contact" className="nav-cta">
-          相談の準備 <ArrowUpRight size={15} />
+          MESSAGE-ONLY<span className="nav-ok"> OK</span>
         </Link>
       </nav>
     </header>
@@ -26,13 +22,15 @@ export function Footer() {
   return (
     <footer className="site-footer">
       <Link className="brand" href="/">
-        WORKS<span className="brand-note">WEB & AUTOMATION</span>
+        TETSU / WORKS
       </Link>
       <p>
         人が使える完成品まで、責任を持って。{" "}
         <Link href="/privacy">プライバシー</Link>
       </p>
-      <small>© {new Date().getFullYear()} WORKS · 自主制作ポートフォリオ</small>
+      <small>
+        © {new Date().getFullYear()} TETSU / WORKS · 自主制作ポートフォリオ
+      </small>
     </footer>
   );
 }

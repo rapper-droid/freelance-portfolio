@@ -45,7 +45,7 @@ export function CafeDemo() {
   return (
     <div className="cafe-demo showcase">
       <nav className="demo-local-nav" aria-label="カフェデモ内">
-        <b>KOMOREBI</b>
+        <b>KISSA</b>
         <a href="#cafe-story">Our story</a>
         <a href="#cafe-menu">Menu</a>
       </nav>
@@ -67,7 +67,7 @@ export function CafeDemo() {
           </a>
         </div>
         <div className="cafe-hero-art">
-          <ProjectArt project={{ theme: "cafe", title: "KOMOREBI" }} />
+          <ProjectArt project={{ theme: "cafe", title: "KISSA" }} />
         </div>
         <span className="cafe-vertical">A LITTLE PAUSE. A BETTER DAY.</span>
       </section>
@@ -83,7 +83,7 @@ export function CafeDemo() {
           <br />
           いつもの一日に、少しだけ違う景色を。
           <br />
-          KOMOREBIは、そんな場所を想像してつくりました。
+          KISSAは、そんな場所を想像してつくりました。
         </p>
       </section>
       <section className="cafe-menu" id="cafe-menu" data-feature>
@@ -119,7 +119,7 @@ export function CafeDemo() {
         </p>
       </section>
       <div className="cafe-hours">
-        <b>KOMOREBI</b>
+        <b>KISSA</b>
         <span>想定営業時間 10:00–18:00 / 水曜定休</span>
         <span>SELF-INITIATED PROJECT</span>
       </div>
@@ -131,7 +131,7 @@ export function SaasDemo() {
   return (
     <div className="saas-demo showcase">
       <nav className="demo-local-nav" aria-label="SaaSデモ内">
-        <b>◈ FOLIO</b>
+        <b>◈ FLOWSTATE</b>
         <a href="#folio-features">機能</a>
         <a href="#folio-pricing">プラン</a>
       </nav>
@@ -152,7 +152,7 @@ export function SaasDemo() {
         </a>
         <div className="saas-product">
           <ProjectArt
-            project={{ theme: "saas", title: "FOLIO / WORKSPACE PREVIEW" }}
+            project={{ theme: "saas", title: "FLOWSTATE / WORKSPACE PREVIEW" }}
           />
         </div>
       </section>
@@ -258,7 +258,7 @@ export function EcDemo() {
   return (
     <div className="ec-demo showcase">
       <nav className="demo-local-nav" aria-label="商品デモ内">
-        <b>FORM / OBJECTS</b>
+        <b>FORME / OBJECTS</b>
         <a href="#product-details">Details</a>
         <button
           onClick={() => dialog.current?.showModal()}
@@ -276,7 +276,7 @@ export function EcDemo() {
           }}
         >
           <span className="eyebrow">
-            FORM / 01 — {colors[color].name.toUpperCase()}
+            FORME / 01 — {colors[color].name.toUpperCase()}
           </span>
           <div
             className="product-cylinder"
@@ -285,7 +285,7 @@ export function EcDemo() {
             }}
           >
             <span>
-              FORM
+              FORME
               <br />
               <small>01 / EVERYDAY</small>
             </span>
@@ -299,7 +299,7 @@ export function EcDemo() {
             <br />
             持ち歩く。
           </h2>
-          <p>FORM / 01 タンブラー</p>
+          <p>FORME / 01 タンブラー</p>
           <strong className="product-price">
             ¥3,800 <small>税込・架空価格</small>
           </strong>
@@ -380,7 +380,7 @@ export function EcDemo() {
         <h2 id="cart-title">デモカート</h2>
         {cart ? (
           <>
-            <p>FORM / 01 — {colors[cart.color].label}</p>
+            <p>FORME / 01 — {colors[cart.color].label}</p>
             <p>
               {cart.quantity}点 / ¥
               {(3800 * cart.quantity).toLocaleString("ja-JP")}

@@ -46,6 +46,7 @@ export function SalesInfo({
       className="hub-section sales-info"
       id="delivery"
       data-delivery-info
+      data-price-info
     >
       <div className="hub-section-head">
         <div>

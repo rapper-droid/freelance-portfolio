@@ -3,6 +3,7 @@ import { Children, useState, type ReactNode } from "react";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import type { CategoryId } from "@/lib/portfolio";
+import { track } from "./analytics";
 export function PortfolioGrid({
   items,
   categoryOptions,
@@ -40,7 +41,10 @@ export function PortfolioGrid({
           <button
             key={c.id}
             aria-pressed={selected === c.id}
-            onClick={() => setSelected(c.id)}
+            onClick={() => {
+              setSelected(c.id);
+              track("portfolio_category_view", { category: c.id });
+            }}
           >
             {c.name}
           </button>

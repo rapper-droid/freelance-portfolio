@@ -35,7 +35,7 @@ export function ProjectArt({
           </div>
           <div className="product-cylinder">
             <span>
-              FORM
+              FORME
               <br />
               <small>01 / EVERYDAY</small>
             </span>

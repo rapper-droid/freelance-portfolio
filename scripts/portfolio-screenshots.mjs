@@ -3,6 +3,7 @@ import { spawn } from "node:child_process";
 import fs from "node:fs/promises";
 import sharp from "sharp";
 import { projects } from "../src/lib/portfolio.ts";
+import { previewPath } from "../src/lib/preview.ts";
 const origin = process.env.QA_BASE_URL || "http://localhost:3101";
 const server = process.env.QA_BASE_URL
   ? null
@@ -49,10 +50,26 @@ try {
       });
       await page.goto(`${origin}/demos/${p.slug}`);
       await prepare(page, p.slug);
+      // Preview the deliverable itself, not the surrounding portfolio header.
+      await page.evaluate((slug) => {
+        const target = document.querySelector(
+          slug === "inbox" ? ".inbox-stats" : ".showcase",
+        );
+        if (target)
+          window.scrollTo(
+            0,
+            target.getBoundingClientRect().top + window.scrollY,
+          );
+      }, p.slug);
       const buffer = await page.screenshot();
       await sharp(buffer)
         .webp({ quality: 84 })
         .toFile(`public/previews/${p.slug}-${device}.webp`);
+      await fs.copyFile(
+        `public/previews/${p.slug}-${device}.webp`,
+        `public${previewPath(p.slug, device)}`,
+      );
+      await page.evaluate(() => window.scrollTo(0, 0));
       if (p.featured && device !== "tablet") {
         const name = `${p.slug}-${device}-firstview.png`;
         await page.screenshot({ path: `docs/screenshots/portfolio/${name}` });
@@ -103,6 +120,17 @@ try {
     await page.goto(origin);
     await page.screenshot({
       path: `docs/screenshots/home-${device}-firstview.png`,
+    });
+    await page.evaluate(async () => {
+      document.querySelectorAll(".home-ui > *").forEach((element) => {
+        element.style.contentVisibility = "visible";
+      });
+      await Promise.all(
+        Array.from(document.images).map((image) => {
+          image.loading = "eager";
+          return image.decode().catch(() => {});
+        }),
+      );
     });
     await page.screenshot({
       path: `docs/screenshots/home-${device}.png`,

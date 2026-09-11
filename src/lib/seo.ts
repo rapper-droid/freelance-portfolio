@@ -16,7 +16,9 @@ export function pageMetadata(
   description: string,
   path: string,
 ): Metadata {
-  const brandedTitle = title.endsWith(" | WORKS") ? title : `${title} | WORKS`;
+  const brandedTitle = title.endsWith(" | TETSU / WORKS")
+    ? title
+    : `${title} | TETSU / WORKS`;
   return {
     title: { absolute: brandedTitle },
     description,
@@ -32,7 +34,7 @@ export function pageMetadata(
           url: "/og.png",
           width: 1200,
           height: 630,
-          alt: "WORKS — BUILD. AUTOMATE. DELIVER.",
+          alt: "TETSU / WORKS — BUILD. AUTOMATE. DELIVER.",
         },
       ],
     },

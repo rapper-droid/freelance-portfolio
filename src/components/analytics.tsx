@@ -62,6 +62,13 @@ export function track(
 export function Analytics() {
   const pathname = usePathname();
   useEffect(() => {
+    if (
+      process.env.NEXT_PUBLIC_ANALYTICS_ENABLED !== "true" ||
+      navigator.doNotTrack === "1" ||
+      (navigator as Navigator & { globalPrivacyControl?: boolean })
+        .globalPrivacyControl
+    )
+      return;
     const [, kind, id] = pathname.split("/");
     const ids =
       kind === "works"
@@ -70,22 +77,32 @@ export function Analytics() {
           ? { project: id }
           : {};
     track("portfolio_visit", ids);
-    if (kind === "works") track("portfolio_category_view", ids);
+    if (kind === "works" && id) track("portfolio_category_view", ids);
     if (kind === "projects") track("portfolio_project_open", ids);
+    const seen = new Set<PortfolioEvent>();
     const observer = new IntersectionObserver(
       (entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) {
-          track("portfolio_delivery_info_view", ids);
-          track("portfolio_price_view", ids);
-          observer.disconnect();
+        for (const entry of entries) {
+          if (!entry.isIntersecting) continue;
+          const events: PortfolioEvent[] = [];
+          if (entry.target.hasAttribute("data-delivery-info"))
+            events.push("portfolio_delivery_info_view");
+          if (entry.target.hasAttribute("data-price-info"))
+            events.push("portfolio_price_view");
+          for (const event of events) {
+            if (!seen.has(event)) {
+              track(event, ids);
+              seen.add(event);
+            }
+          }
+          observer.unobserve(entry.target);
         }
       },
       { threshold: 0.2 },
     );
-    const delivery = document.querySelector(
-      "[data-delivery-info], .price-grid",
-    );
-    if (delivery) observer.observe(delivery);
+    document
+      .querySelectorAll("[data-delivery-info], [data-price-info]")
+      .forEach((el) => observer.observe(el));
     function click(e: MouseEvent) {
       if ((e.target as Element)?.closest?.('a[href$="#contact"]'))
         track("portfolio_contact_open", ids);
