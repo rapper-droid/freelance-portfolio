@@ -1,15 +1,21 @@
 ﻿"use client";
-import { useState } from "react";
+import { Children, useState, type ReactNode } from "react";
 import Link from "next/link";
-import { ArrowUpRight, ArrowRight } from "lucide-react";
-import { categories, projects, type CategoryId } from "@/lib/portfolio";
-import { ProjectArt } from "./project-art";
-export function PortfolioGrid() {
+import { ArrowRight } from "lucide-react";
+import type { CategoryId } from "@/lib/portfolio";
+export function PortfolioGrid({
+  items,
+  categoryOptions,
+  children,
+}: {
+  items: { slug: string; categories: CategoryId[] }[];
+  categoryOptions: { id: CategoryId; name: string }[];
+  children: ReactNode;
+}) {
   const [selected, setSelected] = useState<CategoryId | "all">("all");
-  const shown =
-    selected === "all"
-      ? projects
-      : projects.filter((p) => p.categories.includes(selected));
+  const count = items.filter(
+    (p) => selected === "all" || p.categories.includes(selected),
+  ).length;
   return (
     <section className="hub-section" id="works">
       <div className="hub-section-head">
@@ -28,9 +34,9 @@ export function PortfolioGrid() {
           aria-pressed={selected === "all"}
           onClick={() => setSelected("all")}
         >
-          すべて<span>{projects.length}</span>
+          すべて<span>{items.length}</span>
         </button>
-        {categories.map((c) => (
+        {categoryOptions.map((c) => (
           <button
             key={c.id}
             aria-pressed={selected === c.id}
@@ -44,8 +50,8 @@ export function PortfolioGrid() {
         <p aria-live="polite">
           {selected === "all"
             ? "すべての制作例"
-            : categories.find((c) => c.id === selected)?.name}{" "}
-          <span> / {shown.length} PROJECTS</span>
+            : categoryOptions.find((c) => c.id === selected)?.name}{" "}
+          <span> / {count} PROJECTS</span>
         </p>
         {selected !== "all" && (
           <Link href={`/works/${selected}`} className="text-link">
@@ -54,34 +60,10 @@ export function PortfolioGrid() {
         )}
       </div>
       <div className="project-grid">
-        {shown.map((p) => (
-          <Link
-            href={`/projects/${p.slug}`}
-            className="project-card"
-            key={p.slug}
-            data-project={p.slug}
-          >
-            <ProjectArt project={p} />
-            <div className="project-card-copy">
-              <div className="project-card-meta">
-                <span>SELF-INITIATED DEMO</span>
-                <ArrowUpRight size={20} />
-              </div>
-              <h3>
-                {p.title}
-                <small>{p.name}</small>
-              </h3>
-              <p>{p.summary}</p>
-              <div className="project-card-tags">
-                {p.categories.slice(0, 3).map((id) => (
-                  <span key={id}>
-                    {categories.find((c) => c.id === id)?.short}
-                  </span>
-                ))}
-              </div>
-            </div>
-          </Link>
-        ))}
+        {Children.toArray(children).filter(
+          (_, i) =>
+            selected === "all" || items[i].categories.includes(selected),
+        )}
       </div>
       <p className="honesty-note">
         掲載作品はすべて自主制作です。企業名・商品・業務データは架空で、受託実績・導入実績ではありません。

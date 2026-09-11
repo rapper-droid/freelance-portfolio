@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { ArrowUpRight, Command, ArrowLeft, ShieldCheck } from "lucide-react";
 export function Header() {
   return (
@@ -28,7 +28,7 @@ export function Footer() {
       <Link className="brand" href="/">
         WORKS<span className="brand-note">WEB & AUTOMATION</span>
       </Link>
-      <p>小さな改善から、仕事をもっとスムーズに。</p>
+      <p>設計から、使える成果物の納品まで。</p>
       <small>© {new Date().getFullYear()} WORKS · 自主制作ポートフォリオ</small>
     </footer>
   );
@@ -64,6 +64,12 @@ export function DemoShell({
           <span className="pill">自主制作デモ</span>
         </div>
         <p className="demo-description">{description}</p>
+        <Link
+          className="text-link"
+          href={`/projects/${({ "01": "csv", "02": "inbox", "03": "admin" } as Record<string, string>)[number] ?? "qa"}`}
+        >
+          制作概要・参考料金・納品物を見る ↗
+        </Link>
         <div className="feature-tags">
           {features.map((f) => (
             <span key={f}>{f}</span>

@@ -1214,3 +1214,30 @@
     transform: none;
   }
 }
+@media (max-width: 700px) {
+  .hub-hero {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .hub-hero-copy {
+    min-width: 0;
+  }
+  .hub-hero h1 {
+    font-size: clamp(43px, 12.8vw, 86px);
+  }
+  .hero-small-projects {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+/* Existing tools retain their behavior, with readable notes and larger row actions. */
+.demo-page .demo-description,
+.demo-page .privacy-note {
+  font-size: 13px;
+}
+.demo-page .icon-button {
+  min-width: 40px;
+  min-height: 40px;
+}
+.demo-page > .text-link {
+  margin-top: 14px;
+  font-size: 12px;
+}

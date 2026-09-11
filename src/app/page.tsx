@@ -3,12 +3,13 @@ import { ArrowUpRight, ArrowDown, Check } from "lucide-react";
 import { Header, Footer } from "@/components/site";
 import { Contact } from "@/components/contact";
 import { PortfolioGrid } from "@/components/portfolio-grid";
+import { ProjectCard } from "@/components/project-card";
 import { ProjectArt } from "@/components/project-art";
 import { Process } from "@/components/sales";
 import { categories, pricingNote, projects } from "@/lib/portfolio";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata(
-  "Web制作からAI業務自動化まで | WORKS",
+  "Web制作からAI業務自動化まで",
   "Webサイト・LP・Webアプリ・AI業務自動化の自主制作ポートフォリオ。設計・制作・テスト・納品物を、実際に動くデモで確認できます。",
   "/",
 );
@@ -87,7 +88,14 @@ export default function Home() {
             assurance
           </p>
         </div>
-        <PortfolioGrid />
+        <PortfolioGrid
+          items={projects.map(({ slug, categories }) => ({ slug, categories }))}
+          categoryOptions={categories.map(({ id, name }) => ({ id, name }))}
+        >
+          {projects.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
+          ))}
+        </PortfolioGrid>
         <section className="hub-section services-overview" id="services">
           <div className="hub-section-head">
             <div>

@@ -7,7 +7,7 @@ import { Header, Footer } from "@/components/site";
 import { ProjectArt } from "@/components/project-art";
 import { SalesInfo, Process } from "@/components/sales";
 import { Contact } from "@/components/contact";
-export const dynamicParams = false;
+// Known paths are prerendered; unknown paths render the explicit notFound() boundary.
 export const generateStaticParams = () =>
   categories.map((c) => ({ category: c.id }));
 export async function generateMetadata({

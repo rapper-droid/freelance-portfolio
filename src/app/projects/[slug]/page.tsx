@@ -7,7 +7,7 @@ import { pageMetadata } from "@/lib/seo";
 import { Header, Footer } from "@/components/site";
 import { ProjectArt } from "@/components/project-art";
 import { Contact } from "@/components/contact";
-export const dynamicParams = false;
+// Known paths are prerendered; unknown paths render the explicit notFound() boundary.
 export const generateStaticParams = () =>
   projects.map((p) => ({ slug: p.slug }));
 export async function generateMetadata({
