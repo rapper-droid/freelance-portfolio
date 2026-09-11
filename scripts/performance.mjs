@@ -26,7 +26,20 @@ try {
   await fs.mkdir("docs/performance", { recursive: true });
   browser = await chromium.launch({ args: ["--remote-debugging-port=9223"] });
   const summary = [];
-  for (const route of ["/", "/works/lp", "/projects/cafe", "/demos/booking"]) {
+  const routes = [
+    "/",
+    "/works",
+    "/works/lp",
+    "/projects/cafe",
+    "/projects/saas",
+    "/projects/ec",
+    "/projects/inbox",
+    "/demos/booking",
+  ];
+  const requested = process.argv.slice(2);
+  if (requested.some((route) => !routes.includes(route)))
+    throw new Error("Unknown performance route");
+  for (const route of requested.length ? requested : routes) {
     const result = await lighthouse(origin + route, {
       port: 9223,
       output: "json",
@@ -61,7 +74,9 @@ try {
     console.log(JSON.stringify(record));
   }
   await fs.writeFile(
-    "docs/performance/summary.json",
+    requested.length
+      ? "docs/performance/summary-targeted.json"
+      : "docs/performance/summary.json",
     JSON.stringify(
       {
         measuredAt: new Date().toISOString(),

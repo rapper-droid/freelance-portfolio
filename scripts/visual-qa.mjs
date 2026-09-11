@@ -27,6 +27,7 @@ try {
   const routes = [
     "/",
     "/privacy",
+    "/works",
     ...categories.map((c) => `/works/${c.id}`),
     ...projects.flatMap((p) => [`/projects/${p.slug}`, `/demos/${p.slug}`]),
   ];
@@ -45,9 +46,17 @@ try {
       const response = await page.goto(origin + route);
       if (response?.status() !== 200)
         throw new Error(`${route}: ${response?.status()}`);
+      await page.evaluate(() => {
+        document.querySelectorAll(".home-ui > *").forEach((el) => {
+          el.style.contentVisibility = "visible";
+        });
+      });
       await page.evaluate(() =>
         Promise.all(
-          Array.from(document.images).map((i) => i.decode().catch(() => {})),
+          Array.from(document.images).map((i) => {
+            i.loading = "eager";
+            return i.decode().catch(() => {});
+          }),
         ),
       );
       const result = await page.evaluate(() => ({

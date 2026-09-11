@@ -55,17 +55,17 @@ test("all project routes: honest case studies, live demos, previews and accessib
     expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   }
 });
-test("home filtering exposes only matching projects and a category permalink", async ({
+test("all works filtering exposes only matching projects and a category permalink", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/works");
   await page.getByRole("button", { name: "LP制作", exact: true }).click();
   await expect(page.locator("[data-project]")).toHaveCount(
     projectsFor("lp").length,
   );
   await page.getByRole("link", { name: "この仕事の料金・納品物" }).click();
   await expect(page).toHaveURL(/works\/lp/);
-  await page.goto("/");
+  await page.goto("/works");
   await page.getByRole("button", { name: "AI業務自動化", exact: true }).click();
   expect(
     await page

@@ -28,6 +28,7 @@ try {
   const routes = [
     "/",
     "/privacy",
+    "/works",
     ...categories.map((c) => `/works/${c.id}`),
     ...projects.flatMap((p) => [`/projects/${p.slug}`, `/demos/${p.slug}`]),
   ];

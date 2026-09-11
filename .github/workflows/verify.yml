@@ -1,7 +1,8 @@
 name: verify
 on:
   push:
-    branches: [main, codex/portfolio-sales-hub-v2]
+    branches:
+      [main, codex/portfolio-sales-hub-v2, codex/portfolio-figma-sales-ui]
   pull_request:
 permissions:
   contents: read
@@ -21,7 +22,9 @@ jobs:
       - run: npm run verify
       - run: npm run test:e2e
       - run: npm run qa:visual
+      - run: npm run qa:design
       - run: npm run qa:links
+      - run: npm run qa:performance
       - uses: actions/upload-artifact@v7.0.1
         if: always()
         with:
@@ -29,4 +32,6 @@ jobs:
           path: |
             playwright-report/
             docs/screenshots/portfolio/visual-report.json
+            docs/screenshots/sales-ui/
             docs/link-report.json
+            docs/performance/

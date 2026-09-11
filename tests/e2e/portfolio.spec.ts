@@ -30,9 +30,11 @@ test("home: navigation, copy, responsive layout and accessibility", async ({
   await expect(page.getByRole("heading", { level: 1 })).toContainText("BUILD.");
   await page.keyboard.press("Tab");
   await expect(page.getByText("本文へスキップ")).toBeFocused();
-  await page.getByRole("link", { name: "制作デモを見る" }).click();
-  await expect(page).toHaveURL(/#works/);
-  await page.getByRole("link", { name: /CSV AUTOMATOR/ }).click();
+  await page.getByRole("link", { name: "依頼内容から作品を見る" }).click();
+  await expect(page).toHaveURL(/#services/);
+  await page.getByRole("link", { name: "ALL WORKS" }).click();
+  await expect(page).toHaveURL(/\/works$/);
+  await page.getByRole("link", { name: "CSV AUTOMATOR", exact: true }).click();
   await expect(page).toHaveURL(/projects\/csv/);
   await page.getByRole("link", { name: "Live Demoを操作する" }).click();
   await expect(page).toHaveURL(/demos\/csv/);
