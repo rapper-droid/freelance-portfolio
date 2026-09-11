@@ -1,4 +1,4 @@
-import { test, expect } from "@playwright/test";
+﻿import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import fs from "node:fs/promises";
 import type { Page } from "@playwright/test";
@@ -27,14 +27,14 @@ test("home: navigation, copy, responsive layout and accessibility", async ({
   page.on("pageerror", (e) => errors.push(e.message));
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/");
-  await expect(page.getByRole("heading", { level: 1 })).toContainText(
-    "軽くなる",
-  );
+  await expect(page.getByRole("heading", { level: 1 })).toContainText("BUILD.");
   await page.keyboard.press("Tab");
   await expect(page.getByText("本文へスキップ")).toBeFocused();
   await page.getByRole("link", { name: "制作デモを見る" }).click();
   await expect(page).toHaveURL(/#works/);
   await page.getByRole("link", { name: /CSV AUTOMATOR/ }).click();
+  await expect(page).toHaveURL(/projects\/csv/);
+  await page.getByRole("link", { name: "Live Demoを操作する" }).click();
   await expect(page).toHaveURL(/demos\/csv/);
   await page.getByRole("link", { name: "制作デモに戻る" }).click();
   await page.getByLabel("困っていること").fill("毎週CSVの整理をしています");

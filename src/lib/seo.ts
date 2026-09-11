@@ -16,12 +16,13 @@ export function pageMetadata(
   description: string,
   path: string,
 ): Metadata {
+  const brandedTitle = title.endsWith(" | WORKS") ? title : `${title} | WORKS`;
   return {
-    title,
+    title: { absolute: brandedTitle },
     description,
     alternates: { canonical: path },
     openGraph: {
-      title,
+      title: brandedTitle,
       description,
       url: path,
       type: "website",
@@ -37,7 +38,7 @@ export function pageMetadata(
     },
     twitter: {
       card: "summary_large_image",
-      title,
+      title: brandedTitle,
       description,
       images: ["/og.png"],
     },

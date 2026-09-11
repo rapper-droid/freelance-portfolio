@@ -1,39 +1,81 @@
-import { chromium, devices } from "@playwright/test";
+﻿import { chromium } from "@playwright/test";
+import { spawn } from "node:child_process";
 import fs from "node:fs/promises";
-const origin = process.env.QA_BASE_URL || "http://localhost:3000";
-await fs.mkdir("docs/screenshots", { recursive: true });
-const browser = await chromium.launch();
-try {
-  for (const width of [320, 390, 768, 1440]) {
-    const page = await browser.newPage(
-      width <= 390
-        ? { ...devices["iPhone 13"], viewport: { width, height: 800 } }
-        : { viewport: { width, height: 900 } },
+import { categories, projects } from "../src/lib/portfolio.ts";
+const origin = process.env.QA_BASE_URL || "http://localhost:3102";
+const server = process.env.QA_BASE_URL
+  ? null
+  : spawn(
+      process.execPath,
+      ["node_modules/next/dist/bin/next", "start", "--port", "3102"],
+      { stdio: "ignore", windowsHide: true },
     );
-    for (const route of ["/", "/demos/csv", "/demos/inbox", "/demos/admin"]) {
-      await page.goto(origin + route);
-      const overflow = await page.evaluate(
-        () =>
+let browser;
+try {
+  let ready = false;
+  for (let i = 0; i < 90; i++) {
+    try {
+      if ((await fetch(origin)).ok) {
+        ready = true;
+        break;
+      }
+    } catch {}
+    await new Promise((r) => setTimeout(r, 1000));
+  }
+  if (!ready) throw new Error("Visual server did not start");
+  browser = await chromium.launch();
+  const routes = [
+    "/",
+    ...categories.map((c) => `/works/${c.id}`),
+    ...projects.flatMap((p) => [`/projects/${p.slug}`, `/demos/${p.slug}`]),
+  ];
+  const findings = [];
+  for (const width of [320, 390, 768, 1440]) {
+    const page = await browser.newPage({
+      viewport: { width, height: 900 },
+      reducedMotion: "reduce",
+    });
+    const errors = [];
+    page.on("pageerror", (e) => errors.push(e.message));
+    for (const route of routes) {
+      const response = await page.goto(origin + route);
+      if (response?.status() !== 200)
+        throw new Error(`${route}: ${response?.status()}`);
+      await page.evaluate(() =>
+        Promise.all(
+          Array.from(document.images).map((i) => i.decode().catch(() => {})),
+        ),
+      );
+      const result = await page.evaluate(() => ({
+        overflow:
           document.documentElement.scrollWidth >
           document.documentElement.clientWidth,
-      );
-      if (overflow)
-        throw new Error(`Horizontal overflow at ${width}px: ${route}`);
-    }
-    await page.goto(origin);
-    if (width === 390 || width === 1440) {
-      const name = width === 390 ? "mobile" : "desktop";
-      await page.screenshot({
-        path: `docs/screenshots/home-${name}-firstview.png`,
+        brokenImages: Array.from(document.images)
+          .filter((i) => !i.complete || !i.naturalWidth)
+          .map((i) => i.getAttribute("alt")),
+      }));
+      if (result.overflow || result.brokenImages.length)
+        throw new Error(`${width}px ${route}: ${JSON.stringify(result)}`);
+      findings.push({
+        width,
+        route,
+        status: 200,
+        overflow: false,
+        brokenImages: 0,
       });
-      if (width === 390)
-        await page
-          .locator("#contact")
-          .screenshot({ path: "docs/screenshots/contact-mobile.png" });
     }
-    console.log(`Visual viewport sweep: ${width}px / 4 routes / no overflow`);
+    if (errors.length) throw new Error(errors.join("\n"));
+    console.log(
+      `PASS ${width}px / ${routes.length} routes / no overflow, missing images or runtime errors`,
+    );
     await page.close();
   }
+  await fs.writeFile(
+    "docs/screenshots/portfolio/visual-report.json",
+    JSON.stringify({ checkedAt: new Date().toISOString(), findings }, null, 2) +
+      "\n",
+  );
 } finally {
-  await browser.close();
+  await browser?.close();
+  server?.kill();
 }
