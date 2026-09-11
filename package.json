@@ -12,13 +12,18 @@
     "test:e2e": "playwright test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "verify": "npm run lint && npm run typecheck && npm run test && npm run build"
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run build",
+    "screenshots": "node --experimental-strip-types scripts/portfolio-screenshots.mjs",
+    "qa:visual": "node --experimental-strip-types scripts/visual-qa.mjs",
+    "verify:all": "npm run verify && npm run format:check && npm run test:e2e && npm run screenshots && npm run qa:visual",
+    "qa:performance": "node scripts/performance.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@sentry/browser": "^10.74.0",
     "lucide-react": "^1.43.0",
     "next": "16.3.4",
     "react": "^19.2.8",
@@ -33,6 +38,7 @@
     "@types/react-dom": "^19.2.7",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.4",
+    "lighthouse": "^13.4.1",
     "prettier": "^3.9.6",
     "tailwindcss": "^4.3.3",
     "typescript": "^6.0.3",

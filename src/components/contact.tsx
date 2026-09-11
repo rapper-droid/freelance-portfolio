@@ -1,10 +1,15 @@
-"use client";
+﻿"use client";
 import { useState } from "react";
+import { track } from "./analytics";
 import { Copy, Check, ArrowUpRight } from "lucide-react";
-export function Contact() {
-  const [kind, setKind] = useState("Webサイトの修正");
+export function Contact({
+  initialKind = "Webサイト制作",
+}: {
+  initialKind?: string;
+}) {
+  const [kind, setKind] = useState(initialKind);
   const [detail, setDetail] = useState("");
-  const [budget, setBudget] = useState("5,000〜10,000円");
+  const [budget, setBudget] = useState("相談して決めたい");
   const [message, setMessage] = useState("");
   const template = `【相談内容】${kind}\n【困っていること】${detail || "（ご記入ください）"}\n【希望予算】${budget}\n【希望納期】（ご記入ください）\n【対象URL・資料】（必要に応じてご記入ください）`;
   return (
@@ -12,12 +17,12 @@ export function Contact() {
       <div>
         <span className="eyebrow">LET’S MAKE IT WORK</span>
         <h2>
-          その「ちょっと困った」、
+          つくりたいものを、
           <br />
-          形にしませんか。
+          聞かせてください。
         </h2>
         <p>
-          小さな修正・自動化から対応します。
+          Web制作から業務ツール、修正まで。
           <br />
           まだ要件が曖昧でも、課題の整理から始められます。
         </p>
@@ -25,21 +30,28 @@ export function Contact() {
           <Check size={16} /> まず動くものを提示し、確認しながら仕上げます。
         </div>
         <p className="muted small">
-          下の内容をコピーし、このサイトをご覧になった
+          相談内容をコピーして、
           <br />
-          ランサーズ・クラウドワークス等のメッセージへ貼り付けてください。
+          ご利用中のクラウドソーシングサービスのメッセージからご連絡ください。
         </p>
       </div>
       <div className="contact-form">
         <label>
           相談したいこと
           <select value={kind} onChange={(e) => setKind(e.target.value)}>
-            {[
-              "Webサイトの修正",
-              "業務自動化・データ加工",
-              "管理画面・フォーム制作",
-              "その他・まず相談したい",
-            ].map((s) => (
+            {Array.from(
+              new Set([
+                initialKind,
+                "Webサイトの修正",
+                "LP制作",
+                "EC商品ページ",
+                "デザイン・コンテンツ",
+                "テスト・納品",
+                "業務自動化・データ加工",
+                "管理画面・フォーム制作",
+                "その他・まず相談したい",
+              ]),
+            ).map((s) => (
               <option key={s}>{s}</option>
             ))}
           </select>
@@ -57,11 +69,18 @@ export function Contact() {
         <label>
           希望予算の目安
           <select value={budget} onChange={(e) => setBudget(e.target.value)}>
-            {["5,000〜10,000円", "10,000〜30,000円", "相談して決めたい"].map(
-              (s) => (
-                <option key={s}>{s}</option>
-              ),
-            )}
+            {Array.from(
+              new Set([
+                "5,000〜10,000円",
+                "10,000〜30,000円",
+                "30,000〜50,000円",
+                "50,000〜100,000円",
+                "100,000円以上",
+                "相談して決めたい",
+              ]),
+            ).map((s) => (
+              <option key={s}>{s}</option>
+            ))}
           </select>
         </label>
         <button
@@ -69,6 +88,7 @@ export function Contact() {
           onClick={async () => {
             try {
               await navigator.clipboard.writeText(template);
+              track("portfolio_copy_contact_message");
               setMessage(
                 "相談内容をコピーしました。案件サイトのメッセージに貼り付けてください。",
               );
