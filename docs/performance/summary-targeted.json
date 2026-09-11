@@ -1,0 +1,34 @@
+{
+  "measuredAt": "2026-09-11T06:42:11.832Z",
+  "note": "Local production build; Lighthouse mobile simulated throttling. Not field Core Web Vitals.",
+  "results": [
+    {
+      "route": "/",
+      "mobile": true,
+      "scores": {
+        "performance": 84,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2490.438,
+      "cls": 0,
+      "tbtMs": 516.781,
+      "jsBytes": 159169
+    },
+    {
+      "route": "/projects/ec",
+      "mobile": true,
+      "scores": {
+        "performance": 94,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2765.61575,
+      "cls": 0,
+      "tbtMs": 139.00000000000045,
+      "jsBytes": 180096
+    }
+  ]
+}

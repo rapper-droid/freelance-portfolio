@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-11T05:12:55.385Z",
+  "checkedAt": "2026-09-11T06:34:46.438Z",
   "routes": 37,
   "links": [
     {
@@ -100,6 +100,10 @@
     },
     {
       "path": "/projects/qa",
+      "status": 200
+    },
+    {
+      "path": "/#faq",
       "status": 200
     },
     {

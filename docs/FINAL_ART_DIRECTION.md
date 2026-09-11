@@ -1,14 +1,17 @@
 # TETSU / WORKS — Final Art Direction
 
 ## 目的
+
 `tetsuworks.com` を、クラウドワークス／ランサーズ等の制作・納品案件で「この人に任せたい」と感じてもらえる、海外の小規模デザインスタジオ級の営業ポートフォリオへ最終研磨する。
 
 今回の目的は機能追加ではなく、ブランド解像度・タイポグラフィ・レイアウト・作品演出・マイクロインタラクションの品質を上げること。
 
 ## デザイン正本
+
 Figma: https://www.figma.com/design/bv0O39N0hmW8bxMSYlwY0n
 
 優先ページ／セクション:
+
 - Final Art Direction
 - Brand System
 - Brand Polish Applied
@@ -18,6 +21,7 @@ Figma: https://www.figma.com/design/bv0O39N0hmW8bxMSYlwY0n
 Figma MCPが使える場合は実ファイルを読み、spacing / typography / hierarchy / grid / mobile差 / FAQ / footer / logo / editorial works layoutを確認する。
 
 ## 最重要原則
+
 - 既存の11作品、12カテゴリ、デモ、問い合わせ、SEO、Analytics、Sentry、Netlify構成は壊さない。
 - `main` は変更しない。
 - 作業ブランチは `codex/portfolio-final-art-direction`。
@@ -27,9 +31,12 @@ Figma MCPが使える場合は実ファイルを読み、spacing / typography / 
 - mobileはdesktop縮小版にしない。
 
 ## Brand
+
 ### ロゴ
+
 TETSU / WORKS 専用のTW幾何学マークを実装する。
 用途:
+
 - Header
 - Footer
 - favicon
@@ -39,7 +46,9 @@ TETSU / WORKS 専用のTW幾何学マークを実装する。
 文字ロゴとマークを併用し、マーク単体でも識別可能にする。
 
 ### タイポグラフィ
+
 狙いはEditorial + Digital Studio。
+
 - Hero英字は非常に大きく、密度高く。
 - 補助ラベルは小さく、letter-spacingを効かせる。
 - 日本語本文は読みやすく細め。
@@ -52,7 +61,9 @@ AUTOMATE.
 DELIVER.
 
 ### 背景
+
 完全な黒ベタ一辺倒ではなく、気付かない程度の質感を加える。
+
 - subtle grid
 - 2〜4%程度のtexture/noise相当
 - lime radial glow
@@ -62,7 +73,9 @@ DELIVER.
 ただし可読性とPerformanceを優先。
 
 ## Hero
+
 Figma Final Art Directionを最優先。
+
 - 巨大タイポ
 - TW monogram
 - Trust要素
@@ -71,8 +84,10 @@ Figma Final Art Directionを最優先。
 - 静止状態で完成しているデザイン
 
 ### Motion
+
 Motionは統一タイミングを持たせる。
 推奨:
+
 - entrance 450–700ms
 - hover 160–220ms
 - image zoom 300–450ms
@@ -82,7 +97,9 @@ Motionは統一タイミングを持たせる。
 Hero文字は軽いstagger/clip reveal程度。読みにくい分解演出は禁止。
 
 ## Service Selector
+
 カードUI感を弱め、Editorialな一覧へ。
+
 - 01 / WEB SITE
 - 02 / LANDING PAGE
 - 03 / E-COMMERCE
@@ -98,7 +115,9 @@ hover時は背景塗りつぶしではなく、文字・線・矢印・微移動
 既存12カテゴリURLは維持。
 
 ## Selected Works
+
 トップでは代表4作品を主役としてEditorialに表示。
+
 - KISSA
 - FLOWSTATE
 - FORME
@@ -107,27 +126,32 @@ hover時は背景塗りつぶしではなく、文字・線・矢印・微移動
 全作品同一カードテンプレに見せない。
 
 ### KISSA
+
 - 暖色
 - 写真を大きく
 - カフェ／紙／雑誌的余白
 
 ### FLOWSTATE
+
 - grid
 - SaaS
 - 精密
 - UI中心
 
 ### FORME
+
 - fashion / product editorial
 - 商品画像を大胆に
 - 余白と商品訴求
 
 ### SMART INBOX
+
 - navy / cyan
 - system / operations
 - 業務フローとUI
 
 各作品に小さく:
+
 - index
 - category
 - year
@@ -137,8 +161,10 @@ hover時は背景塗りつぶしではなく、文字・線・矢印・微移動
 をEditorial metadataとして表示。
 
 ## Icons
+
 アイコンは必要箇所だけに限定。
 統一線幅・統一サイズで以下に使用:
+
 - RESPONSIVE
 - SOURCE
 - README
@@ -149,8 +175,10 @@ hover時は背景塗りつぶしではなく、文字・線・矢印・微移動
 装飾のための大量アイコンは禁止。
 
 ## FAQ
+
 トップ下部または営業導線直前に追加。
 最低限:
+
 1. Zoomなしでも進められますか？
 2. 原稿・画像が揃っていなくても依頼できますか？
 3. 修正対応はどのようになりますか？
@@ -162,7 +190,9 @@ hover時は背景塗りつぶしではなく、文字・線・矢印・微移動
 回答は短く、営業的に安心感を与える。過剰な保証はしない。
 
 ## Footer
+
 Final Art DirectionのFooterを基準に再設計。
+
 - TW mark
 - TETSU / WORKS
 - DESIGN. BUILD. SHIP.
@@ -171,16 +201,20 @@ Final Art DirectionのFooterを基準に再設計。
 - 直接連絡先は掲載しない
 
 ## Case Studies
+
 既存のKISSA / FLOWSTATE / FORME / SMART INBOXは世界観を維持しつつ、ブランド側のHeader/Footer/metadataとの整合を取る。
 
 画像は既存Visual Assetsを活かす。
+
 - KISSA: coffee / interior
 - FORME: charcoal / sage / sand / texture
 - FLOWSTATE: product UI / board
 - SMART INBOX: workflow / control UI
 
 ## Micro interactions
+
 全体の速度感を統一。
+
 - CTA arrow slide
 - editorial row hover
 - image subtle scale
@@ -192,8 +226,10 @@ Final Art DirectionのFooterを基準に再設計。
 過剰なparallax、cursor replacement、scroll hijackは禁止。
 
 ## Responsive
+
 320 / 390 / 768 / 1440を最低確認。
 Mobileでは:
+
 - Heroを短く
 - monogramを邪魔しない位置へ
 - CTAは1つを主に
@@ -204,7 +240,9 @@ Mobileでは:
 - Footerは縦組み
 
 ## QA
+
 必須:
+
 - format
 - lint
 - typecheck
@@ -221,9 +259,11 @@ Mobileでは:
 Figmaとの差分をPlaywright screenshotで確認し、Hero / Service Selector / Selected Works / FAQ / Footer / Mobileを目視相当で修正する。
 
 ## Git
+
 作業ブランチ: `codex/portfolio-final-art-direction`
 
 推奨commit:
+
 - feat: add final tetsu works brand system
 - feat: elevate hero and editorial service navigation
 - feat: redesign selected works with project-specific art direction
@@ -235,6 +275,7 @@ pushまで行う。
 `main`および本番ブランチへのmerge/pushは行わない。
 
 ## 完了条件
+
 - Final Art Directionが実サイトに反映
 - TW logo mark実装
 - favicon/OGP更新

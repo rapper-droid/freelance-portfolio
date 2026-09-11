@@ -1,10 +1,12 @@
-# TETSU / WORKS — Figma Sales UI
+# TETSU / WORKS — Final Art Direction
 
-公開サイト: https://tetsu-works.netlify.app （2026-09-11 HTTP 200を確認）。今回の再設計は `codex/portfolio-figma-sales-ui`。main・Netlify設定・本番環境変数は変更せず、公開反映前のブランチとして提供します。
+最終アートディレクション: `codex/portfolio-final-art-direction`。巨大Editorial Hero、FigmaのTWブランドマーク、罫線主体のCapabilities、作品別のSelected Works、営業FAQ、ブランドFooterを実装。main・Netlify設定・本番環境変数は変更せず、公開反映前のブランチとして提供します。
+
+[最終デザイン実装](docs/FINAL_ART_IMPLEMENTATION.md) / [最終QA・公開前の確認](docs/FINAL_ART_QA.md)。従来の公開先は https://tetsu-works.netlify.app （過去の確認記録）。今回の作業では本番を更新していません。
 
 [ページ別ビジュアル・素材一覧](docs/VISUAL_ASSETS.md) / [ビジュアル更新QA](docs/VISUAL_RELEASE_QA.md)
 
-[デザインとFigma対応表](docs/FIGMA_SALES_UI.md) / [最新QA](docs/RELEASE_QA.md) / [公開手順](docs/PRODUCTION.md)
+[従来のFigma対応表](docs/FIGMA_SALES_UI.md) / [従来のQA記録](docs/RELEASE_QA.md) / [公開手順](docs/PRODUCTION.md)
 
 トップは代表4作品。全11作品は `/works`、既存12カテゴリ・全デモURLを維持。KISSA / FLOWSTATE / FORME / SMART INBOXの詳細に、実画面・価格・納期・納品物とメッセージ進行を整理しています。
 
@@ -77,7 +79,7 @@ npx playwright install chromium
 npm run verify            # lint + typecheck + Vitest + production build
 npm run test:e2e          # 自動サーバー起動: port 3100
 npm run screenshots      # 自動サーバー起動: port 3101
-npm run qa:design        # Figma対応6画面・4幅のaxe/focusと実画像
+npm run qa:design        # Figma対応6画面・6幅のaxe/focus/画像/overflowと実画像
 npm run qa:visual        # 自動サーバー起動: port 3102
 npm run qa:links         # 全内部リンク・アンカーの読み取り検査
 npm run qa:performance   # Lighthouseのモバイル実測: port 3104
@@ -133,4 +135,4 @@ PostHogは訪問→カテゴリ→作品→料金→相談開始→送信→成�
 - キーボード・focus-visible・semantic HTML・native dialog・フォームラベル・reduced motion。
 - 色・間隔・半径のトークンは`hub.css`、作品別CSSは`showcase.css`。Figmaレビュー手順は[DESIGN_SYSTEM.md](docs/DESIGN_SYSTEM.md)。
 
-最新の実測結果・制限は[今回のQA記録](docs/RELEASE_QA.md)。前回の詳細は[QA記録](docs/QA.md)。企画の根拠は[仕様書](docs/PORTFLOWSTATE_SALES_HUB_V2.md)と[Issue #1](https://github.com/rapper-droid/freelance-portfolio/issues/1)、調査・設計は[IMPLEMENTATION_V2.md](docs/IMPLEMENTATION_V2.md)。
+最新の実測結果・制限は[最終QA記録](docs/FINAL_ART_QA.md)。前回の詳細は[RELEASE_QA](docs/RELEASE_QA.md)。企画の根拠は[仕様書](docs/PORTFOLIO_SALES_HUB_V2.md)と[Issue #1](https://github.com/rapper-droid/freelance-portfolio/issues/1)、調査・設計は[IMPLEMENTATION_V2.md](docs/IMPLEMENTATION_V2.md)。

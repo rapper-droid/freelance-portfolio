@@ -2,6 +2,8 @@
 
 2026-09-11。最新運用仕様は本書。過去のHANDOFF_V2は前回時点の記録です。
 
+最終アートディレクションの公開対象候補は `codex/portfolio-final-art-direction`。実装・ローカルQAは [FINAL_ART_QA.md](FINAL_ART_QA.md) を参照。今回、main統合・本番Deploy・本番環境変数・DNS・ドメイン設定は変更していません。以下の旧ブランチ名を今回の作業ブランチへ読み替え、GitHubの差分・CIとNetlifyのPreviewを確認したうえで、ご本人が公開対象へ統合／反映してください。既存の安全設定を維持し、公開後に実URLの表示・canonical・OGP・相談導線を確認します。新しい秘密情報や契約はこのUI更新に不要です。
+
 ## 現状と公開方式
 
 今回の開始状態: `codex/portfolio-sales-hub-v2` / `b3c1781915feb660f0b7659b9f7b917d83042243`、未コミット0、fetch後のorigin/mainに対して13 commit先行・0遅れ。ここから `codex/portfolio-figma-sales-ui` を作成し、直前の変更、12カテゴリ・11作品・既存テストを保持。mainは `8ace0697e7eaf5450bd66cf328a1f154c5ae495b` から変更していません。

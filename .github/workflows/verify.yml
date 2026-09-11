@@ -2,7 +2,12 @@ name: verify
 on:
   push:
     branches:
-      [main, codex/portfolio-sales-hub-v2, codex/portfolio-figma-sales-ui]
+      [
+        main,
+        codex/portfolio-sales-hub-v2,
+        codex/portfolio-figma-sales-ui,
+        codex/portfolio-final-art-direction,
+      ]
   pull_request:
 permissions:
   contents: read

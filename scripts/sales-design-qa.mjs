@@ -26,7 +26,7 @@ try {
   await fs.mkdir("docs/screenshots/sales-ui", { recursive: true });
   browser = await chromium.launch();
   const checks = [];
-  for (const width of [320, 390, 768, 1440]) {
+  for (const width of [320, 390, 768, 1024, 1440, 1920]) {
     const context = await browser.newContext({
       viewport: { width, height: width < 700 ? 844 : 1000 },
       reducedMotion: "reduce",
@@ -62,21 +62,37 @@ try {
         window.scrollTo(0, 0);
       });
       await page.evaluate(() =>
-        Promise.all(
-          [...document.images].map((i) => {
-            i.loading = "eager";
-            return i.decode().catch(() => {});
-          }),
-        ),
+        Promise.race([
+          Promise.all(
+            [...document.images].map((i) => {
+              i.loading = "eager";
+              return i.decode();
+            }),
+          ),
+          new Promise((_, reject) =>
+            setTimeout(
+              () => reject(new Error("Image decode timed out")),
+              15000,
+            ),
+          ),
+        ]),
       );
       const failures = (await new AxeBuilder({ page }).analyze()).violations;
       if (failures.length)
         throw new Error(JSON.stringify({ width, route, failures }));
+      const layout = await page.evaluate(() => ({
+        overflow: document.documentElement.scrollWidth > innerWidth,
+        brokenImages: [...document.images].filter(
+          (i) => !i.complete || !i.naturalWidth,
+        ).length,
+      }));
+      if (layout.overflow || layout.brokenImages)
+        throw new Error(JSON.stringify({ width, route, layout }));
       const slug = route === "/" ? "home" : route.slice(1).replaceAll("/", "-");
       await page.screenshot({
         path: `docs/screenshots/sales-ui/${slug}-${width}-firstview.png`,
       });
-      if (width === 390 || width === 1440) {
+      {
         if (await page.locator(".visual-story").count()) {
           await page.locator(".visual-story").screenshot({
             path: `docs/screenshots/sales-ui/${slug}-${width}-visual-story.png`,
@@ -92,6 +108,8 @@ try {
             "works",
             "pricing",
             "delivery",
+            "process",
+            "faq",
             "qa",
             "contact",
           ]) {
@@ -99,6 +117,15 @@ try {
               path: `docs/screenshots/sales-ui/${id}-${width}.png`,
             });
           }
+        if (route === "/")
+          await page.locator(".site-footer").screenshot({
+            path: `docs/screenshots/sales-ui/footer-${width}.png`,
+          });
+        if (route === "/")
+          for (const project of ["cafe", "saas", "ec", "inbox"])
+            await page.locator(`[data-project="${project}"]`).screenshot({
+              path: `docs/screenshots/sales-ui/feature-${project}-${width}.png`,
+            });
       }
       // Keyboard focus is visible, not hidden behind sticky chrome.
       await page.goto(origin + route);
@@ -109,7 +136,13 @@ try {
       }));
       if (!focus.text?.includes("本文へスキップ") || focus.outline === "none")
         throw new Error(`Focus failure ${route}`);
-      checks.push({ width, route, axeViolations: 0, keyboardFocus: true });
+      checks.push({
+        width,
+        route,
+        axeViolations: 0,
+        keyboardFocus: true,
+        ...layout,
+      });
     }
     if (errors.length) throw new Error(errors.join("\n"));
     await context.close();
