@@ -1,6 +1,12 @@
 ﻿import Link from "next/link";
 import { ArrowUpRight, Check } from "lucide-react";
-import { flow, pricingNote, type categories } from "@/lib/portfolio";
+import {
+  flow,
+  flowPhases,
+  pricingNote,
+  type categories,
+} from "@/lib/portfolio";
+import { Pipeline } from "./diagrams";
 export function Process() {
   return (
     <section className="hub-section" id="process">
@@ -19,14 +25,26 @@ export function Process() {
           メッセージで進行可能です。
         </p>
       </div>
-      <ol className="delivery-flow" data-reveal="trace">
-        {flow.map((s, i) => (
-          <li key={s}>
-            <span>{String(i + 1).padStart(2, "0")}</span>
-            <b>{s}</b>
-          </li>
-        ))}
-      </ol>
+      {/* The shape first, the detail second. Ten steps in a row is accurate
+          and unreadable; four phases can be taken in at a glance, and each
+          one still lists the exact steps it contains. */}
+      <div data-reveal="trace">
+        <Pipeline
+          stages={flowPhases.map((p) => ({
+            label: p.label,
+            note: p.note,
+            actor: p.actor,
+          }))}
+        />
+        <ol className="delivery-flow delivery-flow--detail">
+          {flow.map((s, i) => (
+            <li key={s}>
+              <span>{String(i + 1).padStart(2, "0")}</span>
+              <b>{s}</b>
+            </li>
+          ))}
+        </ol>
+      </div>
       <div className="delivery-foot">
         <Check size={18} />
         <p>

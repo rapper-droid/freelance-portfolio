@@ -1,0 +1,242 @@
+import type { ReactNode } from "react";
+
+/**
+ * TANEBI explanatory diagrams.
+ *
+ * Built as semantic HTML that is then styled to read as a diagram, rather
+ * than as pictures with captions. That ordering is deliberate: the list, the
+ * steps and the comparison are real markup, so a screen reader, a search
+ * engine, and a stylesheet-less render all still get the information. The
+ * connectors and glyphs are the only SVG, and they are decorative.
+ *
+ * Visually they follow the brand: a line that lights as the work moves along
+ * it, ember nodes at the points where something happens. No gauges, no
+ * progress rings, nothing that would make a site that takes commissions look
+ * like a game.
+ */
+
+/* ------------------------------------------------------------------ */
+
+/**
+ * A stage in a left-to-right (or, on mobile, top-to-bottom) sequence.
+ * `note` is what actually happens; `actor` says who does it, which is the
+ * question clients ask most often about automation work.
+ */
+export type Stage = {
+  label: string;
+  note?: string;
+  actor?: "人" | "自動" | "AI";
+};
+
+export function Pipeline({
+  stages,
+  caption,
+  id,
+}: {
+  stages: Stage[];
+  caption?: string;
+  id?: string;
+}) {
+  return (
+    <figure className="tnb-dia tnb-pipeline" id={id}>
+      <ol>
+        {stages.map((s, i) => (
+          <li key={s.label} data-actor={s.actor ?? "自動"}>
+            <span className="tnb-node" aria-hidden="true" />
+            <span className="tnb-step-n">{String(i + 1).padStart(2, "0")}</span>
+            <b>{s.label}</b>
+            {s.note ? <span className="tnb-note">{s.note}</span> : null}
+            {s.actor ? (
+              <span className="tnb-actor" data-actor={s.actor}>
+                {s.actor}
+              </span>
+            ) : null}
+          </li>
+        ))}
+      </ol>
+      {caption ? <figcaption>{caption}</figcaption> : null}
+    </figure>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+/**
+ * Before / TANEBI / After.
+ *
+ * A description list rather than three columns of divs: each "before" is a
+ * term and its "after" is the description, so the pairing survives without
+ * the layout.
+ */
+export function BeforeAfter({
+  rows,
+  via = "TANEBI WORKS",
+  caption,
+}: {
+  rows: { before: string; after: string }[];
+  via?: string;
+  caption?: string;
+}) {
+  return (
+    <figure className="tnb-dia tnb-ba">
+      {/* The via label sits on its own line. It used to occupy the narrow
+          arrow column between the two headings, where a name as long as
+          "TANEBI WORKS" overflowed and collided with "AFTER". */}
+      <p className="tnb-ba-via" aria-hidden="true">
+        {via}
+      </p>
+      <div className="tnb-ba-head" aria-hidden="true">
+        <span>BEFORE</span>
+        <span />
+        <span>AFTER</span>
+      </div>
+      <dl>
+        {rows.map((r) => (
+          <div key={r.before} className="tnb-ba-row">
+            <dt>
+              <span className="tnb-ba-tag">BEFORE</span>
+              {r.before}
+            </dt>
+            <span className="tnb-arrow" aria-hidden="true">
+              <svg viewBox="0 0 40 12" width="40" height="12" focusable="false">
+                <path
+                  d="M0 6h30"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  fill="none"
+                />
+                <path
+                  d="M28 2l6 4-6 4"
+                  stroke="currentColor"
+                  strokeWidth="1"
+                  fill="none"
+                />
+              </svg>
+            </span>
+            <dd>
+              <span className="tnb-ba-tag tnb-ba-tag--after">AFTER</span>
+              {r.after}
+            </dd>
+          </div>
+        ))}
+      </dl>
+      {caption ? <figcaption>{caption}</figcaption> : null}
+    </figure>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+/**
+ * What is actually handed over, shown as a stack of labelled parts.
+ * Each item keeps its own heading and description so the section still reads
+ * correctly as prose.
+ */
+export function DeliveryStack({
+  items,
+  caption,
+}: {
+  items: { title: string; note: string; icon?: ReactNode }[];
+  caption?: string;
+}) {
+  return (
+    <figure className="tnb-dia tnb-stack">
+      <ul>
+        {items.map((it) => (
+          <li key={it.title}>
+            <span className="tnb-stack-mark" aria-hidden="true">
+              {it.icon ?? <GlyphBox />}
+            </span>
+            <b>{it.title}</b>
+            <span className="tnb-note">{it.note}</span>
+          </li>
+        ))}
+      </ul>
+      {caption ? <figcaption>{caption}</figcaption> : null}
+    </figure>
+  );
+}
+
+/* ------------------------------------------------------------------ */
+
+/** Decorative glyphs. Always aria-hidden — the label beside them is the content. */
+
+export function GlyphBox() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" focusable="false">
+      <path
+        d="M3 7.5 12 3l9 4.5v9L12 21l-9-4.5z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M3 7.5 12 12l9-4.5M12 12v9"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function GlyphCode() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" focusable="false">
+      <path
+        d="M9 6 4 12l5 6M15 6l5 6-5 6"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}
+
+export function GlyphDoc() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" focusable="false">
+      <path
+        d="M6 3h8l4 4v14H6z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M14 3v4h4M9 12h6M9 16h6"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+      />
+    </svg>
+  );
+}
+
+export function GlyphCheck() {
+  return (
+    <svg viewBox="0 0 24 24" width="22" height="22" focusable="false">
+      <circle
+        cx="12"
+        cy="12"
+        r="9"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+      />
+      <path
+        d="m8 12 3 3 5-6"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.4"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  );
+}

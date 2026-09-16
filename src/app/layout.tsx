@@ -11,6 +11,7 @@ import "./showcase.css";
 import "./sales-ui.css";
 import "./project-visuals.css";
 import "./art-direction.css";
+import "./tanebi-diagrams.css";
 import "./tanebi-effects.css";
 const inter = localFont({
   src: "../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",

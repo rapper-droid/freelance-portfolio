@@ -1,0 +1,259 @@
+/* =====================================================================
+   TANEBI DIAGRAMS
+
+   Semantic markup styled to read as a diagram. Nothing here is the only
+   carrier of information: strip the stylesheet and every figure is still a
+   list, a sequence, or a term-and-definition pair.
+
+   Colour comes from the surrounding surface via the hub tokens, so the same
+   markup works on the dark studio pages and on light demo surfaces.
+   ===================================================================== */
+
+.tnb-dia {
+  margin: 28px 0 0;
+  color: var(--hub-ink);
+}
+.tnb-dia figcaption {
+  margin-top: 14px;
+  font-size: 12px;
+  line-height: 1.8;
+  color: var(--hub-muted);
+}
+.tnb-dia b {
+  font-weight: 600;
+  font-size: 14px;
+  letter-spacing: 0.01em;
+}
+.tnb-note {
+  display: block;
+  margin-top: 6px;
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: var(--hub-muted);
+}
+
+/* --- Pipeline ---------------------------------------------------------
+   A run of stages joined by a line that lights from the start. The line is
+   a background on the list, not an element per step, so it cannot drift out
+   of alignment when a label wraps. */
+
+.tnb-pipeline ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 18px;
+  position: relative;
+}
+.tnb-pipeline li {
+  position: relative;
+  padding: 16px 18px 18px 40px;
+  border: 1px solid var(--hub-border);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--hub-ink) 3%, transparent);
+}
+.tnb-step-n {
+  position: absolute;
+  top: 17px;
+  left: 18px;
+  font-size: 10px;
+  letter-spacing: 1.2px;
+  color: var(--hub-muted);
+}
+/* The ember: where something happens. */
+.tnb-node {
+  position: absolute;
+  left: 17px;
+  top: 40px;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--hub-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--hub-accent) 18%, transparent);
+}
+.tnb-actor {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 3px 9px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  letter-spacing: 0.08em;
+  border: 1px solid var(--hub-border);
+  color: var(--hub-muted);
+}
+/* Who does it is the question clients actually ask, so the human step is
+   the one that stands out — not the automated ones. */
+.tnb-actor[data-actor="人"] {
+  color: var(--hub-accent);
+  border-color: color-mix(in srgb, var(--hub-accent) 45%, transparent);
+}
+
+@media (min-width: 48rem) {
+  .tnb-pipeline ol {
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    gap: 0;
+  }
+  .tnb-pipeline li {
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    padding: 34px 20px 0 0;
+  }
+  /* The connecting line, drawn once behind the row. */
+  .tnb-pipeline ol::before {
+    content: "";
+    position: absolute;
+    left: 4px;
+    right: 20px;
+    top: 4px;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      var(--hub-accent),
+      color-mix(in srgb, var(--hub-accent) 25%, transparent) 55%,
+      var(--hub-border)
+    );
+  }
+  .tnb-node {
+    left: 0;
+    top: 0;
+  }
+  .tnb-step-n {
+    position: static;
+    display: block;
+    margin-bottom: 10px;
+  }
+}
+
+/* --- Before / After ---------------------------------------------------
+   Rows read "before -> after". On narrow screens the arrow rotates and the
+   two halves stack, which keeps the direction legible in one column. */
+
+.tnb-ba dl {
+  margin: 0;
+  display: grid;
+  gap: 14px;
+}
+.tnb-ba-head {
+  display: none;
+}
+/* Centred on its own line so a long brand name cannot collide with the
+   AFTER heading, which is what happened when it lived in the arrow column. */
+.tnb-ba-via {
+  margin: 0 0 10px;
+  text-align: center;
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  color: var(--hub-accent);
+}
+.tnb-ba-row {
+  display: grid;
+  gap: 10px;
+  align-items: center;
+  padding: 16px 18px;
+  border: 1px solid var(--hub-border);
+  border-radius: 10px;
+}
+.tnb-ba dt,
+.tnb-ba dd {
+  margin: 0;
+  font-size: 13.5px;
+  line-height: 1.8;
+}
+.tnb-ba dt {
+  color: var(--hub-muted);
+}
+.tnb-ba dd {
+  color: var(--hub-ink);
+  font-weight: 500;
+}
+.tnb-ba-tag {
+  display: inline-block;
+  margin-right: 10px;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  color: var(--hub-muted);
+  vertical-align: 1px;
+}
+.tnb-ba-tag--after {
+  color: var(--hub-accent);
+}
+.tnb-arrow {
+  color: var(--hub-accent);
+  transform: rotate(90deg);
+  justify-self: start;
+  opacity: 0.8;
+}
+
+@media (min-width: 48rem) {
+  .tnb-ba-head {
+    display: grid;
+    grid-template-columns: 1fr 40px 1fr;
+    gap: 18px;
+    padding: 0 18px 10px;
+    font-size: 9.5px;
+    letter-spacing: 0.16em;
+    color: var(--hub-muted);
+  }
+  .tnb-ba-row {
+    grid-template-columns: 1fr 40px 1fr;
+    gap: 18px;
+  }
+  .tnb-arrow {
+    transform: none;
+    justify-self: center;
+  }
+  /* The column headers already say which side is which. */
+  .tnb-ba-tag {
+    display: none;
+  }
+}
+
+/* --- Delivery stack ---------------------------------------------------- */
+
+.tnb-stack ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.tnb-stack li {
+  display: grid;
+  grid-template-columns: 34px 1fr;
+  grid-template-rows: auto auto;
+  column-gap: 14px;
+  align-items: start;
+  padding: 16px 18px;
+  border: 1px solid var(--hub-border);
+  border-radius: 10px;
+}
+.tnb-stack-mark {
+  grid-row: 1 / 3;
+  color: var(--hub-accent);
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: 1px solid color-mix(in srgb, var(--hub-accent) 30%, transparent);
+}
+.tnb-stack .tnb-note {
+  margin-top: 4px;
+}
+
+@media (min-width: 60rem) {
+  .tnb-stack ul {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* --- Reduced motion / print ------------------------------------------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .tnb-dia * {
+    transition: none !important;
+    animation: none !important;
+  }
+}

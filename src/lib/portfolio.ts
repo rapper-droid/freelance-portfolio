@@ -433,6 +433,41 @@ export const flow = [
   "成果物整理",
   "納品",
 ];
+
+/**
+ * The same ten steps, grouped into the four phases a client actually asks
+ * about. Ten flat items are accurate but hard to hold in mind; the phases
+ * are what makes the shape of a project graspable at a glance. The flat list
+ * stays canonical -- this is a view of it, not a replacement, and the
+ * step names below are the same strings.
+ */
+export const flowPhases = [
+  {
+    label: "相談・確認",
+    actor: "人" as const,
+    steps: [flow[0], flow[1]],
+    note: "作るものと必要な素材を先に確定します。",
+  },
+  {
+    label: "設計",
+    actor: "人" as const,
+    steps: [flow[2]],
+    note: "画面と構造を決めてから手を動かします。",
+  },
+  {
+    label: "制作・検証",
+    actor: "人" as const,
+    steps: [flow[3], flow[4], flow[5], flow[6], flow[7]],
+    note: "実装しながら確認し、共有して直します。",
+  },
+  {
+    label: "納品",
+    actor: "人" as const,
+    steps: [flow[8], flow[9]],
+    note: "使い始められる形にまとめて渡します。",
+  },
+];
+
 export const pricingNote =
   "参考価格・期間です。ページ数、機能、デザイン、素材、API・外部サービス、修正範囲で変動します。仕様と素材の確定後に正式なお見積もり・納期を提示します。";
 export const getProject = (slug: string) =>

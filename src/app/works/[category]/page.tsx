@@ -5,6 +5,7 @@ import { pageMetadata } from "@/lib/seo";
 import { Header, Footer } from "@/components/site";
 import { ProjectCard } from "@/components/project-card";
 import { SalesInfo, Process } from "@/components/sales";
+import { CategoryDiagram } from "@/components/category-diagram";
 import { Contact } from "@/components/contact";
 // Known paths are prerendered; unknown paths render the explicit notFound() boundary.
 export const generateStaticParams = () =>
@@ -69,6 +70,7 @@ export default async function CategoryPage({
             ))}
           </div>
         </section>
+        <CategoryDiagram id={c.id} />
         <SalesInfo category={c} />
         <Process />
         <Contact initialKind={c.name} />
