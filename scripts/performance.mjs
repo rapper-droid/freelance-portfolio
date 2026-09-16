@@ -35,6 +35,12 @@ try {
     "/projects/ec",
     "/projects/inbox",
     "/demos/booking",
+    "/demos/cafe",
+    "/demos/inbox",
+    "/demos/admin",
+    "/works/automation",
+    "/works/api",
+    "/works/qa",
   ];
   const requested = process.argv.slice(2);
   if (requested.some((route) => !routes.includes(route)))

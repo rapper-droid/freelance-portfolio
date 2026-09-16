@@ -68,7 +68,7 @@ RATE_LIMIT_SALT=<32 characters or more, server secret>
 
 公開と秘密設定のオーナー承認後、1通だけ実施します。
 
-1. `https://tsudowa.com/contact` を開く。
+1. `https://tsudowa.com/#contact` を開く。
 2. テスト用の実在する返信先、すべての必須項目、同意を入力する。
 3. 送信中表示、二重送信抑止、成功表示を確認する。
 4. `contact@tsudowa.com` の転送先で受信、迷惑メール、件名、本文、Reply-To、source、submission ID、timestampを確認する。
@@ -97,7 +97,7 @@ RATE_LIMIT_SALT=<32 characters or more, server secret>
 ```powershell
 npm.cmd run lint
 npm.cmd run typecheck
-npm.cmd run test:unit
+npm.cmd run test
 npm.cmd run build
 npm.cmd run test:e2e
 npm.cmd run qa:design

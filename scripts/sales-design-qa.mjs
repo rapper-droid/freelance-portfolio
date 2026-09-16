@@ -45,7 +45,7 @@ try {
       "/projects/ec",
       "/projects/inbox",
     ]) {
-      await page.goto(origin + route);
+      await page.goto(origin + route, { waitUntil: "networkidle" });
       await page.evaluate(() => document.fonts.ready);
       // Exercise the real scroll-reveal path before the full-page axe/capture.
       // content-visibility is an app optimization, never an exemption from QA.

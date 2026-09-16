@@ -1,0 +1,450 @@
+{
+  "at": "2026-09-16T19:59:37.193Z",
+  "origin": "http://127.0.0.1:3147",
+  "results": [
+    {
+      "route": "/",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/privacy",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/web",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/lp",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/coding",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/nextjs",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/responsive",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/improvement",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/ec",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/apps",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/api",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/automation",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/design",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/qa",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/cafe",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/cafe",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/saas",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/saas",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/ec",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/ec",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/automation",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/automation",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/booking",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/booking",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/improvement",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/improvement",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/creative",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/creative",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/qa",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/qa",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/csv",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/csv",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/inbox",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/inbox",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/admin",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/admin",
+      "width": 390,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/privacy",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/web",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/lp",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/coding",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/nextjs",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/responsive",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/improvement",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/ec",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/apps",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/api",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/automation",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/design",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/works/qa",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/cafe",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/cafe",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/saas",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/saas",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/ec",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/ec",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/automation",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/automation",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/booking",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/booking",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/improvement",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/improvement",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/creative",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/creative",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/qa",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/qa",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/csv",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/csv",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/inbox",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/inbox",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/projects/admin",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    },
+    {
+      "route": "/demos/admin",
+      "width": 1440,
+      "status": 200,
+      "violations": []
+    }
+  ]
+}

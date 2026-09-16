@@ -43,7 +43,11 @@ try {
     });
     page.on("pageerror", (e) => errors.push(e.message));
     for (const route of routes) {
-      const response = await page.goto(origin + route);
+      // Wait for hydration before QA eagerly decodes lazy images or changes
+      // content-visibility; mutating SSR attributes earlier creates false mismatches.
+      const response = await page.goto(origin + route, {
+        waitUntil: "networkidle",
+      });
       if (response?.status() !== 200)
         throw new Error(`${route}: ${response?.status()}`);
       await page.evaluate(() => {

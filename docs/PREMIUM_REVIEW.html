@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="ja">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>TSUDOWA — Before / After review</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      font-family: Inter, Arial, "Yu Gothic", sans-serif;
+      background: #100c08;
+      color: #f0e9e0;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+    }
+    header {
+      padding: 36px 4%;
+      border-bottom: 1px solid #443d32;
+    }
+    h1 {
+      font-size: clamp(28px, 4vw, 56px);
+      margin: 12px 0;
+      letter-spacing: -0.05em;
+    }
+    header p {
+      max-width: 70ch;
+      line-height: 1.8;
+      color: #c8bcab;
+    }
+    .kicker {
+      letter-spacing: 0.18em;
+      font-size: 11px;
+      color: #ffc16b;
+    }
+    a {
+      color: #ffc16b;
+    }
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: end;
+      padding: 24px 4%;
+      position: sticky;
+      top: 0;
+      background: #100c08ed;
+      backdrop-filter: blur(12px);
+      z-index: 2;
+      border-bottom: 1px solid #443d32;
+    }
+    label {
+      display: grid;
+      gap: 7px;
+      font-size: 12px;
+    }
+    select {
+      min-height: 44px;
+      background: #231d17;
+      color: inherit;
+      border: 1px solid #655742;
+      border-radius: 4px;
+      font: inherit;
+      padding: 8px 14px;
+    }
+    a:focus-visible,
+    select:focus-visible {
+      outline: 3px solid #ffc16b;
+      outline-offset: 4px;
+    }
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      padding: 28px 4%;
+      align-items: start;
+    }
+    figure {
+      margin: 0;
+      min-width: 0;
+      background: #221a13;
+    }
+    figcaption {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px;
+      color: #ddcdb7;
+      font-size: 12px;
+      border-top: 3px solid #615546;
+    }
+    figure:last-child figcaption {
+      border-color: #ffc16b;
+    }
+    img {
+      width: 100%;
+      height: auto;
+      display: block;
+    }
+    .notes {
+      padding: 12px 4% 44px;
+      color: #c8bcab;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    .notes h2 {
+      color: #f0e9e0;
+      font-size: 20px;
+    }
+    .mobile img {
+      max-width: 390px;
+      margin: auto;
+    }
+    .mobile figure {
+      background: #16110d;
+    }
+    button {
+      font: inherit;
+    }
+    .hint {
+      font-size: 12px;
+      margin-left: auto;
+      color: #c8bcab;
+    }
+    @media (max-width: 700px) {
+      .compare {
+        gap: 10px;
+        padding: 20px 12px;
+      }
+      figcaption {
+        font-size: 10px;
+        padding: 10px;
+        display: grid;
+        gap: 5px;
+      }
+      .hint {
+        margin-left: 0;
+      }
+      nav {
+        position: static;
+      }
+      header {
+        padding: 25px 16px;
+      }
+      header p {
+        font-size: 13px;
+      }
+    }
+  </style>
+  <header>
+    <span class="kicker">TSUDOWA / OWNER REVIEW</span>
+    <h1>思想を、触れる完成形へ。</h1>
+    <p>
+      今回の視覚品質アップデートを、同じページ・同じ画面幅で比較できます。すべてローカルの記録です。push・merge・deployは行っていません。写真は架空店舗向けの新規AI生成です。
+    </p>
+    <a href="http://127.0.0.1:3147/" target="_blank" rel="noopener"
+      >仕上げ後のローカルサイトを開く ↗</a
+    >
+  </header>
+  <nav aria-label="比較する画面">
+    <label
+      >PAGE<select id="route">
+        <option value="home">TOP — TSUDOWA</option>
+        <option value="works">WORKS — 制作例一覧</option>
+        <option value="works-web">Web制作</option>
+        <option value="works-automation">業務自動化</option>
+        <option value="demos-cafe">KISSA — カフェ</option>
+        <option value="demos-inbox">SMART INBOX</option>
+        <option value="demos-admin">ADMIN DASHBOARD</option>
+        <option value="demos-booking">DAYBOOK — 予約</option>
+      </select></label
+    ><label
+      >VIEWPORT<select id="width">
+        <option value="1440">Desktop / 1440 px</option>
+        <option value="390">Mobile / 390 px</option>
+      </select></label
+    ><label
+      >CAPTURE<select id="extent">
+        <option value="">最初の画面</option>
+        <option value="-full">ページ全体</option>
+      </select></label
+    ><span class="hint">画像を開くと原寸で確認できます</span>
+  </nav>
+  <main>
+    <div id="comparison" class="compare">
+      <figure>
+        <figcaption><b>BEFORE</b><span>作業前 b41cf16</span></figcaption>
+        <a id="beforeLink"><img id="before" alt="変更前の画面" /></a>
+      </figure>
+      <figure>
+        <figcaption><b>AFTER</b><span>Premium refinement</span></figcaption>
+        <a id="afterLink"><img id="after" alt="変更後の画面" /></a>
+      </figure>
+    </div>
+    <div class="notes">
+      <h2>重点的に見てほしいところ</h2>
+      <p id="note"></p>
+      <p>
+        TOP：親ブランドと制作窓口の関係。KISSA：写真の自然さ、メニュー、スマホでの店らしさ。業務ツール：実データと連動する概況、一覧の読みやすさ、操作の手触り。
+      </p>
+      <p>
+        beforeは変更前の開発サーバー、afterは仕上げ後のローカル本番用ビルドで撮影。撮影時はReduced
+        Motion。写真の権利・出典・生成方法と再現スクリプトはrepository内の
+        docs/IMAGE_SOURCES.md に記録しています。
+      </p>
+      <p>
+        最終採否：OWNER
+        REVIEW待ち。実メールの到達、production設定、外部サービスの稼働確認はこの比較に含みません。
+      </p>
+    </div>
+  </main>
+  <script>
+    const route = document.querySelector("#route"),
+      width = document.querySelector("#width"),
+      extent = document.querySelector("#extent");
+    const notes = {
+      home: "写真と実装UIを並べ、抽象的だった親ブランドの思想を「どんなものが生まれるか」へつなげました。",
+      works:
+        "カフェと業務ツールの異なる完成形を先に見せ、カテゴリと参考料金への導線を整理しました。",
+      "works-web":
+        "暗い装飾背景から、店の世界観が伝わる実物イメージへ。商品情報は変更していません。",
+      "works-automation":
+        "受付・分類・人の判断を、読めるHTML図版として構成しました。ライブの外部API接続を示すものではありません。",
+      "demos-cafe":
+        "自然光の写真、明朝体、紙のメニューのような一覧。Food/Coffeeで写真も切り替わり、スマホでは写真を前へ出しました。",
+      "demos-inbox":
+        "実際の対応状況から概況を集計。説明は開閉式に整理し、作業画面を手前へ出しました。",
+      "demos-admin":
+        "追加・編集・削除に追従する顧客別売上と合計。架空データであることを明記し、見せかけの成長グラフは追加していません。",
+      "demos-booking":
+        "7日間の予約件数と日付選択を連動。マウスだけでなくキーボードでも操作できます。",
+    };
+    function update() {
+      for (const phase of ["before", "after"]) {
+        const file = `screenshots/premium/${phase}/${route.value}-${width.value}${extent.value}.png`;
+        document.querySelector("#" + phase).src = file;
+        document.querySelector("#" + phase + "Link").href = file;
+      }
+      document
+        .querySelector("#comparison")
+        .classList.toggle("mobile", width.value === "390");
+      document.querySelector("#note").textContent = notes[route.value];
+    }
+    route.addEventListener("change", update);
+    width.addEventListener("change", update);
+    extent.addEventListener("change", update);
+    update();
+  </script>
+</html>

@@ -1,0 +1,599 @@
+{
+  "at": "2026-09-16T19:51:24.321Z",
+  "phase": "after",
+  "origin": "http://127.0.0.1:3147",
+  "report": [
+    {
+      "route": "/",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "集まり、つくり、次へ広がる | TSUDOWA"
+    },
+    {
+      "route": "/works",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "全11作品・12カテゴリから制作例を探す | TSUDOWA"
+    },
+    {
+      "route": "/privacy",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "プライバシー | TSUDOWA"
+    },
+    {
+      "route": "/works/web",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "Webサイト制作の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/lp",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "LP制作の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/coding",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "HTML / CSS / JavaScriptの制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/nextjs",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "TypeScript / Next.jsの制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/responsive",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "レスポンシブ対応の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/improvement",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "既存サイト修正 / 改善の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/ec",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "ECサイト / 商品ページの制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/apps",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "Webアプリ / 管理画面の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/api",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "API / 外部サービス連携の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/automation",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "AI業務自動化の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/design",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "デザイン / コンテンツ制作の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/qa",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "テスト / QA / 納品の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/projects/cafe",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "KISSA — 高級カフェ公式Webサイト | TSUDOWA"
+    },
+    {
+      "route": "/projects/saas",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "FLOWSTATE — SaaSサービスLP | TSUDOWA"
+    },
+    {
+      "route": "/projects/ec",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "FORME — EC商品販売LP | TSUDOWA"
+    },
+    {
+      "route": "/projects/automation",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "RELAY — AI問い合わせ自動化システム | TSUDOWA"
+    },
+    {
+      "route": "/projects/booking",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "DAYBOOK — 予約管理ダッシュボード | TSUDOWA"
+    },
+    {
+      "route": "/projects/improvement",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "REFINE — Webサイト改善 Before / After | TSUDOWA"
+    },
+    {
+      "route": "/projects/creative",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "STILL / STUDIO — SNS / 広告クリエイティブ集 | TSUDOWA"
+    },
+    {
+      "route": "/projects/qa",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "SHIP / CHECK — QA / 納品工程DEMO | TSUDOWA"
+    },
+    {
+      "route": "/projects/csv",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "CSV AUTOMATOR — CSVデータ加工ツール | TSUDOWA"
+    },
+    {
+      "route": "/projects/inbox",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "SMART INBOX — 問い合わせ管理ツール | TSUDOWA"
+    },
+    {
+      "route": "/projects/admin",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "ADMIN DASHBOARD — 顧客管理ダッシュボード | TSUDOWA"
+    },
+    {
+      "route": "/demos/cafe",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "KISSA | 高級カフェ公式Webサイト DEMO | TSUDOWA"
+    },
+    {
+      "route": "/demos/saas",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "FLOWSTATE | SaaSサービスLP DEMO | TSUDOWA"
+    },
+    {
+      "route": "/demos/ec",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "FORME | EC商品販売LP DEMO | TSUDOWA"
+    },
+    {
+      "route": "/demos/automation",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "RELAY | AI問い合わせ自動化システム DEMO | TSUDOWA"
+    },
+    {
+      "route": "/demos/booking",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "DAYBOOK | 予約管理ダッシュボード DEMO | TSUDOWA"
+    },
+    {
+      "route": "/demos/improvement",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "REFINE | Webサイト改善 Before / After DEMO | TSUDOWA"
+    },
+    {
+      "route": "/demos/creative",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "STILL / STUDIO | SNS / 広告クリエイティブ集 DEMO | TSUDOWA"
+    },
+    {
+      "route": "/demos/qa",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "SHIP / CHECK | QA / 納品工程DEMO DEMO | TSUDOWA"
+    },
+    {
+      "route": "/demos/csv",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "CSV AUTOMATOR | CSV加工デモ | TSUDOWA"
+    },
+    {
+      "route": "/demos/inbox",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "SMART INBOX | 問い合わせ整理デモ | TSUDOWA"
+    },
+    {
+      "route": "/demos/admin",
+      "width": 1440,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "ADMIN DASHBOARD | 顧客管理デモ | TSUDOWA"
+    },
+    {
+      "route": "/",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "集まり、つくり、次へ広がる | TSUDOWA"
+    },
+    {
+      "route": "/works",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "全11作品・12カテゴリから制作例を探す | TSUDOWA"
+    },
+    {
+      "route": "/privacy",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "プライバシー | TSUDOWA"
+    },
+    {
+      "route": "/works/web",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "Webサイト制作の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/lp",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "LP制作の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/coding",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "HTML / CSS / JavaScriptの制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/nextjs",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "TypeScript / Next.jsの制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/responsive",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "レスポンシブ対応の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/improvement",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "既存サイト修正 / 改善の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/ec",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "ECサイト / 商品ページの制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/apps",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "Webアプリ / 管理画面の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/api",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "API / 外部サービス連携の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/automation",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "AI業務自動化の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/design",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "デザイン / コンテンツ制作の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/works/qa",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "テスト / QA / 納品の制作・納品 | TSUDOWA"
+    },
+    {
+      "route": "/projects/cafe",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "KISSA — 高級カフェ公式Webサイト | TSUDOWA"
+    },
+    {
+      "route": "/projects/saas",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "FLOWSTATE — SaaSサービスLP | TSUDOWA"
+    },
+    {
+      "route": "/projects/ec",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "FORME — EC商品販売LP | TSUDOWA"
+    },
+    {
+      "route": "/projects/automation",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "RELAY — AI問い合わせ自動化システム | TSUDOWA"
+    },
+    {
+      "route": "/projects/booking",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "DAYBOOK — 予約管理ダッシュボード | TSUDOWA"
+    },
+    {
+      "route": "/projects/improvement",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "REFINE — Webサイト改善 Before / After | TSUDOWA"
+    },
+    {
+      "route": "/projects/creative",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "STILL / STUDIO — SNS / 広告クリエイティブ集 | TSUDOWA"
+    },
+    {
+      "route": "/projects/qa",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "SHIP / CHECK — QA / 納品工程DEMO | TSUDOWA"
+    },
+    {
+      "route": "/projects/csv",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "CSV AUTOMATOR — CSVデータ加工ツール | TSUDOWA"
+    },
+    {
+      "route": "/projects/inbox",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "SMART INBOX — 問い合わせ管理ツール | TSUDOWA"
+    },
+    {
+      "route": "/projects/admin",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "ADMIN DASHBOARD — 顧客管理ダッシュボード | TSUDOWA"
+    },
+    {
+      "route": "/demos/cafe",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "KISSA | 高級カフェ公式Webサイト DEMO | TSUDOWA"
+    },
+    {
+      "route": "/demos/saas",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "FLOWSTATE | SaaSサービスLP DEMO | TSUDOWA"
+    },
+    {
+      "route": "/demos/ec",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "FORME | EC商品販売LP DEMO | TSUDOWA"
+    },
+    {
+      "route": "/demos/automation",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "RELAY | AI問い合わせ自動化システム DEMO | TSUDOWA"
+    },
+    {
+      "route": "/demos/booking",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "DAYBOOK | 予約管理ダッシュボード DEMO | TSUDOWA"
+    },
+    {
+      "route": "/demos/improvement",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "REFINE | Webサイト改善 Before / After DEMO | TSUDOWA"
+    },
+    {
+      "route": "/demos/creative",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "STILL / STUDIO | SNS / 広告クリエイティブ集 DEMO | TSUDOWA"
+    },
+    {
+      "route": "/demos/qa",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "SHIP / CHECK | QA / 納品工程DEMO DEMO | TSUDOWA"
+    },
+    {
+      "route": "/demos/csv",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "CSV AUTOMATOR | CSV加工デモ | TSUDOWA"
+    },
+    {
+      "route": "/demos/inbox",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "SMART INBOX | 問い合わせ整理デモ | TSUDOWA"
+    },
+    {
+      "route": "/demos/admin",
+      "width": 390,
+      "status": 200,
+      "errors": [],
+      "overflow": false,
+      "title": "ADMIN DASHBOARD | 顧客管理デモ | TSUDOWA"
+    }
+  ]
+}

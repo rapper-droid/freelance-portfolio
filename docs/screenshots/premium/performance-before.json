@@ -1,0 +1,118 @@
+{
+  "measuredAt": "2026-09-16T17:48:10.356Z",
+  "note": "Local production build; Lighthouse mobile simulated throttling. Not field Core Web Vitals.",
+  "results": [
+    {
+      "route": "/",
+      "mobile": true,
+      "scores": {
+        "performance": 80,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2871.3550000000005,
+      "cls": 0,
+      "tbtMs": 626.1870000000001,
+      "jsBytes": 160255
+    },
+    {
+      "route": "/works",
+      "mobile": true,
+      "scores": {
+        "performance": 90,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2856.114375,
+      "cls": 0,
+      "tbtMs": 258.4999999999998,
+      "jsBytes": 167651
+    },
+    {
+      "route": "/works/lp",
+      "mobile": true,
+      "scores": {
+        "performance": 83,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2442.5176500000002,
+      "cls": 0,
+      "tbtMs": 580.82745,
+      "jsBytes": 167651
+    },
+    {
+      "route": "/projects/cafe",
+      "mobile": true,
+      "scores": {
+        "performance": 92,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2941.3879,
+      "cls": 0,
+      "tbtMs": 184.5,
+      "jsBytes": 185955
+    },
+    {
+      "route": "/projects/saas",
+      "mobile": true,
+      "scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2800.6035,
+      "cls": 0,
+      "tbtMs": 72,
+      "jsBytes": 185955
+    },
+    {
+      "route": "/projects/ec",
+      "mobile": true,
+      "scores": {
+        "performance": 95,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2802.827625000001,
+      "cls": 0,
+      "tbtMs": 129.5,
+      "jsBytes": 185955
+    },
+    {
+      "route": "/projects/inbox",
+      "mobile": true,
+      "scores": {
+        "performance": 98,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2196.82525,
+      "cls": 0,
+      "tbtMs": 85.63494999999989,
+      "jsBytes": 174212
+    },
+    {
+      "route": "/demos/booking",
+      "mobile": true,
+      "scores": {
+        "performance": 96,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2822.19725,
+      "cls": 0,
+      "tbtMs": 27.5,
+      "jsBytes": 178559
+    }
+  ]
+}

@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-16T18:03:11.641Z",
+  "checkedAt": "2026-09-16T20:08:41.612Z",
   "routes": 37,
   "links": [
     {
@@ -28,6 +28,14 @@
     },
     {
       "path": "/#contact",
+      "status": 200
+    },
+    {
+      "path": "/projects/cafe",
+      "status": 200
+    },
+    {
+      "path": "/projects/inbox",
       "status": 200
     },
     {
@@ -71,10 +79,6 @@
       "status": 200
     },
     {
-      "path": "/projects/cafe",
-      "status": 200
-    },
-    {
       "path": "/demos/cafe",
       "status": 200
     },
@@ -92,10 +96,6 @@
     },
     {
       "path": "/demos/ec",
-      "status": 200
-    },
-    {
-      "path": "/projects/inbox",
       "status": 200
     },
     {
@@ -120,6 +120,10 @@
     },
     {
       "path": "/works#main",
+      "status": 200
+    },
+    {
+      "path": "/works#works",
       "status": 200
     },
     {
