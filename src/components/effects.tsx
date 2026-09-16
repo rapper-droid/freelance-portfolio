@@ -1,5 +1,6 @@
 "use client";
 import { useEffect } from "react";
+import { usePathname } from "next/navigation";
 
 /**
  * TSUDOWA signature effects runtime.
@@ -16,6 +17,7 @@ import { useEffect } from "react";
  * someone through.
  */
 export function Effects() {
+  const pathname = usePathname();
   useEffect(() => {
     const root = document.documentElement;
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
@@ -111,7 +113,8 @@ export function Effects() {
         stopPointer();
       } else {
         startReveal();
-        startPointer();
+        if (finePointer.matches) startPointer();
+        else stopPointer();
       }
     };
 
@@ -127,7 +130,7 @@ export function Effects() {
       root.removeAttribute("data-reveal-ready");
       stopPointer();
     };
-  }, []);
+  }, [pathname]);
 
   return null;
 }

@@ -14,7 +14,7 @@ export default defineConfig({
     screenshot: "only-on-failure",
   },
   webServer: {
-    command: `npm run start -- --port ${e2ePort}`,
+    command: `npm run start -- --hostname 127.0.0.1 --port ${e2ePort}`,
     url: e2eOrigin,
     reuseExistingServer: false,
     timeout: 60000,
