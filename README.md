@@ -1,20 +1,20 @@
-# TETSU / WORKS — Final Art Direction
+# TSUDOWA — Parent Brand / TETSU WORKS
 
-最終アートディレクション: `codex/portfolio-final-art-direction`。巨大Editorial Hero、FigmaのTWブランドマーク、罫線主体のCapabilities、作品別のSelected Works、営業FAQ、ブランドFooterを実装。main・Netlify設定・本番環境変数は変更せず、公開反映前のブランチとして提供します。
+TSUDOWAは、人・技術・作品・事業が集まり、つくり、次へ広がる親ブランドです。現在の受託制作はTETSU WORKS、プロダクト・ゲーム領域はTSUKUTTA LABとして分離し、将来の事業を包含できる構造にしています。
 
-[最終デザイン実装](docs/FINAL_ART_IMPLEMENTATION.md) / [最終QA・公開前の確認](docs/FINAL_ART_QA.md)。従来の公開先は https://tetsu-works.netlify.app （過去の確認記録）。今回の作業では本番を更新していません。
+[TSUDOWA移行記録](docs/TSUDOWA_MIGRATION.md) / [Visual Audit](docs/TSUDOWA_VISUAL_AUDIT.md) / [Art Direction](docs/ART_DIRECTION.md) / [Brand Mark](docs/BRAND_ICON.md) / [問い合わせ](docs/CONTACT_EMAIL.md)。正式domainは `https://tsudowa.com`。このブランチではproduction merge / deploy / DNS変更を行いません。
 
 [ページ別ビジュアル・素材一覧](docs/VISUAL_ASSETS.md) / [ビジュアル更新QA](docs/VISUAL_RELEASE_QA.md)
 
 [従来のFigma対応表](docs/FIGMA_SALES_UI.md) / [従来のQA記録](docs/RELEASE_QA.md) / [公開手順](docs/PRODUCTION.md)
 
-トップは代表4作品。全11作品は `/works`、既存12カテゴリ・全デモURLを維持。KISSA / FLOWSTATE / FORME / SMART INBOXの詳細に、実画面・価格・納期・納品物とメッセージ進行を整理しています。
+TOPは親ブランド構造を示した後、TETSU WORKSの代表4作品へ接続します。全11作品は `/works`、既存12カテゴリ・全デモURLを維持。KISSA / FLOWSTATE / FORME / SMART INBOXの実画面・価格・納期・納品物を確認できます。
 
 AIを活用して制作を効率化しながら、人が使える完成品まで責任を持って仕上げる。その姿勢を、設計・制作・実装・テスト・納品の具体例で伝える営業用Webアプリです。クラウドワークス・ランサーズ等の応募では、依頼内容に合うカテゴリURLを1本案内できます。
 
 **全作品は SELF-INITIATED DEMO / 自主制作。** 架空企業・商品・顧客データは実案件や成果実績ではありません。相談文をコピーして案件サイト内で進められます。直接相談用のメールフォームは本番設定済みの場合に表示します。
 
-![WORKS desktop](docs/screenshots/sales-ui/home-1440-firstview.png)
+![TSUDOWA desktop](docs/screenshots/sales-ui/home-1440-firstview.png)
 
 ## 案件別URL
 
@@ -115,9 +115,9 @@ E2EはChromiumのDesktop 1440×1000 / Tablet 768×1024 / Mobile 390×664で実�
 
 ## 本番公開と外部サービス
 
-最新の設定手順は [PRODUCTION.md](docs/PRODUCTION.md)、価格比較は [EXTERNAL_SERVICES.md](docs/EXTERNAL_SERVICES.md)。Netlify Freeを選択し、`netlify.toml` と公開用環境変数検査を追加しています。Node.js 24 / `npm ci` / `npm run build:production`。独自ドメインは後から接続可能です。
+最新の設定手順は [PRODUCTION.md](docs/PRODUCTION.md)、価格比較は [EXTERNAL_SERVICES.md](docs/EXTERNAL_SERVICES.md)。Netlify Freeを選択し、`netlify.toml` と公開用環境変数検査を追加しています。Node.js 24 / `npm ci` / `npm run build:production`。正式domainはtsudowa.comです。コードは公開準備済みにしますが、OWNER確認前にdeployやDNS変更は行いません。
 
-`.env.example`を参照し、秘密値は公開先のサーバー環境変数に設定。NEXT_PUBLIC_SITE_URLを正規HTTPSオリジンにし、metadata / canonical / OGP / sitemap / robotsへ反映します。セキュリティヘッダー、404、React/global error境界を実装。
+`.env.example`を参照し、秘密値は公開先のサーバー環境変数に設定。NEXT_PUBLIC_SITE_URLは`https://tsudowa.com`を使用し、metadata / canonical / OGP / sitemap / robotsへ反映します。セキュリティヘッダー、404、React/global error境界を実装。
 
 問い合わせは既存の相談文コピーに加え、設定済みの場合だけ直接メール送信を表示。Resend / Turnstile / 共有Redis上限をサーバーで検証します。未設定時は準備中、障害時は失敗と表示して入力を保持します。メールアドレス・本文は通知以外の分析/障害監視へ送信しません。
 
