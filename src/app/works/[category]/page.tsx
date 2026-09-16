@@ -1,4 +1,5 @@
 ﻿import Link from "next/link";
+import Image from "next/image";
 import { notFound } from "next/navigation";
 import { categories, getCategory, projectsFor } from "@/lib/portfolio";
 import { pageMetadata } from "@/lib/seo";
@@ -35,6 +36,20 @@ export default async function CategoryPage({
       <Header />
       <main id="main" className="sales-hub sales-ui" data-category={c.id}>
         <section className="hub-section category-intro">
+          {/* Atmosphere, not information: the category is named in the h1
+              directly over it. Decorative, so alt is empty and it is hidden
+              from assistive tech. Fixed aspect box so nothing reflows when
+              it decodes. */}
+          <div className="category-kv" aria-hidden="true">
+            <Image
+              src={`/visuals/kv-${c.id}.webp`}
+              alt=""
+              width={1200}
+              height={620}
+              sizes="100vw"
+              priority
+            />
+          </div>
           <Link className="back" href="/works">
             ← すべての制作カテゴリ
           </Link>

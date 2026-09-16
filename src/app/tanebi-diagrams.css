@@ -439,3 +439,53 @@
     --i: 3;
   }
 }
+
+/* =====================================================================
+   CATEGORY KEY VISUAL
+
+   Gives each /works/* page a focal point instead of opening on a line of
+   text. The image sits behind the intro at low opacity with a scrim, so it
+   sets a mood without ever competing with the heading over it — the
+   headline stays at full contrast against the page ground, not against the
+   picture.
+   ===================================================================== */
+
+.category-intro {
+  position: relative;
+  isolation: isolate;
+}
+.category-kv {
+  position: absolute;
+  inset: -1px 0 auto;
+  z-index: -1;
+  pointer-events: none;
+  /* A fixed height, not an aspect ratio. With aspect-ratio plus max-height
+     the width was being derived from the capped height and the band only
+     covered 890px of a 1204px section. Height is still explicit, so the box
+     is reserved and decoding cannot shift text. */
+  height: clamp(220px, 34vw, 460px);
+  overflow: hidden;
+  /* Fades out before the copy starts, which is what keeps contrast intact. */
+  mask-image: linear-gradient(#000 0%, #000 38%, transparent 88%);
+}
+.category-kv img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  opacity: 0.55;
+}
+
+@media (max-width: 47.99rem) {
+  .category-kv {
+    height: clamp(180px, 46vw, 300px);
+  }
+  .category-kv img {
+    opacity: 0.4;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .category-kv img {
+    opacity: 0.4;
+  }
+}
