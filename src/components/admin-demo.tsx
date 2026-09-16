@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
+import { RevenueOverview } from "./operations-overview";
 import {
   Users,
   Search,
@@ -147,6 +148,7 @@ export function AdminDemo() {
           {storageError}
         </p>
       )}
+      <RevenueOverview customers={data.customers} />
       <div className="stats-grid">
         <div className="stat">
           <span>顧客数</span>

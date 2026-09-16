@@ -12,7 +12,7 @@ const direction: Record<
   cafe: {
     line: "A quiet moment, online.",
     detail: "COFFEE / SPACE / CRAFT",
-    image: "/visuals/kissa-interior-v1.webp",
+    image: "/visuals/kissa-space-v2.webp",
     alt: "KISSAの世界観：自然光と木の家具に囲まれた架空カフェ",
   },
   saas: {
@@ -106,7 +106,7 @@ export function ProjectFeature({
             className="feature-detail-image"
             src={
               p.slug === "cafe"
-                ? "/visuals/kissa-coffee-v1.webp"
+                ? "/visuals/kissa-ritual-v2.webp"
                 : p.slug === "ec"
                   ? "/visuals/forme-texture-v1.webp"
                   : previewPath(p.slug, "mobile")

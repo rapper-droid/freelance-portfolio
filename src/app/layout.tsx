@@ -15,6 +15,7 @@ import "./works-diagrams.css";
 import "./cafe-demo.css";
 import "./tsudowa-effects.css";
 import "./tsudowa-brand.css";
+import "./premium.css";
 
 const inter = localFont({
   src: "../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",

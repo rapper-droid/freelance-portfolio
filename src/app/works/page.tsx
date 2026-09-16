@@ -1,4 +1,7 @@
 import { Header, Footer } from "@/components/site";
+import Link from "next/link";
+import { ArrowRight } from "lucide-react";
+import { WorksExhibit, DeliveryRibbon } from "@/components/premium-exhibits";
 import { PortfolioGrid } from "@/components/portfolio-grid";
 import { ProjectCard } from "@/components/project-card";
 import { Contact } from "@/components/contact";
@@ -15,16 +18,26 @@ export default function AllWorks() {
       <Header />
       <main id="main" className="sales-hub sales-ui">
         <section className="hub-section catalogue-intro">
-          <span className="eyebrow">ALL WORKS / 11 SELF-INITIATED DEMOS</span>
-          <h1>
-            依頼したい仕事から、
-            <br />
-            完成形を見つける。
-          </h1>
-          <p>
-            12カテゴリで絞り込み、制作例の詳細・操作デモ・参考料金をご確認ください。
-          </p>
+          <div className="catalogue-copy">
+            <span className="works-byline">
+              TETSU WORKS / CLIENT SERVICES BY TSUDOWA
+            </span>
+            <span className="eyebrow">ALL WORKS / 11 SELF-INITIATED DEMOS</span>
+            <h1>
+              依頼したい仕事から、
+              <br />
+              完成形を見つける。
+            </h1>
+            <p>
+              12カテゴリで絞り込み、制作例の詳細・操作デモ・参考料金をご確認ください。
+            </p>
+            <Link href="#works" className="button primary">
+              制作例から探す <ArrowRight size={16} />
+            </Link>
+          </div>
+          <WorksExhibit />
         </section>
+        <DeliveryRibbon />
         <PortfolioGrid
           items={projects.map(({ slug, categories }) => ({ slug, categories }))}
           categoryOptions={categories.map(({ id, name }) => ({ id, name }))}

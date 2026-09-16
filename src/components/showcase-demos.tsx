@@ -124,10 +124,10 @@ export function CafeDemo() {
         </div>
         <div className="cafe-hero-art">
           <Image
-            src="/visuals/kissa-coffee-v1.webp"
-            alt="ラテアートのコーヒーと焼き菓子、奥に温かなカフェのカウンター"
-            width={1200}
-            height={800}
+            src="/visuals/kissa-ritual-v2.webp"
+            alt="窓辺の木のテーブルに置かれた、ラテアートの一杯とクロワッサン"
+            width={1440}
+            height={960}
             sizes="(max-width: 700px) 90vw, 45vw"
             priority
           />
@@ -167,10 +167,38 @@ export function CafeDemo() {
             ))}
           </div>
         </div>
-        <div className="menu-grid">
-          {menu.map((item) => (
-            <MenuCard key={item.name} item={item} />
-          ))}
+        <div className="cafe-menu-layout">
+          <figure className="cafe-menu-editorial">
+            <Image
+              key={kind}
+              src={
+                kind === "Coffee"
+                  ? "/visuals/kissa-drip-v2.webp"
+                  : "/visuals/kissa-food-v2.webp"
+              }
+              alt={
+                kind === "Coffee"
+                  ? "陶器のドリッパーで一杯ずつ淹れるコーヒー"
+                  : "厚切りバタートーストと、卵のサンドイッチ"
+              }
+              width={1440}
+              height={960}
+              sizes="(max-width: 700px) 90vw, 40vw"
+            />
+            <figcaption>
+              <span>
+                {kind === "Coffee"
+                  ? "BREWED, ONE CUP AT A TIME."
+                  : "SOMETHING WARM, SOMETHING GOOD."}
+              </span>
+              <span>KISSA MENU</span>
+            </figcaption>
+          </figure>
+          <div className="menu-grid">
+            {menu.map((item) => (
+              <MenuCard key={item.name} item={item} />
+            ))}
+          </div>
         </div>
         <p className="demo-fineprint">
           架空店舗のメニュー・税込想定価格です。店舗営業・飲食販売は行っていません。
@@ -188,8 +216,22 @@ export function CafeDemo() {
             <br />
             KISSAで過ごす時間の一部だと思っています。
           </p>
+          <div className="cafe-pick-details">
+            <div>
+              <b>{featured.name}</b>
+              <small>{featured.jp}</small>
+            </div>
+            <span>{yen(featured.price)}</span>
+          </div>
         </div>
-        <MenuCard item={featured} large />
+        <Image
+          className="cafe-pick-photo"
+          src="/visuals/kissa-drip-v2.webp"
+          alt="おすすめのハンドドリップ。陶器のドリッパーとコーヒーサーバー"
+          width={1440}
+          height={960}
+          sizes="(max-width: 700px) 90vw, 45vw"
+        />
       </section>
 
       <section className="cafe-space" aria-labelledby="cafe-space-h">
@@ -198,10 +240,10 @@ export function CafeDemo() {
         <div className="cafe-space-grid">
           <figure className="cafe-space-main">
             <Image
-              src="/visuals/kissa-interior-v1.webp"
+              src="/visuals/kissa-space-v2.webp"
               alt="自然光が差し込む、木の家具と落ち着いたカウンターの店内"
-              width={1200}
-              height={800}
+              width={1440}
+              height={960}
               sizes="(max-width: 700px) 100vw, 60vw"
               loading="lazy"
             />
@@ -209,14 +251,14 @@ export function CafeDemo() {
           </figure>
           <figure>
             <Image
-              src="/visuals/kissa-coffee-v1.webp"
-              alt="カウンターに置かれた一杯のコーヒーと焼き菓子"
-              width={1200}
-              height={800}
+              src="/visuals/kissa-food-v2.webp"
+              alt="木のテーブルで楽しむ、トーストとサンドイッチの軽食"
+              width={1440}
+              height={960}
               sizes="(max-width: 700px) 100vw, 35vw"
               loading="lazy"
             />
-            <figcaption>カウンター</figcaption>
+            <figcaption>ひと休みの、軽食</figcaption>
           </figure>
         </div>
         <p className="demo-fineprint">
@@ -758,6 +800,24 @@ export function BookingDemo() {
         <h2>今日の予定を、心地よく。</h2>
         <p>2026年9月18日〜24日の架空予約。変更はこの画面内のみです。</p>
       </div>
+      <nav className="booking-week" aria-label="表示週">
+        {[18, 19, 20, 21, 22, 23, 24].map((day, index) => (
+          <button
+            key={day}
+            aria-label={`9月${day}日を表示`}
+            aria-pressed={date === `2026-09-${day}`}
+            onClick={() => setDate(`2026-09-${day}`)}
+          >
+            <span>
+              {["FRI", "SAT", "SUN", "MON", "TUE", "WED", "THU"][index]}
+            </span>
+            <b>{day}</b>
+            <small>
+              {rows.filter((row) => row.date === `2026-09-${day}`).length}件
+            </small>
+          </button>
+        ))}
+      </nav>
       <div className="booking-toolbar">
         <label>
           表示日

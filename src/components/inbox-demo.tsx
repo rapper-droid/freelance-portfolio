@@ -1,5 +1,5 @@
 "use client";
-import { WorkflowVisual } from "./project-visuals";
+import { OperationsOverview } from "./operations-overview";
 import { useState } from "react";
 import { Inbox, Search, Sparkles, Copy, RotateCcw } from "lucide-react";
 import { tickets, classify, replyDraft, type Ticket } from "@/lib/inbox";
@@ -56,7 +56,13 @@ export function InboxDemo() {
           <RotateCcw size={14} /> リセット
         </button>
       </div>
-      <WorkflowVisual />
+      <OperationsOverview
+        name="今日の対応に、集中する。"
+        description="未対応から確認し、返信の下書きまで一つの流れで。"
+        total={items.length}
+        completed={items.filter((item) => item.status === "完了").length}
+        pending={items.filter((item) => item.status === "未対応").length}
+      />
       <div className="stats-grid inbox-stats">
         {["すべて", "未対応", "対応中", "完了"].map((s) => (
           <button

@@ -2,13 +2,13 @@ import Link from "next/link";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { Header, Footer } from "@/components/site";
 import { Contact } from "@/components/contact";
+import { HeroExhibit } from "@/components/premium-exhibits";
 import { ProjectFeature } from "@/components/project-feature";
 import { FAQ } from "@/components/faq";
 import { Process } from "@/components/sales";
 import { Delivery, MessageOnly } from "@/components/sales-sections";
 import {
   BrandArchitecture,
-  BrandOrbit,
   WorksBridge,
 } from "@/components/brand-architecture";
 import { pricingNote } from "@/lib/portfolio";
@@ -53,7 +53,7 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <BrandOrbit />
+          <HeroExhibit />
           <div className="hero-colophon">
             <span>TSUDOWA / GATHER · BUILD · EXPAND</span>
             <span>TETSU WORKS / TSUKUTTA LAB / NEXT</span>

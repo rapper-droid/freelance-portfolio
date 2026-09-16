@@ -96,7 +96,7 @@ export function DemoShell({
   return (
     <>
       <Header />
-      <main id="main" className="demo-page">
+      <main id="main" className="demo-page workbench-page">
         <Link href="/#works" className="back">
           <ArrowLeft size={15} /> 制作デモに戻る
         </Link>
@@ -108,19 +108,22 @@ export function DemoShell({
           </div>
           <span className="pill">自主制作デモ</span>
         </div>
-        <p className="demo-description">{description}</p>
-        <Link
-          className="text-link"
-          href={`/projects/${({ "01": "csv", "02": "inbox", "03": "admin" } as Record<string, string>)[number] ?? "qa"}`}
-        >
-          制作概要・参考料金・納品物を見る ↗
-        </Link>
-        <div className="feature-tags">
-          {features.map((feature) => (
-            <span key={feature}>{feature}</span>
-          ))}
-          <span>Next.js / TypeScript</span>
-        </div>
+        <details className="demo-context">
+          <summary>このデモでできること・制作概要</summary>
+          <p className="demo-description">{description}</p>
+          <Link
+            className="text-link"
+            href={`/projects/${({ "01": "csv", "02": "inbox", "03": "admin" } as Record<string, string>)[number] ?? "qa"}`}
+          >
+            制作概要・参考料金・納品物を見る ↗
+          </Link>
+          <div className="feature-tags">
+            {features.map((feature) => (
+              <span key={feature}>{feature}</span>
+            ))}
+            <span>Next.js / TypeScript</span>
+          </div>
+        </details>
         <div className="privacy-note">
           <ShieldCheck size={16} />{" "}
           架空データを使用。入力データは外部送信されず、このブラウザ内で処理されます。

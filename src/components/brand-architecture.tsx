@@ -63,8 +63,9 @@ export function BrandArchitecture() {
             ひとつの思想から、複数の事業へ。
           </h2>
           <p>
-            {BRAND_NAME}（{BRAND_READING}）は制作会社の名前ではありません。
-            人・技術・作品・事業が集まり、それぞれの形で育っていくための親ブランドです。
+            {BRAND_NAME}（{BRAND_READING}
+            ）は、人・技術・作品・事業が集まる親ブランド。 制作を担うTETSU
+            WORKSと、独立したプロダクトが、それぞれの形で育っていきます。
           </p>
           <blockquote>{BRAND_MESSAGE}</blockquote>
         </div>
@@ -107,7 +108,7 @@ export function BrandArchitecture() {
           <span className="future-ring" aria-hidden="true" />
           <h3>NEXT VENTURES</h3>
           <p>
-            SaaS、AI、Automation、コンテンツなど。まだ存在しない事業を、大きく見せません。
+            SaaS、AI、Automation、コンテンツなど。新しい事業は、形になったものからご紹介します。
           </p>
         </article>
       </div>

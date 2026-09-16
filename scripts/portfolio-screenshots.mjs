@@ -76,7 +76,9 @@ try {
       // Preview the deliverable itself, not the surrounding portfolio header.
       await page.evaluate((slug) => {
         const target = document.querySelector(
-          slug === "inbox" ? ".workflow-visual" : ".showcase",
+          ["inbox", "admin", "csv"].includes(slug)
+            ? ".tool-panel"
+            : ".showcase",
         );
         if (target)
           window.scrollTo(

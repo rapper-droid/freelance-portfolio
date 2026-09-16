@@ -102,7 +102,7 @@ export function ProjectVisualStory({ slug }: { slug: string }) {
           <div className="visual-photo-pair">
             <figure>
               <Image
-                src="/visuals/kissa-interior-v1.webp"
+                src="/visuals/kissa-space-v2.webp"
                 alt="木の家具と窓からの自然光が温かい架空カフェの店内"
                 width={1200}
                 height={800}
@@ -112,7 +112,7 @@ export function ProjectVisualStory({ slug }: { slug: string }) {
             </figure>
             <figure>
               <Image
-                src="/visuals/kissa-coffee-v1.webp"
+                src="/visuals/kissa-ritual-v2.webp"
                 alt="ラテアートのコーヒーと焼き菓子"
                 width={1200}
                 height={800}
