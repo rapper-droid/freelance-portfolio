@@ -10,6 +10,15 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { WorkspaceVisual } from "./project-visuals";
+import { CafeArt, AccessMap } from "./cafe-art";
+import {
+  coffeeMenu,
+  foodMenu,
+  featured,
+  store,
+  yen,
+  type MenuItem,
+} from "@/lib/cafe-menu";
 import { classify, replyDraft } from "@/lib/inbox";
 import {
   bookingSeed,
@@ -28,30 +37,52 @@ function download(text: string, filename: string, type: string) {
   link.click();
   setTimeout(() => URL.revokeObjectURL(url), 1000);
 }
+function MenuCard({
+  item,
+  large = false,
+}: {
+  item: MenuItem;
+  large?: boolean;
+}) {
+  return (
+    <article className={`menu-card${large ? " menu-card--large" : ""}`}>
+      <span className="menu-card-art">
+        <CafeArt art={item.art} />
+      </span>
+      <div className="menu-card-body">
+        <div className="menu-card-head">
+          <h3>{item.name}</h3>
+          {item.tag ? (
+            <span className="menu-tag" data-tag={item.tag}>
+              {item.tag}
+            </span>
+          ) : null}
+        </div>
+        <p className="menu-card-jp">{item.jp}</p>
+        <p className="menu-card-note">{item.note}</p>
+        <p className="menu-card-foot">
+          <b>{yen(item.price)}</b>
+          {item.temp ? <span className="menu-temp">{item.temp}</span> : null}
+        </p>
+      </div>
+    </article>
+  );
+}
+
 export function CafeDemo() {
-  const [kind, setKind] = useState("Coffee");
-  const menu: Record<string, string[][]> = {
-    Coffee: [
-      ["House blend", "柔らかな甘さ、ナッツの余韻。", "¥650"],
-      ["Cafe latte", "エスプレッソと、なめらかなミルク。", "¥750"],
-      ["Single origin", "豆の個性を、ハンドドリップで。", "¥850"],
-    ],
-    Food: [
-      ["季節のタルト", "季節の果実と、香ばしい生地。", "¥780"],
-      ["バタートースト", "厚切りのパンに、発酵バター。", "¥580"],
-      ["チーズケーキ", "ひと口ずつ、ゆっくりと。", "¥720"],
-    ],
-  };
+  const [kind, setKind] = useState<"Coffee" | "Food">("Coffee");
+  const menu = kind === "Coffee" ? coffeeMenu : foodMenu;
   return (
     <div className="cafe-demo showcase">
       <nav className="demo-local-nav" aria-label="カフェデモ内">
         <b>KISSA</b>
         <a href="#cafe-story">Our story</a>
         <a href="#cafe-menu">Menu</a>
+        <a href="#cafe-access">Access</a>
       </nav>
       <section className="cafe-hero">
         <div>
-          <span className="eyebrow">COFFEE & QUIET MOMENTS</span>
+          <span className="eyebrow">{store.tagline}</span>
           <h2>
             余白を、
             <br />
@@ -62,9 +93,34 @@ export function CafeDemo() {
             <br />
             香りと静けさを味わう、街の片隅。
           </p>
-          <a href="#cafe-menu" className="cafe-link">
-            メニューを見る <ArrowUpRight size={17} />
-          </a>
+          {/* Hours and location in the hero, not only in the footer. On a
+              restaurant site these are the two things a visitor came for. */}
+          <dl className="cafe-hero-facts">
+            <div>
+              <dt>OPEN</dt>
+              <dd>
+                {store.hours[0].days} {store.hours[0].time}
+                <span>
+                  {store.hours[1].days} {store.hours[1].time} ／ 水曜定休
+                </span>
+              </dd>
+            </div>
+            <div>
+              <dt>ACCESS</dt>
+              <dd>
+                {store.access}
+                <span>{store.seats}</span>
+              </dd>
+            </div>
+          </dl>
+          <div className="cafe-hero-actions">
+            <a href="#cafe-menu" className="cafe-link cafe-link--primary">
+              メニューを見る <ArrowUpRight size={17} />
+            </a>
+            <a href="#cafe-access" className="cafe-link">
+              アクセス <ArrowUpRight size={16} />
+            </a>
+          </div>
         </div>
         <div className="cafe-hero-art">
           <Image
@@ -73,7 +129,7 @@ export function CafeDemo() {
             width={1200}
             height={800}
             sizes="(max-width: 700px) 90vw, 45vw"
-            preload
+            priority
           />
         </div>
         <span className="cafe-vertical">A LITTLE PAUSE. A BETTER DAY.</span>
@@ -93,16 +149,6 @@ export function CafeDemo() {
           KISSAは、そんな場所を想像してつくりました。
         </p>
       </section>
-      <figure className="cafe-space-photo">
-        <Image
-          src="/visuals/kissa-interior-v1.webp"
-          alt="自然光が差し込む、木の家具と落ち着いたカウンターの店内イメージ"
-          width={1200}
-          height={800}
-          sizes="(max-width: 700px) 100vw, 85vw"
-        />
-        <figcaption>A PLACE TO SLOW DOWN / AI生成の架空店舗イメージ</figcaption>
-      </figure>
       <section className="cafe-menu" id="cafe-menu" data-feature>
         <div className="demo-section-heading">
           <div>
@@ -110,7 +156,7 @@ export function CafeDemo() {
             <h2>今日の、気分で。</h2>
           </div>
           <div className="segmented" aria-label="メニュー種類">
-            {["Coffee", "Food"].map((s) => (
+            {(["Coffee", "Food"] as const).map((s) => (
               <button
                 key={s}
                 aria-pressed={kind === s}
@@ -121,23 +167,112 @@ export function CafeDemo() {
             ))}
           </div>
         </div>
-        <div className="menu-items">
-          {menu[kind].map(([name, desc, price], i) => (
-            <article key={name}>
-              <span className="menu-number">0{i + 1}</span>
-              <h3>{name}</h3>
-              <p>{desc}</p>
-              <b>{price}</b>
-            </article>
+        <div className="menu-grid">
+          {menu.map((item) => (
+            <MenuCard key={item.name} item={item} />
           ))}
         </div>
         <p className="demo-fineprint">
           架空店舗のメニュー・税込想定価格です。店舗営業・飲食販売は行っていません。
         </p>
       </section>
+
+      {/* The one thing to order if you only order one thing. Given room so
+          the page has a focal point rather than an even grid of equals. */}
+      <section className="cafe-pick" aria-labelledby="cafe-pick-h">
+        <div>
+          <span className="eyebrow">TODAY&apos;S PICK</span>
+          <h2 id="cafe-pick-h">迷ったら、これを。</h2>
+          <p>
+            その日届いた豆から一杯ずつ。淹れている時間も含めて、
+            <br />
+            KISSAで過ごす時間の一部だと思っています。
+          </p>
+        </div>
+        <MenuCard item={featured} large />
+      </section>
+
+      <section className="cafe-space" aria-labelledby="cafe-space-h">
+        <span className="eyebrow">THE SHOP</span>
+        <h2 id="cafe-space-h">こういう場所です。</h2>
+        <div className="cafe-space-grid">
+          <figure className="cafe-space-main">
+            <Image
+              src="/visuals/kissa-interior-v1.webp"
+              alt="自然光が差し込む、木の家具と落ち着いたカウンターの店内"
+              width={1200}
+              height={800}
+              sizes="(max-width: 700px) 100vw, 60vw"
+              loading="lazy"
+            />
+            <figcaption>店内 / 窓際の席</figcaption>
+          </figure>
+          <figure>
+            <Image
+              src="/visuals/kissa-coffee-v1.webp"
+              alt="カウンターに置かれた一杯のコーヒーと焼き菓子"
+              width={1200}
+              height={800}
+              sizes="(max-width: 700px) 100vw, 35vw"
+              loading="lazy"
+            />
+            <figcaption>カウンター</figcaption>
+          </figure>
+        </div>
+        <p className="demo-fineprint">
+          掲載写真はAI生成による架空店舗のイメージです。実在の店舗ではありません。
+        </p>
+      </section>
+
+      <section className="cafe-access" id="cafe-access">
+        <div className="cafe-access-info">
+          <span className="eyebrow">ACCESS</span>
+          <h2>行き方と、開いている時間。</h2>
+          <dl>
+            <div>
+              <dt>営業時間</dt>
+              <dd>
+                {store.hours.map((h) => (
+                  <span key={h.days}>
+                    {h.days}　{h.time}
+                  </span>
+                ))}
+              </dd>
+            </div>
+            <div>
+              <dt>住所</dt>
+              <dd>
+                <span>{store.address}</span>
+                <span>{store.access}</span>
+              </dd>
+            </div>
+            <div>
+              <dt>席数</dt>
+              <dd>
+                <span>{store.seats}</span>
+              </dd>
+            </div>
+            <div>
+              <dt>電話</dt>
+              <dd>
+                <span>{store.tel}</span>
+              </dd>
+            </div>
+          </dl>
+        </div>
+        <div className="cafe-access-map">
+          <AccessMap />
+          <p className="demo-fineprint">
+            架空店舗のため、地図は概略図です。実在の住所ではありません。
+          </p>
+        </div>
+      </section>
+
       <div className="cafe-hours">
-        <b>KISSA</b>
-        <span>想定営業時間 10:00–18:00 / 水曜定休</span>
+        <b>{store.name}</b>
+        <span>
+          {store.hours[0].days} {store.hours[0].time} ／ 水曜定休
+        </span>
         <span>SELF-INITIATED PROJECT</span>
       </div>
     </div>

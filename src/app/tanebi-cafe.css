@@ -1,0 +1,407 @@
+/* =====================================================================
+   KISSA — cafe demo
+
+   A restaurant site is read on a phone, standing up, deciding whether to
+   walk there. So hours, price and access are sized to be read at arm's
+   length, and the menu is a grid of real cards rather than a price list.
+
+   Scoped entirely under .cafe-demo so nothing here can leak into the WORKS
+   chrome around it.
+   ===================================================================== */
+
+.cafe-demo {
+  --kissa-ink: #241c15;
+  --kissa-soft: #6b5c4d;
+  --kissa-line: #e3dace;
+  --kissa-paper: #fbf8f3;
+  --kissa-accent: #a9713e;
+}
+
+/* --- Hero facts -------------------------------------------------------- */
+
+.cafe-hero-facts {
+  display: grid;
+  gap: 16px;
+  margin: 26px 0 0;
+  padding: 18px 0 0;
+  border-top: 1px solid var(--kissa-line);
+}
+.cafe-hero-facts div {
+  display: grid;
+  grid-template-columns: 62px 1fr;
+  gap: 12px;
+  align-items: baseline;
+}
+.cafe-hero-facts dt {
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--kissa-accent);
+}
+.cafe-hero-facts dd {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.7;
+  color: var(--kissa-ink);
+}
+.cafe-hero-facts dd span {
+  display: block;
+  font-size: 12.5px;
+  color: var(--kissa-soft);
+}
+.cafe-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 22px;
+  align-items: center;
+  margin-top: 24px;
+}
+.cafe-link--primary {
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: var(--kissa-ink);
+  color: var(--kissa-paper);
+  min-height: 46px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.cafe-link--primary:hover {
+  background: var(--kissa-accent);
+}
+
+/* --- Menu grid --------------------------------------------------------- */
+
+.cafe-demo .menu-grid {
+  display: grid;
+  gap: 14px;
+  margin-top: 30px;
+}
+@media (min-width: 40rem) {
+  .cafe-demo .menu-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 64rem) {
+  .cafe-demo .menu-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.menu-card {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 16px;
+  padding: 18px;
+  border: 1px solid var(--kissa-line);
+  border-radius: 14px;
+  background: #fff;
+  align-items: start;
+}
+.menu-card-art {
+  display: grid;
+  place-items: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 12px;
+  background: linear-gradient(160deg, #f6efe4, #efe6d8);
+  color: var(--kissa-accent);
+}
+.cafe-art {
+  width: 52px;
+  height: 52px;
+}
+.menu-card-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.menu-card h3 {
+  margin: 0;
+  font-size: 15px;
+  letter-spacing: 0.01em;
+  color: var(--kissa-ink);
+}
+.menu-card-jp {
+  margin: 3px 0 0;
+  font-size: 12px;
+  color: var(--kissa-soft);
+}
+.menu-card-note {
+  margin: 9px 0 0;
+  font-size: 12.5px;
+  line-height: 1.75;
+  color: var(--kissa-soft);
+}
+.menu-card-foot {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 12px 0 0;
+}
+.menu-card-foot b {
+  font-size: 16px;
+  color: var(--kissa-ink);
+}
+.menu-temp {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--kissa-soft);
+  border: 1px solid var(--kissa-line);
+  border-radius: 999px;
+  padding: 3px 9px;
+}
+.menu-tag {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  padding: 3px 9px;
+  border-radius: 999px;
+  background: #f1e7d8;
+  color: var(--kissa-accent);
+  white-space: nowrap;
+}
+.menu-tag[data-tag="季節限定"] {
+  background: #e8e7db;
+  color: #5c6b54;
+}
+.menu-tag[data-tag="人気"] {
+  background: var(--kissa-accent);
+  color: #fff;
+}
+
+/* The surrounding demo gives .cafe-story and .cafe-menu 65px/60px, dropping
+   to 35px/25px on narrow screens. The new sections match it so the shop
+   reads as one page instead of two stylesheets meeting in the middle. */
+.cafe-pick,
+.cafe-space,
+.cafe-access {
+  padding-inline: 60px;
+}
+@media (max-width: 700px) {
+  .cafe-pick,
+  .cafe-space,
+  .cafe-access {
+    padding-inline: 25px;
+  }
+}
+
+/* --- Today's pick ------------------------------------------------------ */
+
+.cafe-pick {
+  display: grid;
+  gap: 26px;
+  padding-block: 44px;
+  border-top: 1px solid var(--kissa-line);
+  border-bottom: 1px solid var(--kissa-line);
+  margin-top: 40px;
+}
+.cafe-pick h2 {
+  margin: 10px 0 12px;
+}
+.cafe-pick p {
+  color: var(--kissa-soft);
+  line-height: 1.9;
+  margin: 0;
+}
+.menu-card--large {
+  grid-template-columns: 120px 1fr;
+  padding: 24px;
+}
+.menu-card--large .menu-card-art {
+  width: 120px;
+  height: 120px;
+}
+.menu-card--large .cafe-art {
+  width: 80px;
+  height: 80px;
+}
+.menu-card--large h3 {
+  font-size: 20px;
+}
+.menu-card--large .menu-card-foot b {
+  font-size: 20px;
+}
+@media (min-width: 56rem) {
+  .cafe-pick {
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    gap: 44px;
+  }
+}
+
+/* --- The shop ---------------------------------------------------------- */
+
+.cafe-space {
+  padding-block: 48px 8px;
+}
+.cafe-space h2 {
+  margin: 10px 0 24px;
+}
+.cafe-space-grid {
+  display: grid;
+  gap: 14px;
+}
+.cafe-space figure {
+  margin: 0;
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+}
+/* Fixed aspect boxes: the images are known sizes, and reserving the space
+   stops the captions jumping while they decode. */
+.cafe-space figure img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+.cafe-space-main {
+  aspect-ratio: 16 / 10;
+}
+.cafe-space figure:not(.cafe-space-main) {
+  aspect-ratio: 4 / 3;
+}
+.cafe-space figcaption {
+  position: absolute;
+  left: 14px;
+  bottom: 12px;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: #fff;
+  text-shadow: 0 1px 6px rgb(0 0 0 / 0.6);
+}
+@media (min-width: 56rem) {
+  .cafe-space-grid {
+    grid-template-columns: 1.7fr 1fr;
+  }
+  .cafe-space-main {
+    aspect-ratio: auto;
+  }
+  .cafe-space figure:not(.cafe-space-main) {
+    aspect-ratio: auto;
+  }
+}
+
+/* --- Access ------------------------------------------------------------ */
+
+.cafe-access {
+  display: grid;
+  gap: 28px;
+  padding-block: 48px;
+}
+.cafe-access h2 {
+  margin: 10px 0 22px;
+}
+.cafe-access dl {
+  display: grid;
+  gap: 16px;
+  margin: 0;
+}
+.cafe-access dl > div {
+  display: grid;
+  grid-template-columns: 76px 1fr;
+  gap: 14px;
+  padding-bottom: 14px;
+  border-bottom: 1px solid var(--kissa-line);
+}
+.cafe-access dt {
+  font-size: 11.5px;
+  color: var(--kissa-accent);
+  letter-spacing: 0.04em;
+}
+.cafe-access dd {
+  margin: 0;
+  display: grid;
+  gap: 4px;
+  font-size: 13.5px;
+  line-height: 1.7;
+  color: var(--kissa-ink);
+}
+.cafe-map {
+  width: 100%;
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid var(--kissa-line);
+}
+.cafe-map-bg {
+  fill: #f4efe6;
+}
+.cafe-map-road {
+  stroke: #e6dccb;
+  fill: none;
+  stroke-linecap: round;
+}
+.cafe-map-block {
+  fill: #e7ded0;
+}
+.cafe-map-route {
+  stroke: var(--kissa-accent);
+  stroke-width: 2;
+  fill: none;
+  stroke-linecap: round;
+}
+.cafe-map-pin {
+  fill: rgb(169 113 62 / 0.18);
+}
+.cafe-map-pin-core {
+  fill: var(--kissa-accent);
+}
+.cafe-map-label {
+  font-size: 11px;
+  fill: var(--kissa-soft);
+  font-family: inherit;
+}
+.cafe-map-label--shop {
+  fill: var(--kissa-ink);
+  font-weight: 600;
+}
+.cafe-map-label--soft {
+  font-size: 10px;
+}
+@media (min-width: 56rem) {
+  .cafe-access {
+    grid-template-columns: 1fr 1.1fr;
+    gap: 48px;
+    align-items: center;
+  }
+}
+
+/* --- Mobile: the numbers a visitor is standing there reading ----------- */
+
+@media (max-width: 39.99rem) {
+  .menu-card {
+    grid-template-columns: 62px 1fr;
+    gap: 13px;
+    padding: 15px;
+  }
+  .menu-card-art {
+    width: 62px;
+    height: 62px;
+  }
+  .cafe-art {
+    width: 42px;
+    height: 42px;
+  }
+  .menu-card-foot b {
+    font-size: 17px;
+  }
+  .menu-card--large {
+    grid-template-columns: 82px 1fr;
+  }
+  .menu-card--large .menu-card-art {
+    width: 82px;
+    height: 82px;
+  }
+  .menu-card--large .cafe-art {
+    width: 56px;
+    height: 56px;
+  }
+  .cafe-hero-facts div {
+    grid-template-columns: 54px 1fr;
+  }
+  .cafe-hero-actions .cafe-link--primary {
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+}
