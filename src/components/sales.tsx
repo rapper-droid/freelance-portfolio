@@ -1,49 +1,28 @@
 ﻿import Link from "next/link";
 import { ArrowUpRight, Check } from "lucide-react";
-import {
-  flow,
-  flowPhases,
-  pricingNote,
-  type categories,
-} from "@/lib/portfolio";
-import { Pipeline } from "./diagrams";
+import { flowPhases, pricingNote, type categories } from "@/lib/portfolio";
+import { PhaseFlow } from "./diagrams";
 export function Process() {
   return (
     <section className="hub-section" id="process">
-      <div className="hub-section-head">
-        <div>
-          <span className="eyebrow">05 / FROM BRIEF TO DELIVERY</span>
-          <h2>
-            依頼から納品まで、
-            <br />
-            見通しのある進め方。
-          </h2>
-        </div>
-        <p>
-          クラウドソーシングサービス上の
+      {/* The lead absorbs what used to float in the top-right corner. A
+          single sentence about how the work runs belongs with the heading,
+          not opposite it where it read as an unrelated aside. */}
+      <div className="process-head">
+        <span className="eyebrow">05 / FROM BRIEF TO DELIVERY</span>
+        <h2>
+          依頼から納品まで、
           <br />
-          メッセージで進行可能です。
+          見通しのある進め方。
+        </h2>
+        <p className="section-lead">
+          全10工程を4つのフェーズで進めます。ご利用中のクラウドソーシングサービスのメッセージだけでも進行できます。
         </p>
       </div>
-      {/* The shape first, the detail second. Ten steps in a row is accurate
-          and unreadable; four phases can be taken in at a glance, and each
-          one still lists the exact steps it contains. */}
+      {/* One list, not two. Each phase carries its own steps, so the ten
+          detailed steps are no longer a second list repeating the first. */}
       <div data-reveal="trace">
-        <Pipeline
-          stages={flowPhases.map((p) => ({
-            label: p.label,
-            note: p.note,
-            actor: p.actor,
-          }))}
-        />
-        <ol className="delivery-flow delivery-flow--detail">
-          {flow.map((s, i) => (
-            <li key={s}>
-              <span>{String(i + 1).padStart(2, "0")}</span>
-              <b>{s}</b>
-            </li>
-          ))}
-        </ol>
+        <PhaseFlow phases={flowPhases} />
       </div>
       <div className="delivery-foot">
         <Check size={18} />

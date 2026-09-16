@@ -240,3 +240,143 @@ export function GlyphCheck() {
     </svg>
   );
 }
+
+/* ------------------------------------------------------------------ */
+
+/** Phase glyphs. Decorative; the phase name sits beside each one. */
+const PHASE_ART: Record<string, React.ReactNode> = {
+  talk: (
+    <>
+      <path
+        d="M4 7a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3H9l-5 4z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M8 9h8M8 12h5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+      />
+    </>
+  ),
+  draft: (
+    <>
+      <path
+        d="M4 5h16v14H4z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M4 9h16M9 9v10"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+      />
+      <path
+        d="M12 12h5M12 15h5"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+      />
+    </>
+  ),
+  build: (
+    <>
+      <path
+        d="M8 6 3 12l5 6M16 6l5 6-5 6"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+      <path
+        d="m13 5-2 14"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinecap="round"
+      />
+    </>
+  ),
+  deliver: (
+    <>
+      <path
+        d="M3 8 12 4l9 4v8l-9 4-9-4z"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinejoin="round"
+      />
+      <path
+        d="M3 8l9 4 9-4M12 12v8"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="1.2"
+        strokeLinejoin="round"
+      />
+    </>
+  ),
+};
+
+export type Phase = {
+  label: string;
+  note: string;
+  icon: string;
+  checkpoint: string | null;
+  steps: string[];
+};
+
+/**
+ * The route from brief to delivery, as four cards.
+ *
+ * Replaces a hairline rule with numbers on it. The change that matters is
+ * not that it is prettier: each phase now carries its own steps, so the ten
+ * detailed steps are no longer a second list repeating the first, and the
+ * points where the CLIENT has to do something are called out. "When do I
+ * have to be available, and what am I agreeing to" is the question this
+ * section exists to answer.
+ */
+export function PhaseFlow({ phases }: { phases: Phase[] }) {
+  return (
+    <ol className="tnb-phases">
+      {phases.map((p, i) => (
+        <li key={p.label} className="tnb-phase">
+          <div className="tnb-phase-top">
+            <span className="tnb-phase-icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="24" height="24" focusable="false">
+                {PHASE_ART[p.icon]}
+              </svg>
+            </span>
+            <span className="tnb-phase-n">
+              PHASE {String(i + 1).padStart(2, "0")}
+            </span>
+          </div>
+          <h3>{p.label}</h3>
+          <p className="tnb-phase-note">{p.note}</p>
+          <ul className="tnb-phase-steps">
+            {p.steps.map((s) => (
+              <li key={s}>{s}</li>
+            ))}
+          </ul>
+          {p.checkpoint ? (
+            <p className="tnb-phase-check">
+              <span aria-hidden="true" className="tnb-phase-check-mark" />
+              <span>
+                <b>ご確認いただく場面</b>
+                {p.checkpoint}
+              </span>
+            </p>
+          ) : null}
+        </li>
+      ))}
+    </ol>
+  );
+}

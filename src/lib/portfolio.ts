@@ -444,24 +444,32 @@ export const flow = [
 export const flowPhases = [
   {
     label: "相談・確認",
+    icon: "talk" as const,
+    checkpoint: "作るものと範囲を、着手前に合意します",
     actor: "人" as const,
     steps: [flow[0], flow[1]],
     note: "作るものと必要な素材を先に確定します。",
   },
   {
     label: "設計",
+    icon: "draft" as const,
+    checkpoint: null,
     actor: "人" as const,
     steps: [flow[2]],
     note: "画面と構造を決めてから手を動かします。",
   },
   {
     label: "制作・検証",
+    icon: "build" as const,
+    checkpoint: "確認用URLを共有。見て、直す指示をいただきます",
     actor: "人" as const,
     steps: [flow[3], flow[4], flow[5], flow[6], flow[7]],
     note: "実装しながら確認し、共有して直します。",
   },
   {
     label: "納品",
+    icon: "deliver" as const,
+    checkpoint: "納品物を確認いただいて完了です",
     actor: "人" as const,
     steps: [flow[8], flow[9]],
     note: "使い始められる形にまとめて渡します。",
