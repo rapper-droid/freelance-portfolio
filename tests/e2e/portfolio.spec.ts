@@ -1,4 +1,4 @@
-﻿import { test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import fs from "node:fs/promises";
 import type { Page } from "@playwright/test";
@@ -30,7 +30,15 @@ test("home: navigation, copy, responsive layout and accessibility", async ({
   await expect(page.getByRole("heading", { level: 1 })).toContainText("BUILD.");
   await page.keyboard.press("Tab");
   await expect(page.getByText("本文へスキップ")).toBeFocused();
-  await page.getByRole("link", { name: "依頼内容から作品を見る" }).click();
+  if (testInfo.project.name === "mobile") {
+    await page.getByRole("link", { name: "TSUDOWAを知る" }).click();
+    await expect(page).toHaveURL(/#brands/);
+    await page.getByRole("link", { name: "現在の仕事を見る" }).click();
+  } else {
+    await page.getByRole("link", { name: "現在の事業を見る" }).click();
+  }
+  await expect(page).toHaveURL(/#tetsu-works/);
+  await page.getByRole("link", { name: "依頼内容から探す" }).click();
   await expect(page).toHaveURL(/#services/);
   await page.getByRole("link", { name: "ALL WORKS" }).click();
   await expect(page).toHaveURL(/\/works$/);
@@ -226,10 +234,10 @@ test("404 and metadata", async ({ page }) => {
     page.getByRole("heading", { name: "ページが見つかりませんでした。" }),
   ).toBeVisible();
   await page.getByRole("link", { name: "トップに戻る" }).click();
-  await expect(page).toHaveTitle(/WORKS/);
+  await expect(page).toHaveTitle(/TSUDOWA/);
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
     "content",
-    /WORKS/,
+    /TSUDOWA/,
   );
 });
 

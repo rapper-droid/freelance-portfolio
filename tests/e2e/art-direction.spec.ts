@@ -31,18 +31,21 @@ test("FAQ opens and closes with keyboard, exposes answers and retains visible fo
   await expect(page.locator("#contact")).toBeInViewport();
 });
 
-test("brand asset, responsive composition and reduced motion remain consistent", async ({
+test("TSUDOWA brand assets, responsive composition and reduced motion remain consistent", async ({
   page,
   request,
 }) => {
-  expect(await (await request.get("/icon.svg")).text()).toBe(
-    await (await request.get("/brand/tw-mark.svg")).text(),
-  );
+  const mark = await request.get("/brand/tsudowa-mark.svg");
+  expect(mark.ok()).toBe(true);
+  expect(await mark.text()).toContain("TSUDOWA");
+  expect((await request.get("/icon.png")).ok()).toBe(true);
+  expect((await request.get("/site.webmanifest")).ok()).toBe(true);
   await page.emulateMedia({ reducedMotion: "reduce" });
   for (const width of [320, 390, 768, 1024, 1440, 1920]) {
     await page.setViewportSize({ width, height: 1000 });
     await page.goto("/");
     await expect(page.locator(".site-header .brand-mark")).toBeVisible();
+    await expect(page.locator(".site-header .brand")).toContainText("TSUDOWA");
     await page.evaluate(() =>
       document.querySelectorAll<HTMLElement>(".home-ui > *").forEach((el) => {
         el.style.contentVisibility = "visible";
@@ -59,10 +62,9 @@ test("brand asset, responsive composition and reduced motion remain consistent",
         .first()
         .evaluate((el) => getComputedStyle(el).animationName),
     ).toBe("none");
-    for (const el of await page
+    for (const element of await page
       .locator(".site-header a:visible, #faq summary, .footer-bottom a")
-      .all()) {
-      expect((await el.boundingBox())!.height).toBeGreaterThanOrEqual(44);
-    }
+      .all())
+      expect((await element.boundingBox())!.height).toBeGreaterThanOrEqual(44);
   }
 });

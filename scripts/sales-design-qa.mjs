@@ -104,6 +104,8 @@ try {
         });
         if (route === "/")
           for (const id of [
+            "brands",
+            "tetsu-works",
             "services",
             "works",
             "pricing",

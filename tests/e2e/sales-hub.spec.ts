@@ -1,4 +1,4 @@
-﻿import { test, expect } from "@playwright/test";
+import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { categories, projects, projectsFor } from "../../src/lib/portfolio";
 test("all category routes: exact project membership, sales information and metadata", async ({
@@ -76,7 +76,7 @@ test("all works filtering exposes only matching projects and a category permalin
 test("cafe menu and SaaS pricing are interactive", async ({ page }) => {
   await page.goto("/demos/cafe");
   await page.getByRole("button", { name: "Food", exact: true }).click();
-  await expect(page.locator(".menu-items")).toContainText("季節のタルト");
+  await expect(page.locator(".menu-grid")).toContainText("季節のタルト");
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.goto("/demos/saas");
   await page.getByRole("button", { name: "年額", exact: true }).click();

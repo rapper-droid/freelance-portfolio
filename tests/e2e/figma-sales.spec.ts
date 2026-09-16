@@ -3,26 +3,41 @@ import AxeBuilder from "@axe-core/playwright";
 import { services, selectedSlugs, caseLabels } from "../../src/lib/sales-ui";
 import { projects } from "../../src/lib/portfolio";
 
-test("sales home: eight service links, four complete cards and message-first delivery", async ({
+test("sales home: parent structure, service links, complete cards and message-first delivery", async ({
   page,
 }) => {
   await page.goto("/");
-  await expect(page.locator(".site-header .brand")).toHaveText("TETSU / WORKS");
-  await expect(page.locator(".trust-panel")).toContainText("READY TO SHIP");
+  const structuredData = JSON.parse(
+    (await page.locator('script[type="application/ld+json"]').textContent())!,
+  );
+  expect(structuredData).toMatchObject({
+    "@type": "WebSite",
+    name: "TSUDOWA",
+    alternateName: "ツドワ",
+  });
+  await expect(page.locator(".site-header .brand")).toContainText("TSUDOWA");
+  await expect(page.locator("h1")).toContainText("GATHER.");
+  await expect(page.locator(".brand-card")).toHaveCount(4);
+  await expect(page.locator("#brands")).toContainText("TETSU WORKS");
+  await expect(page.locator("#brands")).toContainText("TSUKUTTA LAB");
+  await expect(page.locator("#tetsu-works .trust-panel")).toContainText(
+    "READY TO SHIP",
+  );
   await expect(page.locator("[data-service]")).toHaveCount(8);
-  for (const s of services)
-    await expect(page.locator(`[data-service="${s.id}"]`)).toHaveAttribute(
-      "href",
-      `/works/${s.id}`,
-    );
+  for (const service of services)
+    await expect(
+      page.locator(`[data-service="${service.id}"]`),
+    ).toHaveAttribute("href", `/works/${service.id}`);
   expect(
     await page
       .locator("[data-project]")
-      .evaluateAll((es) => es.map((e) => e.getAttribute("data-project"))),
+      .evaluateAll((elements) =>
+        elements.map((element) => element.getAttribute("data-project")),
+      ),
   ).toEqual([...selectedSlugs]);
   for (const slug of selectedSlugs) {
     const card = page.locator(`[data-project="${slug}"]`);
-    const project = projects.find((p) => p.slug === slug)!;
+    const project = projects.find((item) => item.slug === slug)!;
     await expect(card).toContainText(caseLabels[slug]);
     await expect(card).toContainText("SELF-INITIATED DEMO");
     await expect(card).toContainText(project.price);
@@ -45,28 +60,30 @@ test("sales home: eight service links, four complete cards and message-first del
   expect(
     await page
       .locator("[data-project]")
-      .evaluateAll((es) => es.map((e) => e.getAttribute("data-project"))),
-  ).toEqual(projects.map((p) => p.slug));
+      .evaluateAll((elements) =>
+        elements.map((element) => element.getAttribute("data-project")),
+      ),
+  ).toEqual(projects.map((project) => project.slug));
 });
 
-test("mobile has one hero CTA, vertical categories and full-width tap targets", async ({
+test("mobile keeps one hero CTA, vertical categories and full-width tap targets", async ({
   page,
 }, testInfo) => {
   await page.goto("/");
   if (testInfo.project.name === "mobile") {
-    await expect(page.locator(".hero-secondary")).toBeHidden();
+    await expect(page.locator(".brand-hero .hero-secondary")).toBeHidden();
     await expect(page.locator(".trust-files")).toBeHidden();
-    const cards = await page.locator("[data-service]").evaluateAll((es) =>
-      es.map((e) => {
-        const r = e.getBoundingClientRect();
-        return { x: r.x, y: r.y, width: r.width, height: r.height };
+    const cards = await page.locator("[data-service]").evaluateAll((elements) =>
+      elements.map((element) => {
+        const rect = element.getBoundingClientRect();
+        return { x: rect.x, y: rect.y, width: rect.width, height: rect.height };
       }),
     );
-    for (let i = 0; i < cards.length; i++) {
-      expect(cards[i].height).toBeGreaterThanOrEqual(78);
-      expect(cards[i].width).toBeGreaterThan(280);
-      expect(cards[i].x).toBe(cards[0].x);
-      if (i) expect(cards[i].y).toBeGreaterThan(cards[i - 1].y);
+    for (let index = 0; index < cards.length; index++) {
+      expect(cards[index].height).toBeGreaterThanOrEqual(78);
+      expect(cards[index].width).toBeGreaterThan(280);
+      expect(cards[index].x).toBe(cards[0].x);
+      if (index) expect(cards[index].y).toBeGreaterThan(cards[index - 1].y);
     }
   }
   for (const slug of selectedSlugs) {
@@ -79,11 +96,11 @@ test("mobile has one hero CTA, vertical categories and full-width tap targets", 
     );
     if (testInfo.project.name === "mobile") {
       const first = await page.locator(".device-grid figure").evaluateAll(
-        (es) =>
-          es
-            .map((e) => ({
-              y: e.getBoundingClientRect().top,
-              text: e.textContent,
+        (elements) =>
+          elements
+            .map((element) => ({
+              y: element.getBoundingClientRect().top,
+              text: element.textContent,
             }))
             .sort((a, b) => a.y - b.y)[0],
       );

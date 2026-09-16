@@ -1,18 +1,22 @@
-﻿import { defineConfig, devices } from "@playwright/test";
+import { defineConfig, devices } from "@playwright/test";
+
+const e2ePort = process.env.E2E_PORT ?? "3100";
+const e2eOrigin = `http://localhost:${e2ePort}`;
+
 export default defineConfig({
   testDir: "./tests/e2e",
   fullyParallel: true,
   workers: 2,
   reporter: [["list"], ["html", { open: "never" }]],
   use: {
-    baseURL: "http://localhost:3100",
+    baseURL: e2eOrigin,
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
   },
   webServer: {
-    command: "npm run start -- --port 3100",
-    url: "http://localhost:3100",
-    reuseExistingServer: !process.env.CI,
+    command: `npm run start -- --port ${e2ePort}`,
+    url: e2eOrigin,
+    reuseExistingServer: false,
     timeout: 60000,
   },
   projects: [

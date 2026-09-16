@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-11T06:34:46.438Z",
+  "checkedAt": "2026-09-16T18:03:11.641Z",
   "routes": 37,
   "links": [
     {
@@ -11,11 +11,15 @@
       "status": 200
     },
     {
-      "path": "/#works",
+      "path": "/#brands",
       "status": 200
     },
     {
-      "path": "/#services",
+      "path": "/#tetsu-works",
+      "status": 200
+    },
+    {
+      "path": "/#works",
       "status": 200
     },
     {
@@ -23,11 +27,11 @@
       "status": 200
     },
     {
-      "path": "/#qa",
+      "path": "/#contact",
       "status": 200
     },
     {
-      "path": "/#contact",
+      "path": "/#services",
       "status": 200
     },
     {
@@ -340,6 +344,10 @@
     },
     {
       "path": "/demos/cafe#cafe-menu",
+      "status": 200
+    },
+    {
+      "path": "/demos/cafe#cafe-access",
       "status": 200
     },
     {
