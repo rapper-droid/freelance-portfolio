@@ -228,3 +228,57 @@ redirect有効化                 していない
 canonical domain切替           していない
 本番branchのcommit削除          していない（0件）
 ```
+
+---
+
+## 7. 追記：TANEBI SIGNATURE EFFECTS 統合後の再検証（V2・26/27章）
+
+演出を実装したあと、同じ統合branchへ取り込んで再検証しました。
+
+```text
+統合branch HEAD   10b4152
+基点              codex/portfolio-sales-hub-v2 @ ce03541（変わらず）
+差分              42 files changed, 1924 insertions(+), 126 deletions(-)
+merge conflict    0件
+本番branchに取り残されたcommit   0件
+```
+
+### 再検証の結果
+
+```text
+lint / typecheck / 50 tests / build / check-production   すべて PASS
+全37URL                                                  37/37 が 200
+sitemap / robots / canonical / OGP / favicon              変化なし
+sitemap.ts / robots.ts / next.config.ts / netlify.toml    本番branchと同一
+package.json / api/contact                                本番branchと同一
+categoryId / slug / price / duration                      UNCHANGED
+Visual QA 6ページ × 390/768/1276/1440                     24チェック・問題0
+性能（スクロール中）                                       中央値16.7ms / p95 17.1ms / 最悪17.4ms
+canvas / 無限ループanimation                               0 / 0
+JS無効時のfail-safe                                        data-reveal-ready が0（＝全部表示）
+```
+
+### 計測中に見つけて直したこと
+
+`.sales-quality` が**画面内にあるのに opacity 0 のまま留まる瞬間**がありました。
+「最終的に全部表示されるか」だけを見ていたら通過していた不具合です。
+到着前に発火するよう変更し、再計測で 0回 になっています。
+
+### 計測環境について（判断を誤りかけた点）
+
+一度、ブラウザのレンダラが応答不能になった状態で計測し、
+「reveal が一切発火せず price-grid が空白」という**誤った結果**を得ました。
+タブを作り直して再計測したところ正常に動作しており、
+その後の数値はすべてクリーンな環境で取り直しています。
+異常値をそのまま不具合として報告・修正しなかったのは、
+同じ測定を別コンテキストで再現できなかったためです。
+
+### 判定（変更なし）
+
+```text
+SAFE_TO_MERGE        マージ整合性・既存資産の保全・ビルド・テスト・URL・SEO・a11y・性能
+NEEDS_FIX            なし
+NEEDS_OWNER_REVIEW   4件（4.1〜4.4）＋ TANEBI_SIGNATURE_FEEL
+```
+
+`TANEBI_SIGNATURE_FEEL` は指示書27章の指定により**自己判定していません。**
