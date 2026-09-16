@@ -183,7 +183,11 @@ export function InboxDemo() {
             </div>
           )}
         </div>
-        <div className="ticket-detail">
+        {/* Keyed on the ticket so switching selection remounts the panel.
+            Without this React reuses the same nodes and the content swaps
+            with no transition at all, which reads as a redraw glitch rather
+            than "a different ticket is now open". */}
+        <div className="ticket-detail" key={ticket ? ticket.id : "none"}>
           {ticket && info ? (
             <>
               <div className="detail-meta">
