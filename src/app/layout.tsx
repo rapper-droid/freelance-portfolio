@@ -4,12 +4,14 @@ import { siteOrigin } from "@/lib/seo";
 import { BRAND_NAME, BRAND_TAGLINE } from "@/lib/brand";
 import { Analytics } from "@/components/analytics";
 import { Monitoring } from "@/components/monitoring";
+import { Effects } from "@/components/effects";
 import "./globals.css";
 import "./hub.css";
 import "./showcase.css";
 import "./sales-ui.css";
 import "./project-visuals.css";
 import "./art-direction.css";
+import "./tanebi-effects.css";
 const inter = localFont({
   src: "../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
   variable: "--font-sales",
@@ -64,6 +66,7 @@ export default function RootLayout({
           本文へスキップ
         </a>
         {children}
+        <Effects />
         <Analytics />
         <Monitoring />
       </body>

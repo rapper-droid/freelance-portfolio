@@ -19,7 +19,7 @@ export function Process() {
           メッセージで進行可能です。
         </p>
       </div>
-      <ol className="delivery-flow">
+      <ol className="delivery-flow" data-reveal="trace">
         {flow.map((s, i) => (
           <li key={s}>
             <span>{String(i + 1).padStart(2, "0")}</span>
@@ -61,7 +61,7 @@ export function SalesInfo({
           相談内容をまとめる <ArrowUpRight size={16} />
         </Link>
       </div>
-      <div className="sales-grid">
+      <div className="sales-grid" data-reveal="group">
         {[
           ["向いている依頼", category.audience],
           ["対応可能内容", category.scope],

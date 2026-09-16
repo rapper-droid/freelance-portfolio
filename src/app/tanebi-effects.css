@@ -1,0 +1,498 @@
+/* =====================================================================
+   TANEBI SIGNATURE EFFECTS
+
+   The brand's motion vocabulary, in one file so it can be tuned from one
+   place rather than as magic numbers spread across six stylesheets.
+
+   EMBER      a small warm source, at rest
+   IGNITION   something the user caused
+   SPREAD     content arriving, quietly
+   TRACE      a path being followed
+   AFTERGLOW  a moment that has just happened
+
+   Rules this file keeps to:
+   - animate transform and opacity; treat glow as a fade of a ready-made
+     layer, never an animated blur or box-shadow
+   - no DOM particles, no canvas, no video
+   - effects never delay reading, clicking, or navigating
+   - every hidden-then-revealed state is opt-in via [data-reveal-ready="on"],
+     which only the Effects runtime sets, so no-JS shows everything
+   ===================================================================== */
+
+:root {
+  /* motion */
+  --motion-base: 320ms;
+  --motion-slow: 520ms;
+
+  /* easing — enter settles, exit leaves, emphasis overshoots slightly */
+  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
+  --ease-emphasis: cubic-bezier(0.2, 0.9, 0.1, 1);
+
+  /* ember + glow, all expressed against the measured accent */
+  --ember: var(--hub-accent, #fcbe69);
+  --ember-rest: 0.06;
+  --ember-hover: 0.16;
+  --ember-active: 0.26;
+  --glow-rest: 0 0 0 1px rgb(252 190 105 / 0);
+  --glow-hover: 0 6px 22px -10px rgb(252 190 105 / 0.5);
+  --glow-active: 0 2px 10px -6px rgb(252 190 105 / 0.65);
+
+  /* transforms */
+  --lift-card: -2px;
+  --press-button: 1px;
+
+  /* stagger */
+  --stagger-short: 45ms;
+  --stagger-medium: 90ms;
+}
+
+/* =====================================================================
+   SPREAD — content arriving
+   Hidden state applies ONLY when the runtime has opted in. Without JS, or
+   with reduced motion, these selectors never match and everything is
+   simply visible.
+   ===================================================================== */
+
+[data-reveal-ready="on"] [data-reveal] {
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  transition:
+    opacity var(--motion-base) var(--ease-enter),
+    transform var(--motion-base) var(--ease-enter);
+  will-change: opacity, transform;
+}
+[data-reveal-ready="on"] [data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+  will-change: auto;
+}
+
+/* Variants, so the page does not read as one fade-up applied to everything. */
+[data-reveal-ready="on"] [data-reveal="title"] {
+  transform: translate3d(0, 8px, 0);
+}
+[data-reveal-ready="on"] [data-reveal="image"] {
+  /* a crop opening rather than a slide */
+  transform: none;
+  clip-path: inset(12% 0 0 0);
+  transition:
+    opacity var(--motion-slow) var(--ease-enter),
+    clip-path var(--motion-slow) var(--ease-enter);
+}
+[data-reveal-ready="on"] [data-reveal="image"].is-in {
+  clip-path: inset(0 0 0 0);
+}
+[data-reveal-ready="on"] [data-reveal="group"] > * {
+  opacity: 0;
+  transform: translate3d(0, 10px, 0);
+  transition:
+    opacity var(--motion-base) var(--ease-enter),
+    transform var(--motion-base) var(--ease-enter);
+}
+[data-reveal-ready="on"] [data-reveal="group"].is-in > * {
+  opacity: 1;
+  transform: none;
+}
+/* Stagger is capped: past a handful of items the last one arrives so late
+   it reads as a bug rather than a sequence. */
+[data-reveal-ready="on"] [data-reveal="group"].is-in > *:nth-child(1) {
+  transition-delay: 0ms;
+}
+[data-reveal-ready="on"] [data-reveal="group"].is-in > *:nth-child(2) {
+  transition-delay: var(--stagger-short);
+}
+[data-reveal-ready="on"] [data-reveal="group"].is-in > *:nth-child(3) {
+  transition-delay: calc(var(--stagger-short) * 2);
+}
+[data-reveal-ready="on"] [data-reveal="group"].is-in > *:nth-child(4) {
+  transition-delay: calc(var(--stagger-short) * 3);
+}
+[data-reveal-ready="on"] [data-reveal="group"].is-in > *:nth-child(n + 5) {
+  transition-delay: calc(var(--stagger-short) * 4);
+}
+
+/* =====================================================================
+   HERO — the signature moment
+   An ember settles around the mark and the page lights once. It is a
+   fade of two ready-made gradient layers; nothing is generated per frame.
+   ===================================================================== */
+
+.home-ui .sales-hero {
+  --pointer-x: 88%;
+  --pointer-y: 22%;
+}
+.home-ui .sales-hero::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    38% 48% at var(--pointer-x) var(--pointer-y),
+    rgb(252 190 105 / 0.1),
+    transparent 70%
+  );
+  opacity: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .home-ui .sales-hero::after {
+    animation: tanebi-ignite 1100ms var(--ease-enter) 120ms both;
+  }
+  /* The mark catches light a moment before the words settle. */
+  .hero-monogram {
+    animation: tanebi-ember-rise 1200ms var(--ease-enter) both;
+  }
+  .sales-hero h1 > span:last-child {
+    animation: tanebi-accent-catch 900ms var(--ease-enter) 260ms both;
+  }
+}
+/* Pointer tracking only sharpens a glow that is already there, so losing
+   it changes nothing structural. */
+.home-ui .sales-hero[data-pointer="on"]::after {
+  transition: background-position var(--motion-slow) linear;
+}
+
+@keyframes tanebi-ignite {
+  from {
+    opacity: 0;
+  }
+  60% {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.72;
+  }
+}
+@keyframes tanebi-ember-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 10px, 0) scale(0.94);
+  }
+  to {
+    opacity: 0.035;
+    transform: none;
+  }
+}
+@keyframes tanebi-accent-catch {
+  from {
+    opacity: 0.55;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* =====================================================================
+   IGNITION — primary CTA
+   Only the primary action carries the signature. If every button glows,
+   none of them means anything.
+   ===================================================================== */
+
+.sales-ui .button.primary,
+.sales-ui .all-works,
+.sales-ui .nav-cta,
+.site-header .nav-cta {
+  position: relative;
+  transition:
+    transform var(--motion-fast) var(--ease-emphasis),
+    box-shadow var(--motion-fast) var(--ease-enter),
+    filter var(--motion-fast) var(--ease-enter);
+  box-shadow: var(--glow-rest);
+}
+.sales-ui .button.primary:hover,
+.site-header .nav-cta:hover {
+  box-shadow: var(--glow-hover);
+  filter: brightness(1.05);
+}
+.sales-ui .button.primary:active,
+.site-header .nav-cta:active {
+  transform: translate3d(0, var(--press-button), 0);
+  box-shadow: var(--glow-active);
+  transition-duration: 80ms;
+}
+/* AFTERGLOW: the ring that expands once after the press is released. */
+.sales-ui .button.primary::after {
+  content: "";
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  pointer-events: none;
+  border: 1px solid rgb(252 190 105 / 0.55);
+  opacity: 0;
+  transform: scale(1);
+}
+@media (prefers-reduced-motion: no-preference) {
+  .sales-ui .button.primary:focus-visible::after,
+  .sales-ui .button.primary:active::after {
+    animation: tanebi-afterglow 480ms var(--ease-exit) forwards;
+  }
+}
+@keyframes tanebi-afterglow {
+  from {
+    opacity: 0.9;
+    transform: scale(1);
+  }
+  to {
+    opacity: 0;
+    transform: scale(1.06);
+  }
+}
+
+/* Secondary stays quieter than primary, deliberately. */
+.sales-ui .hero-secondary:hover {
+  color: var(--hub-ink);
+}
+
+/* =====================================================================
+   CARDS — strength by role, not one hover for everything
+   ===================================================================== */
+
+/* Service: the row ignites along its leading edge. */
+.home-ui .service-selector-grid > a {
+  position: relative;
+}
+.home-ui .service-selector-grid > a::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -1px;
+  height: 1px;
+  width: 100%;
+  background: linear-gradient(90deg, var(--ember), rgb(252 190 105 / 0) 62%);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--motion-base) var(--ease-enter);
+}
+.home-ui .service-selector-grid > a:hover::before,
+.home-ui .service-selector-grid > a:focus-visible::before {
+  transform: scaleX(1);
+}
+
+/* Work: the image breathes; the copy does not move. */
+.feature-picture,
+.project-preview {
+  overflow: hidden;
+}
+.feature-picture img,
+.project-preview img {
+  transition: transform var(--motion-image) var(--ease-enter);
+}
+.project-card:hover .project-preview img,
+.project-feature:hover .feature-picture img {
+  transform: scale(1.025);
+}
+.project-card .feature-meta,
+.project-card .project-estimate {
+  transition: opacity var(--motion-fast) var(--ease-enter);
+}
+
+/* Demo: reads as something that can be started. */
+.project-actions a[data-live-demo] {
+  position: relative;
+  transition:
+    color var(--motion-fast),
+    border-color var(--motion-fast);
+}
+.project-actions a[data-live-demo]::before {
+  content: "";
+  position: absolute;
+  left: -2px;
+  top: 50%;
+  width: 5px;
+  height: 5px;
+  margin-top: -2.5px;
+  border-radius: 50%;
+  background: var(--ember);
+  opacity: var(--ember-rest);
+  transition: opacity var(--motion-fast) var(--ease-enter);
+}
+.project-actions a[data-live-demo]:hover::before,
+.project-actions a[data-live-demo]:focus-visible::before {
+  opacity: 1;
+}
+
+/* Information cards stay still. Price and conditions are for reading. */
+.price-grid article,
+.sales-grid > div,
+.custom-estimates p {
+  transition: none;
+}
+
+/* =====================================================================
+   TRACE — the path from brief to delivery
+   The process line lights along its length once the step arrives.
+   ===================================================================== */
+
+[data-reveal-ready="on"] [data-reveal="trace"] {
+  opacity: 1;
+  transform: none;
+}
+[data-reveal-ready="on"] [data-reveal="trace"] > * {
+  opacity: 0;
+  transform: translate3d(0, 8px, 0);
+  transition:
+    opacity var(--motion-base) var(--ease-enter),
+    transform var(--motion-base) var(--ease-enter);
+}
+[data-reveal-ready="on"] [data-reveal="trace"].is-in > * {
+  opacity: 1;
+  transform: none;
+}
+[data-reveal-ready="on"] [data-reveal="trace"].is-in > *:nth-child(2) {
+  transition-delay: var(--stagger-medium);
+}
+[data-reveal-ready="on"] [data-reveal="trace"].is-in > *:nth-child(3) {
+  transition-delay: calc(var(--stagger-medium) * 2);
+}
+[data-reveal-ready="on"] [data-reveal="trace"].is-in > *:nth-child(4) {
+  transition-delay: calc(var(--stagger-medium) * 3);
+}
+[data-reveal-ready="on"] [data-reveal="trace"].is-in > *:nth-child(n + 5) {
+  transition-delay: calc(var(--stagger-medium) * 4);
+}
+
+/* =====================================================================
+   NAVIGATION — an ember under the current place
+   ===================================================================== */
+
+.site-header nav a:not(.nav-cta) {
+  position: relative;
+}
+.site-header nav a:not(.nav-cta)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 1px;
+  background: var(--ember);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform var(--motion-fast) var(--ease-enter);
+}
+.site-header nav a:not(.nav-cta):hover::after,
+.site-header nav a:not(.nav-cta):focus-visible::after {
+  transform: scaleX(1);
+}
+.site-header .brand:hover .brand-mark {
+  filter: drop-shadow(0 0 6px rgb(252 190 105 / 0.45));
+  transition: filter var(--motion-base) var(--ease-enter);
+}
+
+/* =====================================================================
+   REDUCED MOTION
+   globals.css already disables transitions and animations globally. This
+   block additionally guarantees nothing is left mid-animation in a hidden
+   or dimmed state — a reveal that fails to un-hide is worse than no
+   reveal at all.
+   ===================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal] > *,
+  [data-reveal="group"] > *,
+  [data-reveal="trace"] > * {
+    opacity: 1 !important;
+    transform: none !important;
+    clip-path: none !important;
+    transition: none !important;
+    animation: none !important;
+  }
+  .home-ui .sales-hero::after {
+    opacity: 0.72;
+    animation: none !important;
+  }
+  .hero-monogram {
+    opacity: 0.035;
+    animation: none !important;
+  }
+  .sales-ui .button.primary::after {
+    animation: none !important;
+    opacity: 0;
+  }
+}
+
+/* =====================================================================
+   MOBILE — same information, less motion
+   Section 26.9: density drops, content and CTAs do not change.
+   ===================================================================== */
+
+@media (max-width: 47.99rem) {
+  :root {
+    --stagger-short: 30ms;
+    --stagger-medium: 55ms;
+  }
+  /* Hover-driven ornament is meaningless without a hovering pointer, and
+     the hero glow is the most expensive layer on the weakest hardware. */
+  .home-ui .sales-hero::after {
+    display: none;
+  }
+  [data-reveal-ready="on"] [data-reveal="image"] {
+    clip-path: none;
+    transition: opacity var(--motion-base) var(--ease-enter);
+  }
+}
+
+/* =====================================================================
+   DEMO STATE — the work samples
+
+   Section 26.7: the demos are the part a prospective client actually
+   operates, so a state change should be legible rather than a redraw.
+   These are transitions on properties the demos already change, plus one
+   entry animation for panels that genuinely mount. The demos' own colours
+   and layout are untouched — they are the work being shown, not chrome.
+   ===================================================================== */
+
+.demo-page .badge,
+.demo-page .status-line,
+.demo-page .assignment,
+.demo-page .stats-grid strong,
+.demo-page .list-caption,
+.demo-page .pagination {
+  transition:
+    color var(--motion-fast) var(--ease-enter),
+    background-color var(--motion-fast) var(--ease-enter),
+    border-color var(--motion-fast) var(--ease-enter),
+    opacity var(--motion-fast) var(--ease-enter);
+}
+
+/* Rows respond to being picked, so the list feels operable. */
+.demo-page .ticket-list > * {
+  transition:
+    background-color var(--motion-fast) var(--ease-enter),
+    border-color var(--motion-fast) var(--ease-enter);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* Panels that mount on a selection: the ticket detail, the reply block,
+     and the empty state that replaces them. Short enough to read as
+     "this changed", not as an animation to sit through. */
+  .demo-page .ticket-detail,
+  .demo-page .reply-section,
+  .demo-page .error-message,
+  .demo-page .empty-state {
+    animation: tanebi-state-in 260ms var(--ease-enter) both;
+  }
+}
+@keyframes tanebi-state-in {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 6px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .demo-page .ticket-detail,
+  .demo-page .reply-section,
+  .demo-page .error-message,
+  .demo-page .empty-state {
+    animation: none !important;
+    opacity: 1;
+    transform: none;
+  }
+}

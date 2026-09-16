@@ -58,7 +58,11 @@ export default function Home() {
             <span>JAPAN / REMOTE / MESSAGE-ONLY OK</span>
           </div>
         </section>
-        <section className="hub-section service-selector" id="services">
+        <section
+          className="hub-section service-selector"
+          id="services"
+          data-reveal="title"
+        >
           <span className="eyebrow">01 / CAPABILITIES</span>
           <p className="editorial-heading" lang="en">
             WHAT DO YOU NEED?
@@ -67,7 +71,7 @@ export default function Home() {
           <p className="section-lead">
             案件に近いカテゴリを選ぶと、関連する作品・料金・納品物だけを表示。
           </p>
-          <div className="service-selector-grid">
+          <div className="service-selector-grid" data-reveal="group">
             {services.map((s, i) => (
               <Link key={s.id} href={`/works/${s.id}`} data-service={s.id}>
                 <span className="service-number">
@@ -86,7 +90,11 @@ export default function Home() {
             </Link>
           </p>
         </section>
-        <section className="hub-section selected-works" id="works">
+        <section
+          className="hub-section selected-works"
+          id="works"
+          data-reveal="title"
+        >
           <div className="hub-section-head">
             <div>
               <span className="eyebrow">02 / SELECTED WORKS</span>
@@ -123,7 +131,7 @@ export default function Home() {
           <span className="eyebrow">03 / PRICE GUIDE</span>
           <h2>料金と納期の目安。</h2>
           <p className="section-lead">必要な範囲からご依頼いただけます。</p>
-          <div className="price-grid">
+          <div className="price-grid" data-reveal="group">
             {[
               ["トップページ", "30,000円〜", "3〜5営業日"],
               ["下層ページ", "5,000円〜 / 1ページ", "1〜2営業日 / 1ページ"],
@@ -151,7 +159,11 @@ export default function Home() {
         </section>
         <Delivery />
         <Process />
-        <section id="qa" className="hub-section sales-quality">
+        <section
+          id="qa"
+          className="hub-section sales-quality"
+          data-reveal="section"
+        >
           <div>
             <span className="eyebrow">06 / BUILT WITH CARE</span>
             <h2>
