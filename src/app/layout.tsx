@@ -1,6 +1,7 @@
-﻿import type { Metadata } from "next";
+﻿import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { siteOrigin } from "@/lib/seo";
+import { BRAND_NAME, BRAND_TAGLINE } from "@/lib/brand";
 import { Analytics } from "@/components/analytics";
 import { Monitoring } from "@/components/monitoring";
 import "./globals.css";
@@ -26,18 +27,30 @@ const inter = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin()),
   title: {
-    default: "TETSU / WORKS | BUILD. AUTOMATE. DELIVER.",
-    template: "%s | TETSU / WORKS",
+    default: `${BRAND_NAME} | ${BRAND_TAGLINE}`,
+    template: `%s | ${BRAND_NAME}`,
   },
   description:
     "Web制作からAI業務自動化まで。設計・実装・テスト・納品を紹介する自主制作ポートフォリオ。",
   openGraph: {
-    title: "TETSU / WORKS | BUILD. AUTOMATE. DELIVER.",
+    title: `${BRAND_NAME} | ${BRAND_TAGLINE}`,
     images: [{ url: "/og.png", width: 1200, height: 630 }],
     locale: "ja_JP",
     type: "website",
   },
   twitter: { card: "summary_large_image" },
+  // favicon.ico and apple-icon.png sit next to this file and are wired up by
+  // Next's file convention; the manifest carries the 192/512/maskable sizes.
+  manifest: "/site.webmanifest",
+  applicationName: BRAND_NAME,
+};
+
+/**
+ * The master icon's own field colour, measured from the image rather than
+ * picked by eye, so the browser chrome meets the page without a seam.
+ */
+export const viewport: Viewport = {
+  themeColor: "#0e0906",
 };
 export default function RootLayout({
   children,

@@ -1,12 +1,24 @@
 ﻿import Link from "next/link";
 import { ArrowUpRight, ArrowLeft, ShieldCheck } from "lucide-react";
 import { BrandMark } from "./brand-mark";
+import {
+  BRAND_NAME,
+  BRAND_OPERATOR,
+  BRAND_PARENT_LOCKUP,
+  BRAND_PARENT_SENTENCE,
+  displayDomain,
+} from "@/lib/brand";
+import { siteOrigin } from "@/lib/seo";
 export function Header() {
   return (
     <header className="site-header">
-      <Link href="/" className="brand" aria-label="TETSU / WORKS ホーム">
-        <BrandMark /> TETSU / WORKS
+      <Link href="/" className="brand" aria-label={`${BRAND_NAME} ホーム`}>
+        <BrandMark /> {BRAND_NAME}
       </Link>
+      {/* Outside the link: the parent brand describes WORKS, it is not a
+          second destination, and it should not be read as part of the
+          "TANEBI WORKS ホーム" link label. */}
+      <span className="brand-note">{BRAND_PARENT_LOCKUP}</span>
       <nav aria-label="メインナビゲーション">
         <Link href="/#works">WORKS</Link>
         <Link href="/#services">SERVICES</Link>
@@ -23,8 +35,8 @@ export function Footer() {
   return (
     <footer className="site-footer">
       <div className="footer-top">
-        <Link className="brand" href="/" aria-label="TETSU / WORKS ホーム">
-          <BrandMark /> TETSU / WORKS
+        <Link className="brand" href="/" aria-label={`${BRAND_NAME} ホーム`}>
+          <BrandMark /> {BRAND_NAME}
         </Link>
         <Link className="footer-cta" href="/#contact">
           次の制作について相談する <ArrowUpRight size={20} aria-hidden="true" />
@@ -36,7 +48,8 @@ export function Footer() {
         </p>
         <div>
           <p>人が使える完成品まで、責任を持って。</p>
-          <p className="footer-domain">tetsuworks.com</p>
+          <p className="footer-parent">{BRAND_PARENT_SENTENCE}</p>
+          <p className="footer-domain">{displayDomain(siteOrigin())}</p>
         </div>
       </div>
       <div className="footer-bottom">
@@ -49,7 +62,7 @@ export function Footer() {
           <Link href="/privacy">プライバシー</Link>
         </nav>
         <small>
-          © {new Date().getFullYear()} TETSU / WORKS · 自主制作ポートフォリオ
+          © {new Date().getFullYear()} {BRAND_NAME} · 運営：{BRAND_OPERATOR}
         </small>
       </div>
     </footer>

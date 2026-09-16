@@ -88,7 +88,7 @@ input:focus-visible,
 textarea:focus-visible,
 select:focus-visible,
 [tabindex]:focus-visible {
-  outline: 3px solid #4d9279;
+  outline: 3px solid #fcbe69;
   outline-offset: 4px;
 }
 ::selection {

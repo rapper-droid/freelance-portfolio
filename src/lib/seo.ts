@@ -1,4 +1,10 @@
 ﻿import type { Metadata } from "next";
+import {
+  BRAND_NAME,
+  BRAND_TAGLINE,
+  BRAND_TITLE_SUFFIX,
+  LEGACY_TITLE_SUFFIX,
+} from "@/lib/brand";
 export function siteOrigin() {
   const value = process.env.NEXT_PUBLIC_SITE_URL;
   if (!value) return "http://localhost:3000";
@@ -16,9 +22,14 @@ export function pageMetadata(
   description: string,
   path: string,
 ): Metadata {
-  const brandedTitle = title.endsWith(" | TETSU / WORKS")
-    ? title
-    : `${title} | TETSU / WORKS`;
+  // Both suffixes are recognised so a title carrying the old one is corrected
+  // rather than ending up with two brands appended.
+  const bare = title.endsWith(LEGACY_TITLE_SUFFIX)
+    ? title.slice(0, -LEGACY_TITLE_SUFFIX.length)
+    : title;
+  const brandedTitle = bare.endsWith(BRAND_TITLE_SUFFIX)
+    ? bare
+    : `${bare}${BRAND_TITLE_SUFFIX}`;
   return {
     title: { absolute: brandedTitle },
     description,
@@ -34,7 +45,7 @@ export function pageMetadata(
           url: "/og.png",
           width: 1200,
           height: 630,
-          alt: "TETSU / WORKS — BUILD. AUTOMATE. DELIVER.",
+          alt: `${BRAND_NAME} — ${BRAND_TAGLINE}`,
         },
       ],
     },

@@ -1,11 +1,11 @@
 ﻿/* Sales Hub tokens: Figma-ready semantic primitives. */
 :root {
-  --hub-paper: #f7f8f4;
-  --hub-ink: #193b32;
-  --hub-accent: #d8ed9e;
-  --hub-muted: #52665e;
-  --hub-border: #dce2d8;
-  --hub-radius: 18px;
+  --hub-paper: #faf7f2;
+  --hub-ink: #1a1613;
+  --hub-accent: #fcbe69;
+  --hub-muted: #4a423a;
+  --hub-border: #e2d8ca;
+  --hub-radius: 12px;
   --hub-space: clamp(24px, 5vw, 80px);
 }
 .sales-hub {
@@ -598,7 +598,7 @@
 }
 .art-comparison > div:last-child {
   background: #1b4034;
-  color: #d8ed9e;
+  color: #fcbe69;
 }
 .art-comparison small {
   font-size: 8px;
@@ -720,7 +720,7 @@
   color: #d6dfd0;
 }
 .studio-note a {
-  color: #d8ed9e;
+  color: #fcbe69;
 }
 .sales-hub .contact-section {
   max-width: 1280px;

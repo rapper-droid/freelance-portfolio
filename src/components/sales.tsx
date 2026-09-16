@@ -63,6 +63,7 @@ export function SalesInfo({
       </div>
       <div className="sales-grid">
         {[
+          ["向いている依頼", category.audience],
           ["対応可能内容", category.scope],
           ["参考料金", category.price],
           ["制作期間", category.duration],
@@ -75,6 +76,14 @@ export function SalesInfo({
             "確認用共有後、合意した範囲で修正。追加仕様は費用と日程を先に相談します。",
           ],
           ["必要素材", category.materials],
+          // Not a new condition: the row above already says these come from
+          // the client, which means the reference price does not cover making
+          // them. Stating the consequence plainly is clearer than leaving a
+          // reader to infer it after they have asked for a quote.
+          [
+            "含まれないもの",
+            "上の必要素材はお客様にご用意いただく前提です。素材そのものの作成は参考料金に含みません。",
+          ],
           ["使用可能技術", category.tech],
           [
             "進め方",

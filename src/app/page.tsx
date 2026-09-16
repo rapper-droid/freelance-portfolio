@@ -22,12 +22,11 @@ export default function Home() {
       <main id="main" className="sales-hub sales-ui home-ui">
         <section className="sales-hero">
           <div className="sales-hero-copy">
-            <span className="eyebrow">
-              <span className="desktop-copy">
-                WEB DEVELOPMENT / AI AUTOMATION / DESIGN
-              </span>
-              <span className="mobile-copy">WEB / AI / DESIGN</span>
-            </span>
+            {/* The same three words TANEBI HQ uses to describe this part of
+                the brand. Keeping them identical means a reader who arrives
+                from HQ lands on the description they were just given. Short
+                enough that mobile needs no separate copy. */}
+            <span className="eyebrow">WEB / AI / AUTOMATION</span>
             <h1>
               <span>BUILD.</span>
               <span>AUTOMATE.</span>
