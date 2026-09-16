@@ -24,6 +24,7 @@ test("direct contact validates, retains drafts on failure, retries idempotently 
   );
   await page.goto("/#contact");
   await page.getByRole("button", { name: "メールで相談する" }).click();
+  await page.getByLabel("お名前").fill("テスト 太郎");
   await page.getByLabel("返信先メールアドレス").fill("visitor@example.test");
   await page.getByRole("checkbox", { name: /送信に同意/ }).check();
   await page.getByRole("button", { name: "相談を送信する" }).click();

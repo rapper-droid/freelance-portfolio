@@ -1,17 +1,10 @@
 export const uuidPattern =
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
 
-/**
- * Where the enquiry was sent from.
- *
- * Root-relative paths only, and a deliberately narrow character set. This
- * value ends up in an email that a person reads, so anything that could
- * carry a header break or a link to somewhere else is rejected rather than
- * escaped.
- */
-const pagePattern = /^\/[A-Za-z0-9\-/_#?=&.]{0,120}$/;
+// Root-relative, email-safe source paths only. Reject line breaks and external URLs.
+const pagePattern = /^\/[A-Za-z0-9\-\/_#?=&.]{0,120}$/;
 
-/** Strip anything that could break out of a header line. */
+// User-provided values must never create additional email headers.
 export const headerSafe = (value: string) =>
   value.replace(/[\r\n]+/g, " ").trim();
 
@@ -22,7 +15,7 @@ export function validateContact(value: unknown) {
     typeof v[key] === "string" &&
     (v[key] as string).trim().length >= min &&
     (v[key] as string).length <= max;
-  // Optional fields are valid when absent, but never when present and wrong.
+  // Optional text is still length-bounded whenever it is present.
   const optional = (key: string, max: number) =>
     v[key] === undefined || v[key] === "" || text(key, 1, max);
   if (
@@ -57,14 +50,7 @@ export function validateContact(value: unknown) {
   };
 }
 
-/**
- * The email a person actually opens.
- *
- * Laid out as labelled lines rather than a paragraph, because the first
- * thing the reader does is look for the address to reply to and what was
- * asked for. The reference id matches the one shown to the sender, so a
- * follow-up message can be tied to the original enquiry.
- */
+// Keep every value visibly labeled, plus the safe reply address and reference id.
 export function contactEmailText(value: {
   name: string;
   email: string;
@@ -79,12 +65,12 @@ export function contactEmailText(value: {
   const row = (label: string, text: string) => `${label}: ${text}`;
   return [
     row("お名前", value.name),
-    row("メール", value.email),
-    ...(value.company ? [row("会社・屋号", value.company)] : []),
-    row("相談種別", value.kind),
+    ...(value.company ? [row("会社名・屋号", value.company)] : []),
+    row("メールアドレス", value.email),
+    row("問い合わせ種類", value.kind),
     row("ご予算", value.budget),
     "",
-    "--- ご相談内容 ---",
+    "--- お問い合わせ内容 ---",
     value.detail,
     "",
     "--- 受付情報 ---",
@@ -101,14 +87,14 @@ export function contactConfigured() {
     process.env.CONTACT_ENABLED === "true" &&
     [
       "RESEND_API_KEY",
-      "CONTACT_FROM",
-      "CONTACT_TO",
+      "CONTACT_FROM_EMAIL",
+      "CONTACT_TO_EMAIL",
       "TURNSTILE_SECRET",
       "NEXT_PUBLIC_TURNSTILE_SITE_KEY",
       "NEXT_PUBLIC_SITE_URL",
       "UPSTASH_REDIS_REST_URL",
       "UPSTASH_REDIS_REST_TOKEN",
       "RATE_LIMIT_SALT",
-    ].every((k) => !!process.env[k])
+    ].every((key) => !!process.env[key])
   );
 }

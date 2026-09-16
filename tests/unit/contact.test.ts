@@ -32,8 +32,8 @@ function request(value: unknown = body, origin = "https://portfolio.test") {
 function configured() {
   for (const key of [
     "RESEND_API_KEY",
-    "CONTACT_FROM",
-    "CONTACT_TO",
+    "CONTACT_FROM_EMAIL",
+    "CONTACT_TO_EMAIL",
     "TURNSTILE_SECRET",
     "NEXT_PUBLIC_TURNSTILE_SITE_KEY",
     "UPSTASH_REDIS_REST_TOKEN",
@@ -138,8 +138,10 @@ describe("contact safety", () => {
     expect((await POST(request())).status).toBe(200);
     expect(f.mock.calls[1][0]).toBe("https://api.resend.com/emails");
     const options = f.mock.calls[1][1];
-    expect(options.headers["Idempotency-Key"]).toBe(`portfolio-${body.id}`);
+    expect(options.headers["Idempotency-Key"]).toBe(`tsudowa-${body.id}`);
     expect(JSON.parse(options.body).to).toEqual(["test-only"]);
+    expect(JSON.parse(options.body).from).toBe("TSUDOWA <test-only>");
+    expect(JSON.parse(options.body).subject).toContain("TSUDOWA:");
     expect(JSON.parse(options.body).reply_to).toBe(body.email);
     expect(options.body).not.toContain("fresh-token");
     expect(options.signal).toBeInstanceOf(AbortSignal);

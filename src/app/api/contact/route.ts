@@ -12,8 +12,10 @@ import {
   redis,
 } from "@/lib/abuse";
 import { reportFailure } from "@/lib/server-monitoring";
+
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
+
 const reply = (status: number, code: string) =>
   Response.json(
     { code },
@@ -25,6 +27,7 @@ const reply = (status: number, code: string) =>
       },
     },
   );
+
 export async function GET() {
   return Response.json(
     {
@@ -36,6 +39,7 @@ export async function GET() {
     { headers: { "Cache-Control": "no-store" } },
   );
 }
+
 export async function POST(request: Request) {
   if (!contactConfigured()) return reply(503, "unavailable");
   if (
@@ -43,6 +47,7 @@ export async function POST(request: Request) {
     new URL(process.env.NEXT_PUBLIC_SITE_URL!).origin
   )
     return reply(403, "origin");
+
   let value;
   try {
     value = validateContact(await limitedJson(request, 16384));
@@ -50,6 +55,7 @@ export async function POST(request: Request) {
     return reply(400, "invalid");
   }
   if (!value) return reply(400, "invalid");
+
   try {
     if (!(await quota(`contact-ip:${clientBucket(request)}`, 5, 600)))
       return reply(429, "rate");
@@ -74,9 +80,9 @@ export async function POST(request: Request) {
         new URL(process.env.NEXT_PUBLIC_SITE_URL!).hostname
     )
       return reply(403, "spam");
+
     const { email, detail, kind, budget, name, company, page, id } = value;
-    // Name and company are part of the submission, so a resend with a
-    // different name under the same id is a changed payload, not a duplicate.
+    // A changed name or company means the same id now represents a changed payload.
     const digest = fingerprint(
       JSON.stringify({ email, detail, kind, budget, name, company }),
     );
@@ -92,26 +98,27 @@ export async function POST(request: Request) {
       return reply(409, "pending");
     if ((await redis("SET", `${key}:lock`, "1", "NX", "EX", 60)) !== "OK")
       return reply(409, "pending");
-    // Hard caps are below Resend Free. Retries also consume quota: fail conservatively.
+    // Hard caps stay below Resend Free limits. Retries consume quota too.
     if (
       !(await quota("mail-day", 50, 86400)) ||
       !(await quota("mail-30days", 900, 2592000))
     )
       return reply(429, "capacity");
+
     const result = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
         "Content-Type": "application/json",
-        "Idempotency-Key": `portfolio-${id}`,
+        "Idempotency-Key": `tsudowa-${id}`,
       },
       body: JSON.stringify({
-        from: process.env.CONTACT_FROM,
-        to: [process.env.CONTACT_TO],
+        from: `TSUDOWA <${process.env.CONTACT_FROM_EMAIL}>`,
+        to: [process.env.CONTACT_TO_EMAIL],
         // Replying to the notification reaches the person who wrote in.
         reply_to: email,
-        // headerSafe: kind is user input and a subject line is a header.
-        subject: `TANEBI WORKS: ${headerSafe(kind)}のご相談（${headerSafe(name)}様）`,
+        // kind and name are user input, so make the email header line-safe.
+        subject: `TSUDOWA: ${headerSafe(kind)}のご相談（${headerSafe(name)}様）`,
         text: contactEmailText({
           name,
           email,
