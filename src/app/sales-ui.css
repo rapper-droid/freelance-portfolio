@@ -1,23 +1,23 @@
 /* Figma bv0O39N0hmW8bxMSYlwY0n: 1:3, 1:110, 3:2, 3:122, 4:3–4:341.
    Scope sales colours to the shell; interactive demo surfaces keep their tokens. */
 .sales-ui {
-  --hub-paper: #0b0d0c;
-  --hub-ink: #f3f1e9;
-  --hub-muted: #a6aaa2;
-  --hub-accent: #b7f36b;
-  --hub-border: #2a302a;
-  --sales-panel: #121512;
-  --sales-on-accent: #101310;
+  --hub-paper: #0e0906;
+  --hub-ink: #f0e9e0;
+  --hub-muted: #c2b7aa;
+  --hub-accent: #fcbe69;
+  --hub-border: #332c26;
+  --sales-panel: #1c1816;
+  --sales-on-accent: #0e0906;
   --hub-space: clamp(20px, 5.56vw, 80px);
   padding-bottom: 1px;
 }
 .site-header {
   max-width: none;
-  background: #0b0d0c;
-  color: #f3f1e9;
+  background: #0e0906;
+  color: #f0e9e0;
   padding-inline: max(20px, calc((100vw - 1280px) / 2));
   height: 100px;
-  border-bottom: 1px solid #202620;
+  border-bottom: 1px solid #332c26;
 }
 .site-header .brand {
   font-size: 18px;
@@ -26,7 +26,7 @@
 }
 .site-header nav {
   gap: 30px;
-  color: #a6aaa2;
+  color: #c2b7aa;
   font-size: 12px;
   font-weight: 600;
 }
@@ -36,33 +36,33 @@
   align-items: center;
 }
 .site-header .nav-cta {
-  background: #b7f36b;
-  color: #101310;
+  background: #fcbe69;
+  color: #0e0906;
   padding: 8px 18px;
   border-radius: 999px;
   white-space: pre;
   gap: 0;
 }
 .site-header nav a:hover {
-  color: #f3f1e9;
+  color: #f0e9e0;
 }
 .site-header nav .nav-cta:hover {
-  color: #101310;
+  color: #0e0906;
   background: #ceff91;
 }
 .site-footer {
   max-width: none;
-  background: #0b0d0c;
-  color: #a6aaa2;
-  border-top: 1px solid #2a302a;
+  background: #0e0906;
+  color: #c2b7aa;
+  border-top: 1px solid #332c26;
   padding: 36px max(20px, calc((100vw - 1280px) / 2));
 }
 .site-footer .brand {
-  color: #f3f1e9;
+  color: #f0e9e0;
 }
 .site-footer p,
 .site-footer small {
-  color: #a6aaa2;
+  color: #c2b7aa;
 }
 .sales-ui .eyebrow {
   color: var(--hub-accent);
@@ -86,7 +86,7 @@
 }
 .sales-ui .button {
   min-height: 50px;
-  border-radius: 14px;
+  border-radius: 8px;
   font-size: 14px;
   padding: 12px 20px;
 }
@@ -328,7 +328,7 @@
 .project-preview {
   display: block;
   position: relative;
-  border-radius: 14px;
+  border-radius: 8px;
   overflow: hidden;
   background: #cdd5c6;
   aspect-ratio: 1.95;
@@ -367,7 +367,7 @@
   right: 5%;
   top: 19%;
   border: 4px solid #111512;
-  border-radius: 14px;
+  border-radius: 8px;
   box-shadow: 0 6px 20px #0003;
   transition: transform 0.2s;
 }

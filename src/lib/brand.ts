@@ -38,3 +38,24 @@ export const LEGACY_TITLE_SUFFIX = ` | ${BRAND_FORMER_NAME}`;
 export function displayDomain(origin: string): string {
   return new URL(origin).host;
 }
+
+/** The parent brand. TANEBI WORKS is the part of it that takes commissions. */
+export const BRAND_PARENT = "TANEBI";
+
+/** Latin lockup, for the header where there is room for three words. */
+export const BRAND_PARENT_LOCKUP = `A ${BRAND_PARENT} SERVICE`;
+
+/** Plain Japanese, for the footer where the relationship deserves a sentence. */
+export const BRAND_PARENT_SENTENCE = `${BRAND_NAME} は ${BRAND_PARENT} の制作・受託部門です。`;
+
+/**
+ * TANEBI HQ's address.
+ *
+ * Deliberately not linked yet. tanebi.jp is not published, and a site that
+ * takes real enquiries must not ship an outbound link to a domain that does
+ * not answer — a dead link next to the brand name reads as a dead business.
+ * The name is shown as text until HQ is live; flip this one flag then and the
+ * footer becomes a link.
+ */
+export const PARENT_SITE = "https://tanebi.jp";
+export const PARENT_SITE_IS_LIVE = false;

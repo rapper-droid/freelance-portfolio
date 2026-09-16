@@ -1,9 +1,9 @@
 /* Final Art Direction 12:3 / 12:179. Demo controls retain their own styles. */
 :root {
-  --studio-paper: #080a09;
-  --studio-ink: #f3f4ee;
-  --studio-accent: #c7ff63;
-  --studio-rule: #2a302a;
+  --studio-paper: #090300;
+  --studio-ink: #f0e9e0;
+  --studio-accent: #fcbe69;
+  --studio-rule: #332c26;
   --motion-fast: 220ms;
   --motion-image: 420ms;
   --motion-ease: cubic-bezier(0.16, 1, 0.3, 1);
@@ -78,7 +78,7 @@
   align-items: end;
   background-image: radial-gradient(
     ellipse at 88% 22%,
-    #c7ff6308,
+    #fcbe6908,
     transparent 35%
   );
 }
@@ -405,7 +405,7 @@
   letter-spacing: 1.5px;
   padding: 7px 10px;
   background: #111b18e8;
-  color: #f3f4ee;
+  color: #f0e9e0;
 }
 .feature-caption {
   color: var(--hub-muted);
@@ -614,7 +614,7 @@
 }
 .site-footer {
   display: block;
-  background: #101310;
+  background: #0e0906;
   padding-block: 56px 24px;
 }
 .footer-top,
@@ -1073,4 +1073,25 @@
     animation: none !important;
     transition: none !important;
   }
+}
+
+/* --- Parent brand -------------------------------------------------------
+   TANEBI WORKS is the name that takes the commission; TANEBI is the name it
+   belongs to. The relationship is stated, never shouted: the lockup sits
+   beside the wordmark at a fraction of its weight. margin-right:auto keeps it
+   tied to the brand instead of drifting to the middle of the flex header. */
+.site-header .brand-note {
+  margin-left: 14px;
+  margin-right: auto;
+  font-size: 10px;
+  letter-spacing: 1.6px;
+  font-weight: 500;
+  color: var(--hub-muted);
+  white-space: nowrap;
+}
+/* The header lockup is hidden on small screens for space, so the footer
+   carries the relationship in full where every page ends. */
+.site-footer .footer-parent {
+  margin: 6px 0 0;
+  color: var(--hub-muted);
 }
