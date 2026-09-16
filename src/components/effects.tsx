@@ -38,7 +38,12 @@ export function Effects() {
             obs.unobserve(entry.target);
           }
         },
-        { rootMargin: "0px 0px -12% 0px", threshold: 0.12 },
+        // Fire just BEFORE the element reaches the viewport, not after.
+        // A negative bottom margin plus a ratio threshold meant a tall
+        // section could already be on screen while still at opacity 0 --
+        // measured on .sales-quality, which is exactly the moment a reveal
+        // reads as a broken page rather than an arrival.
+        { rootMargin: "0px 0px 10% 0px", threshold: 0 },
       );
       targets.forEach((t) => observer!.observe(t));
     };
