@@ -1,4 +1,9 @@
-import { validateContact, contactConfigured } from "@/lib/contact";
+import {
+  validateContact,
+  contactConfigured,
+  contactEmailText,
+  headerSafe,
+} from "@/lib/contact";
 import {
   clientBucket,
   fingerprint,
@@ -69,8 +74,12 @@ export async function POST(request: Request) {
         new URL(process.env.NEXT_PUBLIC_SITE_URL!).hostname
     )
       return reply(403, "spam");
-    const { email, detail, kind, budget, id } = value;
-    const digest = fingerprint(JSON.stringify({ email, detail, kind, budget }));
+    const { email, detail, kind, budget, name, company, page, id } = value;
+    // Name and company are part of the submission, so a resend with a
+    // different name under the same id is a changed payload, not a duplicate.
+    const digest = fingerprint(
+      JSON.stringify({ email, detail, kind, budget, name, company }),
+    );
     const key = `portfolio:submission:${id}`;
     const existing = await redis("GET", key);
     if (existing && existing !== digest) return reply(409, "conflict");
@@ -99,9 +108,21 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         from: process.env.CONTACT_FROM,
         to: [process.env.CONTACT_TO],
+        // Replying to the notification reaches the person who wrote in.
         reply_to: email,
-        subject: "WORKS: 制作のご相談",
-        text: `相談種別: ${kind}\n希望予算: ${budget}\n\n${detail}\n\n受付番号: ${id}`,
+        // headerSafe: kind is user input and a subject line is a header.
+        subject: `TANEBI WORKS: ${headerSafe(kind)}のご相談（${headerSafe(name)}様）`,
+        text: contactEmailText({
+          name,
+          email,
+          company,
+          kind,
+          budget,
+          detail,
+          page,
+          id,
+          receivedAt: new Date().toISOString(),
+        }),
       }),
       signal: AbortSignal.timeout(8000),
       redirect: "error",

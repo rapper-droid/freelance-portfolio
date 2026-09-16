@@ -113,11 +113,19 @@ export function ContactSend({
                 return;
               }
               const data = new FormData(e.currentTarget);
+              // Name and company are part of the identity of a submission, so
+              // they belong in the body the retry id is derived from: editing
+              // the name makes this a new enquiry, not a duplicate of the old.
               const body = JSON.stringify({
+                name: data.get("name"),
+                company: data.get("company") || "",
                 email: data.get("email"),
                 kind,
                 detail,
                 budget,
+                // Which page the enquiry came from, so the reply can start
+                // from what they were actually looking at.
+                page: window.location.pathname,
               });
               if (submission.current.body !== body)
                 submission.current = { body, id: crypto.randomUUID() };
@@ -167,6 +175,27 @@ export function ContactSend({
             <p className="small">
               案件サイト経由のご相談は、サービス内メッセージを優先してください。直接相談をご希望の場合は以下から送信できます。
             </p>
+            <label>
+              お名前
+              <input
+                name="name"
+                type="text"
+                required
+                maxLength={80}
+                autoComplete="name"
+                disabled={state === "sending" || state === "success"}
+              />
+            </label>
+            <label>
+              会社名・屋号<span className="field-optional">任意</span>
+              <input
+                name="company"
+                type="text"
+                maxLength={80}
+                autoComplete="organization"
+                disabled={state === "sending" || state === "success"}
+              />
+            </label>
             <label>
               返信先メールアドレス
               <input

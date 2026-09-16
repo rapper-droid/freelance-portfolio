@@ -10,6 +10,9 @@ vi.mock("../../src/lib/abuse", async (original) => ({
 }));
 vi.mock("../../src/lib/server-monitoring", () => ({ reportFailure: vi.fn() }));
 const body = {
+  name: "山田 太郎",
+  company: "サンプル商店",
+  page: "/works/web",
   email: "example@example.test",
   kind: "Web",
   detail: "Please build a company website.",
@@ -66,6 +69,11 @@ describe("contact safety", () => {
       { consent: false },
       { website: "bot" },
       { id: "no" },
+      { name: "" },
+      { name: "x".repeat(81) },
+      { company: "x".repeat(81) },
+      { page: "https://attacker.test/steal" },
+      { page: "/works" + String.fromCharCode(13, 10) + "Bcc: evil@test.test" },
     ])
       expect(validateContact({ ...body, ...change })).toBeNull();
   });
@@ -184,8 +192,10 @@ describe("contact safety", () => {
 
 it("recognizes accepted retry and never sends a second email", async () => {
   configured();
-  const { email, detail, kind, budget } = body;
-  const digest = fingerprint(JSON.stringify({ email, detail, kind, budget }));
+  const { email, detail, kind, budget, name, company } = body;
+  const digest = fingerprint(
+    JSON.stringify({ email, detail, kind, budget, name, company }),
+  );
   vi.mocked(redis).mockResolvedValueOnce(digest).mockResolvedValueOnce("1");
   const f = vi.fn().mockResolvedValue(
     Response.json({
@@ -230,4 +240,44 @@ it("never reports a rejected provider response as successful", async () => {
       ),
   );
   expect((await POST(request())).status).toBe(503);
+});
+
+it("puts everything needed to reply in the email, and nothing dangerous in the subject", async () => {
+  configured();
+  const f = vi
+    .fn()
+    .mockResolvedValueOnce(
+      Response.json({
+        success: true,
+        action: "contact",
+        hostname: "portfolio.test",
+      }),
+    )
+    .mockResolvedValueOnce(Response.json({ id: "provider-id" }));
+  vi.stubGlobal("fetch", f);
+  expect(
+    (
+      await POST(
+        request({ ...body, kind: "Web" + String.fromCharCode(13, 10) + "X" }),
+      )
+    ).status,
+  ).toBe(200);
+  const sent = JSON.parse(f.mock.calls[1][1].body);
+  // Everything the reader needs to answer without opening anything else.
+  for (const needle of [
+    body.name,
+    body.company,
+    body.email,
+    body.detail,
+    body.page,
+    body.id,
+  ])
+    expect(sent.text).toContain(needle);
+  // A timestamp, in a form that is unambiguous across timezones.
+  expect(sent.text).toMatch(/\d{4}-\d{2}-\d{2}T[\d:.]+Z/);
+  // The subject is a header: a newline in user input must not survive into it.
+  expect(sent.subject).not.toMatch(/[\r\n]/);
+  expect(sent.subject).toContain(body.name);
+  // Still never leaks the captcha token.
+  expect(f.mock.calls[1][1].body).not.toContain("fresh-token");
 });

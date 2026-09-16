@@ -405,3 +405,17 @@
     justify-content: center;
   }
 }
+
+/* =====================================================================
+   Contact form — optional-field marker
+   ===================================================================== */
+.field-optional {
+  margin-left: 8px;
+  padding: 2px 7px;
+  border-radius: 999px;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  border: 1px solid var(--hub-border, #332c26);
+  color: var(--hub-muted, #c2b7aa);
+  font-weight: 400;
+}
