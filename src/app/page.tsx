@@ -4,66 +4,71 @@ import { Header, Footer } from "@/components/site";
 import { Contact } from "@/components/contact";
 import { ProjectFeature } from "@/components/project-feature";
 import { FAQ } from "@/components/faq";
-import { BrandMark } from "@/components/brand-mark";
 import { Process } from "@/components/sales";
-import { Delivery, MessageOnly, TrustPanel } from "@/components/sales-sections";
+import { Delivery, MessageOnly } from "@/components/sales-sections";
+import {
+  BrandArchitecture,
+  BrandOrbit,
+  WorksBridge,
+} from "@/components/brand-architecture";
 import { pricingNote } from "@/lib/portfolio";
 import { services, selectedProjects } from "@/lib/sales-ui";
 import { pageMetadata } from "@/lib/seo";
+
 export const metadata = pageMetadata(
-  "Web制作からAI業務自動化まで",
-  "Webサイト・LP・EC・業務ツールを、設計から実装・テスト・納品まで。制作デモ、参考料金と納期を確認できます。クラウドソーシングのメッセージだけでも進行可能。",
+  "集まり、つくり、次へ広がる",
+  "TSUDOWAはTETSU WORKS、TSUKUTTA LAB、これから生まれる事業をつなぐ親ブランドです。現在の制作・AI業務自動化サービス、制作デモ、料金と進め方を紹介します。",
   "/",
 );
+
 export default function Home() {
   return (
     <>
       <Header />
       <main id="main" className="sales-hub sales-ui home-ui">
-        <section className="sales-hero">
+        <section className="sales-hero brand-hero">
           <div className="sales-hero-copy">
-            {/* The same three words TANEBI HQ uses to describe this part of
-                the brand. Keeping them identical means a reader who arrives
-                from HQ lands on the description they were just given. Short
-                enough that mobile needs no separate copy. */}
-            <span className="eyebrow">WEB / AI / AUTOMATION</span>
+            <span className="eyebrow">PARENT BRAND / JAPAN</span>
             <h1>
+              <span>GATHER.</span>
               <span>BUILD.</span>
-              <span>AUTOMATE.</span>
-              <span>DELIVER.</span>
+              <span>EXPAND.</span>
             </h1>
             <p className="desktop-copy">
-              WebサイトからAI業務自動化まで。
+              人・技術・作品・事業が集まり、つくり、次へ広がる。
               <br />
-              設計・制作・実装・テスト・納品まで、一気通貫で。
+              TSUDOWAは、複数の挑戦を一つの思想でつなぐ親ブランドです。
             </p>
             <p className="mobile-copy">
-              Web制作からAI業務自動化まで。
+              集まり、つくり、次へ広がる。
               <br />
-              設計・実装・テストを経て、完成品を納品。
+              複数の挑戦をつなぐ親ブランド。
             </p>
             <div className="hero-actions">
-              <Link href="#services" className="button primary">
-                依頼内容から作品を見る <ArrowRight size={17} />
+              <Link href="#brands" className="button primary">
+                TSUDOWAを知る <ArrowRight size={17} />
               </Link>
-              <Link href="#process" className="button hero-secondary">
-                制作フローを見る
+              <Link href="#tetsu-works" className="button hero-secondary">
+                現在の事業を見る
               </Link>
             </div>
           </div>
-          <TrustPanel />
-          <BrandMark className="hero-monogram" />
+          <BrandOrbit />
           <div className="hero-colophon">
-            <span>INDEPENDENT DESIGN & DEVELOPMENT</span>
-            <span>JAPAN / REMOTE / MESSAGE-ONLY OK</span>
+            <span>TSUDOWA / GATHER · BUILD · EXPAND</span>
+            <span>TETSU WORKS / TSUKUTTA LAB / NEXT</span>
           </div>
         </section>
+
+        <BrandArchitecture />
+        <WorksBridge />
+
         <section
           className="hub-section service-selector"
           id="services"
           data-reveal="title"
         >
-          <span className="eyebrow">01 / CAPABILITIES</span>
+          <span className="eyebrow">03 / TETSU WORKS CAPABILITIES</span>
           <p className="editorial-heading" lang="en">
             WHAT DO YOU NEED?
           </p>
@@ -72,13 +77,17 @@ export default function Home() {
             案件に近いカテゴリを選ぶと、関連する作品・料金・納品物だけを表示。
           </p>
           <div className="service-selector-grid" data-reveal="group">
-            {services.map((s, i) => (
-              <Link key={s.id} href={`/works/${s.id}`} data-service={s.id}>
+            {services.map((service, index) => (
+              <Link
+                key={service.id}
+                href={`/works/${service.id}`}
+                data-service={service.id}
+              >
                 <span className="service-number">
-                  {String(i + 1).padStart(2, "0")}
+                  {String(index + 1).padStart(2, "0")}
                 </span>
-                <h3>{s.title}</h3>
-                <p>{s.description}</p>
+                <h3>{service.title}</h3>
+                <p>{service.description}</p>
                 <ArrowUpRight size={20} />
               </Link>
             ))}
@@ -90,6 +99,7 @@ export default function Home() {
             </Link>
           </p>
         </section>
+
         <section
           className="hub-section selected-works"
           id="works"
@@ -97,7 +107,7 @@ export default function Home() {
         >
           <div className="hub-section-head">
             <div>
-              <span className="eyebrow">02 / SELECTED WORKS</span>
+              <span className="eyebrow">04 / TETSU WORKS — SELECTED WORKS</span>
               <h2 className="editorial-heading">
                 SELECTED
                 <br />
@@ -114,8 +124,12 @@ export default function Home() {
             </Link>
           </div>
           <div className="featured-projects">
-            {selectedProjects.map((p, index) => (
-              <ProjectFeature key={p.slug} project={p} index={index} />
+            {selectedProjects.map((project, index) => (
+              <ProjectFeature
+                key={project.slug}
+                project={project}
+                index={index}
+              />
             ))}
           </div>
           <p className="honesty-note">
@@ -123,12 +137,13 @@ export default function Home() {
             DEMO）です。企業・商品・データは架空で、受託実績を示すものではありません。
           </p>
         </section>
+
         <section
           className="hub-section sales-pricing"
           id="pricing"
           data-price-info
         >
-          <span className="eyebrow">03 / PRICE GUIDE</span>
+          <span className="eyebrow">05 / TETSU WORKS — PRICE GUIDE</span>
           <h2>料金と納期の目安。</h2>
           <p className="section-lead">必要な範囲からご依頼いただけます。</p>
           <div className="price-grid" data-reveal="group">
@@ -157,6 +172,7 @@ export default function Home() {
           </div>
           <p className="honesty-note">{pricingNote}</p>
         </section>
+
         <Delivery />
         <Process />
         <section
@@ -165,7 +181,7 @@ export default function Home() {
           data-reveal="section"
         >
           <div>
-            <span className="eyebrow">06 / BUILT WITH CARE</span>
+            <span className="eyebrow">08 / BUILT WITH CARE</span>
             <h2>
               AIを活かして、
               <br />

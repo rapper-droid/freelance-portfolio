@@ -1,20 +1,17 @@
 import Image from "next/image";
 
 /**
- * TANEBI MASTER BRAND ICON.
+ * TSUDOWA symbol.
  *
- * One mark for TANEBI, TANEBI WORKS, TANEBI COMMAND and anything else under
- * the parent brand. What separates them is the wordmark beside it, never a
- * different drawing. Every size ships from scripts/generate-icons.mjs.
- *
- * Decorative here: the brand name is already adjacent as real text, so alt is
- * empty and the mark is hidden from screen readers rather than read twice.
+ * Four open arcs gather around one core. The gaps keep the ring in motion:
+ * things meet here, become something together, then continue outward. The
+ * adjacent wordmark is real text, so the image stays decorative in the UI.
  */
 export function BrandMark({ className = "" }: { className?: string }) {
   return (
     <Image
       className={`brand-mark ${className}`}
-      src="/brand/tanebi-mark.png"
+      src="/brand/tsudowa-mark.svg"
       width={38}
       height={38}
       alt=""

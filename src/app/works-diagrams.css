@@ -1,5 +1,5 @@
 /* =====================================================================
-   TANEBI DIAGRAMS
+   TETSU WORKS DIAGRAMS
 
    Semantic markup styled to read as a diagram. Nothing here is the only
    carrier of information: strip the stylesheet and every figure is still a
@@ -9,22 +9,22 @@
    markup works on the dark studio pages and on light demo surfaces.
    ===================================================================== */
 
-.tnb-dia {
+.works-dia {
   margin: 28px 0 0;
   color: var(--hub-ink);
 }
-.tnb-dia figcaption {
+.works-dia figcaption {
   margin-top: 14px;
   font-size: 12px;
   line-height: 1.8;
   color: var(--hub-muted);
 }
-.tnb-dia b {
+.works-dia b {
   font-weight: 600;
   font-size: 14px;
   letter-spacing: 0.01em;
 }
-.tnb-note {
+.works-note {
   display: block;
   margin-top: 6px;
   font-size: 12.5px;
@@ -37,7 +37,7 @@
    a background on the list, not an element per step, so it cannot drift out
    of alignment when a label wraps. */
 
-.tnb-pipeline ol {
+.works-pipeline ol {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -45,14 +45,14 @@
   gap: 18px;
   position: relative;
 }
-.tnb-pipeline li {
+.works-pipeline li {
   position: relative;
   padding: 16px 18px 18px 40px;
   border: 1px solid var(--hub-border);
   border-radius: 10px;
   background: color-mix(in srgb, var(--hub-ink) 3%, transparent);
 }
-.tnb-step-n {
+.works-step-n {
   position: absolute;
   top: 17px;
   left: 18px;
@@ -61,7 +61,7 @@
   color: var(--hub-muted);
 }
 /* The ember: where something happens. */
-.tnb-node {
+.works-node {
   position: absolute;
   left: 17px;
   top: 40px;
@@ -71,7 +71,7 @@
   background: var(--hub-accent);
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--hub-accent) 18%, transparent);
 }
-.tnb-actor {
+.works-actor {
   display: inline-block;
   margin-top: 10px;
   padding: 3px 9px;
@@ -83,25 +83,25 @@
 }
 /* Who does it is the question clients actually ask, so the human step is
    the one that stands out — not the automated ones. */
-.tnb-actor[data-actor="人"] {
+.works-actor[data-actor="人"] {
   color: var(--hub-accent);
   border-color: color-mix(in srgb, var(--hub-accent) 45%, transparent);
 }
 
 @media (min-width: 48rem) {
-  .tnb-pipeline ol {
+  .works-pipeline ol {
     grid-auto-flow: column;
     grid-auto-columns: 1fr;
     gap: 0;
   }
-  .tnb-pipeline li {
+  .works-pipeline li {
     border: 0;
     border-radius: 0;
     background: transparent;
     padding: 34px 20px 0 0;
   }
   /* The connecting line, drawn once behind the row. */
-  .tnb-pipeline ol::before {
+  .works-pipeline ol::before {
     content: "";
     position: absolute;
     left: 4px;
@@ -115,11 +115,11 @@
       var(--hub-border)
     );
   }
-  .tnb-node {
+  .works-node {
     left: 0;
     top: 0;
   }
-  .tnb-step-n {
+  .works-step-n {
     position: static;
     display: block;
     margin-bottom: 10px;
@@ -130,24 +130,24 @@
    Rows read "before -> after". On narrow screens the arrow rotates and the
    two halves stack, which keeps the direction legible in one column. */
 
-.tnb-ba dl {
+.works-ba dl {
   margin: 0;
   display: grid;
   gap: 14px;
 }
-.tnb-ba-head {
+.works-ba-head {
   display: none;
 }
 /* Centred on its own line so a long brand name cannot collide with the
-   AFTER heading, which is what happened when it lived in the arrow column. */
-.tnb-ba-via {
+   AFAER heading, which is what happened when it lived in the arrow column. */
+.works-ba-via {
   margin: 0 0 10px;
   text-align: center;
   font-size: 9.5px;
   letter-spacing: 0.16em;
   color: var(--hub-accent);
 }
-.tnb-ba-row {
+.works-ba-row {
   display: grid;
   gap: 10px;
   align-items: center;
@@ -155,20 +155,20 @@
   border: 1px solid var(--hub-border);
   border-radius: 10px;
 }
-.tnb-ba dt,
-.tnb-ba dd {
+.works-ba dt,
+.works-ba dd {
   margin: 0;
   font-size: 13.5px;
   line-height: 1.8;
 }
-.tnb-ba dt {
+.works-ba dt {
   color: var(--hub-muted);
 }
-.tnb-ba dd {
+.works-ba dd {
   color: var(--hub-ink);
   font-weight: 500;
 }
-.tnb-ba-tag {
+.works-ba-tag {
   display: inline-block;
   margin-right: 10px;
   font-size: 9.5px;
@@ -176,10 +176,10 @@
   color: var(--hub-muted);
   vertical-align: 1px;
 }
-.tnb-ba-tag--after {
+.works-ba-tag--after {
   color: var(--hub-accent);
 }
-.tnb-arrow {
+.works-arrow {
   color: var(--hub-accent);
   transform: rotate(90deg);
   justify-self: start;
@@ -187,7 +187,7 @@
 }
 
 @media (min-width: 48rem) {
-  .tnb-ba-head {
+  .works-ba-head {
     display: grid;
     grid-template-columns: 1fr 40px 1fr;
     gap: 18px;
@@ -196,30 +196,30 @@
     letter-spacing: 0.16em;
     color: var(--hub-muted);
   }
-  .tnb-ba-row {
+  .works-ba-row {
     grid-template-columns: 1fr 40px 1fr;
     gap: 18px;
   }
-  .tnb-arrow {
+  .works-arrow {
     transform: none;
     justify-self: center;
   }
   /* The column headers already say which side is which. */
-  .tnb-ba-tag {
+  .works-ba-tag {
     display: none;
   }
 }
 
 /* --- Delivery stack ---------------------------------------------------- */
 
-.tnb-stack ul {
+.works-stack ul {
   list-style: none;
   margin: 0;
   padding: 0;
   display: grid;
   gap: 12px;
 }
-.tnb-stack li {
+.works-stack li {
   display: grid;
   grid-template-columns: 34px 1fr;
   grid-template-rows: auto auto;
@@ -229,7 +229,7 @@
   border: 1px solid var(--hub-border);
   border-radius: 10px;
 }
-.tnb-stack-mark {
+.works-stack-mark {
   grid-row: 1 / 3;
   color: var(--hub-accent);
   display: grid;
@@ -239,12 +239,12 @@
   border-radius: 8px;
   border: 1px solid color-mix(in srgb, var(--hub-accent) 30%, transparent);
 }
-.tnb-stack .tnb-note {
+.works-stack .works-note {
   margin-top: 4px;
 }
 
 @media (min-width: 60rem) {
-  .tnb-stack ul {
+  .works-stack ul {
     grid-template-columns: repeat(2, 1fr);
   }
 }
@@ -252,7 +252,7 @@
 /* --- Reduced motion / print ------------------------------------------- */
 
 @media (prefers-reduced-motion: reduce) {
-  .tnb-dia * {
+  .works-dia * {
     transition: none !important;
     animation: none !important;
   }
@@ -280,7 +280,7 @@
   line-height: 1.95;
 }
 
-.tnb-phases {
+.works-phases {
   list-style: none;
   margin: 34px 0 0;
   padding: 0;
@@ -288,7 +288,7 @@
   gap: 14px;
   counter-reset: phase;
 }
-.tnb-phase {
+.works-phase {
   position: relative;
   /* Column so the checkpoint can be pinned to the bottom: phases have
      different step counts, and ragged checkpoint panels read as an
@@ -302,13 +302,13 @@
      section from "document" to "product". */
   background: color-mix(in srgb, var(--hub-ink) 4%, transparent);
 }
-.tnb-phase-top {
+.works-phase-top {
   display: flex;
   align-items: center;
   gap: 12px;
   margin-bottom: 16px;
 }
-.tnb-phase-icon {
+.works-phase-icon {
   display: grid;
   place-items: center;
   width: 40px;
@@ -319,24 +319,24 @@
   background: color-mix(in srgb, var(--hub-accent) 8%, transparent);
   flex-shrink: 0;
 }
-.tnb-phase-n {
+.works-phase-n {
   font-size: 10px;
   letter-spacing: 0.14em;
   color: var(--hub-muted);
 }
-.tnb-phase h3 {
+.works-phase h3 {
   margin: 0;
   font-size: 19px;
   letter-spacing: 0.01em;
   color: var(--hub-ink);
 }
-.tnb-phase-note {
+.works-phase-note {
   margin: 8px 0 0;
   font-size: 13px;
   line-height: 1.85;
   color: var(--hub-muted);
 }
-.tnb-phase-steps {
+.works-phase-steps {
   list-style: none;
   margin: 16px 0 16px;
   padding: 16px 0 0;
@@ -344,7 +344,7 @@
   display: grid;
   gap: 8px;
 }
-.tnb-phase-steps li {
+.works-phase-steps li {
   position: relative;
   padding-left: 16px;
   font-size: 12.5px;
@@ -352,7 +352,7 @@
   color: var(--hub-ink);
   opacity: 0.85;
 }
-.tnb-phase-steps li::before {
+.works-phase-steps li::before {
   content: "";
   position: absolute;
   left: 0;
@@ -364,7 +364,7 @@
 }
 /* The client's moments. Given the accent because they are the only rows a
    reader needs to plan around. */
-.tnb-phase-check {
+.works-phase-check {
   display: flex;
   gap: 10px;
   /* auto pushes it to the card bottom; the 16px is the gap above it. */
@@ -376,14 +376,14 @@
   line-height: 1.75;
   color: var(--hub-ink);
 }
-.tnb-phase-check b {
+.works-phase-check b {
   display: block;
   font-size: 10px;
   letter-spacing: 0.1em;
   color: var(--hub-accent);
   margin-bottom: 3px;
 }
-.tnb-phase-check-mark {
+.works-phase-check-mark {
   flex-shrink: 0;
   width: 7px;
   height: 7px;
@@ -394,29 +394,29 @@
 }
 
 @media (min-width: 48rem) {
-  .tnb-phases {
+  .works-phases {
     grid-template-columns: repeat(2, 1fr);
     gap: 16px;
   }
 }
 @media (min-width: 72rem) {
-  .tnb-phases {
+  .works-phases {
     grid-template-columns: repeat(4, 1fr);
     gap: 0;
   }
-  .tnb-phase {
+  .works-phase {
     border-radius: 0;
     border-right: 0;
   }
-  .tnb-phase:first-child {
+  .works-phase:first-child {
     border-radius: 14px 0 0 14px;
   }
-  .tnb-phase:last-child {
+  .works-phase:last-child {
     border-radius: 0 14px 14px 0;
     border-right: 1px solid var(--hub-border);
   }
   /* The ember travels across the top of the row: one line, four phases. */
-  .tnb-phase::before {
+  .works-phase::before {
     content: "";
     position: absolute;
     left: 0;
@@ -426,22 +426,22 @@
     background: var(--hub-accent);
     opacity: calc(0.9 - 0.2 * var(--i, 0));
   }
-  .tnb-phase:nth-child(1) {
+  .works-phase:nth-child(1) {
     --i: 0;
   }
-  .tnb-phase:nth-child(2) {
+  .works-phase:nth-child(2) {
     --i: 1;
   }
-  .tnb-phase:nth-child(3) {
+  .works-phase:nth-child(3) {
     --i: 2;
   }
-  .tnb-phase:nth-child(4) {
+  .works-phase:nth-child(4) {
     --i: 3;
   }
 }
 
 /* =====================================================================
-   CATEGORY KEY VISUAL
+   CAAEGORY KEY VISUAL
 
    Gives each /works/* page a focal point instead of opening on a line of
    text. The image sits behind the intro at low opacity with a scrim, so it

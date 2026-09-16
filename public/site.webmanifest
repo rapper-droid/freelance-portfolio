@@ -1,13 +1,13 @@
 {
-  "name": "TANEBI WORKS",
-  "short_name": "TANEBI WORKS",
-  "description": "Web制作からAI業務自動化まで。設計・実装・テスト・納品まで一気通貫で対応します。",
+  "name": "TSUDOWA",
+  "short_name": "TSUDOWA",
+  "description": "人・技術・作品・事業が集まり、つくり、次へ広がる親ブランド。",
   "lang": "ja",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
-  "background_color": "#0e0906",
-  "theme_color": "#0e0906",
+  "background_color": "#090300",
+  "theme_color": "#090300",
   "icons": [
     {
       "src": "/icons/icon-192.png",

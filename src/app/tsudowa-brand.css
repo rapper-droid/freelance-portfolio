@@ -1,0 +1,346 @@
+/* TSUDOWA parent-brand layer. Loaded last so existing TETSU WORKS and demo
+   systems retain their proven layout while the public hierarchy changes. */
+
+.brand-hero {
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 350px);
+  background-image:
+    radial-gradient(circle at 86% 33%, #fcbe6909, transparent 28%),
+    radial-gradient(
+      circle at 90% 33%,
+      transparent 0 128px,
+      #ffffff08 129px 130px,
+      transparent 131px
+    ),
+    radial-gradient(
+      circle at 90% 33%,
+      transparent 0 190px,
+      #ffffff06 191px 192px,
+      transparent 193px
+    );
+}
+.brand-hero .sales-hero-copy {
+  align-self: center;
+}
+.brand-hero .sales-hero h1,
+.brand-hero h1 {
+  max-width: 900px;
+}
+
+.brand-orbit {
+  align-self: stretch;
+  display: grid;
+  grid-template-rows: minmax(250px, 1fr) auto;
+  border-left: 1px solid var(--hub-border);
+  padding-left: 28px;
+  margin-bottom: 5px;
+  min-width: 0;
+}
+.orbit-visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 250px;
+  overflow: hidden;
+}
+.orbit-ring {
+  position: absolute;
+  border: 1px solid var(--hub-border);
+  border-radius: 50%;
+}
+.orbit-ring-outer {
+  width: 240px;
+  height: 240px;
+}
+.orbit-ring-inner {
+  width: 154px;
+  height: 154px;
+  border-color: color-mix(in srgb, var(--hub-accent) 30%, var(--hub-border));
+}
+.orbit-mark {
+  width: 78px;
+  height: 78px;
+}
+.orbit-path {
+  position: absolute;
+  width: 92px;
+  height: 1px;
+  left: calc(50% + 25px);
+  top: calc(50% - 25px);
+  background: linear-gradient(90deg, var(--hub-accent), transparent);
+  transform: rotate(-38deg);
+  transform-origin: left;
+}
+.orbit-path::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: -3px;
+  width: 7px;
+  height: 7px;
+  border-top: 1px solid var(--hub-accent);
+  border-right: 1px solid var(--hub-accent);
+  transform: rotate(45deg);
+}
+.orbit-copy {
+  padding-top: 18px;
+  border-top: 1px solid var(--hub-border);
+}
+.orbit-title {
+  margin: 10px 0 18px;
+  font-size: 18px;
+  font-weight: 560;
+  line-height: 1.65;
+}
+.orbit-copy dl {
+  margin: 0;
+}
+.orbit-copy dl > div {
+  display: grid;
+  grid-template-columns: 80px 1fr;
+  gap: 12px;
+  padding: 9px 0;
+  border-top: 1px solid color-mix(in srgb, var(--hub-border) 70%, transparent);
+}
+.orbit-copy dt,
+.orbit-copy dd {
+  margin: 0;
+  font-size: 9px;
+  line-height: 1.5;
+  letter-spacing: 0.08em;
+}
+.orbit-copy dt {
+  color: var(--hub-accent);
+}
+.orbit-copy dd {
+  color: var(--hub-muted);
+}
+
+.brand-architecture {
+  border-bottom: 1px solid var(--hub-border);
+}
+.brand-architecture-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+  gap: clamp(40px, 7vw, 110px);
+  align-items: end;
+}
+.brand-architecture-head h2 {
+  margin: 0 0 20px;
+  max-width: 17em;
+  font-size: clamp(24px, 2.8vw, 40px);
+  line-height: 1.35;
+}
+.brand-architecture-head p {
+  margin: 0;
+  color: var(--hub-muted);
+  font-size: 14px;
+  line-height: 2;
+}
+.brand-architecture-head blockquote {
+  margin: 24px 0 0;
+  padding: 16px 0 0 18px;
+  border-top: 1px solid var(--hub-border);
+  border-left: 2px solid var(--hub-accent);
+  color: var(--hub-ink);
+  font-size: 13px;
+  line-height: 1.8;
+}
+.brand-structure-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: 56px;
+  border-block: 1px solid var(--hub-border);
+}
+.brand-card {
+  position: relative;
+  min-height: 330px;
+  padding: 24px 22px;
+  border-right: 1px solid var(--hub-border);
+  background: color-mix(in srgb, var(--hub-ink) 2.5%, transparent);
+}
+.brand-card:last-child {
+  border-right: 0;
+}
+.brand-card-parent {
+  background: color-mix(in srgb, var(--hub-accent) 8%, transparent);
+}
+.brand-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 12px;
+  min-height: 42px;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+  color: var(--hub-muted);
+}
+.brand-state {
+  text-align: right;
+  color: var(--hub-accent);
+}
+.brand-card .brand-mark,
+.brand-branch,
+.future-ring {
+  width: 46px;
+  height: 46px;
+  margin-top: 42px;
+}
+.brand-branch {
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--hub-border);
+  border-radius: 50%;
+  color: var(--hub-accent);
+}
+.future-ring {
+  display: block;
+  border: 1px dashed var(--hub-muted);
+  border-radius: 50%;
+  opacity: 0.5;
+}
+.brand-card h3 {
+  margin: 24px 0 0;
+  font-size: clamp(20px, 2vw, 29px);
+  line-height: 1.1;
+  letter-spacing: -0.035em;
+}
+.brand-card p {
+  margin: 14px 0 0;
+  color: var(--hub-muted);
+  font-size: 12px;
+  line-height: 1.8;
+}
+.brand-card .text-link {
+  margin-top: 22px;
+  font-size: 11px;
+}
+
+.works-bridge {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 390px);
+  gap: clamp(50px, 9vw, 140px);
+  align-items: end;
+  border-bottom: 1px solid var(--hub-border);
+}
+.works-wordmark {
+  margin: 30px 0 10px;
+  color: var(--hub-accent);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+}
+.works-bridge h2 {
+  margin: 0;
+  font-size: clamp(42px, 6vw, 84px);
+  line-height: 1.02;
+  letter-spacing: -0.05em;
+}
+.works-bridge-copy > p:not(.works-wordmark) {
+  max-width: 48em;
+  margin: 28px 0 0;
+  color: var(--hub-muted);
+  font-size: 15px;
+  line-height: 2;
+}
+.works-bridge .trust-panel {
+  align-self: end;
+}
+
+.footer-branches {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 28px;
+  padding: 18px 0;
+  border-top: 1px solid var(--hub-border);
+  color: #b8ada1;
+  font-size: 9px;
+  letter-spacing: 0.1em;
+}
+
+@media (max-width: 70rem) {
+  .brand-structure-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .brand-card:nth-child(2) {
+    border-right: 0;
+  }
+  .brand-card:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--hub-border);
+  }
+}
+@media (max-width: 59.99rem) {
+  .brand-hero,
+  .works-bridge {
+    grid-template-columns: 1fr;
+  }
+  .brand-orbit {
+    grid-template-columns: minmax(220px, 0.8fr) minmax(260px, 1.2fr);
+    grid-template-rows: auto;
+    gap: 26px;
+    border-left: 0;
+    border-top: 1px solid var(--hub-border);
+    padding: 28px 0 0;
+    margin-top: 42px;
+  }
+  .orbit-copy {
+    border-top: 0;
+  }
+  .brand-architecture-head {
+    grid-template-columns: 1fr;
+    align-items: start;
+  }
+  .works-bridge .trust-panel {
+    border-left: 0;
+    border-top: 1px solid var(--hub-border);
+    padding: 28px 0 0;
+  }
+}
+@media (max-width: 47.99rem) {
+  .brand-hero {
+    display: block;
+  }
+  .brand-orbit {
+    display: block;
+  }
+  .orbit-visual {
+    min-height: 210px;
+  }
+  .orbit-ring-outer {
+    width: 196px;
+    height: 196px;
+  }
+  .orbit-ring-inner {
+    width: 126px;
+    height: 126px;
+  }
+  .orbit-mark {
+    width: 66px;
+    height: 66px;
+  }
+  .brand-structure-grid {
+    grid-template-columns: 1fr;
+  }
+  .brand-card {
+    min-height: 260px;
+    border-right: 0;
+    border-bottom: 1px solid var(--hub-border);
+  }
+  .brand-card:last-child {
+    border-bottom: 0;
+  }
+  .brand-card .brand-mark,
+  .brand-branch,
+  .future-ring {
+    margin-top: 26px;
+  }
+  .works-bridge .hero-secondary {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .orbit-ring,
+  .orbit-path,
+  .orbit-mark {
+    animation: none !important;
+  }
+}

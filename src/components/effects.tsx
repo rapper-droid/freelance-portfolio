@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 
 /**
- * TANEBI signature effects runtime.
+ * TSUDOWA signature effects runtime.
  *
  * Two jobs only: mark elements as they first enter the viewport, and track
  * the pointer for the hero's warm glow. Everything visual lives in CSS.

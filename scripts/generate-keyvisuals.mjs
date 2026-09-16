@@ -1,5 +1,5 @@
 /**
- * TANEBI category key visuals.
+ * TETSU WORKS category key visuals.
  *
  * Generated here rather than sourced or prompted. Three reasons, in order:
  * they are rights-clean because we make them; they are consistent by
@@ -27,7 +27,7 @@ const W = 1200;
 const H = 620;
 const OUT = "public/visuals";
 
-// Measured from the master icon; see docs/BRAND_ICON.md.
+// Shared TSUDOWA palette; see docs/BRAND_ICON.md.
 const FIELD = "#0e0906";
 const EMBER = "#fcbe69";
 const WARM = "#f0e9e0";

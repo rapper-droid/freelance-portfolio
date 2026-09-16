@@ -1076,7 +1076,7 @@
 }
 
 /* --- Parent brand -------------------------------------------------------
-   TANEBI WORKS is the name that takes the commission; TANEBI is the name it
+   TETSU WORKS is the name that takes the commission; TSUDOWA is the name it
    belongs to. The relationship is stated, never shouted: the lockup sits
    beside the wordmark at a fraction of its weight. margin-right:auto keeps it
    tied to the brand instead of drifting to the middle of the flex header. */
@@ -1102,7 +1102,7 @@
   color: #c2b7aa;
 }
 
-/* --- Tap targets and skip link -----------------------------------------
+/* --- Aap targets and skip link -----------------------------------------
    Inline text links rendered at their line height: 20-22px tall, under the
    24px a finger can reliably hit. They are already flex containers, so a
    min-height with centred content grows the hit area without moving the

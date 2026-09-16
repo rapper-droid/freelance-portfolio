@@ -1,7 +1,7 @@
 import type { ReactNode } from "react";
 
 /**
- * TANEBI explanatory diagrams.
+ * TETSU WORKS explanatory diagrams.
  *
  * Built as semantic HTML that is then styled to read as a diagram, rather
  * than as pictures with captions. That ordering is deliberate: the list, the
@@ -38,16 +38,18 @@ export function Pipeline({
   id?: string;
 }) {
   return (
-    <figure className="tnb-dia tnb-pipeline" id={id}>
+    <figure className="works-dia works-pipeline" id={id}>
       <ol>
         {stages.map((s, i) => (
           <li key={s.label} data-actor={s.actor ?? "自動"}>
-            <span className="tnb-node" aria-hidden="true" />
-            <span className="tnb-step-n">{String(i + 1).padStart(2, "0")}</span>
+            <span className="works-node" aria-hidden="true" />
+            <span className="works-step-n">
+              {String(i + 1).padStart(2, "0")}
+            </span>
             <b>{s.label}</b>
-            {s.note ? <span className="tnb-note">{s.note}</span> : null}
+            {s.note ? <span className="works-note">{s.note}</span> : null}
             {s.actor ? (
-              <span className="tnb-actor" data-actor={s.actor}>
+              <span className="works-actor" data-actor={s.actor}>
                 {s.actor}
               </span>
             ) : null}
@@ -62,7 +64,7 @@ export function Pipeline({
 /* ------------------------------------------------------------------ */
 
 /**
- * Before / TANEBI / After.
+ * Before / TETSU WORKS / After.
  *
  * A description list rather than three columns of divs: each "before" is a
  * term and its "after" is the description, so the pairing survives without
@@ -70,7 +72,7 @@ export function Pipeline({
  */
 export function BeforeAfter({
   rows,
-  via = "TANEBI WORKS",
+  via = "TETSU WORKS",
   caption,
 }: {
   rows: { before: string; after: string }[];
@@ -78,26 +80,26 @@ export function BeforeAfter({
   caption?: string;
 }) {
   return (
-    <figure className="tnb-dia tnb-ba">
+    <figure className="works-dia works-ba">
       {/* The via label sits on its own line. It used to occupy the narrow
           arrow column between the two headings, where a name as long as
-          "TANEBI WORKS" overflowed and collided with "AFTER". */}
-      <p className="tnb-ba-via" aria-hidden="true">
+          "TETSU WORKS" overflowed and collided with "AFTER". */}
+      <p className="works-ba-via" aria-hidden="true">
         {via}
       </p>
-      <div className="tnb-ba-head" aria-hidden="true">
+      <div className="works-ba-head" aria-hidden="true">
         <span>BEFORE</span>
         <span />
         <span>AFTER</span>
       </div>
       <dl>
         {rows.map((r) => (
-          <div key={r.before} className="tnb-ba-row">
+          <div key={r.before} className="works-ba-row">
             <dt>
-              <span className="tnb-ba-tag">BEFORE</span>
+              <span className="works-ba-tag">BEFORE</span>
               {r.before}
             </dt>
-            <span className="tnb-arrow" aria-hidden="true">
+            <span className="works-arrow" aria-hidden="true">
               <svg viewBox="0 0 40 12" width="40" height="12" focusable="false">
                 <path
                   d="M0 6h30"
@@ -114,7 +116,7 @@ export function BeforeAfter({
               </svg>
             </span>
             <dd>
-              <span className="tnb-ba-tag tnb-ba-tag--after">AFTER</span>
+              <span className="works-ba-tag works-ba-tag--after">AFTER</span>
               {r.after}
             </dd>
           </div>
@@ -140,15 +142,15 @@ export function DeliveryStack({
   caption?: string;
 }) {
   return (
-    <figure className="tnb-dia tnb-stack">
+    <figure className="works-dia works-stack">
       <ul>
         {items.map((it) => (
           <li key={it.title}>
-            <span className="tnb-stack-mark" aria-hidden="true">
+            <span className="works-stack-mark" aria-hidden="true">
               {it.icon ?? <GlyphBox />}
             </span>
             <b>{it.title}</b>
-            <span className="tnb-note">{it.note}</span>
+            <span className="works-note">{it.note}</span>
           </li>
         ))}
       </ul>
@@ -346,29 +348,29 @@ export type Phase = {
  */
 export function PhaseFlow({ phases }: { phases: Phase[] }) {
   return (
-    <ol className="tnb-phases">
+    <ol className="works-phases">
       {phases.map((p, i) => (
-        <li key={p.label} className="tnb-phase">
-          <div className="tnb-phase-top">
-            <span className="tnb-phase-icon" aria-hidden="true">
+        <li key={p.label} className="works-phase">
+          <div className="works-phase-top">
+            <span className="works-phase-icon" aria-hidden="true">
               <svg viewBox="0 0 24 24" width="24" height="24" focusable="false">
                 {PHASE_ART[p.icon]}
               </svg>
             </span>
-            <span className="tnb-phase-n">
+            <span className="works-phase-n">
               PHASE {String(i + 1).padStart(2, "0")}
             </span>
           </div>
           <h3>{p.label}</h3>
-          <p className="tnb-phase-note">{p.note}</p>
-          <ul className="tnb-phase-steps">
+          <p className="works-phase-note">{p.note}</p>
+          <ul className="works-phase-steps">
             {p.steps.map((s) => (
               <li key={s}>{s}</li>
             ))}
           </ul>
           {p.checkpoint ? (
-            <p className="tnb-phase-check">
-              <span aria-hidden="true" className="tnb-phase-check-mark" />
+            <p className="works-phase-check">
+              <span aria-hidden="true" className="works-phase-check-mark" />
               <span>
                 <b>ご確認いただく場面</b>
                 {p.checkpoint}

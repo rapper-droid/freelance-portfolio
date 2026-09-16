@@ -1,7 +1,7 @@
-﻿import type { Metadata, Viewport } from "next";
+import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { siteOrigin } from "@/lib/seo";
-import { BRAND_NAME, BRAND_TAGLINE } from "@/lib/brand";
+import { BRAND_NAME, BRAND_READING, BRAND_TAGLINE } from "@/lib/brand";
 import { Analytics } from "@/components/analytics";
 import { Monitoring } from "@/components/monitoring";
 import { Effects } from "@/components/effects";
@@ -11,9 +11,11 @@ import "./showcase.css";
 import "./sales-ui.css";
 import "./project-visuals.css";
 import "./art-direction.css";
-import "./tanebi-diagrams.css";
-import "./tanebi-cafe.css";
-import "./tanebi-effects.css";
+import "./works-diagrams.css";
+import "./cafe-demo.css";
+import "./tsudowa-effects.css";
+import "./tsudowa-brand.css";
+
 const inter = localFont({
   src: "../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
   variable: "--font-sales",
@@ -28,42 +30,61 @@ const inter = localFont({
     },
   ],
 });
+
+const description =
+  "TSUDOWAは、人・技術・作品・事業が集まり、つくり、次へ広がる親ブランドです。TETSU WORKSの制作・自動化サービスと制作デモを紹介します。";
+
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin()),
   title: {
     default: `${BRAND_NAME} | ${BRAND_TAGLINE}`,
     template: `%s | ${BRAND_NAME}`,
   },
-  description:
-    "Web制作からAI業務自動化まで。設計・実装・テスト・納品を紹介する自主制作ポートフォリオ。",
+  description,
   openGraph: {
     title: `${BRAND_NAME} | ${BRAND_TAGLINE}`,
+    description:
+      "人・技術・作品・事業が集まり、つくり、次へ広がる。TETSU WORKSとTSUKUTTA LABをつなぐ親ブランド。",
     images: [{ url: "/og.png", width: 1200, height: 630 }],
     locale: "ja_JP",
     type: "website",
   },
   twitter: { card: "summary_large_image" },
-  // favicon.ico and apple-icon.png sit next to this file and are wired up by
-  // Next's file convention; the manifest carries the 192/512/maskable sizes.
   manifest: "/site.webmanifest",
   applicationName: BRAND_NAME,
 };
 
-/**
- * The master icon's own field colour, measured from the image rather than
- * picked by eye, so the browser chrome meets the page without a seam.
- */
-export const viewport: Viewport = {
-  themeColor: "#0e0906",
-};
+export const viewport: Viewport = { themeColor: "#090300" };
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const origin = siteOrigin();
+  const websiteStructuredData = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "@id": `${origin}/#website`,
+    url: origin,
+    name: BRAND_NAME,
+    alternateName: BRAND_READING,
+    description,
+    inLanguage: "ja-JP",
+  };
+
   return (
     <html lang="ja">
       <body className={inter.variable}>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteStructuredData).replace(
+              /</g,
+              "\\u003c",
+            ),
+          }}
+        />
         <a href="#main" className="skip-link">
           本文へスキップ
         </a>

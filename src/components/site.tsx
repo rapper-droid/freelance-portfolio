@@ -1,36 +1,38 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { ArrowUpRight, ArrowLeft, ShieldCheck } from "lucide-react";
 import { BrandMark } from "./brand-mark";
 import {
+  BRAND_MESSAGE,
   BRAND_NAME,
   BRAND_OPERATOR,
-  BRAND_PARENT_LOCKUP,
-  BRAND_PARENT_SENTENCE,
+  BRAND_TAGLINE,
+  WORKS_BRAND_NAME,
+  WORKS_LOCKUP,
+  WORKS_RELATIONSHIP,
   displayDomain,
 } from "@/lib/brand";
 import { siteOrigin } from "@/lib/seo";
+
 export function Header() {
   return (
     <header className="site-header">
       <Link href="/" className="brand" aria-label={`${BRAND_NAME} ホーム`}>
         <BrandMark /> {BRAND_NAME}
       </Link>
-      {/* Outside the link: the parent brand describes WORKS, it is not a
-          second destination, and it should not be read as part of the
-          "TANEBI WORKS ホーム" link label. */}
-      <span className="brand-note">{BRAND_PARENT_LOCKUP}</span>
+      <span className="brand-note">{WORKS_LOCKUP}</span>
       <nav aria-label="メインナビゲーション">
+        <Link href="/#brands">BRANDS</Link>
+        <Link href="/#tetsu-works">TETSU WORKS</Link>
         <Link href="/#works">WORKS</Link>
-        <Link href="/#services">SERVICES</Link>
         <Link href="/#process">PROCESS</Link>
-        <Link href="/#qa">QA</Link>
         <Link href="/#contact" className="nav-cta">
-          MESSAGE-ONLY<span className="nav-ok"> OK</span>
+          CONTACT
         </Link>
       </nav>
     </header>
   );
 }
+
 export function Footer() {
   return (
     <footer className="site-footer">
@@ -44,20 +46,27 @@ export function Footer() {
       </div>
       <div className="footer-main">
         <p className="footer-statement" lang="en">
-          <span>DESIGN.</span> <span>BUILD.</span> <span>SHIP.</span>
+          {BRAND_TAGLINE.split(" ").map((word) => (
+            <span key={word}>{word} </span>
+          ))}
         </p>
         <div>
-          <p>人が使える完成品まで、責任を持って。</p>
-          <p className="footer-parent">{BRAND_PARENT_SENTENCE}</p>
+          <p>{BRAND_MESSAGE}</p>
+          <p className="footer-parent">{WORKS_RELATIONSHIP}</p>
           <p className="footer-domain">{displayDomain(siteOrigin())}</p>
         </div>
       </div>
+      <div className="footer-branches" aria-label="ブランド構造">
+        <span>{BRAND_NAME} / PARENT</span>
+        <span>{WORKS_BRAND_NAME} / CLIENT SERVICES</span>
+        <span>TSUKUTTA LAB / PRODUCTS & PLAY</span>
+      </div>
       <div className="footer-bottom">
         <nav aria-label="フッターナビゲーション">
+          <Link href="/#brands">Brands</Link>
           <Link href="/#services">Capabilities</Link>
           <Link href="/works">Works</Link>
           <Link href="/#process">Process</Link>
-          <Link href="/#qa">QA</Link>
           <Link href="/#faq">FAQ</Link>
           <Link href="/privacy">プライバシー</Link>
         </nav>
@@ -68,6 +77,7 @@ export function Footer() {
     </footer>
   );
 }
+
 export function DemoShell({
   number,
   title,
@@ -106,8 +116,8 @@ export function DemoShell({
           制作概要・参考料金・納品物を見る ↗
         </Link>
         <div className="feature-tags">
-          {features.map((f) => (
-            <span key={f}>{f}</span>
+          {features.map((feature) => (
+            <span key={feature}>{feature}</span>
           ))}
           <span>Next.js / TypeScript</span>
         </div>

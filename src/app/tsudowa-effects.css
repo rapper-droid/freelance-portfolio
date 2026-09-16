@@ -1,5 +1,5 @@
 /* =====================================================================
-   TANEBI SIGNATURE EFFECTS
+   TSUDOWA SIGNATURE EFFECTS
 
    The brand's motion vocabulary, in one file so it can be tuned from one
    place rather than as magic numbers spread across six stylesheets.
@@ -137,14 +137,14 @@
 }
 @media (prefers-reduced-motion: no-preference) {
   .home-ui .sales-hero::after {
-    animation: tanebi-ignite 1100ms var(--ease-enter) 120ms both;
+    animation: tsudowa-ignite 1100ms var(--ease-enter) 120ms both;
   }
   /* The mark catches light a moment before the words settle. */
   .hero-monogram {
-    animation: tanebi-ember-rise 1200ms var(--ease-enter) both;
+    animation: tsudowa-ember-rise 1200ms var(--ease-enter) both;
   }
   .sales-hero h1 > span:last-child {
-    animation: tanebi-accent-catch 900ms var(--ease-enter) 260ms both;
+    animation: tsudowa-accent-catch 900ms var(--ease-enter) 260ms both;
   }
 }
 /* Pointer tracking only sharpens a glow that is already there, so losing
@@ -153,7 +153,7 @@
   transition: background-position var(--motion-slow) linear;
 }
 
-@keyframes tanebi-ignite {
+@keyframes tsudowa-ignite {
   from {
     opacity: 0;
   }
@@ -164,7 +164,7 @@
     opacity: 0.72;
   }
 }
-@keyframes tanebi-ember-rise {
+@keyframes tsudowa-ember-rise {
   from {
     opacity: 0;
     transform: translate3d(0, 10px, 0) scale(0.94);
@@ -174,7 +174,7 @@
     transform: none;
   }
 }
-@keyframes tanebi-accent-catch {
+@keyframes tsudowa-accent-catch {
   from {
     opacity: 0.55;
   }
@@ -225,10 +225,10 @@
 @media (prefers-reduced-motion: no-preference) {
   .sales-ui .button.primary:focus-visible::after,
   .sales-ui .button.primary:active::after {
-    animation: tanebi-afterglow 480ms var(--ease-exit) forwards;
+    animation: tsudowa-afterglow 480ms var(--ease-exit) forwards;
   }
 }
-@keyframes tanebi-afterglow {
+@keyframes tsudowa-afterglow {
   from {
     opacity: 0.9;
     transform: scale(1);
@@ -472,10 +472,10 @@
   .demo-page .reply-section,
   .demo-page .error-message,
   .demo-page .empty-state {
-    animation: tanebi-state-in 260ms var(--ease-enter) both;
+    animation: tsudowa-state-in 260ms var(--ease-enter) both;
   }
 }
-@keyframes tanebi-state-in {
+@keyframes tsudowa-state-in {
   from {
     opacity: 0;
     transform: translate3d(0, 6px, 0);

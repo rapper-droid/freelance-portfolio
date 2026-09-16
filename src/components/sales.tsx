@@ -1,4 +1,4 @@
-﻿import Link from "next/link";
+import Link from "next/link";
 import { ArrowUpRight, Check } from "lucide-react";
 import { flowPhases, pricingNote, type categories } from "@/lib/portfolio";
 import { PhaseFlow } from "./diagrams";
@@ -9,7 +9,7 @@ export function Process() {
           single sentence about how the work runs belongs with the heading,
           not opposite it where it read as an unrelated aside. */}
       <div className="process-head">
-        <span className="eyebrow">05 / FROM BRIEF TO DELIVERY</span>
+        <span className="eyebrow">07 / FROM BRIEF TO DELIVERY</span>
         <h2>
           依頼から納品まで、
           <br />

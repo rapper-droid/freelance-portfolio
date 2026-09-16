@@ -1,10 +1,11 @@
-﻿import type { Metadata } from "next";
+import type { Metadata } from "next";
 import {
   BRAND_NAME,
   BRAND_TAGLINE,
   BRAND_TITLE_SUFFIX,
-  LEGACY_TITLE_SUFFIX,
+  LEGACY_TITLE_SUFFIXES,
 } from "@/lib/brand";
+
 export function siteOrigin() {
   const value = process.env.NEXT_PUBLIC_SITE_URL;
   if (!value) return "http://localhost:3000";
@@ -17,16 +18,17 @@ export function siteOrigin() {
     throw new Error("NEXT_PUBLIC_SITE_URL must be an HTTP(S) origin");
   return url.origin;
 }
+
 export function pageMetadata(
   title: string,
   description: string,
   path: string,
 ): Metadata {
-  // Both suffixes are recognised so a title carrying the old one is corrected
-  // rather than ending up with two brands appended.
-  const bare = title.endsWith(LEGACY_TITLE_SUFFIX)
-    ? title.slice(0, -LEGACY_TITLE_SUFFIX.length)
-    : title;
+  const bare = LEGACY_TITLE_SUFFIXES.reduce(
+    (value, suffix) =>
+      value.endsWith(suffix) ? value.slice(0, -suffix.length) : value,
+    title,
+  );
   const brandedTitle = bare.endsWith(BRAND_TITLE_SUFFIX)
     ? bare
     : `${bare}${BRAND_TITLE_SUFFIX}`;

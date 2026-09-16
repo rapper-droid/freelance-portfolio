@@ -1,61 +1,47 @@
 /**
- * The brand, in one place.
+ * Public brand vocabulary.
  *
- * The public name became TANEBI WORKS on 2026-09-16. Before that it was
- * TETSU / WORKS, and that remains true of everything already sent, signed or
- * published — the former name is kept here as a fact, not deleted.
- *
- * WHAT THIS RENAME IS NOT: it is not a change of identity. Category ids,
- * project slugs, every URL, the contact route, quotes, contracts and delivery
- * history all keep the values they had. Only what a reader sees changes.
+ * TSUDOWA is the parent brand. TETSU WORKS is the commissioned design and
+ * development arm shown on this site. Product ids, project slugs, routes,
+ * prices and delivery history are intentionally outside this module and do
+ * not change as part of the brand migration.
  */
-export const BRAND_NAME = "TANEBI WORKS";
-
-/** The previous public name. Kept for the record; never reused as the title. */
-export const BRAND_FORMER_NAME = "TETSU / WORKS";
-
-/** The person behind it. TANEBI is the activity; TETSU is who runs it. */
+export const BRAND_NAME = "TSUDOWA";
+export const BRAND_READING = "ツドワ";
 export const BRAND_OPERATOR = "TETSU";
+export const BRAND_TAGLINE = "GATHER. BUILD. EXPAND.";
+export const BRAND_MESSAGE =
+  "集まるための輪ではなく、集まり、つくり、次へ広がる輪。";
 
-export const BRAND_TAGLINE = "BUILD. AUTOMATE. DELIVER.";
+/** The public service brand responsible for commissioned work. */
+export const WORKS_BRAND_NAME = "TETSU WORKS";
+export const WORKS_TAGLINE = "BUILD. AUTOMATE. DELIVER.";
+export const WORKS_LOCKUP = "CLIENT SERVICES / TETSU WORKS";
+export const WORKS_RELATIONSHIP = `${WORKS_BRAND_NAME} は ${BRAND_NAME} の制作・受託部門です。`;
+
+/** Previous public names, retained only to repair already-branded titles. */
+export const LEGACY_BRAND_NAMES = ["TANEBI WORKS", "TETSU / WORKS"] as const;
 
 export const BRAND_TITLE_SUFFIX = ` | ${BRAND_NAME}`;
+export const LEGACY_TITLE_SUFFIXES = LEGACY_BRAND_NAMES.map(
+  (name) => ` | ${name}`,
+);
 
-/** Recognised so an already-suffixed title is never double-suffixed. */
-export const LEGACY_TITLE_SUFFIX = ` | ${BRAND_FORMER_NAME}`;
-
-/**
- * The domain shown to a reader, derived from the configured origin.
- *
- * Deliberately not a literal: the site is at tetsuworks.com today and will be
- * at works.tanebi.jp later, and a hard-coded label would go stale silently at
- * exactly the moment it matters most. Changing NEXT_PUBLIC_SITE_URL moves this
- * along with canonical, sitemap and robots.
- *
- * Takes the origin rather than importing it, so this module stays a leaf and
- * seo.ts can depend on it without a cycle.
- */
 export function displayDomain(origin: string): string {
   return new URL(origin).host;
 }
 
-/** The parent brand. TANEBI WORKS is the part of it that takes commissions. */
-export const BRAND_PARENT = "TANEBI";
-
-/** Latin lockup, for the header where there is room for three words. */
-export const BRAND_PARENT_LOCKUP = `A ${BRAND_PARENT} SERVICE`;
-
-/** Plain Japanese, for the footer where the relationship deserves a sentence. */
-export const BRAND_PARENT_SENTENCE = `${BRAND_NAME} は ${BRAND_PARENT} の制作・受託部門です。`;
-
-/**
- * TANEBI HQ's address.
- *
- * Deliberately not linked yet. tanebi.jp is not published, and a site that
- * takes real enquiries must not ship an outbound link to a domain that does
- * not answer — a dead link next to the brand name reads as a dead business.
- * The name is shown as text until HQ is live; flip this one flag then and the
- * footer becomes a link.
- */
-export const PARENT_SITE = "https://tanebi.jp";
-export const PARENT_SITE_IS_LIVE = false;
+export const BRAND_STRUCTURE = [
+  {
+    name: WORKS_BRAND_NAME,
+    role: "CLIENT SERVICES",
+    state: "ACTIVE",
+    description: "Web制作・業務自動化・納品支援を担う受託部門。",
+  },
+  {
+    name: "TSUKUTTA LAB",
+    role: "PRODUCTS & PLAY",
+    state: "INDEPENDENT BRAND",
+    description: "プロダクト、ゲーム、実験的な制作を育てる別ブランド。",
+  },
+] as const;
