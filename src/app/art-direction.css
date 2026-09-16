@@ -1080,18 +1080,46 @@
    belongs to. The relationship is stated, never shouted: the lockup sits
    beside the wordmark at a fraction of its weight. margin-right:auto keeps it
    tied to the brand instead of drifting to the middle of the flex header. */
+/* The colour is written out rather than taken from --hub-muted. The header
+   and footer sit OUTSIDE .sales-ui, where that token still resolves to the
+   light theme's #4a423a — which measured 2.08:1 against this near-black.
+   This is the same warm grey the rest of the footer already uses: 10:1. */
 .site-header .brand-note {
   margin-left: 14px;
   margin-right: auto;
   font-size: 10px;
   letter-spacing: 1.6px;
   font-weight: 500;
-  color: var(--hub-muted);
+  color: #c2b7aa;
   white-space: nowrap;
 }
 /* The header lockup is hidden on small screens for space, so the footer
-   carries the relationship in full where every page ends. */
+   carries the relationship in full where every page ends. Sized to match
+   .footer-domain beside it; 9px was inherited and too small to read. */
 .site-footer .footer-parent {
   margin: 6px 0 0;
-  color: var(--hub-muted);
+  font-size: 12px;
+  color: #c2b7aa;
+}
+
+/* --- Tap targets and skip link -----------------------------------------
+   Inline text links rendered at their line height: 20-22px tall, under the
+   24px a finger can reliably hit. They are already flex containers, so a
+   min-height with centred content grows the hit area without moving the
+   text. Applies at every width — a mouse pointer is not an excuse for a
+   20px target, and this is the same link on a phone. */
+.sales-ui .text-link,
+.sales-ui .back,
+.demo-page .text-link,
+.demo-page .back {
+  min-height: 28px;
+  align-items: center;
+}
+/* The skip link is the first thing a keyboard user reaches on every page,
+   so it should not be the last piece of the old green palette. */
+.skip-link {
+  background: var(--hub-accent, #fcbe69);
+  color: #0e0906;
+  font-weight: 600;
+  border-radius: 6px;
 }
