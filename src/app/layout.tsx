@@ -1,4 +1,4 @@
-﻿import type { Metadata } from "next";
+﻿import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
 import { siteOrigin } from "@/lib/seo";
 import { BRAND_NAME, BRAND_TAGLINE } from "@/lib/brand";
@@ -39,6 +39,18 @@ export const metadata: Metadata = {
     type: "website",
   },
   twitter: { card: "summary_large_image" },
+  // favicon.ico and apple-icon.png sit next to this file and are wired up by
+  // Next's file convention; the manifest carries the 192/512/maskable sizes.
+  manifest: "/site.webmanifest",
+  applicationName: BRAND_NAME,
+};
+
+/**
+ * The master icon's own field colour, measured from the image rather than
+ * picked by eye, so the browser chrome meets the page without a seam.
+ */
+export const viewport: Viewport = {
+  themeColor: "#0e0906",
 };
 export default function RootLayout({
   children,
