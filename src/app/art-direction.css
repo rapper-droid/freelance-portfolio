@@ -1123,3 +1123,14 @@
   font-weight: 600;
   border-radius: 6px;
 }
+
+/* Who the category is for, stated in the intro. Quieter than the lead it
+   follows, but full body contrast — this is the line that tells a reader
+   whether the rest of the page is about them. */
+.category-audience {
+  margin: 10px 0 0;
+  color: var(--hub-ink);
+  font-size: 14px;
+  line-height: 1.8;
+  opacity: 0.86;
+}

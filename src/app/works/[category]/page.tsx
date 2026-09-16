@@ -40,6 +40,9 @@ export default async function CategoryPage({
           <span className="eyebrow">SERVICE / {c.id.toUpperCase()}</span>
           <h1>{c.name}</h1>
           <p className="category-lead">{c.description}</p>
+          {/* Who this is for, before the price rather than after it: a reader
+              deciding whether to keep reading needs it in the first seconds. */}
+          <p className="category-audience">向いている依頼：{c.audience}</p>
           <div className="category-estimate" data-price-info>
             <span>
               参考料金 <b>{c.price}</b>
