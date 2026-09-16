@@ -1,6 +1,7 @@
 ﻿import type { Metadata } from "next";
 import localFont from "next/font/local";
 import { siteOrigin } from "@/lib/seo";
+import { BRAND_NAME, BRAND_TAGLINE } from "@/lib/brand";
 import { Analytics } from "@/components/analytics";
 import { Monitoring } from "@/components/monitoring";
 import "./globals.css";
@@ -26,13 +27,13 @@ const inter = localFont({
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin()),
   title: {
-    default: "TETSU / WORKS | BUILD. AUTOMATE. DELIVER.",
-    template: "%s | TETSU / WORKS",
+    default: `${BRAND_NAME} | ${BRAND_TAGLINE}`,
+    template: `%s | ${BRAND_NAME}`,
   },
   description:
     "Web制作からAI業務自動化まで。設計・実装・テスト・納品を紹介する自主制作ポートフォリオ。",
   openGraph: {
-    title: "TETSU / WORKS | BUILD. AUTOMATE. DELIVER.",
+    title: `${BRAND_NAME} | ${BRAND_TAGLINE}`,
     images: [{ url: "/og.png", width: 1200, height: 630 }],
     locale: "ja_JP",
     type: "website",
