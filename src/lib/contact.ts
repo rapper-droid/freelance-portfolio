@@ -117,9 +117,13 @@ export function contactConfigured() {
       "TURNSTILE_SECRET",
       "NEXT_PUBLIC_TURNSTILE_SITE_KEY",
       "NEXT_PUBLIC_SITE_URL",
-      "UPSTASH_REDIS_REST_URL",
-      "UPSTASH_REDIS_REST_TOKEN",
       "RATE_LIMIT_SALT",
-    ].every((k) => !!process.env[k])
+    ].every((k) => !!process.env[k]) &&
+    ((process.env.HOSTING_PLATFORM === "cloudflare" &&
+      process.env.STATE_BACKEND === "durable-objects") ||
+      !!(
+        process.env.UPSTASH_REDIS_REST_URL &&
+        process.env.UPSTASH_REDIS_REST_TOKEN
+      ))
   );
 }

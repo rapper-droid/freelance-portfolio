@@ -15,6 +15,11 @@ if (new URL(url).hostname !== "tsudowa.com")
     "NEXT_PUBLIC_SITE_URL must use the approved tsudowa.com host.",
   );
 
+const storageRequired =
+  process.env.HOSTING_PLATFORM === "cloudflare" &&
+  process.env.STATE_BACKEND === "durable-objects"
+    ? []
+    : ["UPSTASH_REDIS_REST_URL", "UPSTASH_REDIS_REST_TOKEN"];
 if (process.env.CONTACT_ENABLED === "true") {
   const required = [
     "RESEND_API_KEY",
@@ -22,8 +27,7 @@ if (process.env.CONTACT_ENABLED === "true") {
     "CONTACT_TO_EMAIL",
     "TURNSTILE_SECRET",
     "NEXT_PUBLIC_TURNSTILE_SITE_KEY",
-    "UPSTASH_REDIS_REST_URL",
-    "UPSTASH_REDIS_REST_TOKEN",
+    ...storageRequired,
     "RATE_LIMIT_SALT",
   ];
   if (
@@ -45,8 +49,7 @@ if (
   [
     "POSTHOG_PROJECT_KEY",
     "POSTHOG_HOST",
-    "UPSTASH_REDIS_REST_URL",
-    "UPSTASH_REDIS_REST_TOKEN",
+    ...storageRequired,
     "RATE_LIMIT_SALT",
   ].some((key) => !process.env[key])
 )

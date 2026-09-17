@@ -1,5 +1,16 @@
 # TSUDOWA Cloudflare Workers migration — owner preview only
 
+## Follow-up status: Lighthouse / Playwright authorized, 2026-09-17
+
+The initial audit below is historical. The owner subsequently authorized Lighthouse / Playwright comparisons and Cloudflare-native contact preparation, but **not production cutover**. The current implementation supersedes the initial original-image and Upstash limitations:
+
+- Known local Next/Image raster requests now use build-time responsive WebP assets while preserving existing srcset/sizes. 227 source images produce 1,692 variants; originals are retained. Unsupported requests keep the framework fallback. No paid Images service is provisioned.
+- `CONTACT_STATE` is a SQLite Durable Object binding; `STATE_BACKEND=durable-objects` selects private native state for Workers. Netlify retains its original adapter. See [native contact details](cloudflare-contact-native.md) for concurrency, TTL, quota, failure and mutation evidence.
+- `RATE_LIMIT_SALT` is safely provisioned only as a preview Worker Secret. Resend mail infrastructure is OWNER-verified READY; Worker credentials and real form delivery are separate gates.
+- Contact remains disabled. Resend key setup and the confirmations required by the Turnstile setup skill remain pending. No live test inquiry has been sent.
+- New measurements, before/after image evidence and final follow-up outcomes are in `../../outputs/workers-performance-contact-20260917/OWNER_REVIEW_REPORT.md` (relative to the repository root). Read that report rather than treating the historical performance block below as current.
+- No production Custom Domains, DNS, Netlify settings or email settings are changed. The fallback and owner-gated rollback plan below still apply.
+
 ## Boundaries
 
 - Base: `deb1cd080ce1fefdab3183062933afdec16e46c8` (`tsudowa/master-hq-build`).
@@ -45,9 +56,9 @@ npm run deploy:workers:preview
 
 Stop this migration's local `preview:workers` process before rebuilding on Windows. It watches `dist/` and can lock files; a failed cleanup can leave a partial local output. Never stop the pre-existing servers on 3147, 3160 or 3162. Build failure must block subsequent deploy.
 
-`wrangler.jsonc` deliberately has only ASSETS and non-secret vars. No KV, R2, D1, Durable Objects, Queue, or paid Images binding is provisioned. Without an Images optimizer binding, vinext image requests fall back to original assets; image transformation parity/performance must be assessed before production approval.
+The current `wrangler.jsonc` has ASSETS, CONTACT_STATE (SQLite Durable Object) and non-secret vars. It has no KV, R2, D1, Queue or paid Images binding. Responsive image generation runs before every Workers build. The initial audit used original-image fallback; its measurements are retained as the baseline.
 
-## Env and secrets
+## Initial audit: env and secrets (historical; see follow-up above)
 
 Netlify currently contains only five non-secret site settings. They are retained unchanged there:
 
@@ -108,7 +119,7 @@ Protected email records: apex Cloudflare MX x3, apex SPF, cf2024-1 DKIM, Resend 
 
 The run-specific audit, logs, screenshots, QA reports and deployment versions are stored outside Git under `../../outputs/cloudflare-migration-20260917/`. See its final `OWNER_REVIEW_REPORT.md` for measured outcomes and remaining gates. A green build alone is not release approval.
 
-### Verified candidate, 2026-09-17
+### Initial verified candidate, 2026-09-17 (historical)
 
 Preview version: `dc7af346-2f41-40ac-9650-da12a908085f`.
 
@@ -121,7 +132,7 @@ Preview version: `dc7af346-2f41-40ac-9650-da12a908085f`.
 - All 11 DNS records are unchanged, including 9 protected mail records. There are no tsudowa.com Worker Custom Domains.
 - The preview deployment guard accepted its valid configuration and rejected all 10 unsafe configuration mutations without any deployment.
 
-### Open approval gates
+### Initial approval gates (historical; superseded by follow-up report)
 
 - Performance comparison is **not measured**: the web-perf skill requires Chrome DevTools MCP, which is unavailable. Permission to substitute existing Lighthouse / Playwright measurements was requested but not received. Do not infer TTFB, LCP, CLS, request count, JS bytes, image timing or API latency from functional test duration or Worker startup time.
 - Actual Resend delivery, auto-reply reception, Reply-To behavior in a real mailbox, Turnstile production validation and Upstash service connectivity remain unverified. Production credentials are absent from the existing Netlify project and were not provisioned here. Keep contact disabled.

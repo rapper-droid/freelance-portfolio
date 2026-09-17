@@ -40,6 +40,7 @@ const run = (entry, args) => {
 };
 if (action === "build") {
   run("scripts/check-production.mjs", []);
+  run("scripts/generate-responsive-images.mjs", []);
   run("node_modules/vinext/dist/cli.js", ["build"]);
   fs.writeFileSync(
     new URL("dist/client/_headers", root),

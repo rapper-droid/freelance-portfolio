@@ -2,12 +2,18 @@
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "tsudowa-owner-preview",
   "account_id": "403d3196e2006bbfb76edb1eba214acf",
-  "main": "vinext/server/fetch-handler",
+  "main": "src/workers/entry.ts",
   "compatibility_date": "2026-09-17",
   "compatibility_flags": ["nodejs_compat"],
   "workers_dev": true,
   "preview_urls": true,
   "routes": [],
+  "durable_objects": {
+    "bindings": [{ "name": "CONTACT_STATE", "class_name": "ContactState" }],
+  },
+  "migrations": [
+    { "tag": "contact-state-v1", "new_sqlite_classes": ["ContactState"] },
+  ],
   "assets": {
     "directory": "dist/client",
     "binding": "ASSETS",
@@ -20,6 +26,7 @@
     "CONTACT_FROM_EMAIL": "no-reply@tsudowa.com",
     "CONTACT_TO_EMAIL": "contact@tsudowa.com",
     "HOSTING_PLATFORM": "cloudflare",
+    "STATE_BACKEND": "durable-objects",
     "OWNER_REVIEW": "true",
   },
   "observability": {

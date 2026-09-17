@@ -29,6 +29,7 @@
     ".vinext",
     ".wrangler",
     ".netlify",
-    "worker-configuration.d.ts"
+    "worker-configuration.d.ts",
+    "src/workers"
   ]
 }

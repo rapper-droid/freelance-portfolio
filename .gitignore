@@ -22,3 +22,4 @@ dist/
 .netlify/
 .dev.vars*
 worker-configuration.d.ts
+public/_responsive/
