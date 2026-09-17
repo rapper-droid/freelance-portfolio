@@ -17,6 +17,10 @@ export default defineConfig({
     },
     vinext(),
     cloudflare({
+      configPath:
+        process.env.TSUDOWA_WORKERS_TARGET === "production"
+          ? "wrangler.production.jsonc"
+          : "wrangler.jsonc",
       viteEnvironment: { name: "rsc", childEnvironments: ["ssr"] },
     }),
   ],

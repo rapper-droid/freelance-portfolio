@@ -66,7 +66,7 @@ export default function RootLayout({
 
   return (
     <html lang="ja">
-      <body className={inter.variable}>
+      <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -76,6 +76,8 @@ export default function RootLayout({
             ),
           }}
         />
+      </head>
+      <body className={inter.variable}>
         <a href="#main" className="skip-link">
           本文へスキップ
         </a>
