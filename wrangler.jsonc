@@ -30,7 +30,6 @@
     "HOSTING_PLATFORM": "cloudflare",
     "STATE_BACKEND": "durable-objects",
     "OWNER_REVIEW": "true",
-    "OWNER_DIAGNOSTICS_ENABLED": "true",
   },
   "observability": {
     "enabled": true,

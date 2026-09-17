@@ -1,12 +1,9 @@
 import app from "vinext/server/fetch-handler";
 import { responsivePath } from "./responsive-images";
-import { ownerDiagnostics } from "./owner-diagnostics";
 export * from "vinext/server/fetch-handler";
 export { ContactState } from "./contact-state";
 export default {
   async fetch(request: Request, env: Env, ctx: ExecutionContext) {
-    const diagnostic = await ownerDiagnostics(request, env);
-    if (diagnostic) return diagnostic;
     const asset = responsivePath(new URL(request.url));
     if (asset && (request.method === "GET" || request.method === "HEAD")) {
       const response = await env.ASSETS.fetch(
