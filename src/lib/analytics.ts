@@ -1,5 +1,10 @@
 ﻿import { categories, projects } from "./portfolio";
 export const eventNames = [
+  "contact_started",
+  "category_selected",
+  "contact_submitted",
+  "contact_success",
+  "contact_error",
   "portfolio_visit",
   "portfolio_price_view",
   "portfolio_contact_open",

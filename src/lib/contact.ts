@@ -1,87 +1,112 @@
+import {
+  contactBudgets,
+  contactKinds,
+  contactStages,
+  contactTimings,
+  contactContext,
+  safeReference,
+} from "./contact-options";
 export const uuidPattern =
   /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i;
-
-// Root-relative, email-safe source paths only. Reject line breaks and external URLs.
-const pagePattern = /^\/[A-Za-z0-9\-\/_#?=&.]{0,120}$/;
-
-// User-provided values must never create additional email headers.
 export const headerSafe = (value: string) =>
   value.replace(/[\r\n]+/g, " ").trim();
-
 export function validateContact(value: unknown) {
-  if (!value || typeof value !== "object") return null;
+  if (!value || typeof value !== "object" || Array.isArray(value)) return null;
   const v = value as Record<string, unknown>;
-  const text = (key: string, min: number, max: number) =>
-    typeof v[key] === "string" &&
-    (v[key] as string).trim().length >= min &&
-    (v[key] as string).length <= max;
-  // Optional text is still length-bounded whenever it is present.
-  const optional = (key: string, max: number) =>
-    v[key] === undefined || v[key] === "" || text(key, 1, max);
+  const text = (k: string, min: number, max: number) =>
+    typeof v[k] === "string" &&
+    (v[k] as string).trim().length >= min &&
+    (v[k] as string).length <= max;
+  const optional = (k: string, max: number) =>
+    v[k] === undefined || v[k] === "" || text(k, 1, max);
+  const choice = (k: string, values: readonly string[], fallback: string) =>
+    v[k] === undefined || v[k] === ""
+      ? fallback
+      : typeof v[k] === "string" && values.includes(v[k] as string)
+        ? (v[k] as string)
+        : null;
+  const kind = choice("kind", contactKinds, contactKinds[7]),
+    budget = choice("budget", contactBudgets, "未定"),
+    stage = choice("stage", contactStages, contactStages[5]),
+    timing = choice("timing", contactTimings, "未定");
+  const page = v.page === undefined ? "/" : v.page;
+  const context = typeof page === "string" ? contactContext(page) : null;
   if (
+    !text("name", 1, 80) ||
+    /[\u0000-\u001f\u007f]/.test(v.name as string) ||
     !text("email", 3, 254) ||
     !/^[^\s@<>]+@[^\s@<>]+\.[^\s@<>]+$/.test(v.email as string) ||
     !text("detail", 10, 2000) ||
-    !text("kind", 1, 80) ||
-    !text("budget", 1, 80) ||
     !text("token", 1, 2048) ||
-    !text("name", 1, 80) ||
     !optional("company", 80) ||
-    !(
-      v.page === undefined ||
-      (typeof v.page === "string" && pagePattern.test(v.page))
-    ) ||
+    !optional("reference", 2000) ||
+    !optional("supplement", 1000) ||
+    !kind ||
+    !budget ||
+    !stage ||
+    !timing ||
+    !context ||
     typeof v.id !== "string" ||
     !uuidPattern.test(v.id) ||
     v.consent !== true ||
     v.website !== ""
   )
     return null;
+  for (const key of ["category", "project", "demo"] as const)
+    if (v[key] !== undefined && v[key] !== context[key]) return null;
+  const reference = typeof v.reference === "string" ? v.reference.trim() : "";
+  if (!safeReference(reference)) return null;
   return {
-    email: (v.email as string).trim(),
-    detail: (v.detail as string).trim(),
-    kind: (v.kind as string).trim(),
-    budget: (v.budget as string).trim(),
     name: (v.name as string).trim(),
     company: typeof v.company === "string" ? v.company.trim() : "",
-    page: typeof v.page === "string" ? v.page : "",
+    email: (v.email as string).trim(),
+    detail: (v.detail as string).trim(),
+    kind,
+    budget,
+    stage,
+    timing,
+    reference,
+    supplement: typeof v.supplement === "string" ? v.supplement.trim() : "",
+    ...context,
+    id: v.id.toLowerCase(),
     token: v.token as string,
-    id: v.id,
   };
 }
-
-// Keep every value visibly labeled, plus the safe reply address and reference id.
-export function contactEmailText(value: {
-  name: string;
-  email: string;
-  company: string;
-  kind: string;
-  budget: string;
-  detail: string;
-  page: string;
-  id: string;
-  receivedAt: string;
-}) {
-  const row = (label: string, text: string) => `${label}: ${text}`;
-  return [
-    row("お名前", value.name),
-    ...(value.company ? [row("会社名・屋号", value.company)] : []),
-    row("メールアドレス", value.email),
-    row("問い合わせ種類", value.kind),
-    row("ご予算", value.budget),
-    "",
-    "--- お問い合わせ内容 ---",
-    value.detail,
-    "",
-    "--- 受付情報 ---",
-    row("送信元ページ", value.page || "(不明)"),
-    row("受信日時", value.receivedAt),
-    row("受付番号", value.id),
-    "",
-    "このメールにそのまま返信すると、送信者へ届きます。",
-  ].join("\n");
+export type ContactValue = NonNullable<ReturnType<typeof validateContact>>;
+export function contactPayload(v: ContactValue) {
+  const {
+    name,
+    company,
+    email,
+    detail,
+    kind,
+    budget,
+    stage,
+    timing,
+    reference,
+    supplement,
+    page,
+    category,
+    project,
+    demo,
+  } = v;
+  return {
+    name,
+    company,
+    email,
+    detail,
+    kind,
+    budget,
+    stage,
+    timing,
+    reference,
+    supplement,
+    page,
+    category,
+    project,
+    demo,
+  };
 }
-
 export function contactConfigured() {
   return (
     process.env.CONTACT_ENABLED === "true" &&
@@ -95,6 +120,6 @@ export function contactConfigured() {
       "UPSTASH_REDIS_REST_URL",
       "UPSTASH_REDIS_REST_TOKEN",
       "RATE_LIMIT_SALT",
-    ].every((key) => !!process.env[key])
+    ].every((k) => !!process.env[k])
   );
 }

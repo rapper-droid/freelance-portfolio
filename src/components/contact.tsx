@@ -1,123 +1,63 @@
-﻿"use client";
-import { useState } from "react";
 import { ContactSend } from "./contact-send";
-import { track } from "./analytics";
-import { Copy, Check, ArrowUpRight } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
+import "./contact-intake.css";
 export function Contact({
-  initialKind = "Webサイト制作",
+  initialKind = "",
+  headingAs = "h2",
 }: {
   initialKind?: string;
+  headingAs?: "h1" | "h2";
 }) {
-  const [kind, setKind] = useState(initialKind);
-  const [detail, setDetail] = useState("");
-  const [budget, setBudget] = useState("相談して決めたい");
-  const [message, setMessage] = useState("");
-  const template = `【相談内容】${kind}\n【困っていること】${detail || "（ご記入ください）"}\n【希望予算】${budget}\n【希望納期】（ご記入ください）\n【対象URL・資料】（必要に応じてご記入ください）`;
+  const Heading = headingAs;
   return (
-    <section id="contact" className="contact-section section">
-      <div>
-        <span className="eyebrow">LET’S MAKE IT WORK</span>
-        <h2>
+    <section id="contact" className="contact-section section sales-intake">
+      <div className="intake-intro">
+        <span className="eyebrow">A GOOD PLACE TO START / TETSU WORKS</span>
+        <Heading className="intake-title">
           つくりたいものを、
           <br />
           聞かせてください。
-        </h2>
+        </Heading>
         <p>
-          Web制作から業務ツール、修正まで。
+          まだ要件が曖昧でも大丈夫。
           <br />
-          まだ要件が曖昧でも、課題の整理から始められます。
+          いま困っていることから、一緒に整理します。
         </p>
-        <div className="contact-note">
-          <Check size={16} /> 使う人の視点で確認・修正し、完成品まで仕上げます。
+        <a href="#intake-fields" className="intake-jump">
+          相談内容を入力する ↓
+        </a>
+        <div className="intake-promise">
+          <Check size={18} />
+          <span>
+            まずは文章で。
+            <br />
+            <b>打ち合わせの前に、相談できます。</b>
+          </span>
         </div>
-        <p className="muted small">
-          相談内容をコピーして、
+        <ol className="intake-response-flow" aria-label="相談後の流れ">
+          {["相談を送信", "内容を確認", "メールで返信", "合意して制作開始"].map(
+            (s, i) => (
+              <li key={s}>
+                <span>0{i + 1}</span>
+                {s}
+                {i < 3 && <ArrowRight size={14} aria-hidden />}
+              </li>
+            ),
+          )}
+        </ol>
+        <p className="intake-boundary">
+          金額・納期・制作範囲は、内容を確認してご相談。
           <br />
-          ご利用中のクラウドソーシングサービスのメッセージからご連絡ください。
+          送信した時点で契約や発注にはなりません。
+        </p>
+        <p className="intake-platform">
+          案件サイトからのご相談は、そのサービス内メッセージでも進められます。
         </p>
       </div>
-      <div className="contact-form">
-        <label>
-          相談したいこと
-          <select value={kind} onChange={(e) => setKind(e.target.value)}>
-            {Array.from(
-              new Set([
-                initialKind,
-                "Webサイトの修正",
-                "LP制作",
-                "EC商品ページ",
-                "デザイン・コンテンツ",
-                "テスト・納品",
-                "業務自動化・データ加工",
-                "管理画面・フォーム制作",
-                "その他・まず相談したい",
-              ]),
-            ).map((s) => (
-              <option key={s}>{s}</option>
-            ))}
-          </select>
-        </label>
-        <label>
-          困っていること
-          <textarea
-            rows={3}
-            value={detail}
-            maxLength={2000}
-            onChange={(e) => setDetail(e.target.value)}
-            placeholder="例：毎週、CSVから重複データを手作業で削除しています。"
-          />
-        </label>
-        <label>
-          希望予算の目安
-          <select value={budget} onChange={(e) => setBudget(e.target.value)}>
-            {Array.from(
-              new Set([
-                "5,000〜10,000円",
-                "10,000〜30,000円",
-                "30,000〜50,000円",
-                "50,000〜100,000円",
-                "100,000円以上",
-                "相談して決めたい",
-              ]),
-            ).map((s) => (
-              <option key={s}>{s}</option>
-            ))}
-          </select>
-        </label>
-        <button
-          className="button primary"
-          onClick={async () => {
-            try {
-              await navigator.clipboard.writeText(template);
-              track("portfolio_copy_contact_message");
-              setMessage(
-                "相談内容をコピーしました。案件サイトのメッセージに貼り付けてください。",
-              );
-            } catch {
-              setMessage(
-                "コピーできませんでした。下のテキストを選択してコピーしてください。",
-              );
-            }
-          }}
-        >
-          <Copy size={16} /> 相談内容をコピー <ArrowUpRight size={16} />
-        </button>
-        <p className="small muted">
-          送信は行いません。金額・納期は内容を確認してご相談。
-        </p>
-        <p role="status" className="small">
-          {message}
-        </p>
-        <ContactSend kind={kind} detail={detail} budget={budget} />
-        {message.includes("できません") && (
-          <textarea
-            aria-label="コピー用の相談内容"
-            readOnly
-            value={template}
-            rows={7}
-          />
-        )}
-      </div>
+      <ContactSend
+        initialKind={initialKind}
+        successHeading={headingAs === "h1" ? "h2" : "h3"}
+      />
     </section>
   );
 }
