@@ -3,7 +3,9 @@ import path from "node:path";
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { Miniflare, convertV4MiniflareOptions } from "miniflare";
-const out = path.resolve("../../outputs/workers-final-blockers-20260917");
+const out = path.resolve(
+  process.env.QA_OUTPUT_DIR || "../../outputs/workers-final-blockers-20260917",
+);
 await fs.mkdir(out, { recursive: true });
 const root = path.resolve("dist/server"),
   modules = [];

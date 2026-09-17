@@ -109,7 +109,7 @@ const comparison = routes.map((route) => {
 const result = {
   phase,
   conditions:
-    "Lighthouse mobile simulated, fresh browser each run, alternating host order; Navigation 390x844 DPR2 no synthetic throttle, cold fresh context/warm second navigation, idle+2s, no scroll. CDN state and Internet latency uncontrolled. Laboratory measurements, not field CWV.",
+    "Lighthouse mobile simulated, fresh browser each run, alternating host order; Navigation 390x844 DPR2 no synthetic throttle, cold fresh context/warm second navigation, DOMContentLoaded + fonts/visible-image decode + 5s on BOTH hosts, no scroll. Turnstile authentication is not solved by this read-only benchmark. CDN state and Internet latency uncontrolled. Laboratory measurements, not field CWV.",
   decisionRule:
     "Slower: LCP regression > max(300ms,15%), or TBT >150ms worse, or CLS >0.1, or wire bytes increase >100KB and >25%. Faster: LCP improves >max(200ms,10%) or TBT improves >100ms with LCP regression <300ms. Otherwise Equivalent.",
   rows,

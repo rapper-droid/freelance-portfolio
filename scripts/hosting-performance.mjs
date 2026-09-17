@@ -149,10 +149,24 @@ if (mode !== "lighthouse") {
             byId.clear();
             active = true;
             const response = await page.goto(hosts[host] + route, {
-              waitUntil: "networkidle",
+              waitUntil: "domcontentloaded",
               timeout: 60000,
             });
-            await page.waitForTimeout(2000);
+            // Real Turnstile can maintain network activity indefinitely. Settle
+            // document fonts and visible images, then observe both hosts for 5s.
+            await page.evaluate(async () => {
+              await document.fonts.ready;
+              await Promise.all(
+                [...document.images]
+                  .filter(
+                    (image) =>
+                      image.currentSrc &&
+                      image.getBoundingClientRect().top < innerHeight,
+                  )
+                  .map((image) => image.decode().catch(() => {})),
+              );
+            });
+            await page.waitForTimeout(5000);
             active = false;
             const state = await page.evaluate(() => {
               const n = performance.getEntriesByType("navigation")[0];
