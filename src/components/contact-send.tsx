@@ -93,6 +93,10 @@ export function ContactSend({
     started = useRef(false);
   const submission = useRef({ signature: "", id: "", created: 0 });
   useEffect(() => {
+    // Focus only after React has committed the success panel.
+    if (state === "success") successRef.current?.focus();
+  }, [state]);
+  useEffect(() => {
     const frame = requestAnimationFrame(() => {
       const from = new URLSearchParams(location.search).get("from");
       const context =
@@ -343,7 +347,6 @@ export function ContactSend({
         try {
           sessionStorage.removeItem(draftKey);
         } catch {}
-        requestAnimationFrame(() => successRef.current?.focus());
       } else {
         setState("error");
         track("contact_error");
