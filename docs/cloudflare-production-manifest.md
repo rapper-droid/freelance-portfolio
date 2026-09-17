@@ -1,6 +1,15 @@
 # Production Workers manifest — names only
 
-This is an inventory, not authorization to create a production Worker or cut over DNS. No credential values are recorded here.
+This is an inventory, not authorization to cut over DNS. No credential values are
+recorded here. The candidate Worker `tsudowa-production` now exists; see
+[production candidate state](cloudflare-production-candidate.md).
+
+## Current fulfilment on `tsudowa-production` — names only, 2026-09-18
+
+Every item below is present on the deployed candidate version `2e2709c1` except
+one. `RESEND_API_KEY` is **absent**, so contact fails closed and
+`GET /api/contact` reports `enabled:false`. `CONTACT_ORIGIN` is correctly absent.
+Presence was read back without retrieving any value.
 
 ## Required Secrets
 

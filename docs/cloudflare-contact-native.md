@@ -1,6 +1,6 @@
 # Cloudflare-native contact storage — candidate only
 
-For current activation status, see [final blocker phase](cloudflare-final-blockers.md). The storage design below remains valid; the earlier Turnstile setup/metadata status is historical.
+For current activation status, see [production candidate state](cloudflare-production-candidate.md). The storage design below remains valid; the earlier Turnstile setup/metadata status and the CONTACT verdict below are historical.
 
 ## Decision
 
@@ -62,4 +62,4 @@ Before the one authorized live submission, provide the missing settings through 
 
 Use the exact test label `TSUDOWA Workers 本番前接続テスト`. Verify form success, Resend IDs, owner delivery, Gmail receipt, auto-reply, Reply-To, matching receipt ID, replay rejection and no additional unique provider send on retry. Send only the one logical inquiry. Do not interpret mocked tests, a secret name or a verified domain as proof of this test.
 
-Until that evidence exists, contact remains disabled and CONTACT is BLOCKED. No production DNS, MX, SPF, DKIM, Email Routing, Resend domain or Netlify configuration is changed.
+That evidence was later produced on the owner preview, closing its CONTACT gate; the production candidate still has no Resend Secret and its contact remains disabled. See [production candidate state](cloudflare-production-candidate.md). No production DNS, MX, SPF, DKIM, Email Routing, Resend domain or Netlify configuration is changed.

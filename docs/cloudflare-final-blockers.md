@@ -1,7 +1,11 @@
 # Final blocker phase — owner review, September 17–18, 2026
 
-Historical phase: the missing Resend Secret was supplied by OWNER afterward.
-See [live contact checkpoint](cloudflare-live-contact-checkpoint.md) for the current enabled preview, browser authentication blocker, and updated evidence.
+Historical phase: the missing Resend Secret was supplied by OWNER afterward, and
+the preview CONTACT and WORKERS gates later closed. The gate verdicts below are
+superseded. See [production candidate state](cloudflare-production-candidate.md)
+for the current HEAD, the two-Worker configuration and the remaining blockers;
+the [live contact checkpoint](cloudflare-live-contact-checkpoint.md) covers the
+intermediate enabled preview.
 
 Production remains Netlify. No DNS, Custom Domain, mail DNS/routing, Netlify environment/project/certificate, push or merge changes were made. The approved external changes are the preview application deployment and one Turnstile widget with its preview bindings.
 

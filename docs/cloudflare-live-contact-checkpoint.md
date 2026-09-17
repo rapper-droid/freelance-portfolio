@@ -1,5 +1,10 @@
 # Enabled preview — live-contact checkpoint, 2026-09-18 JST
 
+Historical checkpoint. Its BLOCKED CONTACT and WORKERS verdicts were superseded
+when a real inquiry (`TSW-260917-350B4FF8D9`) later succeeded on this preview.
+See [production candidate state](cloudflare-production-candidate.md) for the
+current HEAD and gates.
+
 Production remains Netlify. CUTOVER is NOT_READY. Do not attach Custom Domains,
 change DNS/mail routing, remove Netlify configuration, push, or merge.
 

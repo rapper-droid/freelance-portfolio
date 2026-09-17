@@ -1,6 +1,6 @@
 # TSUDOWA Cloudflare Workers migration — owner preview only
 
-Latest status: [final blocker phase](cloudflare-final-blockers.md). Use the newer [names-only manifest](cloudflare-production-manifest.md) and [web-only rollback simulation](cloudflare-cutover-simulation.md); the initial audit below is retained as history.
+Latest status: [production candidate state](cloudflare-production-candidate.md); the [final blocker phase](cloudflare-final-blockers.md) is now history. Use the newer [names-only manifest](cloudflare-production-manifest.md) and [web-only rollback simulation](cloudflare-cutover-simulation.md); the initial audit below is retained as history.
 
 ## Follow-up status: Lighthouse / Playwright authorized, 2026-09-17
 
@@ -140,4 +140,4 @@ Preview version: `dc7af346-2f41-40ac-9650-da12a908085f`.
 - Actual Resend delivery, auto-reply reception, Reply-To behavior in a real mailbox, Turnstile production validation and Upstash service connectivity remain unverified. Production credentials are absent from the existing Netlify project and were not provisioned here. Keep contact disabled.
 - vinext is beta and the QA-only Miniflare package is an alpha release. Pinning and successful tests do not remove runtime upgrade risk. Owner visual review and the unresolved image/performance gate are required before cutover.
 
-Overall migration gate remains **BLOCKED**. The preview is usable for review; production remains on Netlify.
+Overall migration gate at the time of this audit was **BLOCKED**. For the current verdicts see [production candidate state](cloudflare-production-candidate.md): the preview contact gate has since closed, while production cutover remains blocked and production remains on Netlify.

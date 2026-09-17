@@ -1,6 +1,6 @@
 # Web cutover simulation and rollback — NOT EXECUTED
 
-Reviewed September 17 UTC / September 18 JST, 2026. Production remains Netlify. This plan requires a separate OWNER approval after real contact delivery and all release gates pass.
+Reviewed September 17 UTC / September 18 JST, 2026. Production remains Netlify. This plan requires a separate OWNER approval after real contact delivery and all release gates pass. The isolated candidate Worker `tsudowa-production` now exists with no Custom Domain; see [production candidate state](cloudflare-production-candidate.md) for its configuration and remaining blockers.
 
 ## Current verified web state
 
