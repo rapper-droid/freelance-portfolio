@@ -46,6 +46,13 @@ try {
     });
     const frames = [],
       events = [];
+    async function settledRoute(pathname) {
+      // App Router navigation may start after click's networkidle check.
+      // Verify the destination before capturing or sending a browser back action.
+      await page.waitForURL((url) => url.pathname === pathname);
+      await page.locator("main h1").waitFor({ state: "visible" });
+      await page.waitForLoadState("networkidle");
+    }
     async function frame(label) {
       const name =
         "top-" +
@@ -95,13 +102,15 @@ try {
     await frame("works-hover");
     events.push(...(await page.evaluate(() => window.__hqEvents)));
     await page.locator(".hq-world-works .hq-world-link").click();
-    await page.waitForLoadState("networkidle");
+    await settledRoute("/works");
     await frame("works-entry");
     await page.goBack({ waitUntil: "networkidle" });
+    await settledRoute("/");
     await page.locator(".hq-world-lab .hq-world-link").click();
-    await page.waitForLoadState("networkidle");
+    await settledRoute("/lab");
     await frame("lab-entry");
     await page.goBack({ waitUntil: "networkidle" });
+    await settledRoute("/");
     await scroll("#activity");
     await frame("build-log");
     await scroll("#contact");
