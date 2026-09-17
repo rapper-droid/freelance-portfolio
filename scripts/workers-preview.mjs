@@ -53,6 +53,7 @@ if (action === "build") {
   guard(built);
   run("node_modules/wrangler/bin/wrangler.js", [
     "deploy",
+    "--keep-vars",
     "--config",
     "dist/server/wrangler.json",
   ]);

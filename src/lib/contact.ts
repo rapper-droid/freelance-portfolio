@@ -107,9 +107,30 @@ export function contactPayload(v: ContactValue) {
     demo,
   };
 }
+export function contactOrigin(): URL | null {
+  try {
+    const canonical = new URL(process.env.NEXT_PUBLIC_SITE_URL!);
+    const override = process.env.CONTACT_ORIGIN;
+    if (override) {
+      if (
+        process.env.HOSTING_PLATFORM !== "cloudflare" ||
+        process.env.OWNER_REVIEW !== "true" ||
+        override !==
+          "https://tsudowa-owner-preview.tetsuyasmile52l.workers.dev" ||
+        canonical.origin !== "https://tsudowa.com"
+      )
+        return null;
+      return new URL(override);
+    }
+    return canonical;
+  } catch {
+    return null;
+  }
+}
 export function contactConfigured() {
   return (
     process.env.CONTACT_ENABLED === "true" &&
+    contactOrigin() !== null &&
     [
       "RESEND_API_KEY",
       "CONTACT_FROM_EMAIL",

@@ -1,5 +1,7 @@
 # TSUDOWA Cloudflare Workers migration — owner preview only
 
+Latest status: [final blocker phase](cloudflare-final-blockers.md). Use the newer [names-only manifest](cloudflare-production-manifest.md) and [web-only rollback simulation](cloudflare-cutover-simulation.md); the initial audit below is retained as history.
+
 ## Follow-up status: Lighthouse / Playwright authorized, 2026-09-17
 
 The initial audit below is historical. The owner subsequently authorized Lighthouse / Playwright comparisons and Cloudflare-native contact preparation, but **not production cutover**. The current implementation supersedes the initial original-image and Upstash limitations:

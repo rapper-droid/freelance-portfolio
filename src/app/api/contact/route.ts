@@ -3,6 +3,7 @@ import {
   validateContact,
   contactConfigured,
   contactPayload,
+  contactOrigin,
 } from "@/lib/contact";
 import { internalMail, receiptMail, type Receipt } from "@/lib/contact-mail";
 import {
@@ -49,12 +50,8 @@ export async function GET() {
 }
 export async function POST(request: Request) {
   if (!contactConfigured()) return reply(503, "unavailable");
-  let site: URL;
-  try {
-    site = new URL(process.env.NEXT_PUBLIC_SITE_URL!);
-  } catch {
-    return reply(503, "unavailable");
-  }
+  const site = contactOrigin();
+  if (!site) return reply(503, "unavailable");
   if (request.headers.get("origin") !== site.origin)
     return reply(403, "origin");
   let value;

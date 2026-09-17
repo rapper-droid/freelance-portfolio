@@ -1,5 +1,7 @@
 # Workers follow-up QA — 2026-09-17
 
+Historical checkpoint. See [final blocker phase](cloudflare-final-blockers.md) for the later metadata fix, widget setup, new QA and remaining live-contact gate.
+
 Preview version: `2b179ed6-d6db-4472-b57f-a89aceac5c16`. Production remains Netlify.
 
 ## Comparative performance

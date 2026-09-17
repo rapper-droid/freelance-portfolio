@@ -1,5 +1,7 @@
 # Cloudflare-native contact storage — candidate only
 
+For current activation status, see [final blocker phase](cloudflare-final-blockers.md). The storage design below remains valid; the earlier Turnstile setup/metadata status is historical.
+
 ## Decision
 
 Use SQLite-backed Durable Objects for the existing contact state operations. A logical Redis key maps to one deterministic `ContactState` object through the private `CONTACT_STATE` binding. This preserves the existing handler's semantics without a new Upstash subscription. Next.js / Netlify retains its existing Redis adapter for rollback.

@@ -5,7 +5,7 @@ import { build } from "esbuild";
 import { Miniflare, convertV4MiniflareOptions } from "miniflare";
 const sourcePath = path.resolve("src/workers/contact-state.ts");
 const source = await fs.readFile(sourcePath, "utf8");
-const out = path.resolve("../../outputs/workers-performance-contact-20260917");
+const out = path.resolve("../../outputs/workers-final-blockers-20260917");
 await fs.mkdir(out, { recursive: true });
 const results = [];
 const mutations = [

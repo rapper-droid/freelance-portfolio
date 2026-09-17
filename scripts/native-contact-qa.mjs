@@ -3,6 +3,8 @@ import path from "node:path";
 import assert from "node:assert/strict";
 import { randomUUID } from "node:crypto";
 import { Miniflare, convertV4MiniflareOptions } from "miniflare";
+const out = path.resolve("../../outputs/workers-final-blockers-20260917");
+await fs.mkdir(out, { recursive: true });
 const root = path.resolve("dist/server"),
   modules = [];
 async function scan(dir) {
@@ -20,9 +22,11 @@ modules.unshift({
   contents: `import app,{ContactState as Base} from './index.js';export class ContactState extends Base {async execute(op){if(this.env.STATE_FAILURE==='true')throw Error('fixture unavailable');return super.execute(op);}}export default {async fetch(request,env,ctx){if(new URL(request.url).pathname==='/__qa_state'){const {key,op}=await request.json();return Response.json(await env.CONTACT_STATE.getByName(key).execute(op));}return app.fetch(request,env,ctx);}};`,
 });
 const deliveries = new Map(),
+  mailAttempts = [],
   calls = [],
   usedTokens = new Set();
 let confirmationDown = false;
+let resendFailure = "";
 const bindings = {
   NEXT_PUBLIC_SITE_URL: "https://tsudowa.com",
   CONTACT_ENABLED: "true",
@@ -37,14 +41,14 @@ const bindings = {
   NEXT_PUBLIC_TURNSTILE_SITE_KEY: "fixture-only",
   RATE_LIMIT_SALT: "fixture-only-never-production-123456789",
 };
-function create(failure = false) {
+function create(failure = false, overrides = {}) {
   return new Miniflare(
     convertV4MiniflareOptions({
       modules,
       modulesRoot: root,
       compatibilityDate: "2026-09-17",
       compatibilityFlags: ["nodejs_compat"],
-      bindings: { ...bindings, STATE_FAILURE: String(failure) },
+      bindings: { ...bindings, ...overrides, STATE_FAILURE: String(failure) },
       durableObjects: {
         CONTACT_STATE: { className: "ContactState", useSQLite: true },
       },
@@ -58,13 +62,25 @@ function create(failure = false) {
           usedTokens.add(token);
           return Response.json({
             success,
-            action: "contact",
-            hostname: "tsudowa.com",
+            action: token === "wrong-action" ? "login" : "contact",
+            hostname:
+              token === "wrong-hostname"
+                ? "evil.invalid"
+                : new URL(
+                    overrides.CONTACT_ORIGIN || bindings.NEXT_PUBLIC_SITE_URL,
+                  ).hostname,
           });
         }
         if (url.hostname === "api.resend.com" && url.pathname === "/emails") {
           const key = request.headers.get("Idempotency-Key"),
             body = await request.json();
+          mailAttempts.push(key);
+          if (resendFailure === "timeout")
+            throw new DOMException("fixture timeout", "TimeoutError");
+          if (resendFailure === "5xx")
+            return new Response("fixture 5xx", { status: 503 });
+          if (resendFailure === "rejection")
+            return new Response("fixture rejection", { status: 422 });
           if (confirmationDown && key.endsWith("-confirmation"))
             return new Response("unavailable", { status: 503 });
           if (deliveries.has(key)) assert.deepEqual(deliveries.get(key), body);
@@ -207,6 +223,17 @@ try {
       assert.ok(r.some((x) => x.status === 200));
       assert.ok(r.every((x) => [200, 409].includes(x.status)));
       assert.equal(deliveries.size - n, 2);
+      assert.equal(
+        mailAttempts.filter((k) => k === "tsudowa-" + value.id + "-owner")
+          .length,
+        1,
+      );
+      assert.equal(
+        mailAttempts.filter(
+          (k) => k === "tsudowa-" + value.id + "-confirmation",
+        ).length,
+        1,
+      );
     },
   );
   await check("partial send retry never duplicates owner", async () => {
@@ -223,6 +250,64 @@ try {
     assert.equal(retry.body.receipt, r.body.receipt);
     assert.equal(deliveries.size - n, 2);
   });
+  await check(
+    "missing token, wrong action and wrong hostname never send mail",
+    async () => {
+      const n = deliveries.size;
+      assert.equal(
+        (await send({ ...base, id: randomUUID() }, { token: "" })).status,
+        400,
+      );
+      for (const token of ["wrong-action", "wrong-hostname"])
+        assert.equal(
+          (await send({ ...base, id: randomUUID() }, { token })).status,
+          403,
+        );
+      assert.equal(deliveries.size, n);
+    },
+  );
+  for (const failure of ["timeout", "5xx", "rejection"]) {
+    await check(
+      "Resend " + failure + " fails closed and stable retry delivers once",
+      async () => {
+        const payload = { ...base, id: randomUUID() },
+          n = deliveries.size;
+        resendFailure = failure;
+        const failed = await send(payload);
+        assert.equal(failed.status, 503);
+        assert.equal(failed.body.code, "unavailable");
+        assert.equal(deliveries.size, n);
+        resendFailure = "";
+        const retry = await send(payload);
+        assert.equal(retry.status, 200);
+        assert.equal(retry.body.receipt, failed.body.receipt);
+        assert.equal(deliveries.size, n + 2);
+      },
+    );
+  }
+  await check(
+    "approved preview origin works without changing canonical; production origin rejected",
+    async () => {
+      const origin =
+        "https://tsudowa-owner-preview.tetsuyasmile52l.workers.dev";
+      const preview = create(false, {
+        OWNER_REVIEW: "true",
+        CONTACT_ORIGIN: origin,
+      });
+      try {
+        const value = { ...base, id: randomUUID() };
+        const n = deliveries.size;
+        assert.equal((await send(value, { instance: preview })).status, 403);
+        assert.equal(
+          (await send(value, { origin, instance: preview })).status,
+          200,
+        );
+        assert.equal(deliveries.size - n, 2);
+      } finally {
+        await preview.dispose();
+      }
+    },
+  );
   await check("global daily and monthly send caps block new mail", async () => {
     const set = async (key, value, ttl) => {
       const r = await mf.dispatchFetch("http://local.test/__qa_state", {
@@ -248,7 +333,7 @@ try {
 } finally {
   await mf.dispose();
   await fs.writeFile(
-    "../../outputs/workers-performance-contact-20260917/native-contact-qa.json",
+    path.join(out, "native-contact-qa.json"),
     JSON.stringify(
       {
         kind: "built Worker and real SQLite Durable Objects; Turnstile/Resend intercepted; NOT live delivery",

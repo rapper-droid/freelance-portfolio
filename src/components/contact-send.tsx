@@ -75,14 +75,15 @@ export function ContactSend({
   const [siteKey, setSiteKey] = useState("");
   const [scriptReady, setScriptReady] = useState(false);
   const [token, setToken] = useState("");
-  const [state, setState] = useState<"idle" | "sending" | "success" | "error">(
-    "idle",
-  );
+  const [state, setState] = useState<
+    "idle" | "sending" | "success" | "error" | "receipt_pending"
+  >("idle");
   const [message, setMessage] = useState("");
   const [errors, setErrors] = useState<
     Partial<Record<keyof Fields | "consent", string>>
   >({});
   const [receipt, setReceipt] = useState("");
+  const [receiptAccepted, setReceiptAccepted] = useState(false);
   const [draftNote, setDraftNote] = useState("");
   const [copied, setCopied] = useState("");
   const widgetEl = useRef<HTMLDivElement>(null),
@@ -219,6 +220,7 @@ export function ContactSend({
     };
   }, [scriptReady, siteKey]);
   function change(key: keyof Fields, value: string) {
+    if (receiptAccepted) return;
     if (!started.current) {
       track("contact_started");
       started.current = true;
@@ -234,7 +236,7 @@ export function ContactSend({
       </span>
     ) : null;
   }
-  const locked = state === "sending" || state === "success";
+  const locked = state === "sending" || state === "success" || receiptAccepted;
   const template = [
     general ? "【お問い合わせ】TSUDOWA全体" : "【依頼内容】" + fields.kind,
     "【相談内容】" + fields.detail,
@@ -260,7 +262,7 @@ export function ContactSend({
       invalid.detail = "ご相談内容を10文字以上で入力してください。";
     if (!safeReference(fields.reference.trim()))
       invalid.reference = "http:// または https:// のURLを入力してください。";
-    if (data.get("consent") !== "on")
+    if (!receiptAccepted && data.get("consent") !== "on")
       invalid.consent =
         "プライバシーの取り扱いを確認し、送信に同意してください。";
     setErrors(invalid);
@@ -347,6 +349,16 @@ export function ContactSend({
         try {
           sessionStorage.removeItem(draftKey);
         } catch {}
+      } else if (
+        result.code === "receipt_pending" &&
+        validReceipt(result.receipt)
+      ) {
+        setReceiptAccepted(true);
+        setReceipt(result.receipt);
+        setState("receipt_pending");
+        setMessage(
+          "ご相談本体は受付済みです。確認メールだけをまだ送れていません。入力は保護しています。下のボタンで確認メールだけを再試行できます。",
+        );
       } else {
         setState("error");
         track("contact_error");
@@ -664,9 +676,13 @@ export function ContactSend({
           )}
           <button
             className="button primary intake-submit"
-            disabled={locked || config !== "enabled"}
+            disabled={state === "sending" || config !== "enabled"}
           >
-            {state === "sending" ? "受付処理中…" : "相談を送信する"}
+            {state === "sending"
+              ? "受付処理中…"
+              : receiptAccepted
+                ? "確認メールだけを再試行"
+                : "相談を送信する"}
             <ArrowUpRight size={18} />
           </button>
           <p
@@ -674,7 +690,9 @@ export function ContactSend({
             className={state === "error" ? "intake-error" : "intake-help"}
           >
             {message}
-            {receipt && state === "error" && <span> 受付番号：{receipt}</span>}
+            {receipt && (state === "error" || state === "receipt_pending") && (
+              <span> 受付番号：{receipt}</span>
+            )}
           </p>
           <details className="intake-copy">
             <summary>

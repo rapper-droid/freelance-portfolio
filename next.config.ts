@@ -1,6 +1,11 @@
 import type { NextConfig } from "next";
 const config: NextConfig = {
   poweredByHeader: false,
+  // Workers candidate: resolve generated metadata into the initial head for
+  // every user agent. Keep the original Next/Netlify build behavior unchanged.
+  ...(process.env.HOSTING_PLATFORM === "cloudflare"
+    ? { htmlLimitedBots: /.*/ }
+    : {}),
   async headers() {
     return [
       {

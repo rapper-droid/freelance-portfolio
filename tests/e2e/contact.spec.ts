@@ -119,9 +119,12 @@ test("partial acceptance is honest and retry keeps the same receipt identity", a
   await page.goto("/contact");
   await fill(page);
   await page.getByRole("button", { name: "相談を送信する" }).click();
-  await expect(page.locator(".intake-error")).toContainText("ご相談は受付済み");
-  await expect(page.locator(".intake-error")).toContainText(receipt);
-  await page.getByRole("button", { name: "相談を送信する" }).click();
+  await expect(
+    page.getByRole("status").filter({ hasText: "ご相談本体は受付済み" }),
+  ).toContainText(receipt);
+  await expect(page.locator(".intake-error")).toHaveCount(0);
+  await expect(page.getByLabel("ご相談内容", { exact: false })).toBeDisabled();
+  await page.getByRole("button", { name: "確認メールだけを再試行" }).click();
   await expect(page.locator(".intake-success")).toBeVisible();
   expect(attempts[0].id).toBe(attempts[1].id);
 });
@@ -232,9 +235,11 @@ test("general intake is separate from sales, scoped drafts survive reload, and r
   );
   await page.getByRole("checkbox", { name: /送信に同意/ }).check();
   await page.getByRole("button", { name: "相談を送信する" }).click();
-  await expect(page.locator(".intake-error")).toContainText("ご相談は受付済み");
+  await expect(
+    page.getByRole("status").filter({ hasText: "ご相談本体は受付済み" }),
+  ).toBeVisible();
   await expect(page.locator(".intake-success")).toHaveCount(0);
-  await page.getByRole("button", { name: "相談を送信する" }).click();
+  await page.getByRole("button", { name: "確認メールだけを再試行" }).click();
   await expect(page.locator(".intake-success")).toContainText(receipt);
   expect(attempts[0]).toMatchObject({
     page: "/contact/general",

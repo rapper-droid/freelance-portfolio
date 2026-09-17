@@ -13,6 +13,7 @@ describe("native contact configuration", () => {
       "RATE_LIMIT_SALT",
     ])
       vi.stubEnv(name, "fixture");
+    vi.stubEnv("NEXT_PUBLIC_SITE_URL", "https://tsudowa.com");
     vi.stubEnv("CONTACT_ENABLED", "true");
     vi.stubEnv("UPSTASH_REDIS_REST_URL", "");
     vi.stubEnv("UPSTASH_REDIS_REST_TOKEN", "");
@@ -22,7 +23,19 @@ describe("native contact configuration", () => {
     vi.stubEnv("HOSTING_PLATFORM", "netlify");
     expect(contactConfigured()).toBe(false);
     vi.stubEnv("HOSTING_PLATFORM", "cloudflare");
-    vi.stubEnv("TURNSTILE_SECRET", "");
-    expect(contactConfigured()).toBe(false);
+    for (const required of [
+      "RESEND_API_KEY",
+      "TURNSTILE_SECRET",
+      "NEXT_PUBLIC_TURNSTILE_SITE_KEY",
+      "RATE_LIMIT_SALT",
+      "CONTACT_FROM_EMAIL",
+      "CONTACT_TO_EMAIL",
+      "NEXT_PUBLIC_SITE_URL",
+    ]) {
+      const previous = process.env[required]!;
+      vi.stubEnv(required, "");
+      expect(contactConfigured(), required + " must fail closed").toBe(false);
+      vi.stubEnv(required, previous);
+    }
   });
 });
