@@ -1,5 +1,6 @@
 import { Header, Footer } from "@/components/site";
 import { Contact } from "@/components/contact";
+import "@/components/portfolio-styles.css";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata(
   "制作・自動化のご相談｜TETSU WORKS",

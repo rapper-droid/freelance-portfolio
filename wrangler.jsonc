@@ -1,0 +1,33 @@
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "tsudowa-owner-preview",
+  "account_id": "403d3196e2006bbfb76edb1eba214acf",
+  "main": "vinext/server/fetch-handler",
+  "compatibility_date": "2026-09-17",
+  "compatibility_flags": ["nodejs_compat"],
+  "workers_dev": true,
+  "preview_urls": true,
+  "routes": [],
+  "assets": {
+    "directory": "dist/client",
+    "binding": "ASSETS",
+    "not_found_handling": "none",
+  },
+  "vars": {
+    "NEXT_PUBLIC_SITE_URL": "https://tsudowa.com",
+    "CONTACT_ENABLED": "false",
+    "NEXT_PUBLIC_ANALYTICS_ENABLED": "false",
+    "CONTACT_FROM_EMAIL": "no-reply@tsudowa.com",
+    "CONTACT_TO_EMAIL": "contact@tsudowa.com",
+    "HOSTING_PLATFORM": "cloudflare",
+    "OWNER_REVIEW": "true",
+  },
+  "observability": {
+    "enabled": true,
+    "logs": {
+      "enabled": true,
+      "head_sampling_rate": 0.1,
+      "invocation_logs": false,
+    },
+  },
+}

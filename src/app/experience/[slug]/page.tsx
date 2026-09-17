@@ -1,4 +1,4 @@
-import "@/components/portfolio-styles";
+import "@/components/portfolio-styles.css";
 import { notFound } from "next/navigation";
 import "@/components/demo-identities.css";
 import { getProject, projects } from "@/lib/portfolio";

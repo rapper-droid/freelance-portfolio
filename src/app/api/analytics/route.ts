@@ -28,7 +28,7 @@ export async function POST(request: Request) {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(payload),
       signal: AbortSignal.timeout(2500),
-      redirect: "error",
+      redirect: "manual",
     });
     if (!upstream.ok) await reportFailure("analytics_dependency");
     return new Response(null, { status: upstream.ok ? 204 : 502 });

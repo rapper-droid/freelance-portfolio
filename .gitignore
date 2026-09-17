@@ -16,3 +16,9 @@ coverage/
 *.key
 .DS_Store
 Thumbs.db
+dist/
+.vinext/
+.wrangler/
+.netlify/
+.dev.vars*
+worker-configuration.d.ts

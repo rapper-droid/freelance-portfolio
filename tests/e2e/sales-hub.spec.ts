@@ -127,10 +127,12 @@ test("EC color, quantity, cart and keyboard cancellation", async ({ page }) => {
 });
 test("automation requires a fresh review after editing and never sends", async ({
   page,
+  baseURL,
 }) => {
   const external: string[] = [];
   page.on("request", (r) => {
-    if (!r.url().startsWith("http://localhost")) external.push(r.url());
+    if (new URL(r.url()).origin !== new URL(baseURL!).origin)
+      external.push(r.url());
   });
   await page.goto("/demos/automation");
   await page.getByRole("button", { name: "分類・下書きを実行" }).click();

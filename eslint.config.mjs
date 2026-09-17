@@ -6,6 +6,11 @@ export default defineConfig([
   ...nextTs,
   globalIgnores([
     ".next/**",
+    "dist/**",
+    ".vinext/**",
+    ".wrangler/**",
+    ".netlify/**",
+    "worker-configuration.d.ts",
     "out/**",
     "playwright-report/**",
     "test-results/**",

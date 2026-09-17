@@ -1,3 +1,4 @@
+import "@/components/portfolio-styles.css";
 import { pageMetadata } from "@/lib/seo";
 import { DemoShell } from "@/components/site";
 import "@/components/demo-identities.css";

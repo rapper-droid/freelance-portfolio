@@ -200,7 +200,7 @@
   border-radius: 3px;
   box-shadow: 0 18px 50px #15243d12;
 }
-.identity-admin .tool-title {
+.identity-admin.workbench-page .tool-title {
   background: #202c43;
   color: #f2f6ff;
   border-bottom: 1px solid #41506b;

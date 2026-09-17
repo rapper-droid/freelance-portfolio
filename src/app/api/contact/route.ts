@@ -80,7 +80,7 @@ export async function POST(request: Request) {
           response: value.token,
         }),
         signal: AbortSignal.timeout(5000),
-        redirect: "error",
+        redirect: "manual",
       },
     );
     if (!check.ok) throw new Error("dependency");
@@ -184,7 +184,7 @@ export async function POST(request: Request) {
           ...mail,
         }),
         signal: AbortSignal.timeout(8000),
-        redirect: "error",
+        redirect: "manual",
       });
       if (!result.ok || typeof (await result.json()).id !== "string")
         throw new Error("dependency");

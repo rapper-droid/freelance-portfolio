@@ -1,6 +1,6 @@
 ﻿import Link from "next/link";
 // Load the sales foundation before demo-specific overrides, including on direct visits.
-import "@/components/portfolio-styles";
+import "@/components/portfolio-styles.css";
 import { notFound } from "next/navigation";
 import "@/components/demo-identities.css";
 import { projects, getProject } from "@/lib/portfolio";

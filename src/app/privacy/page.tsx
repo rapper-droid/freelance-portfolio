@@ -1,4 +1,5 @@
 import { Header, Footer } from "@/components/site";
+import "@/components/portfolio-styles.css";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata(
   "プライバシー",

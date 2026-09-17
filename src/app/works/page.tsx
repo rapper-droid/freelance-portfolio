@@ -8,6 +8,7 @@ import { ProjectCard } from "@/components/project-card";
 import { WorksServiceGuide } from "@/components/works-service-guide";
 import { Contact } from "@/components/contact";
 import { categories, projects } from "@/lib/portfolio";
+import "@/components/portfolio-styles.css";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata(
   "全11作品・12カテゴリから制作例を探す",

@@ -2,6 +2,7 @@
 import { CategoryExhibit } from "@/components/premium-exhibits";
 import { notFound } from "next/navigation";
 import { categories, getCategory, projectsFor } from "@/lib/portfolio";
+import "@/components/portfolio-styles.css";
 import { pageMetadata } from "@/lib/seo";
 import { Header, Footer } from "@/components/site";
 import { ProjectCard } from "@/components/project-card";

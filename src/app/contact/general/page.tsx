@@ -1,4 +1,4 @@
-import "@/components/portfolio-styles";
+import "@/components/portfolio-styles.css";
 import Link from "next/link";
 import { HqHeader, HqFooter } from "@/components/hq/shell";
 import { Contact } from "@/components/contact";

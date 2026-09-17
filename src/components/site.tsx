@@ -1,4 +1,4 @@
-import "./portfolio-styles";
+import "./portfolio-styles.css";
 import Link from "next/link";
 import { ArrowUpRight, ArrowLeft } from "lucide-react";
 import { DemoDataNotice } from "./demo-data-notice";

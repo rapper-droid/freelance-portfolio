@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { categories, projects, getProject, pricingNote } from "@/lib/portfolio";
+import "@/components/portfolio-styles.css";
 import { pageMetadata } from "@/lib/seo";
 import { Header, Footer } from "@/components/site";
 import { MessageOnly } from "@/components/sales-sections";

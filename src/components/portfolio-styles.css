@@ -1,0 +1,11 @@
+/* Keep the legacy route cascade in one explicit CSS entry for Next and Vite. */
+@import "../app/globals.css";
+@import "../app/hub.css";
+@import "../app/sales-ui.css";
+@import "../app/project-visuals.css";
+@import "../app/art-direction.css";
+@import "../app/works-diagrams.css";
+@import "../app/tsudowa-effects.css";
+@import "../app/tsudowa-brand.css";
+@import "../app/premium.css";
+@import "../app/master-polish.css";

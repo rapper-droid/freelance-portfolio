@@ -17,7 +17,8 @@ export async function redis(...command: (string | number)[]) {
     },
     body: JSON.stringify(command),
     signal: AbortSignal.timeout(3000),
-    redirect: "error",
+    // Workers supports manual, not error. The !ok guard below rejects every 3xx.
+    redirect: "manual",
     cache: "no-store",
   });
   if (!response.ok) throw new Error("rate_unavailable");
@@ -44,7 +45,9 @@ export function clientBucket(request: Request) {
   const ip =
     process.env.NETLIFY === "true"
       ? request.headers.get("x-nf-client-connection-ip")
-      : null;
+      : process.env.HOSTING_PLATFORM === "cloudflare"
+        ? request.headers.get("cf-connecting-ip")
+        : null;
   return fingerprint(ip || "shared-untrusted-host");
 }
 export async function limitedJson(

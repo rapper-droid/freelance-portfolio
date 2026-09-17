@@ -6,6 +6,9 @@ const config: NextConfig = {
       {
         source: "/(.*)",
         headers: [
+          ...(process.env.OWNER_REVIEW === "true"
+            ? [{ key: "X-Robots-Tag", value: "noindex, nofollow, noarchive" }]
+            : []),
           { key: "X-Frame-Options", value: "DENY" },
           {
             key: "Permissions-Policy",

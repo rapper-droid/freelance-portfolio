@@ -315,7 +315,7 @@ describe("mail delivery contract", () => {
     expect(JSON.stringify(mails)).not.toContain("fresh-token");
     for (const mail of mails) {
       expect(mail.options.signal).toBeInstanceOf(AbortSignal);
-      expect(mail.options.redirect).toBe("error");
+      expect(mail.options.redirect).toBe("manual");
     }
     expect(internal.key).toBe("tsudowa-" + body.id + "-owner");
     expect(auto.key).toBe("tsudowa-" + body.id + "-confirmation");
