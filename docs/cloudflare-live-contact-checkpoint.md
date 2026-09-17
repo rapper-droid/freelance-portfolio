@@ -112,8 +112,16 @@ evidence until a live failure scenario can be safely exercised.
 
 ## Release decision
 
-METADATA=READY. CONTACT=BLOCKED. WORKERS=BLOCKED. CUTOVER=NOT_READY.
-PERFORMANCE is reported from the completed connected-service comparison artifact.
+METADATA=READY. PERFORMANCE=READY. CONTACT=BLOCKED. WORKERS=BLOCKED.
+CUTOVER=NOT_READY.
+
+The completed connected-service comparison contains 30 Lighthouse runs and
+30 cold/warm navigation pairs. Workers median scores are 98/96/96/97/97 for
+TOP/Works/Cafe/Inbox/Contact, with CLS=0 on every route. The existing comparative
+regression rubric passes. Cafe median LCP remains 2.56 seconds; this is not an
+assertion that every route meets the ideal 2.5-second threshold or field CWV.
+Both hosts used the same explicit navigation readiness and 5-second observation
+window. Old networkidle trials are archived separately and excluded.
 
 Remaining gate: one human-authenticated real form submission, actual delivery of
 both mails, matching receipt/internal identity, then a fresh-token retry of the

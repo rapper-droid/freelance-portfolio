@@ -256,7 +256,7 @@ if (mode !== "lighthouse") {
             run,
             measuredAt: new Date().toISOString(),
             conditions:
-              "Chromium mobile 390x844 DPR2; real network/no artificial throttle; cold=fresh context, warm=second navigation same context; CDN cache uncontrolled; idle+2s; no scrolling; CDP encoded bytes include response overhead, omit unreported redirect overhead; GET contact only",
+              "Chromium mobile 390x844 DPR2; real network/no artificial throttle; cold=fresh context, warm=second navigation same context; CDN cache uncontrolled; DOMContentLoaded + fonts/visible-image decode + 5s on both hosts; no scrolling; CDP encoded bytes include response overhead, omit unreported redirect overhead; GET contact only",
             samples,
           });
           console.log(
