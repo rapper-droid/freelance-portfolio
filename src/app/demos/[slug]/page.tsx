@@ -1,8 +1,10 @@
 ﻿import Link from "next/link";
 import { notFound } from "next/navigation";
+import "@/components/demo-identities.css";
 import { projects, getProject } from "@/lib/portfolio";
 import { pageMetadata } from "@/lib/seo";
 import { Header, Footer } from "@/components/site";
+import { contactHref } from "@/lib/contact-options";
 import {
   CafeDemo,
   SaasDemo,
@@ -57,6 +59,17 @@ export default async function DemoPage({
           <h1>{p.name}</h1>
           <Link href={`/projects/${slug}`}>制作概要・納品物を見る ↗</Link>
         </div>
+        <div
+          className="demo-mode-actions hub-section"
+          style={{ paddingBlock: 0 }}
+        >
+          <Link href={"/experience/" + slug} prefetch={false}>
+            OPEN FULL DEMO ↗
+          </Link>
+          <Link href={contactHref("/demos/" + slug)} prefetch={false}>
+            このデモのような制作を相談する ↗
+          </Link>
+        </div>
         <Demo />
         <div className="showcase-limit">
           <p>{p.limitation}</p>
@@ -64,7 +77,7 @@ export default async function DemoPage({
             制作概要・料金・納品物へ戻る ↗
           </Link>
           <p>
-            ご依頼は、ご利用中のクラウドソーシングサービスのメッセージからご連絡ください。
+            ご相談はWebフォームから。案件サイトのメッセージでも進められます。
           </p>
         </div>
       </main>

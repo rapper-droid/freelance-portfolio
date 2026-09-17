@@ -368,6 +368,17 @@ export function PhaseFlow({ phases }: { phases: Phase[] }) {
               <li key={s}>{s}</li>
             ))}
           </ul>
+          <p className="works-phase-deliverable">
+            <small>DELIVERABLE</small>
+            {
+              [
+                "相談メモ・制作範囲",
+                "画面構成・仕様",
+                "触れる画面・検証記録",
+                "ソース・引き継ぎ資料",
+              ][i]
+            }
+          </p>
           {p.checkpoint ? (
             <p className="works-phase-check">
               <span aria-hidden="true" className="works-phase-check-mark" />

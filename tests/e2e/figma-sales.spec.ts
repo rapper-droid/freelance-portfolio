@@ -17,7 +17,8 @@ test("sales home: parent structure, service links, complete cards and message-fi
   });
   await expect(page.locator(".site-header .brand")).toContainText("TSUDOWA");
   await expect(page.locator("h1")).toContainText("GATHER.");
-  await expect(page.locator(".brand-card")).toHaveCount(4);
+  await expect(page.locator(".brand-card")).toHaveCount(3);
+  await expect(page.locator("#brands")).not.toContainText("NEXT VENTURES");
   await expect(page.locator("#brands")).toContainText("TETSU WORKS");
   await expect(page.locator("#brands")).toContainText("TSUKUTTA LAB");
   await expect(page.locator("#tetsu-works .trust-panel")).toContainText(

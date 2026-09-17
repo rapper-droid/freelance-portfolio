@@ -1,5 +1,7 @@
 import Link from "next/link";
-import { ArrowUpRight, ArrowLeft, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, ArrowLeft } from "lucide-react";
+import { DemoDataNotice } from "./demo-data-notice";
+import { ContactLink } from "./contact-link";
 import { BrandMark } from "./brand-mark";
 import {
   BRAND_MESSAGE,
@@ -25,9 +27,7 @@ export function Header() {
         <Link href="/#tetsu-works">TETSU WORKS</Link>
         <Link href="/#works">WORKS</Link>
         <Link href="/#process">PROCESS</Link>
-        <Link href="/#contact" className="nav-cta">
-          CONTACT
-        </Link>
+        <ContactLink className="nav-cta">CONTACT</ContactLink>
       </nav>
     </header>
   );
@@ -40,9 +40,9 @@ export function Footer() {
         <Link className="brand" href="/" aria-label={`${BRAND_NAME} ホーム`}>
           <BrandMark /> {BRAND_NAME}
         </Link>
-        <Link className="footer-cta" href="/#contact">
+        <ContactLink className="footer-cta">
           次の制作について相談する <ArrowUpRight size={20} aria-hidden="true" />
-        </Link>
+        </ContactLink>
       </div>
       <div className="footer-main">
         <p className="footer-statement" lang="en">
@@ -96,7 +96,13 @@ export function DemoShell({
   return (
     <>
       <Header />
-      <main id="main" className="demo-page workbench-page">
+      <main
+        id="main"
+        className={
+          "demo-page workbench-page identity-" +
+          ({ "01": "csv", "02": "inbox", "03": "admin" }[number] || "csv")
+        }
+      >
         <Link href="/#works" className="back">
           <ArrowLeft size={15} /> 制作デモに戻る
         </Link>
@@ -124,10 +130,19 @@ export function DemoShell({
             <span>Next.js / TypeScript</span>
           </div>
         </details>
-        <div className="privacy-note">
-          <ShieldCheck size={16} />{" "}
-          架空データを使用。入力データは外部送信されず、このブラウザ内で処理されます。
+        <div className="demo-mode-actions">
+          <Link
+            prefetch={false}
+            href={
+              "/experience/" +
+              ({ "01": "csv", "02": "inbox", "03": "admin" }[number] || "csv")
+            }
+          >
+            OPEN FULL DEMO ↗
+          </Link>
+          <ContactLink>このデモのような制作を相談する ↗</ContactLink>
         </div>
+        <DemoDataNotice />
         {children}
         <div className="demo-bottom">
           <div>
@@ -136,9 +151,9 @@ export function DemoShell({
               既存のExcel作業の置き換えや、小さな機能追加からご相談いただけます。
             </p>
           </div>
-          <Link className="button primary" href="/#contact">
+          <ContactLink className="button primary">
             相談内容をまとめる <ArrowUpRight size={16} />
-          </Link>
+          </ContactLink>
         </div>
       </main>
       <Footer />

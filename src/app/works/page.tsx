@@ -1,7 +1,8 @@
 import { Header, Footer } from "@/components/site";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
-import { WorksExhibit, DeliveryRibbon } from "@/components/premium-exhibits";
+import { DeliveryRibbon } from "@/components/premium-exhibits";
+import { MasterWorks } from "@/components/master-exhibits";
 import { PortfolioGrid } from "@/components/portfolio-grid";
 import { ProjectCard } from "@/components/project-card";
 import { Contact } from "@/components/contact";
@@ -35,7 +36,7 @@ export default function AllWorks() {
               制作例から探す <ArrowRight size={16} />
             </Link>
           </div>
-          <WorksExhibit />
+          <MasterWorks />
         </section>
         <DeliveryRibbon />
         <PortfolioGrid

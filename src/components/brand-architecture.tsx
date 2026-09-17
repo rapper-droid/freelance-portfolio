@@ -100,18 +100,10 @@ export function BrandArchitecture() {
             )}
           </article>
         ))}
-        <article className="brand-card brand-card-future">
-          <div className="brand-card-top">
-            <span>FUTURE / 03+</span>
-            <span className="brand-state">NOT ANNOUNCED</span>
-          </div>
-          <span className="future-ring" aria-hidden="true" />
-          <h3>NEXT VENTURES</h3>
-          <p>
-            SaaS、AI、Automation、コンテンツなど。新しい事業は、形になったものからご紹介します。
-          </p>
-        </article>
       </div>
+      <p className="brand-future-note">
+        <span>AND WHAT COMES NEXT.</span>新しい挑戦は、形になったものから。
+      </p>
     </section>
   );
 }

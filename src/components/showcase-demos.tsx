@@ -1,5 +1,7 @@
 ﻿"use client";
 import { useRef, useState } from "react";
+import "@/app/showcase.css";
+import "@/app/cafe-demo.css";
 import Image from "next/image";
 import {
   ArrowUpRight,
@@ -130,6 +132,7 @@ export function CafeDemo() {
             height={960}
             sizes="(max-width: 700px) 90vw, 45vw"
             priority
+            fetchPriority="high"
           />
         </div>
         <span className="cafe-vertical">A LITTLE PAUSE. A BETTER DAY.</span>
@@ -797,7 +800,10 @@ export function BookingDemo() {
     <div className="booking-demo showcase">
       <div className="app-demo-heading">
         <span className="eyebrow">DAYBOOK / STUDIO MANAGEMENT</span>
-        <h2>今日の予定を、心地よく。</h2>
+        <h2>
+          <span>今日の予定を、</span>
+          <span>心地よく。</span>
+        </h2>
         <p>2026年9月18日〜24日の架空予約。変更はこの画面内のみです。</p>
       </div>
       <nav className="booking-week" aria-label="表示週">

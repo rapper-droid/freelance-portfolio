@@ -47,7 +47,12 @@ export function Effects() {
         // reads as a broken page rather than an arrival.
         { rootMargin: "0px 0px 10% 0px", threshold: 0 },
       );
-      targets.forEach((t) => observer!.observe(t));
+      targets.forEach((t) => {
+        if (t.getBoundingClientRect().top < window.innerHeight) {
+          t.setAttribute("data-initial", "");
+          t.classList.add("is-in");
+        } else observer!.observe(t);
+      });
     };
 
     const stopReveal = () => {

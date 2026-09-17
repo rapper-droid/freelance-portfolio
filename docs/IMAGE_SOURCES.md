@@ -2,6 +2,21 @@
 
 公開面で使用する画像と生成資産の出典です。
 
+## 2026-09-17 FINAL MASTER — 最新利用状態
+
+新規の生成写真・購入stock・第三者画像は0。KISSA4枚とFORMEの既存素材を保持。
+KISSA ritualはTOP heroから外し、spaceはWORKS heroから外しました。Cafe内での使用は継続。
+旧一覧のTOP/WORKS表記は過去iterationの記録です。現在の用途は本節が優先します。
+
+| asset                                  | page                           | type / source                                   | date                   | 制作意図・編集                                                                                                     | terms / review                                                                              |
+| -------------------------------------- | ------------------------------ | ----------------------------------------------- | ---------------------- | ------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------- |
+| `public/previews/*-master-4.webp` 33点 | TOP作品・WORKS・カテゴリ・case | 自サイト11独立デモの3viewportスクリーンショット | 2026-09-17             | `scripts/master-previews.mjs`。1440/768/390px、firstview、WebP q84。CSV/RELAYのみ実サンプル操作後。外枠TSUDOWAなし | 自作UIと既存出典付き素材のみ。現役顧客の実績ではない。全画像decode・表示確認済み            |
+| `src/components/master-exhibits.tsx`   | TOP / WORKS                    | 自作semantic HTML/CSS                           | 2026-09-17             | Brand/Web・Business UI・Automationを3面。件数は実Inbox seedから算出。既存FORME写真、実FLOWSTATE/Admin画面を配置    | 第三者コード/コピー/画像転用なし。3サイズ目視/axe確認                                       |
+| 既存KISSA v2 4点                       | Cafe・Web文脈のカテゴリ/ケース | 前回生成の架空店舗写真                          | 既存生成日を下表に保持 | 再生成・写真編集なし。木・光・陶器・食品・垂直線を再確認                                                           | AI生成の架空素材。目視で明確な破綻なし。OWNERによる細部・意図しない類似の確認は公開前に残る |
+
+生キャプチャと33点のbyte manifestは外側 `outputs/master-pass/preview-sources/`。
+過去 `*-premium-3.webp` は履歴として保持し、配信参照は新revisionへ切替。巨大PNGは公開assetへ追加しません。
+
 | ファイル                               | 出どころ                              | 用途                           |
 | -------------------------------------- | ------------------------------------- | ------------------------------ |
 | `public/brand/tsudowa-mark*.svg`       | 本移行で設計したeditable vector       | header / footer / light / mono |

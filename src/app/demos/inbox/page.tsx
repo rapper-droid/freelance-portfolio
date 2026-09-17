@@ -1,5 +1,6 @@
 import { pageMetadata } from "@/lib/seo";
 import { DemoShell } from "@/components/site";
+import "@/components/demo-identities.css";
 import { InboxDemo } from "@/components/inbox-demo";
 export const metadata = pageMetadata(
   "SMART INBOX | 問い合わせ整理デモ",

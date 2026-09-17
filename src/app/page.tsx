@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight, ArrowRight } from "lucide-react";
 import { Header, Footer } from "@/components/site";
 import { Contact } from "@/components/contact";
-import { HeroExhibit } from "@/components/premium-exhibits";
+import { MasterHero } from "@/components/master-exhibits";
 import { ProjectFeature } from "@/components/project-feature";
 import { FAQ } from "@/components/faq";
 import { Process } from "@/components/sales";
@@ -34,6 +34,7 @@ export default function Home() {
               <span>BUILD.</span>
               <span>EXPAND.</span>
             </h1>
+            <p className="brand-line">集まった想いを、次のかたちへ。</p>
             <p className="desktop-copy">
               人・技術・作品・事業が集まり、つくり、次へ広がる。
               <br />
@@ -53,10 +54,10 @@ export default function Home() {
               </Link>
             </div>
           </div>
-          <HeroExhibit />
+          <MasterHero />
           <div className="hero-colophon">
             <span>TSUDOWA / GATHER · BUILD · EXPAND</span>
-            <span>TETSU WORKS / TSUKUTTA LAB / NEXT</span>
+            <span>TETSU WORKS / TSUKUTTA LAB</span>
           </div>
         </section>
 

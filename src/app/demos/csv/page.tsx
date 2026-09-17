@@ -1,5 +1,6 @@
 import { pageMetadata } from "@/lib/seo";
 import { DemoShell } from "@/components/site";
+import "@/components/demo-identities.css";
 import { CsvDemo } from "@/components/csv-demo";
 export const metadata = pageMetadata(
   "CSV AUTOMATOR | CSV加工デモ",

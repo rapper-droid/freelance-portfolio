@@ -1,5 +1,6 @@
 import { pageMetadata } from "@/lib/seo";
 import { DemoShell } from "@/components/site";
+import "@/components/demo-identities.css";
 import { AdminDemo } from "@/components/admin-demo";
 export const metadata = pageMetadata(
   "ADMIN DASHBOARD | 顧客管理デモ",

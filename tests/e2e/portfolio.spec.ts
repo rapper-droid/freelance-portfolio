@@ -47,9 +47,14 @@ test("home: navigation, copy, responsive layout and accessibility", async ({
   await page.getByRole("link", { name: "Live Demoを操作する" }).click();
   await expect(page).toHaveURL(/demos\/csv/);
   await page.getByRole("link", { name: "制作デモに戻る" }).click();
-  await page.getByLabel("困っていること").fill("毎週CSVの整理をしています");
+  await page
+    .getByLabel("ご相談内容", { exact: false })
+    .fill("毎週CSVの整理をしています");
+  await page.locator(".intake-copy summary").click();
   await page.getByRole("button", { name: "相談内容をコピー" }).click();
-  await expect(page.getByRole("status")).toContainText("コピーしました");
+  await expect(page.locator(".intake-copy").getByRole("status")).toContainText(
+    "コピーしました",
+  );
   expect(await page.evaluate(() => navigator.clipboard.readText())).toContain(
     "毎週CSV",
   );
@@ -267,6 +272,7 @@ test("storage and clipboard failures remain usable", async ({ page }) => {
     page.getByRole("button", { name: "保存テストを編集" }),
   ).toBeVisible();
   await page.goto("/");
+  await page.locator(".intake-copy summary").click();
   await page.getByRole("button", { name: "相談内容をコピー" }).click();
   await expect(page.getByLabel("コピー用の相談内容")).toBeVisible();
   await expect(page.getByLabel("コピー用の相談内容")).toHaveValue(

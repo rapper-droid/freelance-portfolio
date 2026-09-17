@@ -7,15 +7,14 @@ import { Monitoring } from "@/components/monitoring";
 import { Effects } from "@/components/effects";
 import "./globals.css";
 import "./hub.css";
-import "./showcase.css";
 import "./sales-ui.css";
 import "./project-visuals.css";
 import "./art-direction.css";
 import "./works-diagrams.css";
-import "./cafe-demo.css";
 import "./tsudowa-effects.css";
 import "./tsudowa-brand.css";
 import "./premium.css";
+import "./master-polish.css";
 
 const inter = localFont({
   src: "../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",

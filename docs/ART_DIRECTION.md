@@ -2,6 +2,11 @@
 
 親ブランドとTETSU WORKSの営業力を両立するための判断基準です。
 
+2026-09-17 FINAL MASTERの最新判断は `FINAL_MASTER_AUDIT.md` を参照。
+TOPはSMART INBOX / FORME / RELAYの3領域、WORKSはFLOWSTATE / Adminへ更新しました。
+親TSUDOWAの下は現在のTETSU WORKSとTSUKUTTA LAB。NEXT VENTURESを同列の実在事業として扱いません。
+今回の日本語の一文は「集まった想いを、次のかたちへ。」。以下の旧iteration記録より最新の監査表を優先します。
+
 ```text
 理解しやすさ > 信用 > TSUDOWAらしさ > 演出
 ```
