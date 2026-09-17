@@ -125,7 +125,9 @@ test("client navigation registers new reveals and reduced motion keeps content r
 }) => {
   await page.emulateMedia({ reducedMotion: "no-preference" });
   await page.goto("/");
-  await page.getByRole("link", { name: "ALL WORKS", exact: true }).click();
+  await page
+    .getByRole("link", { name: "すべての制作例を見る", exact: false })
+    .click();
   await expect(page).toHaveURL(/\/works$/);
   await page
     .getByRole("button", { name: "Webサイト制作", exact: false })

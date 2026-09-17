@@ -87,7 +87,7 @@ test("sales intake validates, preserves draft through reload, retries same ID, c
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.locator("#contact").screenshot({
     path:
-      "../../outputs/master-pass/contact-success-" + info.project.name + ".png",
+      "../../outputs/master-hq/contact-success-" + info.project.name + ".png",
   });
 });
 test("unsafe URL and invalid email are adjacent, accessible validation errors", async ({
@@ -205,5 +205,75 @@ test("production headers and disabled integration stay fail closed", async ({
   await expect(page.locator(".intake-config")).toContainText("準備中");
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.goto("/privacy");
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+});
+
+test("general intake is separate from sales, scoped drafts survive reload, and retry is idempotent", async ({
+  page,
+}) => {
+  const attempts = await configured(page, [
+    { status: 503, code: "receipt_pending" },
+    { status: 200, code: "accepted" },
+  ]);
+  await page.goto("/contact");
+  await page
+    .getByLabel("ご相談内容", { exact: false })
+    .fill("制作案件の下書きは制作窓口だけに残します。");
+  await page.goto("/contact/general?from=https%3A%2F%2Fevil.test");
+  await expect(page.getByLabel("ご相談内容", { exact: false })).toHaveValue("");
+  await expect(page.getByRole("radio")).toHaveCount(0);
+  await fill(page);
+  await page
+    .getByLabel("ご相談内容", { exact: false })
+    .fill("TSUDOWAブランドについて共同企画の相談です。");
+  await page.reload();
+  await expect(page.getByLabel("ご相談内容", { exact: false })).toHaveValue(
+    "TSUDOWAブランドについて共同企画の相談です。",
+  );
+  await page.getByRole("checkbox", { name: /送信に同意/ }).check();
+  await page.getByRole("button", { name: "相談を送信する" }).click();
+  await expect(page.locator(".intake-error")).toContainText("ご相談は受付済み");
+  await expect(page.locator(".intake-success")).toHaveCount(0);
+  await page.getByRole("button", { name: "相談を送信する" }).click();
+  await expect(page.locator(".intake-success")).toContainText(receipt);
+  expect(attempts[0]).toMatchObject({
+    page: "/contact/general",
+    kind: "その他",
+    category: "",
+    demo: "",
+    project: "",
+  });
+  expect(attempts[1].id).toBe(attempts[0].id);
+  expect(
+    await page.evaluate(() =>
+      sessionStorage.getItem("tsudowa-contact-draft-v2-general"),
+    ),
+  ).toBeNull();
+  await page.goto("/contact");
+  await expect(page.getByLabel("ご相談内容", { exact: false })).toHaveValue(
+    "制作案件の下書きは制作窓口だけに残します。",
+  );
+});
+
+test("unconfigured general intake cannot report success or submit externally", async ({
+  page,
+  request,
+}) => {
+  const posts: string[] = [];
+  page.on("request", (r) => {
+    if (r.method() === "POST") posts.push(r.url());
+  });
+  await page.goto("/contact/general");
+  await expect(page.locator(".intake-config")).toContainText("準備中");
+  await expect(
+    page.getByRole("button", { name: "相談を送信する" }),
+  ).toBeDisabled();
+  await expect(page.locator(".intake-success")).toHaveCount(0);
+  expect(
+    (
+      await request.post("/api/contact", { data: { page: "/contact/general" } })
+    ).status(),
+  ).toBe(503);
+  expect(posts).toEqual([]);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });

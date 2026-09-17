@@ -228,7 +228,7 @@ test("invalid routes, sitemap, reduced motion and disabled analytics", async ({
     ).status(),
   ).toBe(204);
   await page.emulateMedia({ reducedMotion: "reduce" });
-  await page.goto("/");
+  await page.goto("/works");
   expect(
     await page
       .locator(".project-card")

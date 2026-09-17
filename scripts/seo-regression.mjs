@@ -7,7 +7,14 @@ const server = process.env.QA_BASE_URL
   ? null
   : spawn(
       process.execPath,
-      ["node_modules/next/dist/bin/next", "start", "--port", "3106"],
+      [
+        "node_modules/next/dist/bin/next",
+        "start",
+        "--hostname",
+        "127.0.0.1",
+        "--port",
+        "3106",
+      ],
       { stdio: "ignore", windowsHide: true },
     );
 
@@ -15,6 +22,10 @@ const routes = [
   "/",
   "/privacy",
   "/works",
+  "/lab",
+  "/history",
+  "/contact",
+  "/contact/general",
   ...categories.map((category) => `/works/${category.id}`),
   ...projects.flatMap((project) => [
     `/projects/${project.slug}`,
@@ -98,6 +109,7 @@ try {
   if (manifest.name !== "TSUDOWA" || manifest.short_name !== "TSUDOWA")
     throw new Error("Web manifest does not match TSUDOWA");
   for (const asset of [
+    "/og-hq.png",
     "/og.png",
     "/icon.png",
     "/apple-icon.png",

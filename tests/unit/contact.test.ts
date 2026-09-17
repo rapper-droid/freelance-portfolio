@@ -182,6 +182,28 @@ describe("sales intake guards", () => {
     expect(contactContext("/works/constructor")).toBeNull();
     expect(safeReference("https://example.test/a?b=1")).toBe(true);
   });
+  it("accepts only known HQ paths and preserves their neutral context", () => {
+    for (const page of ["/lab", "/history", "/contact/general"]) {
+      expect(contactContext(page)).toEqual({
+        page,
+        category: "",
+        project: "",
+        demo: "",
+      });
+      expect(validateContact({ ...body, page, kind: "その他" })).toMatchObject({
+        page,
+        kind: "その他",
+        category: "",
+      });
+    }
+    for (const page of [
+      "/contact/general?email=private",
+      "/lab/unknown",
+      "//evil.test",
+      "/history#private",
+    ])
+      expect(contactContext(page)).toBeNull();
+  });
   it("rejects origin, oversized body, invalid JSON and content type before dependencies", async () => {
     configured();
     expect((await POST(request(body, "https://evil.test"))).status).toBe(403);

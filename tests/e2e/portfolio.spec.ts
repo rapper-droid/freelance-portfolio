@@ -30,17 +30,10 @@ test("home: navigation, copy, responsive layout and accessibility", async ({
   await expect(page.getByRole("heading", { level: 1 })).toContainText("BUILD.");
   await page.keyboard.press("Tab");
   await expect(page.getByText("本文へスキップ")).toBeFocused();
-  if (testInfo.project.name === "mobile") {
-    await page.getByRole("link", { name: "TSUDOWAを知る" }).click();
-    await expect(page).toHaveURL(/#brands/);
-    await page.getByRole("link", { name: "現在の仕事を見る" }).click();
-  } else {
-    await page.getByRole("link", { name: "現在の事業を見る" }).click();
-  }
-  await expect(page).toHaveURL(/#tetsu-works/);
-  await page.getByRole("link", { name: "依頼内容から探す" }).click();
-  await expect(page).toHaveURL(/#services/);
-  await page.getByRole("link", { name: "ALL WORKS" }).click();
+  await page
+    .locator(".hq-hero-actions")
+    .getByRole("link", { name: /制作を頼む/ })
+    .click();
   await expect(page).toHaveURL(/\/works$/);
   await page.getByRole("link", { name: "CSV AUTOMATOR", exact: true }).click();
   await expect(page).toHaveURL(/projects\/csv/);
@@ -67,9 +60,10 @@ test("home: navigation, copy, responsive layout and accessibility", async ({
   ).toBe(true);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   expect(errors).toEqual([]);
+  await page.goto("/");
   await prepareScreenshot(page);
   await page.screenshot({
-    path: `docs/screenshots/home-${testInfo.project.name}.png`,
+    path: `../../outputs/master-hq/e2e-screenshots/home-${testInfo.project.name}.png`,
     fullPage: true,
   });
 });
@@ -96,7 +90,7 @@ test("CSV: sample, clean, aggregate, search, sort and download", async ({
   expect(content).toContain("サンプル顧客1");
   await prepareScreenshot(page);
   await page.screenshot({
-    path: `docs/screenshots/csv-${testInfo.project.name}.png`,
+    path: `../../outputs/master-hq/e2e-screenshots/csv-${testInfo.project.name}.png`,
     fullPage: true,
   });
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
@@ -150,7 +144,7 @@ test("inbox: filter, detail, assignment, draft and status", async ({
   );
   await prepareScreenshot(page);
   await page.screenshot({
-    path: `docs/screenshots/inbox-${testInfo.project.name}.png`,
+    path: `../../outputs/master-hq/e2e-screenshots/inbox-${testInfo.project.name}.png`,
     fullPage: true,
   });
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
@@ -188,7 +182,7 @@ test("admin: CRUD, persistence, filter, history, cancel and reset", async ({
   await page.getByLabel("顧客を検索").clear();
   await prepareScreenshot(page);
   await page.screenshot({
-    path: `docs/screenshots/admin-${testInfo.project.name}.png`,
+    path: `../../outputs/master-hq/e2e-screenshots/admin-${testInfo.project.name}.png`,
     fullPage: true,
   });
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
@@ -238,7 +232,7 @@ test("404 and metadata", async ({ page }) => {
   await expect(
     page.getByRole("heading", { name: "ページが見つかりませんでした。" }),
   ).toBeVisible();
-  await page.getByRole("link", { name: "トップに戻る" }).click();
+  await page.getByRole("link", { name: "TSUDOWAへ戻る →" }).click();
   await expect(page).toHaveTitle(/TSUDOWA/);
   await expect(page.locator('meta[property="og:title"]')).toHaveAttribute(
     "content",
@@ -271,7 +265,7 @@ test("storage and clipboard failures remain usable", async ({ page }) => {
   await expect(
     page.getByRole("button", { name: "保存テストを編集" }),
   ).toBeVisible();
-  await page.goto("/");
+  await page.goto("/contact");
   await page.locator(".intake-copy summary").click();
   await page.getByRole("button", { name: "相談内容をコピー" }).click();
   await expect(page.getByLabel("コピー用の相談内容")).toBeVisible();

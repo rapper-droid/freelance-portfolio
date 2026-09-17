@@ -3,10 +3,10 @@ import AxeBuilder from "@axe-core/playwright";
 import { services, selectedSlugs, caseLabels } from "../../src/lib/sales-ui";
 import { projects } from "../../src/lib/portfolio";
 
-test("sales home: parent structure, service links, complete cards and message-first delivery", async ({
+test("TETSU WORKS preserves services, complete catalogue, prices and message-first delivery", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("/works");
   const structuredData = JSON.parse(
     (await page.locator('script[type="application/ld+json"]').textContent())!,
   );
@@ -16,13 +16,8 @@ test("sales home: parent structure, service links, complete cards and message-fi
     alternateName: "ツドワ",
   });
   await expect(page.locator(".site-header .brand")).toContainText("TSUDOWA");
-  await expect(page.locator("h1")).toContainText("GATHER.");
-  await expect(page.locator(".brand-card")).toHaveCount(3);
-  await expect(page.locator("#brands")).not.toContainText("NEXT VENTURES");
-  await expect(page.locator("#brands")).toContainText("TETSU WORKS");
-  await expect(page.locator("#brands")).toContainText("TSUKUTTA LAB");
-  await expect(page.locator("#tetsu-works .trust-panel")).toContainText(
-    "READY TO SHIP",
+  await expect(page.locator(".works-byline")).toContainText(
+    "TETSU WORKS / CLIENT SERVICES BY TSUDOWA",
   );
   await expect(page.locator("[data-service]")).toHaveCount(8);
   for (const service of services)
@@ -32,20 +27,16 @@ test("sales home: parent structure, service links, complete cards and message-fi
   expect(
     await page
       .locator("[data-project]")
-      .evaluateAll((elements) =>
-        elements.map((element) => element.getAttribute("data-project")),
-      ),
-  ).toEqual([...selectedSlugs]);
-  for (const slug of selectedSlugs) {
-    const card = page.locator(`[data-project="${slug}"]`);
-    const project = projects.find((item) => item.slug === slug)!;
-    await expect(card).toContainText(caseLabels[slug]);
+      .evaluateAll((es) => es.map((e) => e.getAttribute("data-project"))),
+  ).toEqual(projects.map((p) => p.slug));
+  for (const project of projects) {
+    const card = page.locator(`[data-project="${project.slug}"]`);
     await expect(card).toContainText("SELF-INITIATED DEMO");
     await expect(card).toContainText(project.price);
     await expect(card).toContainText(project.duration);
     await expect(card.locator("[data-live-demo]")).toHaveAttribute(
       "href",
-      `/demos/${slug}`,
+      `/demos/${project.slug}`,
     );
     await expect(card.locator("img")).toHaveCount(2);
   }
@@ -54,26 +45,16 @@ test("sales home: parent structure, service links, complete cards and message-fi
   await expect(page.locator(".message-offer")).toContainText(
     "Zoom / Google Meetは必須ではありません",
   );
+  await expect(page.locator("#process")).toBeAttached();
+  await expect(page.locator("#faq details")).toHaveCount(10);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
-  await page.getByRole("link", { name: "ALL WORKS", exact: true }).click();
-  await expect(page).toHaveURL(/\/works$/);
-  await expect(page.locator("[data-project]")).toHaveCount(11);
-  expect(
-    await page
-      .locator("[data-project]")
-      .evaluateAll((elements) =>
-        elements.map((element) => element.getAttribute("data-project")),
-      ),
-  ).toEqual(projects.map((project) => project.slug));
 });
 
-test("mobile keeps one hero CTA, vertical categories and full-width tap targets", async ({
+test("mobile keeps vertical sales categories, full-width targets and complete case studies", async ({
   page,
 }, testInfo) => {
-  await page.goto("/");
+  await page.goto("/works");
   if (testInfo.project.name === "mobile") {
-    await expect(page.locator(".brand-hero .hero-secondary")).toBeHidden();
-    await expect(page.locator(".trust-files")).toBeHidden();
     const cards = await page.locator("[data-service]").evaluateAll((elements) =>
       elements.map((element) => {
         const rect = element.getBoundingClientRect();

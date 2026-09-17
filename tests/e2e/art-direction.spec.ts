@@ -4,7 +4,7 @@ import AxeBuilder from "@axe-core/playwright";
 test("FAQ opens and closes with keyboard, exposes answers and retains visible focus", async ({
   page,
 }) => {
-  await page.goto("/#faq");
+  await page.goto("/works#faq");
   const entries = page.locator("#faq details");
   await expect(entries).toHaveCount(10);
   await entries.first().locator("summary").focus();
@@ -28,6 +28,7 @@ test("FAQ opens and closes with keyboard, exposes answers and retains visible fo
     (await new AxeBuilder({ page }).include("#faq").analyze()).violations,
   ).toEqual([]);
   await page.locator(".footer-cta").click();
+  await expect(page).toHaveURL(/\/contact/);
   await expect(page.locator("#contact")).toBeInViewport();
 });
 
@@ -44,8 +45,8 @@ test("TSUDOWA brand assets, responsive composition and reduced motion remain con
   for (const width of [320, 390, 768, 1024, 1440, 1920]) {
     await page.setViewportSize({ width, height: 1000 });
     await page.goto("/");
-    await expect(page.locator(".site-header .brand-mark")).toBeVisible();
-    await expect(page.locator(".site-header .brand")).toContainText("TSUDOWA");
+    await expect(page.locator(".hq-header .brand-mark")).toBeVisible();
+    await expect(page.locator(".hq-header .hq-logo")).toContainText("TSUDOWA");
     await page.evaluate(() =>
       document.querySelectorAll<HTMLElement>(".home-ui > *").forEach((el) => {
         el.style.contentVisibility = "visible";
@@ -63,7 +64,9 @@ test("TSUDOWA brand assets, responsive composition and reduced motion remain con
         .evaluate((el) => getComputedStyle(el).animationName),
     ).toBe("none");
     for (const element of await page
-      .locator(".site-header a:visible, #faq summary, .footer-bottom a")
+      .locator(
+        ".hq-header a:visible, .hq-mobile-menu summary:visible, .hq-footer-bottom a",
+      )
       .all())
       expect((await element.boundingBox())!.height).toBeGreaterThanOrEqual(44);
   }
