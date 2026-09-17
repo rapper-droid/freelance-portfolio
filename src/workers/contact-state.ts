@@ -1,4 +1,5 @@
 import { DurableObject } from "cloudflare:workers";
+import { diagnosticsEnabled, OWNER_KEYS } from "./owner-diagnostics";
 
 export type StateOperation =
   | { kind: "get" }
@@ -74,6 +75,25 @@ export class ContactState extends DurableObject<Env> {
       .toArray()[0];
     if (row) await this.ctx.storage.setAlarm(row.expires);
     return result;
+  }
+  ownerInspect(key: string): Row | null {
+    if (
+      !diagnosticsEnabled(this.env) ||
+      !OWNER_KEYS.some((k) => k === key) ||
+      this.ctx.id.toString() !==
+        this.env.CONTACT_STATE.idFromName(key).toString()
+    )
+      throw Error("diagnostic_denied");
+    // Read-only: no expiry cleanup, alarm reset, TTL extension or record reconstruction.
+    const row = this.ctx.storage.sql
+      .exec<Row>("SELECT value, expires FROM state WHERE id=1")
+      .toArray()[0];
+    return row
+      ? {
+          value: key.endsWith(":lock") ? "redacted" : row.value,
+          expires: row.expires,
+        }
+      : null;
   }
   async alarm() {
     const row = this.ctx.storage.sql
