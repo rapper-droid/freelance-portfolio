@@ -54,13 +54,19 @@ const validReceipt = (s: unknown): s is string =>
 export function ContactSend({
   initialKind = "",
   successHeading = "h3",
+  general = false,
 }: {
   initialKind?: string;
   successHeading?: "h2" | "h3";
+  general?: boolean;
 }) {
   const SuccessHeading = successHeading;
   const pathname = usePathname();
-  const [fields, setFields] = useState<Fields>(blank);
+  const draftKey = general ? DRAFT + "-general" : DRAFT;
+  const [fields, setFields] = useState<Fields>({
+    ...blank,
+    kind: general ? contactKinds[6] : blank.kind,
+  });
   const [source, setSource] = useState(contactContext("/")!);
   const [loaded, setLoaded] = useState(false);
   const [config, setConfig] = useState<"loading" | "enabled" | "disabled">(
@@ -95,12 +101,14 @@ export function ContactSend({
         ) || contactContext("/")!;
       let next = {
         ...blank,
-        kind: categoryKinds[context.category] || blank.kind,
+        kind: general
+          ? contactKinds[6]
+          : categoryKinds[context.category] || blank.kind,
       };
       let restored = false;
       let nextSource = context;
       try {
-        const saved = JSON.parse(sessionStorage.getItem(DRAFT) || "null");
+        const saved = JSON.parse(sessionStorage.getItem(draftKey) || "null");
         if (
           saved &&
           Date.now() - saved.savedAt < 2 * 3600000 &&
@@ -130,10 +138,11 @@ export function ContactSend({
             restored = true;
             started.current = true;
           }
-        } else if (saved) sessionStorage.removeItem(DRAFT);
+        } else if (saved) sessionStorage.removeItem(draftKey);
       } catch {
         /* Storage is optional; the form remains usable. */
       }
+      if (general) next.kind = contactKinds[6];
       setFields(next);
       setSource(nextSource);
       setLoaded(true);
@@ -142,7 +151,7 @@ export function ContactSend({
       );
     });
     return () => cancelAnimationFrame(frame);
-  }, [pathname]);
+  }, [pathname, general, draftKey]);
   useEffect(() => {
     const controller = new AbortController();
     void fetch("/api/contact", { signal: controller.signal })
@@ -172,7 +181,7 @@ export function ContactSend({
       return;
     try {
       sessionStorage.setItem(
-        DRAFT,
+        draftKey,
         JSON.stringify({
           fields,
           page: source.page,
@@ -183,7 +192,7 @@ export function ContactSend({
     } catch {
       /* No persistent fallback. */
     }
-  }, [fields, source, loaded, state]);
+  }, [fields, source, loaded, state, draftKey]);
   useEffect(() => {
     if (!scriptReady || !siteKey || !widgetEl.current || !window.turnstile)
       return;
@@ -223,11 +232,15 @@ export function ContactSend({
   }
   const locked = state === "sending" || state === "success";
   const template = [
-    "【依頼内容】" + fields.kind,
+    general ? "【お問い合わせ】TSUDOWA全体" : "【依頼内容】" + fields.kind,
     "【相談内容】" + fields.detail,
-    "【状況】" + fields.stage,
-    "【予算】" + fields.budget,
-    "【希望時期】" + fields.timing,
+    ...(!general
+      ? [
+          "【状況】" + fields.stage,
+          "【予算】" + fields.budget,
+          "【希望時期】" + fields.timing,
+        ]
+      : []),
     "【参考URL】" + fields.reference,
     "【補足】" + fields.supplement,
   ].join("\n");
@@ -294,7 +307,7 @@ export function ContactSend({
     track("portfolio_contact_submit");
     try {
       sessionStorage.setItem(
-        DRAFT,
+        draftKey,
         JSON.stringify({
           fields,
           page: source.page,
@@ -328,7 +341,7 @@ export function ContactSend({
         track("contact_success");
         track("portfolio_contact_success");
         try {
-          sessionStorage.removeItem(DRAFT);
+          sessionStorage.removeItem(draftKey);
         } catch {}
         requestAnimationFrame(() => successRef.current?.focus());
       } else {
@@ -420,7 +433,9 @@ export function ContactSend({
           className="direct-contact"
         >
           <div className="intake-form-head">
-            <span>YOUR NEXT PROJECT</span>
+            <span>
+              {general ? "LET’S TALK / TSUDOWA" : "YOUR NEXT PROJECT"}
+            </span>
             <small>必須はお名前・メール・ご相談内容</small>
           </div>
           {draftNote && (
@@ -437,32 +452,40 @@ export function ContactSend({
           {initialKind && source.category && (
             <span className="sr-only">表示元: {initialKind}</span>
           )}
-          <fieldset disabled={locked} className="intake-kinds">
-            <legend>
-              <span>01</span> 何を相談したいですか？{" "}
-              <small>未定でも大丈夫</small>
-            </legend>
-            <div className="intake-choice-grid">
-              {contactKinds.map((kind) => (
-                <label
-                  key={kind}
-                  className={fields.kind === kind ? "selected" : ""}
-                >
-                  <input
-                    type="radio"
-                    name="kind"
-                    value={kind}
-                    checked={fields.kind === kind}
-                    onChange={() => change("kind", kind)}
-                  />
-                  <span>{kind}</span>
-                </label>
-              ))}
-            </div>
-          </fieldset>
+          {general && (
+            <p className="intake-source">
+              TSUDOWA全体へのお問い合わせ。制作のご相談は
+              <Link href="/contact">TETSU WORKS窓口</Link>からも送れます。
+            </p>
+          )}
+          {!general && (
+            <fieldset disabled={locked} className="intake-kinds">
+              <legend>
+                <span>01</span> 何を相談したいですか？{" "}
+                <small>未定でも大丈夫</small>
+              </legend>
+              <div className="intake-choice-grid">
+                {contactKinds.map((kind) => (
+                  <label
+                    key={kind}
+                    className={fields.kind === kind ? "selected" : ""}
+                  >
+                    <input
+                      type="radio"
+                      name="kind"
+                      value={kind}
+                      checked={fields.kind === kind}
+                      onChange={() => change("kind", kind)}
+                    />
+                    <span>{kind}</span>
+                  </label>
+                ))}
+              </div>
+            </fieldset>
+          )}
           <fieldset disabled={locked}>
             <legend>
-              <span>02</span> いま、考えていること
+              <span>{general ? "01" : "02"}</span> いま、考えていること
             </legend>
             <label htmlFor="intake-detail">
               ご相談内容 <small>必須</small>
@@ -477,41 +500,55 @@ export function ContactSend({
               aria-invalid={!!errors.detail}
               aria-describedby="detail-help error-detail"
               onChange={(e) => change("detail", e.target.value)}
-              placeholder="例：手作業で集計しているCSVを、一つの画面で整理できるようにしたいです。"
+              placeholder={
+                general
+                  ? "例：TSUDOWAの活動について、コラボレーションの相談をしたいです。"
+                  : "例：手作業で集計しているCSVを、一つの画面で整理できるようにしたいです。"
+              }
             />
             {fieldError("detail")}
             <p id="detail-help" className="intake-help">
-              困っていること、つくりたいものを自由に。10〜2,000文字。秘密情報・パスワードは入力しないでください。
+              {general
+                ? "お問い合わせの背景や、お話ししたいことを自由に。"
+                : "困っていること、つくりたいものを自由に。"}
+              10〜2,000文字。秘密情報・パスワードは入力しないでください。
             </p>
             <details className="intake-options">
               <summary>
-                予算・希望時期・参考資料を添える <small>任意</small>
+                {general
+                  ? "参考URL・補足を添える"
+                  : "予算・希望時期・参考資料を添える"}{" "}
+                <small>任意</small>
               </summary>
-              <div className="intake-fields-grid">
-                {(
-                  [
-                    ["stage", "今の状況", contactStages],
-                    ["budget", "予算の目安", contactBudgets],
-                    ["timing", "希望時期", contactTimings],
-                  ] as const
-                ).map(([key, label, options]) => (
-                  <label key={key}>
-                    {label}
-                    <select
-                      name={key}
-                      value={fields[key]}
-                      onChange={(e) => change(key, e.target.value)}
-                    >
-                      {options.map((v) => (
-                        <option key={v}>{v}</option>
-                      ))}
-                    </select>
-                  </label>
-                ))}
-              </div>
-              <p className="intake-help">
-                予算・時期はご希望の目安です。制作範囲を確認してお見積もりします。
-              </p>
+              {!general && (
+                <div className="intake-fields-grid">
+                  {(
+                    [
+                      ["stage", "今の状況", contactStages],
+                      ["budget", "予算の目安", contactBudgets],
+                      ["timing", "希望時期", contactTimings],
+                    ] as const
+                  ).map(([key, label, options]) => (
+                    <label key={key}>
+                      {label}
+                      <select
+                        name={key}
+                        value={fields[key]}
+                        onChange={(e) => change(key, e.target.value)}
+                      >
+                        {options.map((v) => (
+                          <option key={v}>{v}</option>
+                        ))}
+                      </select>
+                    </label>
+                  ))}
+                </div>
+              )}
+              {!general && (
+                <p className="intake-help">
+                  予算・時期はご希望の目安です。制作範囲を確認してお見積もりします。
+                </p>
+              )}
               <label htmlFor="intake-reference">参考URL</label>
               <input
                 id="intake-reference"
@@ -539,7 +576,7 @@ export function ContactSend({
           </fieldset>
           <fieldset disabled={locked}>
             <legend>
-              <span>03</span> お返事先
+              <span>{general ? "02" : "03"}</span> お返事先
             </legend>
             <div className="intake-fields-grid">
               {(
@@ -637,7 +674,11 @@ export function ContactSend({
             {receipt && state === "error" && <span> 受付番号：{receipt}</span>}
           </p>
           <details className="intake-copy">
-            <summary>案件サイトのメッセージで相談したい方へ</summary>
+            <summary>
+              {general
+                ? "内容をコピーしてメール等で連絡する"
+                : "案件サイトのメッセージで相談したい方へ"}
+            </summary>
             <p className="intake-help">
               入力内容をコピーして、ご利用中のサービスへ貼り付けられます。ここからは送信しません。
             </p>

@@ -5,16 +5,7 @@ import { BRAND_NAME, BRAND_READING, BRAND_TAGLINE } from "@/lib/brand";
 import { Analytics } from "@/components/analytics";
 import { Monitoring } from "@/components/monitoring";
 import { Effects } from "@/components/effects";
-import "./globals.css";
-import "./hub.css";
-import "./sales-ui.css";
-import "./project-visuals.css";
-import "./art-direction.css";
-import "./works-diagrams.css";
-import "./tsudowa-effects.css";
-import "./tsudowa-brand.css";
-import "./premium.css";
-import "./master-polish.css";
+import "./core.css";
 
 const inter = localFont({
   src: "../../node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2",
@@ -32,7 +23,7 @@ const inter = localFont({
 });
 
 const description =
-  "TSUDOWAは、人・技術・作品・事業が集まり、つくり、次へ広がる親ブランドです。TETSU WORKSの制作・自動化サービスと制作デモを紹介します。";
+  "集まり、つくり、次へ広がる。TSUDOWA（ツドワ）はTETSU WORKSとTSUKUTTA LABをつなぐ親ブランド。制作・プロダクト・実験と、その歩みが集まる公式入口です。";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteOrigin()),
@@ -45,7 +36,7 @@ export const metadata: Metadata = {
     title: `${BRAND_NAME} | ${BRAND_TAGLINE}`,
     description:
       "人・技術・作品・事業が集まり、つくり、次へ広がる。TETSU WORKSとTSUKUTTA LABをつなぐ親ブランド。",
-    images: [{ url: "/og.png", width: 1200, height: 630 }],
+    images: [{ url: "/og-hq.png", width: 1200, height: 630 }],
     locale: "ja_JP",
     type: "website",
   },
@@ -54,7 +45,7 @@ export const metadata: Metadata = {
   applicationName: BRAND_NAME,
 };
 
-export const viewport: Viewport = { themeColor: "#090300" };
+export const viewport: Viewport = { themeColor: "#101411" };
 
 export default function RootLayout({
   children,

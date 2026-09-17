@@ -44,7 +44,7 @@ export function pageMetadata(
       locale: "ja_JP",
       images: [
         {
-          url: "/og.png",
+          url: "/og-hq.png",
           width: 1200,
           height: 630,
           alt: `${BRAND_NAME} — ${BRAND_TAGLINE}`,
@@ -55,7 +55,7 @@ export function pageMetadata(
       card: "summary_large_image",
       title: brandedTitle,
       description,
-      images: ["/og.png"],
+      images: ["/og-hq.png"],
     },
   };
 }

@@ -1,18 +1,23 @@
 import Link from "next/link";
-import { Header, Footer } from "@/components/site";
+import { BrandMark } from "@/components/brand-mark";
 export default function NotFound() {
   return (
-    <>
-      <Header />
+    <div className="error-site">
+      <header>
+        <Link className="error-home" href="/" prefetch={false}>
+          <BrandMark />
+          TSUDOWA
+        </Link>
+      </header>
       <main id="main" className="empty-page">
-        <span className="eyebrow">404 / NOT FOUND</span>
+        <p className="error-kicker">404 / NOT FOUND</p>
         <h1>ページが見つかりませんでした。</h1>
-        <p>URLをご確認いただくか、トップページからデモをご覧ください。</p>
-        <Link className="button primary" href="/">
-          トップに戻る
+        <p>URLをご確認いただくか、TSUDOWAの入口へお戻りください。</p>
+        <Link className="button" href="/" prefetch={false}>
+          TSUDOWAへ戻る →
         </Link>
       </main>
-      <Footer />
-    </>
+      <footer>TSUDOWA / GATHER. BUILD. EXPAND.</footer>
+    </div>
   );
 }

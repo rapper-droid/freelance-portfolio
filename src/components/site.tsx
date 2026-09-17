@@ -1,3 +1,4 @@
+import "./portfolio-styles";
 import Link from "next/link";
 import { ArrowUpRight, ArrowLeft } from "lucide-react";
 import { DemoDataNotice } from "./demo-data-notice";
@@ -24,9 +25,9 @@ export function Header() {
       <span className="brand-note">{WORKS_LOCKUP}</span>
       <nav aria-label="メインナビゲーション">
         <Link href="/#brands">BRANDS</Link>
-        <Link href="/#tetsu-works">TETSU WORKS</Link>
-        <Link href="/#works">WORKS</Link>
-        <Link href="/#process">PROCESS</Link>
+        <Link href="/works">TETSU WORKS</Link>
+        <Link href="/works#works">WORKS</Link>
+        <Link href="/works#process">PROCESS</Link>
         <ContactLink className="nav-cta">CONTACT</ContactLink>
       </nav>
     </header>
@@ -64,10 +65,10 @@ export function Footer() {
       <div className="footer-bottom">
         <nav aria-label="フッターナビゲーション">
           <Link href="/#brands">Brands</Link>
-          <Link href="/#services">Capabilities</Link>
+          <Link href="/works#services">Capabilities</Link>
           <Link href="/works">Works</Link>
-          <Link href="/#process">Process</Link>
-          <Link href="/#faq">FAQ</Link>
+          <Link href="/works#process">Process</Link>
+          <Link href="/works#faq">FAQ</Link>
           <Link href="/privacy">プライバシー</Link>
         </nav>
         <small>
@@ -103,7 +104,7 @@ export function DemoShell({
           ({ "01": "csv", "02": "inbox", "03": "admin" }[number] || "csv")
         }
       >
-        <Link href="/#works" className="back">
+        <Link href="/works#works" className="back">
           <ArrowLeft size={15} /> 制作デモに戻る
         </Link>
         <div className="demo-heading">

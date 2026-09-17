@@ -5,6 +5,7 @@ import { DeliveryRibbon } from "@/components/premium-exhibits";
 import { MasterWorks } from "@/components/master-exhibits";
 import { PortfolioGrid } from "@/components/portfolio-grid";
 import { ProjectCard } from "@/components/project-card";
+import { WorksServiceGuide } from "@/components/works-service-guide";
 import { Contact } from "@/components/contact";
 import { categories, projects } from "@/lib/portfolio";
 import { pageMetadata } from "@/lib/seo";
@@ -47,6 +48,7 @@ export default function AllWorks() {
             <ProjectCard key={p.slug} project={p} />
           ))}
         </PortfolioGrid>
+        <WorksServiceGuide />
         <Contact />
       </main>
       <Footer />

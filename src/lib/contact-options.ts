@@ -89,7 +89,14 @@ export function contactContext(page: string) {
       demo: scope === "demos" || scope === "experience" ? slug : "",
     };
   }
-  return ["/", "/works", "/contact"].includes(page)
+  return [
+    "/",
+    "/works",
+    "/contact",
+    "/contact/general",
+    "/lab",
+    "/history",
+  ].includes(page)
     ? { page, category: "", project: "", demo: "" }
     : null;
 }

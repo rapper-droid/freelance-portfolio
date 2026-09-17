@@ -7,6 +7,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/privacy",
     "/works",
     "/contact",
+    "/contact/general",
+    "/lab",
+    "/history",
     ...categories.map((c) => `/works/${c.id}`),
     ...projects.flatMap((p) => [`/projects/${p.slug}`, `/demos/${p.slug}`]),
   ].map((path) => ({ url: new URL(path, siteOrigin()).href }));
