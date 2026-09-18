@@ -130,60 +130,6 @@ select:focus-visible,
 .skip-link:focus {
   clip-path: none;
 }
-.site-header {
-  height: 88px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  max-width: 1280px;
-  margin: auto;
-  padding: 0 52px;
-  border-bottom: 1px solid var(--line);
-  gap: 24px;
-}
-.brand {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 23px;
-  font-weight: 800;
-  letter-spacing: 0.5px;
-  white-space: nowrap;
-}
-.brand-icon {
-  width: 34px;
-  height: 34px;
-  display: grid;
-  place-items: center;
-  color: white;
-  background: var(--green);
-  border-radius: 8px;
-}
-.brand-note {
-  font-size: 9px;
-  letter-spacing: 1.3px;
-  font-weight: 500;
-  color: var(--muted);
-  margin-left: 8px;
-}
-.site-header nav {
-  display: flex;
-  align-items: center;
-  gap: 29px;
-  font-size: 12px;
-  font-weight: 600;
-}
-.site-header nav a:hover {
-  color: var(--green);
-}
-.nav-cta {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border: 1px solid #c4d3c8;
-  padding: 9px 15px;
-  border-radius: 5px;
-}
 .hero {
   overflow: clip;
   max-width: 1180px;
@@ -1028,27 +974,6 @@ select:focus-visible,
   font-size: 10px;
   margin-top: 7px;
 }
-.site-footer {
-  max-width: 1280px;
-  margin: auto;
-  padding: 28px 52px;
-  border-top: 1px solid var(--line);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-}
-.site-footer .brand {
-  font-size: 18px;
-}
-.site-footer p,
-.site-footer small {
-  font-size: 9px;
-  color: var(--muted);
-}
-.site-footer .brand-note {
-  display: none;
-}
 .demo-page {
   max-width: 1200px;
   margin: auto;
@@ -1731,12 +1656,6 @@ th button {
   }
 }
 @media (max-width: 1050px) {
-  .site-header {
-    padding-inline: 28px;
-  }
-  .brand-note {
-    display: none;
-  }
   .hero {
     gap: 22px;
     padding-top: 55px;
@@ -1798,9 +1717,6 @@ th button {
   .ticket-detail {
     padding: 22px;
   }
-  .site-footer {
-    padding-inline: 28px;
-  }
   .stats-grid {
     gap: 10px;
   }
@@ -1814,32 +1730,6 @@ th button {
 @media (max-width: 760px) {
   html {
     scroll-padding-top: 20px;
-  }
-  .site-header {
-    height: 72px;
-    padding-inline: 20px;
-    gap: 12px;
-  }
-  .brand {
-    font-size: 20px;
-    gap: 8px;
-  }
-  .brand-icon {
-    width: 30px;
-    height: 30px;
-  }
-  .site-header nav {
-    gap: 16px;
-    font-size: 11px;
-  }
-  .site-header .nav-profile {
-    display: none;
-  }
-  .nav-cta {
-    padding: 7px 10px;
-  }
-  .nav-cta svg {
-    display: none;
   }
   .hero {
     grid-template-columns: minmax(0, 1fr);
@@ -2071,18 +1961,6 @@ th button {
   }
   .contact-section p br {
     display: none;
-  }
-  .site-footer {
-    padding: 24px;
-    flex-wrap: wrap;
-    gap: 10px 25px;
-  }
-  .site-footer p {
-    font-size: 8px;
-  }
-  .site-footer small {
-    width: 100%;
-    font-size: 8px;
   }
   .demo-page {
     padding: 22px 16px 40px;
@@ -2380,16 +2258,6 @@ th button {
   }
 }
 @media (max-width: 380px) {
-  .site-header {
-    padding-inline: 14px;
-  }
-  .site-header nav {
-    gap: 10px;
-    font-size: 10px;
-  }
-  .nav-cta {
-    padding: 7px;
-  }
   .hero {
     padding-inline: 20px;
   }
@@ -2426,13 +2294,6 @@ th button {
   }
   .mini-badge {
     font-size: 6px;
-  }
-  .brand {
-    font-size: 18px;
-  }
-  .brand-icon {
-    width: 27px;
-    height: 27px;
   }
 }
 @media (max-width: 760px) {

@@ -1,0 +1,139 @@
+/* =====================================================================
+   TSUDOWA DESIGN TOKENS — the single source of truth
+
+   Two personalities share one foundation:
+   - TSUDOWA (the parent): forest charcoal, warm paper, amber signal.
+     Abstract, editorial, brand-led. Styled by components/hq/hq.css.
+   - TETSU WORKS (client services): warm studio black, readable panels,
+     the same amber. Practical, trust- and conversion-led. Styled by the
+     portfolio cascade (components/portfolio-styles.css).
+   Demos keep their own identities (components/demo-identities.css) and
+   only borrow the scales below, never the brand colours.
+
+   Rules:
+   - Add a value here before using it twice anywhere else.
+   - Legacy variable names at the bottom are aliases, kept so the older
+     stylesheets resolve to these values instead of redefining them.
+   ===================================================================== */
+
+:root {
+  /* ---- colour: shared signal -------------------------------------- */
+  --color-amber: #f1b761;
+  --color-amber-bright: #fcbe69;
+  --color-amber-deep: #d89f54;
+
+  /* ---- colour: TSUDOWA ---------------------------------------------- */
+  --tsudowa-bg: #101411;
+  --tsudowa-ink: #eeeae2;
+  --tsudowa-muted: #b9beb4;
+  --tsudowa-line: #343c34;
+  --tsudowa-paper: #e8e3d8;
+  --tsudowa-paper-ink: #1d2a22;
+
+  /* ---- colour: TETSU WORKS ------------------------------------------ */
+  --works-bg: #0e0906;
+  --works-panel: #1c1816;
+  --works-ink: #f0e9e0;
+  --works-muted: #c2b7aa;
+  --works-line: #332c26;
+  --works-on-accent: #0e0906;
+
+  /* ---- type (families are declared on body, below) ---------------------- */
+  /* Legibility floor. Latin capitals with tracking may use --text-label;
+     anything containing Japanese never goes below --text-caption. */
+  --text-label: 11px;
+  --text-caption: 12px;
+  --text-small: 13px;
+  --text-body: 15px;
+  --text-lead: clamp(15px, 14px + 0.3vw, 18px);
+  --text-h3: clamp(17px, 15px + 0.45vw, 22px);
+  --text-h2: clamp(28px, 20px + 2vw, 48px);
+  --text-h1: clamp(34px, 24px + 3.2vw, 72px);
+  --tracking-label: 0.12em;
+  --leading-tight: 1.2;
+  --leading-body: 1.8;
+
+  /* ---- space (4px base) ----------------------------------------------- */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  --space-10: 128px;
+  --gutter: clamp(20px, 5.56vw, 80px);
+  --section-y: clamp(72px, 9vw, 136px);
+  --content-max: 1280px;
+  --tap-min: 44px;
+
+  /* ---- shape & depth ---------------------------------------------------- */
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+  --shadow-soft: 0 12px 32px -18px rgb(0 0 0 / 0.55);
+  --shadow-lift: 0 28px 60px -32px rgb(0 0 0 / 0.7);
+
+  /* ---- motion ------------------------------------------------------------ */
+  --dur-press: 80ms;
+  --dur-fast: 220ms;
+  --dur-base: 400ms;
+  --dur-slow: 560ms;
+  --dur-image: 600ms;
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.4, 0, 1, 1);
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-emphasis: cubic-bezier(0.2, 0.9, 0.1, 1);
+
+  /* ---- focus ---------------------------------------------------------------- */
+  --focus-color: var(--color-amber-deep);
+  --focus-width: 3px;
+  --focus-offset: 4px;
+
+  /* ---- legacy aliases (resolve older stylesheets to the values above) ---- */
+  --motion-fast: var(--dur-fast);
+  --motion-base: var(--dur-base);
+  --motion-slow: var(--dur-slow);
+  --motion-image: var(--dur-image);
+  --motion-ease: var(--ease-out);
+  --ease-enter: var(--ease-out);
+  --ease-exit: var(--ease-in);
+  --premium-ease: var(--ease-standard);
+}
+
+/* next/font defines --font-sales on <body>, so family tokens that refer to
+   it must be declared there too; on :root they would resolve to nothing. */
+body {
+  --font-display: var(--font-sales), Arial, sans-serif;
+  --font-body: Arial, "Noto Sans JP", "Hiragino Sans", "Yu Gothic", Meiryo,
+    sans-serif;
+  --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
+}
+
+/* ---- Japanese typography --------------------------------------------------
+   Headings break between phrases instead of mid-word, and balance their
+   lines; paragraphs avoid a lone final character. Zero specificity, so any
+   component rule still wins. */
+:where(h1, h2, h3, h4) {
+  text-wrap: balance;
+  overflow-wrap: break-word;
+}
+:where(:lang(ja)) :where(h1, h2, h3, h4, .editorial-heading) {
+  word-break: auto-phrase;
+}
+:where(p, li, dd, figcaption, blockquote) {
+  text-wrap: pretty;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --dur-fast: 1ms;
+    --dur-base: 1ms;
+    --dur-slow: 1ms;
+    --dur-image: 1ms;
+  }
+}

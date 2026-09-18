@@ -1,8 +1,6 @@
 /* TSUDOWA visual direction: quiet editorial framing + tangible work.
    All movement is finite or interaction-led. No content depends on motion. */
-:root {
-  --premium-ease: cubic-bezier(0.22, 1, 0.36, 1);
-}
+
 .sales-ui:not(.case-ui) {
   --hub-muted: #c0b8ad;
 }
@@ -21,29 +19,6 @@
 .sales-ui h2 {
   text-wrap: balance;
 }
-.site-header {
-  backdrop-filter: blur(16px);
-}
-.site-header .brand {
-  letter-spacing: 0.035em;
-}
-.site-header nav a:not(.nav-cta) {
-  position: relative;
-}
-.site-header nav a:not(.nav-cta)::after {
-  content: "";
-  position: absolute;
-  inset: auto 0 -7px;
-  height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.25s var(--premium-ease);
-}
-.site-header nav a:hover::after,
-.site-header nav a:focus-visible::after {
-  transform: scaleX(1);
-}
 .sales-ui .button,
 .showcase .button,
 .demo-page .button {
@@ -57,13 +32,11 @@
   transform: translateY(1px) scale(0.98);
 }
 .sales-ui .button svg,
-.text-link svg,
-.project-actions svg {
+.text-link svg {
   transition: transform 0.25s var(--premium-ease);
 }
 .sales-ui .button:hover svg,
-.text-link:hover svg,
-.project-actions a:hover svg {
+.text-link:hover svg {
   transform: translate(3px, -1px);
 }
 
@@ -304,48 +277,10 @@
 .sales-ui .featured-project {
   border-radius: 5px;
 }
-.sales-ui .project-card {
-  border-radius: 4px;
-  overflow: hidden;
-}
-.sales-ui .project-preview {
-  background: #292823;
-  border: 1px solid #ffffff12;
-  border-radius: 4px 4px 0 0;
-}
-.project-card[data-project="cafe"] .project-preview {
-  background: #bcb09a;
-}
-.project-card[data-project="saas"] .project-preview {
-  background: #b4bccf;
-}
-.project-card[data-project="ec"] .project-preview {
-  background: #b6c1b0;
-}
-.project-card[data-project="inbox"] .project-preview {
-  background: #183b40;
-}
-.project-card[data-project="creative"] .project-preview {
-  background: #665cac;
-}
 .sales-ui .preview-chrome {
   background: #eae9e3;
   color: #576258;
   border-color: #d2d4cc;
-}
-.sales-ui .project-card-copy {
-  padding: 28px;
-}
-.sales-ui .project-card h3 {
-  font-size: clamp(24px, 2.6vw, 36px);
-  letter-spacing: -0.045em;
-}
-.sales-ui .project-card h3 small {
-  margin-top: 8px;
-  letter-spacing: 0;
-}
-.sales-ui .project-actions a {
-  min-height: 48px;
 }
 .sales-ui .category-filter {
   gap: 8px;
@@ -356,9 +291,6 @@
     background 0.2s,
     color 0.2s,
     border-color 0.2s;
-}
-.sales-ui .project-grid {
-  gap: 48px 28px;
 }
 
 /* Catalogue: two physical examples before the detailed filter. */
@@ -1763,12 +1695,6 @@
   .brand-card:nth-child(3):hover {
     background: #202b3a;
   }
-  .project-card:hover .preview-desktop {
-    transform: translateY(-4px);
-  }
-  .sales-ui .project-preview img {
-    transition: transform 0.6s var(--premium-ease);
-  }
   .works-exhibit-tool:hover {
     transform: rotate(1deg) translateY(-4px);
   }
@@ -1967,12 +1893,6 @@
   }
   .brand-card h3 {
     font-size: 28px;
-  }
-  .sales-ui .project-card-copy {
-    padding: 23px 20px;
-  }
-  .sales-ui .project-grid {
-    gap: 35px;
   }
   .sales-ui .catalogue-intro {
     padding-block: 42px 40px;
@@ -2286,14 +2206,12 @@
   .works-exhibit *,
   .category-exhibit *,
   .ticket-detail,
-  .cafe-menu-editorial *,
-  .site-header nav a::after {
+  .cafe-menu-editorial * {
     animation: none !important;
     transition: none !important;
   }
   .exhibit-photo:hover > img,
-  .exhibit-interface:hover,
-  .project-card:hover .preview-desktop {
+  .exhibit-interface:hover {
     transform: none;
   }
 }

@@ -275,11 +275,7 @@
   letter-spacing: 0.13em;
   color: #b9a88d;
 }
-:root {
-  --motion-base: 400ms;
-  --motion-slow: 560ms;
-  --motion-image: 600ms;
-}
+
 .sales-ui .button:active {
   transition-duration: 140ms;
 }

@@ -15,11 +15,11 @@ export function WorksServiceGuide() {
         id="services"
         data-reveal="title"
       >
-        <span className="eyebrow">03 / TETSU WORKS CAPABILITIES</span>
+        <span className="eyebrow">02 / TETSU WORKS CAPABILITIES</span>
         <p className="editorial-heading" lang="en">
           WHAT DO YOU NEED?
         </p>
-        <h2>何を依頼したいですか？</h2>
+        <h2>8つのサービスから、選ぶ。</h2>
         <p className="section-lead">
           案件に近いカテゴリを選ぶと、関連する作品・料金・納品物だけを表示。
         </p>
@@ -52,7 +52,7 @@ export function WorksServiceGuide() {
         id="pricing"
         data-price-info
       >
-        <span className="eyebrow">05 / TETSU WORKS — PRICE GUIDE</span>
+        <span className="eyebrow">03 / PRICE GUIDE</span>
         <h2>料金と納期の目安。</h2>
         <p className="section-lead">必要な範囲からご依頼いただけます。</p>
         <div className="price-grid" data-reveal="group">
@@ -83,14 +83,14 @@ export function WorksServiceGuide() {
       </section>
 
       <Delivery />
-      <Process />
+      <Process index="05" />
       <section
         id="qa"
         className="hub-section sales-quality"
         data-reveal="section"
       >
         <div>
-          <span className="eyebrow">08 / BUILT WITH CARE</span>
+          <span className="eyebrow">06 / BUILT WITH CARE</span>
           <h2>
             AIを活かして、
             <br />

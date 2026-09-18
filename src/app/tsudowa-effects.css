@@ -20,14 +20,7 @@
    ===================================================================== */
 
 :root {
-  /* motion */
-  --motion-base: 320ms;
-  --motion-slow: 520ms;
-
-  /* easing — enter settles, exit leaves, emphasis overshoots slightly */
-  --ease-enter: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-exit: cubic-bezier(0.4, 0, 1, 1);
-  --ease-emphasis: cubic-bezier(0.2, 0.9, 0.1, 1);
+  /* Durations and easings live in app/tokens.css. */
 
   /* ember + glow, all expressed against the measured accent */
   --ember: var(--hub-accent, #fcbe69);
@@ -190,9 +183,7 @@
    ===================================================================== */
 
 .sales-ui .button.primary,
-.sales-ui .all-works,
-.sales-ui .nav-cta,
-.site-header .nav-cta {
+.sales-ui .all-works {
   position: relative;
   transition:
     transform var(--motion-fast) var(--ease-emphasis),
@@ -200,13 +191,11 @@
     filter var(--motion-fast) var(--ease-enter);
   box-shadow: var(--glow-rest);
 }
-.sales-ui .button.primary:hover,
-.site-header .nav-cta:hover {
+.sales-ui .button.primary:hover {
   box-shadow: var(--glow-hover);
   filter: brightness(1.05);
 }
-.sales-ui .button.primary:active,
-.site-header .nav-cta:active {
+.sales-ui .button.primary:active {
   transform: translate3d(0, var(--press-button), 0);
   box-shadow: var(--glow-active);
   transition-duration: 80ms;
@@ -270,46 +259,17 @@
 }
 
 /* Work: the image breathes; the copy does not move. */
-.feature-picture,
-.project-preview {
+.feature-picture {
   overflow: hidden;
 }
-.feature-picture img,
-.project-preview img {
+.feature-picture img {
   transition: transform var(--motion-image) var(--ease-enter);
 }
-.project-card:hover .project-preview img,
 .project-feature:hover .feature-picture img {
   transform: scale(1.025);
 }
-.project-card .feature-meta,
-.project-card .project-estimate {
+.project-card .feature-meta {
   transition: opacity var(--motion-fast) var(--ease-enter);
-}
-
-/* Demo: reads as something that can be started. */
-.project-actions a[data-live-demo] {
-  position: relative;
-  transition:
-    color var(--motion-fast),
-    border-color var(--motion-fast);
-}
-.project-actions a[data-live-demo]::before {
-  content: "";
-  position: absolute;
-  left: -2px;
-  top: 50%;
-  width: 5px;
-  height: 5px;
-  margin-top: -2.5px;
-  border-radius: 50%;
-  background: var(--ember);
-  opacity: var(--ember-rest);
-  transition: opacity var(--motion-fast) var(--ease-enter);
-}
-.project-actions a[data-live-demo]:hover::before,
-.project-actions a[data-live-demo]:focus-visible::before {
-  opacity: 1;
 }
 
 /* Information cards stay still. Price and conditions are for reading. */
@@ -350,34 +310,6 @@
 }
 [data-reveal-ready="on"] [data-reveal="trace"].is-in > *:nth-child(n + 5) {
   transition-delay: calc(var(--stagger-medium) * 4);
-}
-
-/* =====================================================================
-   NAVIGATION — an ember under the current place
-   ===================================================================== */
-
-.site-header nav a:not(.nav-cta) {
-  position: relative;
-}
-.site-header nav a:not(.nav-cta)::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: -6px;
-  height: 1px;
-  background: var(--ember);
-  transform: scaleX(0);
-  transform-origin: center;
-  transition: transform var(--motion-fast) var(--ease-enter);
-}
-.site-header nav a:not(.nav-cta):hover::after,
-.site-header nav a:not(.nav-cta):focus-visible::after {
-  transform: scaleX(1);
-}
-.site-header .brand:hover .brand-mark {
-  filter: drop-shadow(0 0 6px rgb(252 190 105 / 0.45));
-  transition: filter var(--motion-base) var(--ease-enter);
 }
 
 /* =====================================================================

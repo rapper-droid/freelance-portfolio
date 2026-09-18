@@ -2,14 +2,17 @@ import Link from "next/link";
 import { ArrowUpRight, Check } from "lucide-react";
 import { flowPhases, pricingNote, type categories } from "@/lib/portfolio";
 import { PhaseFlow } from "./diagrams";
-export function Process() {
+/** `index` numbers the section only where it sits in the /works sequence. */
+export function Process({ index }: { index?: string }) {
   return (
     <section className="hub-section" id="process">
       {/* The lead absorbs what used to float in the top-right corner. A
           single sentence about how the work runs belongs with the heading,
           not opposite it where it read as an unrelated aside. */}
       <div className="process-head">
-        <span className="eyebrow">07 / FROM BRIEF TO DELIVERY</span>
+        <span className="eyebrow">
+          {index ? `${index} / ` : ""}FROM BRIEF TO DELIVERY
+        </span>
         <h2>
           依頼から納品まで、
           <br />

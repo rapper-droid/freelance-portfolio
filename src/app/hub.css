@@ -1,4 +1,4 @@
-﻿/* Sales Hub tokens: Figma-ready semantic primitives. */
+/* Sales Hub tokens: Figma-ready semantic primitives. */
 :root {
   --hub-paper: #faf7f2;
   --hub-ink: #1a1613;
@@ -11,18 +11,6 @@
 .sales-hub {
   background: var(--hub-paper);
   color: var(--hub-ink);
-}
-.site-header {
-  max-width: 1440px;
-  height: 88px;
-  padding-inline: var(--hub-space);
-  background: #fff;
-}
-.site-header nav {
-  font-size: 13px;
-}
-.brand-note {
-  font-size: 9px;
 }
 .hub-section {
   max-width: 1440px;
@@ -254,66 +242,6 @@
   font-size: 10px;
   letter-spacing: 1px;
   color: var(--hub-muted);
-}
-.project-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 32px 28px;
-}
-.project-card {
-  display: block;
-  min-width: 0;
-  border: 1px solid var(--hub-border);
-  border-radius: 10px;
-  background: white;
-  overflow: hidden;
-  transition:
-    transform 0.2s,
-    box-shadow 0.2s;
-}
-.project-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 18px 36px #193b3210;
-}
-.project-card-copy {
-  padding: 25px 28px;
-}
-.project-card-meta {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 9px;
-  letter-spacing: 1.2px;
-  color: var(--hub-muted);
-}
-.project-card h3 {
-  font-size: 26px;
-  letter-spacing: -0.5px;
-  margin: 14px 0 10px;
-}
-.project-card h3 small {
-  display: block;
-  font-size: 14px;
-  font-weight: 500;
-  letter-spacing: 0;
-  margin-top: 3px;
-}
-.project-card-copy p {
-  font-size: 13px;
-  color: var(--hub-muted);
-}
-.project-card-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  margin-top: 20px;
-}
-.project-card-tags span {
-  background: var(--hub-paper);
-  border: 1px solid var(--hub-border);
-  padding: 3px 9px;
-  border-radius: 4px;
-  font-size: 10px;
 }
 .honesty-note {
   font-size: 12px;
@@ -939,25 +867,6 @@
   }
 }
 @media (max-width: 700px) {
-  .site-header {
-    height: 74px;
-    padding: 0 20px;
-    gap: 12px;
-  }
-  .site-header .brand-note,
-  .site-header .brand-icon {
-    display: none;
-  }
-  .site-header nav {
-    gap: 14px;
-    font-size: 11px;
-  }
-  .site-header .nav-profile {
-    display: none;
-  }
-  .site-header .nav-cta {
-    padding: 8px;
-  }
   .hub-hero {
     grid-template-columns: 1fr;
     padding: 38px 24px 40px;
@@ -1055,10 +964,6 @@
     flex-direction: column;
     gap: 8px;
   }
-  .project-grid {
-    grid-template-columns: 1fr;
-    gap: 24px;
-  }
   .project-art {
     height: 265px;
     padding: 24px;
@@ -1069,15 +974,6 @@
   .coffee-scene {
     right: -3px;
     bottom: -7px;
-  }
-  .project-card-copy {
-    padding: 21px;
-  }
-  .project-card h3 {
-    font-size: 25px;
-  }
-  .project-card-copy p {
-    font-size: 12px;
   }
   .art-topline > span:last-child {
     font-size: 6px;
@@ -1206,12 +1102,8 @@
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .project-card,
   .category-filter button {
     transition: none;
-  }
-  .project-card:hover {
-    transform: none;
   }
 }
 @media (max-width: 700px) {

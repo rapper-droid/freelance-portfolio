@@ -4,9 +4,6 @@
   --studio-ink: #f0e9e0;
   --studio-accent: #fcbe69;
   --studio-rule: #332c26;
-  --motion-fast: 220ms;
-  --motion-image: 420ms;
-  --motion-ease: cubic-bezier(0.16, 1, 0.3, 1);
 }
 .home-ui {
   --hub-paper: var(--studio-paper);
@@ -18,37 +15,6 @@
   flex-shrink: 0;
   width: 38px;
   height: 38px;
-}
-.site-header {
-  background: var(--studio-paper);
-  height: 92px;
-}
-.site-header .brand,
-.site-footer .brand {
-  min-height: 44px;
-  font-size: 14px;
-  letter-spacing: 0.7px;
-  font-weight: 600;
-  gap: 14px;
-}
-.site-header .nav-cta {
-  background: var(--studio-accent);
-}
-.site-header nav a:not(.nav-cta) {
-  text-decoration: underline;
-  text-decoration-color: transparent;
-  text-underline-offset: 7px;
-  transition:
-    color var(--motion-fast),
-    text-decoration-color var(--motion-fast);
-}
-.site-header nav a:not(.nav-cta):hover {
-  text-decoration-color: var(--studio-accent);
-}
-.site-header a:focus-visible,
-.site-footer a:focus-visible {
-  outline: 2px solid var(--studio-accent);
-  outline-offset: 5px;
 }
 .home-ui .hub-section {
   padding-block: clamp(64px, 7.2vw, 104px);
@@ -612,75 +578,6 @@
   max-width: 42em;
   margin: 0 38px 28px 42px;
 }
-.site-footer {
-  display: block;
-  background: #0e0906;
-  padding-block: 56px 24px;
-}
-.footer-top,
-.footer-main,
-.footer-bottom {
-  display: flex;
-  justify-content: space-between;
-  gap: 32px;
-  align-items: center;
-}
-.footer-cta {
-  display: inline-flex;
-  gap: 28px;
-  align-items: center;
-  min-height: 48px;
-  border-bottom: 1px solid #67705f;
-  color: var(--studio-ink);
-  font-size: 13px;
-}
-.footer-cta svg {
-  transition: transform var(--motion-fast) var(--motion-ease);
-}
-.footer-cta:hover svg {
-  transform: translate(3px, -3px);
-}
-.footer-main {
-  padding-block: 52px;
-  align-items: end;
-}
-.site-footer .footer-statement {
-  margin: 0;
-  color: var(--studio-ink);
-  font-family: var(--font-sales), sans-serif;
-  font-weight: 800;
-  font-size: clamp(36px, 4vw, 58px);
-  line-height: 1.06;
-  letter-spacing: -0.05em;
-}
-.footer-main > div {
-  text-align: right;
-}
-.site-footer .footer-domain {
-  font-family: var(--font-sales), sans-serif;
-  color: var(--studio-accent);
-  font-size: 12px;
-  letter-spacing: 0.6px;
-  margin-top: 16px;
-}
-.footer-bottom {
-  border-top: 1px solid var(--studio-rule);
-  padding-top: 18px;
-}
-.footer-bottom nav {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 24px;
-  font-size: 11px;
-}
-.footer-bottom nav a {
-  display: inline-flex;
-  min-height: 44px;
-  align-items: center;
-}
-.footer-bottom small {
-  font-size: 10px;
-}
 .case-cafe {
   --hub-paper: #17130f;
   --sales-panel: #231d16;
@@ -792,37 +689,8 @@
     gap: 32px;
     grid-template-columns: 0.7fr 1.3fr;
   }
-  .footer-main {
-    flex-direction: column;
-    align-items: start;
-  }
-  .footer-main > div {
-    text-align: left;
-  }
-  .footer-bottom {
-    flex-wrap: wrap;
-  }
 }
 @media (max-width: 700px) {
-  .site-header {
-    height: 72px;
-    gap: 12px;
-    padding-inline: 20px;
-  }
-  .site-header .brand {
-    font-size: 11px;
-    gap: 8px;
-    letter-spacing: 0;
-  }
-  .site-header .brand-mark {
-    width: 28px;
-    height: 28px;
-  }
-  .site-header .nav-cta {
-    min-height: 44px;
-    padding-inline: 10px;
-    font-size: 9px;
-  }
   .home-ui .sales-hero {
     display: grid;
     grid-template-columns: 1fr;
@@ -1008,40 +876,6 @@
   .home-ui .message-offer {
     padding: 24px 0;
   }
-  .site-footer {
-    padding: 40px 20px 24px;
-  }
-  .footer-top,
-  .footer-main,
-  .footer-bottom {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 28px;
-  }
-  .footer-cta {
-    align-self: flex-start;
-  }
-  .footer-main {
-    padding-block: 40px 32px;
-  }
-  .site-footer .footer-statement {
-    font-size: clamp(52px, 15vw, 80px);
-  }
-  .footer-statement span {
-    display: block;
-  }
-  .footer-main > div {
-    text-align: left;
-  }
-  .footer-bottom {
-    gap: 20px;
-  }
-  .footer-bottom nav {
-    gap: 4px 22px;
-  }
-  .footer-bottom small {
-    line-height: 1.8;
-  }
   .case-ui .case-hero h1 > span {
     font-size: 0.46em;
   }
@@ -1067,8 +901,6 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .home-ui *,
-  .site-header *,
-  .site-footer *,
   .case-ui * {
     animation: none !important;
     transition: none !important;
@@ -1080,27 +912,6 @@
    belongs to. The relationship is stated, never shouted: the lockup sits
    beside the wordmark at a fraction of its weight. margin-right:auto keeps it
    tied to the brand instead of drifting to the middle of the flex header. */
-/* The colour is written out rather than taken from --hub-muted. The header
-   and footer sit OUTSIDE .sales-ui, where that token still resolves to the
-   light theme's #4a423a — which measured 2.08:1 against this near-black.
-   This is the same warm grey the rest of the footer already uses: 10:1. */
-.site-header .brand-note {
-  margin-left: 14px;
-  margin-right: auto;
-  font-size: 10px;
-  letter-spacing: 1.6px;
-  font-weight: 500;
-  color: #c2b7aa;
-  white-space: nowrap;
-}
-/* The header lockup is hidden on small screens for space, so the footer
-   carries the relationship in full where every page ends. Sized to match
-   .footer-domain beside it; 9px was inherited and too small to read. */
-.site-footer .footer-parent {
-  margin: 6px 0 0;
-  font-size: 12px;
-  color: #c2b7aa;
-}
 
 /* --- Aap targets and skip link -----------------------------------------
    Inline text links rendered at their line height: 20-22px tall, under the

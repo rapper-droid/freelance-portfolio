@@ -5,6 +5,7 @@ import { BRAND_NAME, BRAND_READING, BRAND_TAGLINE } from "@/lib/brand";
 import { Analytics } from "@/components/analytics";
 import { Monitoring } from "@/components/monitoring";
 import { Effects } from "@/components/effects";
+import "./tokens.css";
 import "./core.css";
 
 const inter = localFont({

@@ -1,0 +1,270 @@
+/* =====================================================================
+   PROJECT CARD + GRID — the TETSU WORKS catalogue unit.
+
+   Used on /works and every /works/[category]. Consolidated from five
+   stylesheets (hub, sales-ui, premium, art-direction, tsudowa-effects).
+   Reads fast: what it is, what it costs, how long, then two actions.
+   ===================================================================== */
+
+.project-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 40px 28px;
+}
+
+.sales-ui .project-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: 16px;
+  border: 1px solid var(--hub-border);
+  border-radius: var(--radius-sm);
+  background: var(--sales-panel);
+  overflow: hidden;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.sales-ui .project-card:hover,
+.sales-ui .project-card:focus-within {
+  border-color: #5c5243;
+}
+
+/* ---- preview ---------------------------------------------------------- */
+
+.project-preview {
+  position: relative;
+  display: block;
+  aspect-ratio: 1.95;
+  overflow: hidden;
+  border: 1px solid #ffffff12;
+  border-radius: var(--radius-xs);
+  background: #292823;
+}
+.project-card[data-project="cafe"] .project-preview {
+  background: #bcb09a;
+}
+.project-card[data-project="saas"] .project-preview {
+  background: #b4bccf;
+}
+.project-card[data-project="ec"] .project-preview {
+  background: #b6c1b0;
+}
+.project-card[data-project="inbox"] .project-preview {
+  background: #183b40;
+}
+.project-card[data-project="creative"] .project-preview {
+  background: #665cac;
+}
+.project-preview .preview-desktop {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform var(--dur-image) var(--ease-out);
+}
+.project-preview .preview-mobile {
+  position: absolute;
+  top: 19%;
+  right: 5%;
+  width: 25%;
+  height: auto;
+  border: 4px solid #111512;
+  border-radius: var(--radius-sm);
+  box-shadow: 0 6px 20px #0003;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.project-card:hover .preview-desktop {
+  transform: scale(1.02);
+}
+.project-card:hover .preview-mobile {
+  transform: translateY(-6px);
+}
+
+/* ---- copy --------------------------------------------------------------- */
+
+.sales-ui .project-card-copy {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  padding: 26px 12px 8px;
+}
+.sales-ui .project-card-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  font-size: var(--text-caption);
+  letter-spacing: 0.04em;
+  color: var(--hub-muted);
+}
+.sales-ui .project-card-meta span:last-child {
+  font:
+    600 var(--text-label) / 1 var(--font-display);
+  letter-spacing: var(--tracking-label);
+}
+.sales-ui .project-card h3 {
+  margin: 16px 0 0;
+  font:
+    700 clamp(24px, 2.4vw, 34px) / 1.2 var(--font-display);
+  letter-spacing: -0.04em;
+  color: var(--hub-ink);
+}
+.sales-ui .project-card h3 a {
+  transition: color var(--dur-fast) var(--ease-out);
+}
+.sales-ui .project-card h3 a:hover {
+  color: var(--hub-accent);
+}
+.sales-ui .project-card h3 small {
+  display: block;
+  margin-top: 8px;
+  font:
+    500 var(--text-small) / 1.6 var(--font-body);
+  letter-spacing: 0.02em;
+  color: var(--hub-muted);
+}
+.sales-ui .project-card-copy > p {
+  margin-top: 12px;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--hub-ink);
+}
+.sales-ui .project-card-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-block: 18px 22px;
+}
+.sales-ui .project-card-tags span {
+  padding: 4px 10px;
+  border: 1px solid var(--hub-border);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  font:
+    500 var(--text-label) / 1.4 var(--font-display);
+  letter-spacing: 0.02em;
+  color: var(--hub-muted);
+}
+
+/* ---- estimate + actions --------------------------------------------------- */
+
+.project-estimate {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin: auto 0 0;
+  padding-top: 18px;
+  border-top: 1px solid var(--hub-border);
+}
+.project-estimate dt {
+  font-size: var(--text-caption);
+  letter-spacing: 0.02em;
+  color: var(--hub-muted);
+}
+.project-estimate dd {
+  margin: 6px 0 0;
+  font-size: 16px;
+  font-weight: 650;
+  line-height: 1.5;
+  color: var(--hub-ink);
+}
+.project-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 20px;
+}
+.project-actions a {
+  position: relative;
+  display: flex;
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 48px;
+  padding: 10px 14px;
+  border: 1px solid var(--hub-border);
+  border-radius: var(--radius-sm);
+  font-size: var(--text-small);
+  font-weight: 600;
+  color: var(--hub-ink);
+  transition:
+    background-color var(--dur-fast) var(--ease-out),
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+.project-actions a:hover {
+  border-color: var(--hub-accent);
+  background: var(--hub-accent);
+  color: var(--sales-on-accent);
+}
+/* The live demo is the action that proves the work: it carries the ember. */
+.project-actions a[data-live-demo] {
+  border-color: color-mix(in srgb, var(--hub-accent) 45%, var(--hub-border));
+}
+.project-actions a[data-live-demo]::before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hub-accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--hub-accent) 22%, transparent);
+}
+.project-actions a[data-live-demo]:hover::before {
+  background: var(--sales-on-accent);
+  box-shadow: none;
+}
+
+/* ---- an odd final card spans the row instead of leaving a hole ------------ */
+
+@media (min-width: 901px) {
+  .project-grid > .project-card:last-child:nth-child(odd) {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    align-items: stretch;
+    gap: 8px 28px;
+  }
+  .project-grid > .project-card:last-child:nth-child(odd) .project-preview {
+    align-self: start;
+  }
+  .project-grid > .project-card:last-child:nth-child(odd) .project-card-copy {
+    padding: 12px 12px 8px 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .project-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .sales-ui .project-card {
+    padding: 12px;
+  }
+  .project-preview {
+    aspect-ratio: 1.5;
+  }
+  .sales-ui .project-card-copy {
+    padding: 20px 8px 6px;
+  }
+  .sales-ui .project-card h3 {
+    font-size: 26px;
+  }
+  .sales-ui .project-card h3 span {
+    display: block;
+    margin-top: 4px;
+    font-size: 19px;
+  }
+  .project-estimate dd {
+    font-size: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-card *,
+  .project-card {
+    transition: none !important;
+  }
+  .project-card:hover .preview-desktop,
+  .project-card:hover .preview-mobile {
+    transform: none;
+  }
+}

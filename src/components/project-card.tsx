@@ -1,3 +1,4 @@
+import "./project-card.css";
 import Link from "next/link";
 import Image from "next/image";
 import { ArrowUpRight } from "lucide-react";
