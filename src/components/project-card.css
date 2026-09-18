@@ -97,14 +97,12 @@
   color: var(--hub-muted);
 }
 .sales-ui .project-card-meta span:last-child {
-  font:
-    600 var(--text-label) / 1 var(--font-display);
+  font: 600 var(--text-label) / 1 var(--font-display);
   letter-spacing: var(--tracking-label);
 }
 .sales-ui .project-card h3 {
   margin: 16px 0 0;
-  font:
-    700 clamp(24px, 2.4vw, 34px) / 1.2 var(--font-display);
+  font: 700 clamp(24px, 2.4vw, 34px) / 1.2 var(--font-display);
   letter-spacing: -0.04em;
   color: var(--hub-ink);
 }
@@ -117,8 +115,7 @@
 .sales-ui .project-card h3 small {
   display: block;
   margin-top: 8px;
-  font:
-    500 var(--text-small) / 1.6 var(--font-body);
+  font: 500 var(--text-small) / 1.6 var(--font-body);
   letter-spacing: 0.02em;
   color: var(--hub-muted);
 }
@@ -139,8 +136,7 @@
   border: 1px solid var(--hub-border);
   border-radius: var(--radius-pill);
   background: transparent;
-  font:
-    500 var(--text-label) / 1.4 var(--font-display);
+  font: 500 var(--text-label) / 1.4 var(--font-display);
   letter-spacing: 0.02em;
   color: var(--hub-muted);
 }

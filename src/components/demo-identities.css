@@ -48,6 +48,11 @@
   background: #edf2f9;
   color: var(--ink);
 }
+/* Inside the demo frame the canvas is transparent; the stage carries the
+   identity's page colour so /demos and /experience match. */
+.demo-stage:has(.identity-inbox) {
+  --canvas: #edf2f9;
+}
 .identity-inbox .tool-panel {
   border-color: #c4d1e2;
   border-radius: 8px;
@@ -123,6 +128,9 @@
 }
 .identity-inbox .reply-section {
   border-color: #d6dfeb;
+}
+.demo-stage:has(.identity-admin) {
+  --canvas: #e9edf3;
 }
 .identity-admin.workbench-page {
   --ink: #222f45;
@@ -277,6 +285,9 @@
   grid-template-columns: repeat(7, minmax(64px, 1fr));
   scroll-snap-type: x proximity;
   scroll-padding: 4px;
+  /* Same inset as the heading, toolbar and stats around it. */
+  padding-inline: 45px;
+  scroll-padding-inline: 45px;
 }
 .booking-demo .booking-week button {
   border-color: #cfc0ac;

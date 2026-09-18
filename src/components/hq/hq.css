@@ -1132,7 +1132,8 @@ a:hover .hq-arrow {
   display: flex;
   justify-content: flex-end;
   padding: 18px 0;
-  margin: 0 22px;
+  /* Aligns with the centred 1280px intake panel below. */
+  margin: 0 max(22px, calc((100% - 1280px) / 2));
   font-size: 12px;
   color: #c5ccbc;
 }
@@ -1145,7 +1146,7 @@ a:hover .hq-arrow {
 }
 
 .hq-general-contact .sales-intake {
-  margin: 0;
+  margin: 0 auto;
 }
 .hq-general-contact .intake-source a {
   text-decoration: underline;

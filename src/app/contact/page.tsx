@@ -11,7 +11,10 @@ export default function ContactPage() {
   return (
     <>
       <Header />
-      <main id="main" className="sales-hub sales-ui contact-page">
+      <main
+        id="main"
+        className="sales-hub sales-ui contact-page contact-page-works"
+      >
         <Contact headingAs="h1" />
       </main>
       <Footer />

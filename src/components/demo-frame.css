@@ -64,8 +64,7 @@
   padding: 6px 12px;
   border: 1px solid var(--works-line);
   border-radius: var(--radius-pill);
-  font:
-    600 var(--text-caption) / 1.2 var(--font-display);
+  font: 600 var(--text-caption) / 1.2 var(--font-display);
   letter-spacing: 0.08em;
   color: var(--works-muted);
   white-space: nowrap;
@@ -77,8 +76,7 @@
   min-width: 0;
 }
 .demo-kicker {
-  font:
-    700 var(--text-caption) / 1.4 var(--font-display);
+  font: 700 var(--text-caption) / 1.4 var(--font-display);
   letter-spacing: var(--tracking-label);
   color: var(--color-amber-bright);
 }
@@ -88,14 +86,12 @@
   align-items: baseline;
   gap: 4px 16px;
   margin: 0;
-  font:
-    700 clamp(30px, 2.4vw + 18px, 46px) / 1.1 var(--font-display);
+  font: 700 clamp(30px, 2.4vw + 18px, 46px) / 1.1 var(--font-display);
   letter-spacing: -0.04em;
   color: var(--works-ink);
 }
 .demo-title-name {
-  font:
-    500 var(--text-body) / 1.5 var(--font-body);
+  font: 500 var(--text-body) / 1.5 var(--font-body);
   letter-spacing: 0.02em;
   color: var(--works-muted);
 }
@@ -264,8 +260,7 @@
 .demo-outro-label {
   display: block;
   margin-bottom: 12px;
-  font:
-    700 var(--text-label) / 1.4 var(--font-display);
+  font: 700 var(--text-label) / 1.4 var(--font-display);
   letter-spacing: var(--tracking-label);
   color: var(--color-amber-bright);
 }
@@ -343,8 +338,7 @@
   min-height: var(--tap-min);
   padding-right: var(--space-4);
   border-right: 1px solid #d6d9d0;
-  font:
-    700 var(--text-label) / 1 var(--font-display);
+  font: 700 var(--text-label) / 1 var(--font-display);
   letter-spacing: 0.1em;
   color: #4a574f;
   white-space: nowrap;
@@ -359,8 +353,7 @@
 }
 .experience-header h1 {
   margin: 0 auto 0 0;
-  font:
-    700 13px/1.4 var(--font-display);
+  font: 700 13px/1.4 var(--font-display);
   letter-spacing: 0.12em;
 }
 .experience-header .demo-data-disclosure {
@@ -392,6 +385,15 @@
   max-width: 1440px;
   min-height: 100vh;
   margin: auto;
+}
+/* Tools fill the screen like an app: past 1440px the identity colour reaches
+   the edges (no white side bars) and the tool keeps its 1440px column.
+   Showcases get the artboard instead. */
+@media (min-width: 1441px) {
+  .standalone-experience.workbench-page {
+    max-width: none;
+    padding-inline: calc((100% - 1440px) / 2 + 40px);
+  }
 }
 .standalone-experience.workbench-page > .experience-header {
   margin-bottom: 20px;
@@ -478,7 +480,8 @@
   }
 }
 /* The exit keeps its accessible name; on the narrowest screens only the
-   arrow is drawn so the title and DEMO DATA stay on one line. */
+   arrow is drawn so the title and DEMO DATA share the row. Two-word names
+   ("ADMIN DASHBOARD") wrap between words rather than being cut off. */
 @media (max-width: 520px) {
   .experience-exit {
     min-width: var(--tap-min);
@@ -492,9 +495,9 @@
   }
   .experience-header h1 {
     min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    line-height: 1.25;
+    letter-spacing: 0.08em;
+    overflow-wrap: break-word;
   }
 }
 @media (prefers-reduced-motion: reduce) {

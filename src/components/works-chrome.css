@@ -49,8 +49,7 @@
   align-items: center;
   gap: 12px;
   min-height: var(--tap-min);
-  font:
-    650 15px/1 var(--font-display);
+  font: 650 15px/1 var(--font-display);
   letter-spacing: 0.04em;
   white-space: nowrap;
   color: var(--chrome-ink);
@@ -73,14 +72,12 @@
   white-space: nowrap;
 }
 .works-lockup-name {
-  font:
-    700 13px/1 var(--font-display);
+  font: 700 13px/1 var(--font-display);
   letter-spacing: 0.1em;
   color: var(--color-amber-bright);
 }
 .works-lockup-role {
-  font:
-    500 var(--text-label) / 1 var(--font-display);
+  font: 500 var(--text-label) / 1 var(--font-display);
   letter-spacing: var(--tracking-label);
   color: var(--chrome-muted);
 }
@@ -127,8 +124,7 @@
   min-height: var(--tap-min);
   padding: 0 20px;
   border-radius: var(--radius-pill);
-  font:
-    700 14px/1 var(--font-body);
+  font: 700 14px/1 var(--font-body);
   letter-spacing: 0.02em;
   white-space: nowrap;
   color: var(--works-on-accent);
@@ -167,8 +163,7 @@
   min-height: var(--tap-min);
   padding-inline: 4px;
   list-style: none;
-  font:
-    700 var(--text-label) / 1 var(--font-display);
+  font: 700 var(--text-label) / 1 var(--font-display);
   letter-spacing: var(--tracking-label);
   color: var(--chrome-ink);
 }
@@ -239,8 +234,7 @@
   color: var(--chrome-ink);
 }
 .works-menu-panel nav a small {
-  font:
-    600 var(--text-label) / 1 var(--font-display);
+  font: 600 var(--text-label) / 1 var(--font-display);
   letter-spacing: var(--tracking-label);
   color: var(--chrome-muted);
 }
@@ -346,8 +340,7 @@
   align-items: center;
   gap: 12px;
   min-height: var(--tap-min);
-  font:
-    650 15px/1 var(--font-display);
+  font: 650 15px/1 var(--font-display);
   letter-spacing: 0.04em;
   color: var(--chrome-ink);
 }
@@ -381,8 +374,7 @@
 }
 .site-footer .footer-statement {
   margin: 0;
-  font:
-    800 clamp(36px, 4vw, 58px) / 1.06 var(--font-display);
+  font: 800 clamp(36px, 4vw, 58px) / 1.06 var(--font-display);
   letter-spacing: -0.05em;
   color: var(--chrome-ink);
 }
@@ -403,8 +395,7 @@
 }
 .site-footer .footer-domain {
   margin-top: 8px;
-  font:
-    600 var(--text-caption) / 1 var(--font-display);
+  font: 600 var(--text-caption) / 1 var(--font-display);
   letter-spacing: 0.05em;
   color: var(--color-amber-bright);
 }
@@ -420,8 +411,7 @@
   align-items: center;
   gap: 10px;
   min-height: var(--tap-min);
-  font:
-    700 var(--text-caption) / 1 var(--font-display);
+  font: 700 var(--text-caption) / 1 var(--font-display);
   letter-spacing: 0.08em;
   color: var(--chrome-ink);
   transition: color var(--dur-fast) var(--ease-out);

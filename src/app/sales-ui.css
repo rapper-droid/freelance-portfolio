@@ -432,6 +432,12 @@
 }
 .sales-ui .sales-info {
   background: var(--sales-panel);
+  /* Full-bleed band, content on the 1440px column (see .category-intro). */
+  max-width: none;
+  padding-inline: max(
+    var(--hub-space),
+    calc((100% - 1440px) / 2 + var(--hub-space))
+  );
 }
 .sales-ui .sales-grid > div,
 .sales-ui .service-links > a {

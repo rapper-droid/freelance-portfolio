@@ -109,8 +109,8 @@
    it must be declared there too; on :root they would resolve to nothing. */
 body {
   --font-display: var(--font-sales), Arial, sans-serif;
-  --font-body: Arial, "Noto Sans JP", "Hiragino Sans", "Yu Gothic", Meiryo,
-    sans-serif;
+  --font-body:
+    Arial, "Noto Sans JP", "Hiragino Sans", "Yu Gothic", Meiryo, sans-serif;
   --font-mono: ui-monospace, "SFMono-Regular", Consolas, monospace;
 }
 
@@ -118,17 +118,18 @@ body {
    Headings break between phrases instead of mid-word, and balance their
    lines; paragraphs avoid a lone final character. Zero specificity, so any
    component rule still wins.
-   auto-phrase makes a whole phrase the smallest unit, which would raise the
-   min-content width of grid/flex items to the longest phrase and overflow
-   narrow screens; overflow-wrap:anywhere restores a character-level fallback
-   that is used only when a phrase cannot fit on a line. */
+   auto-phrase makes a whole phrase the smallest unit; overflow-wrap:break-word
+   breaks a phrase only when it cannot fit on a line. Not "anywhere": that also
+   lowers min-content, so a heading in a flex row shrinks and splits a Latin
+   word ("Cappuccin/o"). A grid/flex item that must shrink below its longest
+   phrase needs min-width:0 in its own rule. */
 :where(h1, h2, h3, h4) {
   text-wrap: balance;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 :where(:lang(ja)) :where(h1, h2, h3, h4, .editorial-heading, [class*="lead"]) {
   word-break: auto-phrase;
-  overflow-wrap: anywhere;
+  overflow-wrap: break-word;
 }
 :where(p, li, dd, figcaption, blockquote) {
   text-wrap: pretty;

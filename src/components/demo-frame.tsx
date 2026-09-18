@@ -85,7 +85,9 @@ export function DemoFrame({
           {tool && <DemoDataNotice />}
           {children}
           <section
-            className={"demo-outro " + (tool ? "demo-bottom" : "showcase-limit")}
+            className={
+              "demo-outro " + (tool ? "demo-bottom" : "showcase-limit")
+            }
             aria-label="このデモについて"
           >
             <div>

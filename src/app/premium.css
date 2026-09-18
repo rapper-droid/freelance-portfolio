@@ -443,6 +443,13 @@
   padding-block: 58px 70px;
   min-height: 0;
   background: #0e0c09;
+  /* Full-bleed band: the colour and rule reach the screen edges past 1440px
+     while the content keeps the 1440px column of the other sections. */
+  max-width: none;
+  padding-inline: max(
+    var(--hub-space),
+    calc((100% - 1440px) / 2 + var(--hub-space))
+  );
 }
 .sales-ui .category-intro::after {
   display: none;
@@ -840,10 +847,7 @@
 .case-creative .case-main-visual {
   background: #b9abd9;
 }
-.sales-ui .case-facts {
-  border-radius: 3px;
-  background: #ffffff04;
-}
+
 .sales-ui .case-content > h2 {
   margin-top: 64px;
 }
