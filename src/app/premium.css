@@ -430,6 +430,7 @@
   font-size: 12px;
 }
 .delivery-ribbon a {
+  min-height: 44px;
   font-weight: 700;
 }
 
@@ -877,11 +878,18 @@
   box-shadow: 0 18px 35px #0003;
   border-radius: 5px;
 }
+/* Stacked on narrow screens: keep the 44px gutter that holds the step
+   number and the ember, or both sit on top of the heading. */
 .works-pipeline li {
   border: 1px solid #ffffff16;
   background: linear-gradient(135deg, #28271e, #171a15);
-  padding: 22px 18px;
+  padding: 22px 18px 22px 44px;
   border-radius: 5px;
+}
+@media (min-width: 48rem) {
+  .works-pipeline li {
+    padding: 22px 18px;
+  }
 }
 .works-pipeline li[data-actor="人"] {
   background: #25352a;

@@ -366,6 +366,9 @@
 .experience-header .demo-data-disclosure {
   margin: 0;
 }
+.experience-header .demo-data-disclosure summary {
+  white-space: nowrap;
+}
 .standalone-experience.showcase-page > .showcase {
   max-width: 1440px;
   margin: 0 auto;
@@ -476,7 +479,7 @@
 }
 /* The exit keeps its accessible name; on the narrowest screens only the
    arrow is drawn so the title and DEMO DATA stay on one line. */
-@media (max-width: 400px) {
+@media (max-width: 520px) {
   .experience-exit {
     min-width: var(--tap-min);
     justify-content: center;

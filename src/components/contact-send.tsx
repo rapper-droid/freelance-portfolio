@@ -689,11 +689,21 @@ export function ContactSend({
               : receiptAccepted
                 ? "確認メールだけを再試行"
                 : "相談を送信する"}
-            <ArrowUpRight size={18} />
+            {state === "sending" ? (
+              <span className="intake-spinner" aria-hidden="true" />
+            ) : (
+              <ArrowUpRight size={18} />
+            )}
           </button>
           <p
             role={state === "error" ? "alert" : "status"}
-            className={state === "error" ? "intake-error" : "intake-help"}
+            className={
+              state === "error"
+                ? "intake-error"
+                : state === "receipt_pending"
+                  ? "intake-help intake-notice"
+                  : "intake-help"
+            }
           >
             {message}
             {receipt && (state === "error" || state === "receipt_pending") && (

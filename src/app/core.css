@@ -130,7 +130,7 @@ summary:focus-visible,
 }
 .error-main h1 {
   margin: 24px 0 20px;
-  font-size: clamp(28px, 3.6vw, 48px);
+  font-size: clamp(24px, 3vw + 14px, 48px);
   font-weight: 650;
   line-height: 1.4;
 }
@@ -160,7 +160,7 @@ summary:focus-visible,
 }
 .error-paths {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   margin-top: 64px;
   border-top: 1px solid var(--tsudowa-line);
 }

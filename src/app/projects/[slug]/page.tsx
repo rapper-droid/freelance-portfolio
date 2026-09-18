@@ -52,6 +52,7 @@ export default async function ProjectPage({
             <h1>
               {p.title}
               {caseLabels[p.slug] && <span> — {caseLabels[p.slug]}</span>}
+              <span className="sr-only"> — </span>
               <small>{p.name}</small>
             </h1>
             <p className="eyebrow case-overview">OVERVIEW</p>

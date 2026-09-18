@@ -140,12 +140,20 @@
 }
 /* Centred on its own line so a long brand name cannot collide with the
    AFAER heading, which is what happened when it lived in the arrow column. */
+/* Only meaningful between the BEFORE and AFTER columns; stacked rows
+   already carry their own tags. */
 .works-ba-via {
+  display: none;
   margin: 0 0 10px;
   text-align: center;
-  font-size: 9.5px;
+  font-size: 11px;
   letter-spacing: 0.16em;
   color: var(--hub-accent);
+}
+@media (min-width: 48rem) {
+  .works-ba-via {
+    display: block;
+  }
 }
 .works-ba-row {
   display: grid;
@@ -192,7 +200,7 @@
     grid-template-columns: 1fr 40px 1fr;
     gap: 18px;
     padding: 0 18px 10px;
-    font-size: 9.5px;
+    font-size: 11px;
     letter-spacing: 0.16em;
     color: var(--hub-muted);
   }

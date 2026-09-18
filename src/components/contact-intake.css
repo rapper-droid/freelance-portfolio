@@ -280,9 +280,9 @@
 }
 .sales-intake .contact-consent input {
   accent-color: #31503a;
-  flex: 0 0 20px;
-  width: 20px;
-  height: 20px;
+  flex: 0 0 24px;
+  width: 24px;
+  height: 24px;
   margin: 0;
 }
 .sales-intake .contact-consent a {
@@ -319,6 +319,36 @@
   color: #852f25;
   overflow-wrap: anywhere;
 }
+/* Accepted, confirmation still to send: neutral, not an error. */
+.sales-intake .intake-notice {
+  padding: 14px 16px;
+  border-left: 3px solid #b58a3c;
+  background: #f6eedd;
+  color: #4b3d22;
+  font-size: 13px;
+  line-height: 1.8;
+}
+.intake-spinner {
+  flex: none;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  animation: intake-spin 0.8s linear infinite;
+}
+@keyframes intake-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intake-spinner {
+    animation: none;
+    border-right-color: currentColor;
+    opacity: 0.6;
+  }
+}
 .sales-intake .intake-config {
   display: flex;
   gap: 10px;
@@ -349,6 +379,27 @@
   background: transparent;
   min-height: 44px;
 }
+.intake-success {
+  position: relative;
+}
+/* The disabled submit stays in the DOM (it blocks a second send); shown as
+   a status stamp beside the check instead of a stray button. */
+.sales-intake .intake-success > .button.secondary[disabled] {
+  position: absolute;
+  top: 13px;
+  right: 0;
+  min-height: 32px;
+  padding: 0 14px;
+  border: 1px solid #b9c8b0;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #3d5a3f;
+  background: #eef3e8;
+  opacity: 1;
+  cursor: default;
+}
 .intake-success-icon {
   display: flex;
   width: 58px;
@@ -376,7 +427,7 @@
   margin: 24px 0;
 }
 .intake-success dt {
-  font-size: 11px;
+  font-size: 12px;
 }
 .intake-success dd {
   font-family: var(--font-sales), sans-serif;

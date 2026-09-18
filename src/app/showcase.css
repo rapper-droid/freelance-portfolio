@@ -97,6 +97,7 @@
   color: #fff;
 }
 .plain-button {
+  min-height: 44px;
   background: none;
   border: 0;
   color: inherit;
@@ -538,6 +539,9 @@
   border-radius: 8px;
 }
 .api-contract summary {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
   cursor: pointer;
   font-size: 13px;
 }
