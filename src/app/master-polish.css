@@ -213,14 +213,15 @@
 }
 .catalogue-copy .works-byline {
   display: block;
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.9;
   letter-spacing: 0.08em;
-  margin-bottom: 12px;
+  margin-bottom: 6px;
+  color: var(--works-muted);
 }
 .catalogue-copy > .eyebrow {
   display: block;
-  font-size: 9px;
+  font-size: 11px;
   line-height: 1.9;
   letter-spacing: 0.1em;
 }
@@ -270,7 +271,7 @@
 }
 .works-phase-deliverable small {
   font:
-    500 9px/1 var(--font-sales),
+    500 11px/1 var(--font-sales),
     sans-serif;
   letter-spacing: 0.13em;
   color: #b9a88d;

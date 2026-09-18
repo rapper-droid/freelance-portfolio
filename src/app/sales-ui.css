@@ -276,12 +276,12 @@
 }
 .preview-chrome span {
   margin-left: auto;
-  font-size: 8px;
+  font-size: 11px;
   letter-spacing: 1px;
 }
 .case-facts dt {
   color: var(--hub-muted);
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.4px;
 }
 .case-facts dd {
@@ -507,7 +507,7 @@
 }
 .case-ui .case-hero .eyebrow {
   color: var(--hub-accent);
-  font-size: 11px;
+  font-size: 12px;
 }
 .case-ui .case-hero .honesty-note {
   font-size: 12px;
@@ -564,8 +564,22 @@
 .case-ui .case-stories article:last-child {
   background: var(--sales-panel);
   border: 1px solid var(--hub-border);
-  padding: 24px;
+  padding: 24px 24px 24px 58px;
   border-radius: 18px;
+}
+.case-ui .case-stories article:last-child::before {
+  left: 24px;
+  top: 27px;
+}
+.case-ui .case-related-head {
+  display: grid;
+  gap: 10px;
+  margin-top: 72px;
+}
+.case-ui .case-related-head h2 {
+  margin: 0;
+  font-size: clamp(24px, 1.6vw + 16px, 34px);
+  line-height: 1.4;
 }
 .case-ui .case-list li:before {
   color: var(--hub-accent);
@@ -654,7 +668,7 @@
     margin-top: 14px;
   }
   .sales-ui .eyebrow {
-    font-size: 10px;
+    font-size: 11px;
   }
   .sales-hero {
     padding: 20px 20px 0;
@@ -723,7 +737,7 @@
     position: absolute;
     left: 14px;
     top: 16px;
-    font-size: 10px;
+    font-size: 11px;
   }
   .service-selector-grid h3 {
     font-size: 16px;

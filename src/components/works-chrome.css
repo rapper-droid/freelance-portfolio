@@ -209,6 +209,11 @@
   opacity: 1;
   transform: rotate(-45deg);
 }
+/* A closed <details> lays its content out in its own 44px box; keep the
+   panel out of layout entirely until it opens. */
+.works-menu:not([open]) .works-menu-panel {
+  display: none;
+}
 .works-menu-panel {
   position: absolute;
   inset: 100% 0 auto;

@@ -1,6 +1,12 @@
 import { ContactSend } from "./contact-send";
 import { ArrowRight, Check } from "lucide-react";
+import { projects } from "@/lib/portfolio";
 import "./contact-intake.css";
+
+// Server-side lookup: only eleven short titles reach the client form.
+const sourceTitles = Object.fromEntries(
+  projects.map((p) => [p.slug, p.title]),
+);
 export function Contact({
   initialKind = "",
   headingAs = "h2",
@@ -99,6 +105,7 @@ export function Contact({
         initialKind={initialKind}
         general={general}
         successHeading={headingAs === "h1" ? "h2" : "h3"}
+        sourceTitles={sourceTitles}
       />
     </section>
   );

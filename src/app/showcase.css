@@ -70,7 +70,7 @@
   font-size: 13px;
 }
 .demo-fineprint {
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.9;
   color: #536358;
   margin-top: 20px;
@@ -267,7 +267,7 @@
   display: flex;
   justify-content: space-between;
   gap: 20px;
-  font-size: 10px;
+  font-size: 12px;
 }
 .saas-hero {
   text-align: center;
@@ -275,7 +275,7 @@
   background: radial-gradient(ellipse at bottom, #e3eec9, #f7faee 65%);
 }
 .saas-pill {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 1.7px;
   display: inline-block;
   background: #ddecbd;
@@ -295,12 +295,15 @@
   font-size: 15px;
   margin-bottom: 25px;
 }
+/* The workspace peeks out of the hero and fades, rather than being cut. */
 .saas-product {
   max-width: 850px;
   margin: 45px auto 0;
   max-height: 330px;
   overflow: hidden;
   border-radius: 12px 12px 0 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000 58%, transparent);
+  mask-image: linear-gradient(to bottom, #000 58%, transparent);
 }
 .saas-product .project-art {
   height: 380px;
@@ -349,8 +352,29 @@
   font-size: 14px;
 }
 .faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 28px;
+  list-style: none;
   cursor: pointer;
   font-weight: 600;
+}
+.faq summary::-webkit-details-marker {
+  display: none;
+}
+.faq summary::after {
+  content: "+";
+  flex: none;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 1;
+  opacity: 0.55;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.faq details[open] summary::after {
+  transform: rotate(45deg);
 }
 .faq details p {
   padding: 18px 0;
@@ -406,7 +430,7 @@
   margin: 20px 0;
 }
 .product-price small {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 400;
 }
 .color-options legend {
@@ -461,7 +485,7 @@
   font-size: 14px;
 }
 .relay-flow li span {
-  font-size: 10px;
+  font-size: 11px;
   margin-right: 12px;
 }
 .relay-flow li.done {
@@ -575,7 +599,7 @@
   margin-top: 12px;
 }
 .booking-stats small {
-  font-size: 11px;
+  font-size: 12px;
 }
 .booking-list {
   margin: 0 45px 30px;
@@ -585,7 +609,7 @@
   border-radius: 8px;
 }
 .booking-list .demo-section-heading > span {
-  font-size: 11px;
+  font-size: 12px;
 }
 .booking-list article {
   display: flex;
@@ -607,7 +631,7 @@
   margin-top: 5px;
 }
 .booking-badge {
-  font-size: 10px;
+  font-size: 12px;
   padding: 4px 12px;
   background: #e5edde;
   border-radius: 15px;
@@ -634,7 +658,7 @@
   letter-spacing: 2px;
 }
 .comparison-site header span {
-  font-size: 10px;
+  font-size: 12px;
   margin-left: 20px;
   letter-spacing: 0;
 }
@@ -642,7 +666,7 @@
   padding: 45px;
 }
 .comparison-site > div > span {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 2px;
 }
 .comparison-site h2 {
@@ -702,7 +726,7 @@
 .comparison-site footer {
   grid-column: 1/-1;
   padding: 20px 30px;
-  font-size: 11px;
+  font-size: 12px;
   border-top: 1px solid #cbd2bd;
 }
 .comparison-site.is-before {
@@ -767,7 +791,7 @@
   color: white;
 }
 .creative-style-buttons button span {
-  font-size: 10px;
+  font-size: 11px;
 }
 .creative-preview {
   background: #e9ece4;
@@ -826,7 +850,7 @@
   flex-shrink: 0;
 }
 .qa-checklist span {
-  font-size: 10px;
+  font-size: 11px;
   color: #627550;
 }
 .qa-workspace .delivery-package {
@@ -909,7 +933,7 @@
   .demo-local-nav {
     padding: 20px;
     gap: 20px;
-    font-size: 11px;
+    font-size: 12px;
   }
   .demo-local-nav > b {
     font-size: 12px;
@@ -1018,7 +1042,7 @@
     font-size: 12px;
   }
   .saas-pill {
-    font-size: 8px;
+    font-size: 11px;
   }
   .saas-product {
     margin-top: 30px;
@@ -1072,7 +1096,7 @@
   }
   .faq summary,
   .faq details {
-    font-size: 12px;
+    font-size: 13px;
   }
   .ec-product {
     grid-template-columns: 1fr;
@@ -1144,7 +1168,7 @@
     font-size: 12px;
   }
   .api-contract pre {
-    font-size: 10px;
+    font-size: 12px;
     padding: 12px;
   }
   .booking-toolbar {
@@ -1180,7 +1204,7 @@
     margin: 0;
   }
   .booking-stats span {
-    font-size: 10px;
+    font-size: 12px;
   }
   .booking-list {
     margin: 0 20px 20px;
@@ -1205,12 +1229,12 @@
     display: none;
   }
   .booking-list article .button {
-    font-size: 11px;
+    font-size: 12px;
     padding: 8px 12px;
     min-height: 40px;
   }
   .booking-list article p {
-    font-size: 10px;
+    font-size: 12px;
   }
   .improvement-toggle {
     margin: 0 22px 20px;
@@ -1226,7 +1250,7 @@
   .comparison-site header span {
     display: block;
     margin: 5px 0 0;
-    font-size: 9px;
+    font-size: 12px;
   }
   .comparison-site > div {
     padding: 25px;
@@ -1243,10 +1267,10 @@
   }
   .comparison-site footer {
     padding: 17px;
-    font-size: 9px;
+    font-size: 12px;
   }
   .comparison-site .button {
-    font-size: 11px;
+    font-size: 12px;
   }
   .comparison-site.is-before {
     grid-template-columns: 1fr;
@@ -1288,7 +1312,7 @@
     padding: 20px;
   }
   .qa-checklist label {
-    font-size: 11px;
+    font-size: 12px;
     gap: 9px;
   }
   .qa-workspace .demo-section-heading {

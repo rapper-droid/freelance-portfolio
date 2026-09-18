@@ -16,7 +16,7 @@
   border-radius: 4px;
   padding: 6px 12px;
   font-family: var(--font-sales), sans-serif;
-  font-size: 9px;
+  font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.06em;
 }
@@ -29,7 +29,7 @@
   content: "−";
 }
 .demo-data-disclosure summary span {
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 400;
   letter-spacing: 0;
 }
@@ -270,7 +270,7 @@
 .booking-demo .app-demo-heading .eyebrow {
   color: #8b573f;
   letter-spacing: 0.13em;
-  font-size: 10px;
+  font-size: 11px;
 }
 .booking-demo .booking-week {
   gap: 10px;
@@ -354,9 +354,12 @@
   .booking-demo.showcase {
     border-radius: 0;
   }
+  /* The strip scrolls, but starts and snaps in line with the content. */
   .booking-demo .booking-week {
     grid-template-columns: repeat(7, 64px);
     gap: 8px;
+    padding-inline: 22px;
+    scroll-padding-inline: 22px;
   }
   .booking-demo .booking-list {
     padding: 18px;

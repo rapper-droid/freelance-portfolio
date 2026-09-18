@@ -55,10 +55,13 @@ export function ContactSend({
   initialKind = "",
   successHeading = "h3",
   general = false,
+  sourceTitles = {},
 }: {
   initialKind?: string;
   successHeading?: "h2" | "h3";
   general?: boolean;
+  /** Display names for project/demo slugs, so the note never shows an id. */
+  sourceTitles?: Record<string, string>;
 }) {
   const SuccessHeading = successHeading;
   const pathname = usePathname();
@@ -460,7 +463,10 @@ export function ContactSend({
           )}
           {(source.demo || source.project) && (
             <p className="intake-source">
-              「{source.demo || source.project}
+              「
+              {sourceTitles[source.demo || source.project] ||
+                source.demo ||
+                source.project}
               」のような制作について。種別・内容は自由に変更できます。
             </p>
           )}

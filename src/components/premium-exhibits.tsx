@@ -379,7 +379,7 @@ export function DeliveryRibbon() {
         <CircleCheck size={18} />
         触って確かめられる制作例
       </span>
-      <Link href="/#contact">
+      <Link href="#contact">
         TETSU WORKSに相談する <ArrowRight size={16} />
       </Link>
     </div>

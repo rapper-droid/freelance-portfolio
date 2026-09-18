@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { categories, projects, getProject, pricingNote } from "@/lib/portfolio";
 import "@/components/portfolio-styles.css";
+import "@/components/project-card.css";
 import { pageMetadata } from "@/lib/seo";
 import { Header, Footer } from "@/components/site";
 import { MessageOnly } from "@/components/sales-sections";
@@ -180,7 +181,10 @@ export default async function ProjectPage({
             {pricingNote}{" "}
             納品物は契約範囲に合わせて確定します。QA内容は確認対象を示すもので、実運用環境の適合保証ではありません。
           </p>
-          <h2>Related Services / 関連カテゴリ</h2>
+          <div className="case-related-head">
+            <span className="eyebrow">RELATED SERVICES</span>
+            <h2>この制作に近いサービス</h2>
+          </div>
           <div className="service-links">
             {p.categories.map((id) => (
               <Link key={id} href={`/works/${id}`}>

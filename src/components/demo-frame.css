@@ -65,7 +65,7 @@
   border: 1px solid var(--works-line);
   border-radius: var(--radius-pill);
   font:
-    600 var(--text-label) / 1.2 var(--font-display);
+    600 var(--text-caption) / 1.2 var(--font-display);
   letter-spacing: 0.08em;
   color: var(--works-muted);
   white-space: nowrap;
@@ -78,7 +78,7 @@
 }
 .demo-kicker {
   font:
-    700 var(--text-label) / 1.4 var(--font-display);
+    700 var(--text-caption) / 1.4 var(--font-display);
   letter-spacing: var(--tracking-label);
   color: var(--color-amber-bright);
 }
@@ -291,7 +291,7 @@
   justify-items: start;
   gap: 8px;
 }
-.demo-outro .button.primary {
+.demo-stage .demo-outro .button.primary {
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -304,10 +304,10 @@
   color: var(--works-on-accent);
   background: var(--color-amber-bright);
 }
-.demo-outro .button.primary:hover {
+.demo-stage .demo-outro .button.primary:hover {
   filter: brightness(1.06);
 }
-.demo-outro .text-link {
+.demo-stage .demo-outro .text-link {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -349,6 +349,10 @@
   color: #4a574f;
   white-space: nowrap;
   transition: color var(--dur-fast) var(--ease-out);
+}
+.experience-exit span {
+  font-size: var(--text-caption);
+  letter-spacing: 0.04em;
 }
 .experience-exit:hover {
   color: #1f2b24;
@@ -435,6 +439,19 @@
     margin-inline: 14px;
     border-radius: var(--radius-sm);
   }
+  .demo-canvas.demo-page .demo-outro {
+    margin-inline: 0;
+  }
+  .demo-outro-actions,
+  .demo-stage .demo-outro .button.primary {
+    width: 100%;
+  }
+  .demo-stage .demo-outro .button.primary {
+    justify-content: center;
+    padding-block: 12px;
+    white-space: normal;
+    text-align: center;
+  }
   .showcase-page .demo-outro {
     width: auto;
   }
@@ -455,6 +472,26 @@
 @media (max-width: 480px) {
   .demo-badge [lang="en"] {
     display: none;
+  }
+}
+/* The exit keeps its accessible name; on the narrowest screens only the
+   arrow is drawn so the title and DEMO DATA stay on one line. */
+@media (max-width: 400px) {
+  .experience-exit {
+    min-width: var(--tap-min);
+    justify-content: center;
+    padding-right: var(--space-2);
+    font-size: 0;
+    letter-spacing: 0;
+  }
+  .experience-exit span {
+    display: none;
+  }
+  .experience-header h1 {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 }
 @media (prefers-reduced-motion: reduce) {

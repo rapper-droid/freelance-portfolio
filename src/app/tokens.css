@@ -117,13 +117,18 @@ body {
 /* ---- Japanese typography --------------------------------------------------
    Headings break between phrases instead of mid-word, and balance their
    lines; paragraphs avoid a lone final character. Zero specificity, so any
-   component rule still wins. */
+   component rule still wins.
+   auto-phrase makes a whole phrase the smallest unit, which would raise the
+   min-content width of grid/flex items to the longest phrase and overflow
+   narrow screens; overflow-wrap:anywhere restores a character-level fallback
+   that is used only when a phrase cannot fit on a line. */
 :where(h1, h2, h3, h4) {
   text-wrap: balance;
-  overflow-wrap: break-word;
+  overflow-wrap: anywhere;
 }
 :where(:lang(ja)) :where(h1, h2, h3, h4, .editorial-heading, [class*="lead"]) {
   word-break: auto-phrase;
+  overflow-wrap: anywhere;
 }
 :where(p, li, dd, figcaption, blockquote) {
   text-wrap: pretty;

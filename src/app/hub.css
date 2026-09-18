@@ -34,7 +34,7 @@
   font-size: 14px;
 }
 .eyebrow {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 1.7px;
   font-weight: 700;
 }
@@ -239,7 +239,7 @@
   font-size: 12px;
 }
 .selection-caption p > span {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 1px;
   color: var(--hub-muted);
 }
@@ -288,7 +288,7 @@
   position: absolute;
   bottom: 25px;
   left: 28px;
-  font-size: 7px;
+  font-size: 11px;
   letter-spacing: 1.6px;
   z-index: 2;
 }
@@ -706,7 +706,7 @@
   border-top: 1px solid #cbd5c1;
 }
 .sales-grid > div > span {
-  font-size: 11px;
+  font-size: 12px;
   font-weight: 700;
   letter-spacing: 1px;
   color: var(--hub-muted);
@@ -782,7 +782,7 @@
   display: block;
 }
 .device-grid figcaption {
-  font-size: 10px;
+  font-size: 11px;
   margin-top: 12px;
   letter-spacing: 1px;
 }
@@ -951,7 +951,7 @@
     gap: 7px;
   }
   .category-filter button {
-    font-size: 11px;
+    font-size: 12px;
     padding: 10px;
     min-height: 50px;
     line-height: 1.6;
@@ -1003,7 +1003,7 @@
   }
   .price-grid article > span,
   .price-grid p {
-    font-size: 10px;
+    font-size: 12px;
   }
   .service-links {
     grid-template-columns: 1fr;
@@ -1023,7 +1023,7 @@
   }
   .delivery-foot {
     padding: 16px;
-    font-size: 11px;
+    font-size: 12px;
   }
   .studio-note {
     grid-template-columns: 1fr;
@@ -1092,7 +1092,7 @@
     font-size: 16px;
   }
   .honesty-note {
-    font-size: 11px;
+    font-size: 12px;
   }
   .mobile-only {
     display: block;

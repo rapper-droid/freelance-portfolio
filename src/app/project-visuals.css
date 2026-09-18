@@ -1,10 +1,4 @@
 /* Project-specific imagery: sales shell and existing demo controls stay intact. */
-.saas-product {
-  max-height: none;
-  overflow: visible;
-  border-radius: 16px;
-  padding-bottom: 32px;
-}
 .cafe-hero-art > img {
   display: block;
   width: 100%;
@@ -79,7 +73,7 @@
 .product-editorial figcaption,
 .visual-photo-pair figcaption {
   padding-top: 12px;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.7;
   letter-spacing: 0.7px;
 }
@@ -109,7 +103,7 @@
   display: flex;
   justify-content: space-between;
   gap: 12px;
-  font-size: 10px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 1px;
 }
@@ -125,7 +119,7 @@
   padding: 28px 0;
 }
 .workspace-heading small {
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 1.4px;
 }
 .workspace-visual .workspace-heading h3 {
@@ -147,7 +141,7 @@
   place-items: center;
   width: 38px;
   height: 38px;
-  font-size: 10px;
+  font-size: 11px;
   background: #dbe6c0;
   border: 3px solid #f6f8ef;
   border-radius: 50%;
@@ -165,7 +159,7 @@
   min-width: 0;
 }
 .workspace-board > div > span {
-  font-size: 9px;
+  font-size: 11px;
   color: #526442;
   letter-spacing: 1px;
 }
@@ -183,7 +177,7 @@
   background: #e6f5c4;
   padding: 4px 7px;
   border-radius: 4px;
-  font-size: 8px;
+  font-size: 11px;
   color: #355526;
 }
 .workspace-board article p {
@@ -209,7 +203,7 @@
   align-items: center;
   gap: 9px;
   margin-top: 24px;
-  font-size: 8px;
+  font-size: 12px;
   color: #526442;
 }
 .workspace-board footer b {
@@ -219,14 +213,14 @@
   height: 24px;
   border-radius: 50%;
   background: #edf1e9;
-  font-size: 9px;
+  font-size: 11px;
 }
 .workspace-bottom {
   display: flex;
   justify-content: space-between;
   gap: 10px;
   margin-top: 22px;
-  font-size: 9px;
+  font-size: 12px;
   color: #4d6356;
 }
 .visual-story .workspace-visual,
@@ -269,7 +263,7 @@
 }
 .workflow-visual li > span {
   display: block;
-  font-size: 10px;
+  font-size: 11px;
   color: #8fe5ea;
   margin-bottom: 12px;
 }
@@ -280,13 +274,13 @@
 }
 .workflow-visual small {
   display: block;
-  font-size: 11px;
+  font-size: 12px;
   color: #b6ccd2;
   margin-top: 8px;
 }
 .workflow-visual > p {
   margin: 18px 0 0;
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.8;
   color: #b6ccd2;
 }
@@ -347,7 +341,7 @@
   .workspace-visual figcaption,
   .workflow-visual figcaption {
     flex-wrap: wrap;
-    font-size: 8px;
+    font-size: 11px;
   }
   .workspace-heading {
     padding: 20px 0;

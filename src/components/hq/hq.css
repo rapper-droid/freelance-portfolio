@@ -61,7 +61,7 @@
   display: flex;
   align-items: center;
   min-height: 44px;
-  font-size: 12px;
+  font-size: clamp(12px, 0.25vw + 8.5px, 14px);
   font-weight: 550;
   letter-spacing: 0.055em;
   position: relative;
@@ -286,7 +286,7 @@ a:hover .hq-arrow {
 .hq-assembly-work > span {
   display: flex;
   justify-content: space-between;
-  font-size: 10px;
+  font-size: 11px;
   line-height: 1.4;
   font-weight: 650;
   letter-spacing: 0.06em;
@@ -299,7 +299,7 @@ a:hover .hq-arrow {
 }
 .hq-assembly-work small {
   display: block;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.07em;
   margin-top: 9px;
 }
@@ -318,7 +318,7 @@ a:hover .hq-arrow {
   display: flex;
   justify-content: space-between;
   padding: 13px;
-  font-size: 9px;
+  font-size: 11px;
   letter-spacing: 0.05em;
 }
 .hq-assembly-caption {
@@ -476,7 +476,7 @@ a:hover .hq-arrow {
   justify-content: space-between;
   align-items: center;
   gap: 18px;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.04em;
   padding: 20px 0;
   border-top: 1px solid #6e7968;
@@ -515,7 +515,7 @@ a:hover .hq-arrow {
 }
 .hq-works-window span {
   display: block;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.09em;
 }
 .hq-works-window strong {
@@ -575,7 +575,7 @@ a:hover .hq-arrow {
   font-size: 13px;
 }
 .hq-circle-note span {
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.11em;
 }
 .hq-lab-window {
@@ -595,7 +595,7 @@ a:hover .hq-arrow {
   display: flex;
   justify-content: space-between;
   gap: 14px;
-  font-size: 10px;
+  font-size: 11px;
   letter-spacing: 0.025em;
   position: relative;
   z-index: 2;
@@ -642,12 +642,12 @@ a:hover .hq-arrow {
   display: flex;
   justify-content: space-between;
   gap: 8px;
-  font-size: 11px;
+  font-size: 12px;
   border-top: 1px solid #688558;
   padding-top: 14px;
 }
 .hq-lab-window > p {
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.8;
   text-align: center;
   margin: 20px 0 0;
@@ -659,7 +659,7 @@ a:hover .hq-arrow {
   padding: 13px;
 }
 .hq-lab-window.is-compact .hq-lab-window-top {
-  font-size: 8px;
+  font-size: 11px;
 }
 .hq-lab-window.is-compact .hq-lab-window-top span:last-child {
   display: none;
@@ -672,7 +672,7 @@ a:hover .hq-arrow {
   font-size: clamp(12px, 1.4vw, 21px);
 }
 .hq-lab-window.is-compact .hq-lab-cycle {
-  font-size: 8px;
+  font-size: 12px;
   gap: 3px;
   padding-top: 10px;
 }
@@ -743,7 +743,7 @@ a:hover .hq-arrow {
   background: #f2ede2;
   color: #24332a;
   padding: 12px 14px;
-  font-size: 10px;
+  font-size: 11px;
   display: flex;
   align-items: center;
   gap: 22px;
@@ -765,7 +765,7 @@ a:hover .hq-arrow {
 }
 .hq-project-copy .hq-eyebrow {
   color: #556452;
-  font-size: 10px;
+  font-size: 11px;
 }
 .hq-project-copy h3 {
   font-size: clamp(29px, 3.1vw, 47px);
@@ -793,7 +793,7 @@ a:hover .hq-arrow {
 }
 .hq-project-copy dt {
   color: #566453;
-  font-size: 11px;
+  font-size: 12px;
   padding-top: 2px;
 }
 .hq-project-copy dd {
@@ -801,7 +801,7 @@ a:hover .hq-arrow {
 }
 .hq-project-copy .hq-project-note {
   color: #4f5c49;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 0.04em;
   margin-top: 18px;
 }
@@ -948,7 +948,7 @@ a:hover .hq-arrow {
   justify-content: space-between;
   gap: 20px;
   padding-top: 22px;
-  font-size: 11px;
+  font-size: 12px;
 }
 .hq-footer-bottom p > span {
   margin-left: 16px;
@@ -1303,10 +1303,10 @@ a:hover .hq-arrow {
     padding: 9px;
   }
   .hq-assembly-work small {
-    font-size: 8px;
+    font-size: 11px;
   }
   .hq-assembly-core > span {
-    font-size: 10px;
+    font-size: 11px;
   }
   .hq-section {
     padding-top: 85px;
@@ -1323,10 +1323,10 @@ a:hover .hq-arrow {
     min-height: 300px;
   }
   .hq-lab-window-top {
-    font-size: 8px;
+    font-size: 11px;
   }
   .hq-world-heading {
-    font-size: 9px;
+    font-size: 11px;
   }
   .hq-project {
     gap: 5%;
@@ -1480,7 +1480,7 @@ a:hover .hq-arrow {
     left: 40%;
   }
   .hq-assembly-core > span {
-    font-size: 10px;
+    font-size: 11px;
     margin: 0 0 10px;
   }
   .hq-assembly-orbit {
@@ -1508,11 +1508,11 @@ a:hover .hq-arrow {
   }
   .hq-hero-bottom > span {
     max-width: 170px;
-    font-size: 9px;
+    font-size: 11px;
     line-height: 1.8;
   }
   .hq-hero-bottom a {
-    font-size: 11px;
+    font-size: 12px;
     gap: 18px;
   }
   .hq-section {
@@ -1520,7 +1520,7 @@ a:hover .hq-arrow {
     padding-bottom: 64px;
   }
   .hq-section-index {
-    font-size: 10px;
+    font-size: 11px;
     margin-bottom: 28px;
   }
   .hq-section h2 {
@@ -1551,7 +1551,7 @@ a:hover .hq-arrow {
     margin-top: 0;
   }
   .hq-world-heading {
-    font-size: 9px;
+    font-size: 11px;
     padding: 17px 0;
   }
   .hq-world h3 {
@@ -1583,7 +1583,7 @@ a:hover .hq-arrow {
     aspect-ratio: 1.15;
   }
   .hq-lab-window-top {
-    font-size: 9px;
+    font-size: 11px;
   }
   .hq-lab-specimen {
     width: 49%;
@@ -1628,13 +1628,13 @@ a:hover .hq-arrow {
     grid-template-columns: 60px 1fr;
   }
   .hq-project-copy dt {
-    font-size: 11px;
+    font-size: 12px;
   }
   .hq-project-copy .hq-eyebrow {
-    font-size: 9px;
+    font-size: 11px;
   }
   .hq-project-view {
-    font-size: 9px;
+    font-size: 11px;
     bottom: 10px;
     right: 10px;
     gap: 16px;
@@ -1665,7 +1665,7 @@ a:hover .hq-arrow {
     margin-top: 25px;
   }
   .hq-log-foot p {
-    font-size: 11px;
+    font-size: 12px;
   }
   .hq-contact h2 {
     font-size: 35px;
@@ -1683,7 +1683,7 @@ a:hover .hq-arrow {
   }
   .hq-contact-address {
     gap: 16px;
-    font-size: 10px;
+    font-size: 11px;
   }
   .hq-contact-address a {
     font-size: 14px;
@@ -1694,7 +1694,7 @@ a:hover .hq-arrow {
   .hq-footer-intro {
     flex-direction: column;
     gap: 12px;
-    font-size: 9px;
+    font-size: 11px;
   }
   .hq-footer-intro p {
     font-size: 14px;
@@ -1708,7 +1708,7 @@ a:hover .hq-arrow {
   .hq-footer-bottom {
     flex-direction: column-reverse;
     gap: 20px;
-    font-size: 10px;
+    font-size: 12px;
   }
   .hq-footer-bottom nav {
     gap: 5px 20px;
