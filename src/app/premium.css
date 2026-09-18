@@ -1275,57 +1275,6 @@
   background: #f0f3ef;
   padding: 28px 40px 60px;
 }
-.workbench-page .demo-heading {
-  margin-top: 6px;
-}
-.demo-context {
-  margin: 0 0 14px;
-}
-.demo-context summary {
-  cursor: pointer;
-  min-height: 44px;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  font-weight: 600;
-}
-.demo-context summary::before {
-  content: "+";
-  font-size: 19px;
-  font-weight: 400;
-}
-.demo-context[open] summary::before {
-  content: "−";
-}
-.demo-context[open] {
-  padding-bottom: 10px;
-  border-bottom: 1px solid #ced8cc;
-}
-.workbench-page .demo-heading h1 {
-  font-family: var(--font-sales), sans-serif;
-  font-size: clamp(28px, 3vw, 44px);
-  letter-spacing: -0.055em;
-}
-.workbench-page .demo-lead {
-  font-size: 15px;
-  margin-top: 5px;
-}
-.workbench-page .demo-description {
-  max-width: 76em;
-  font-size: 12px;
-  line-height: 1.8;
-  margin-block: 14px 8px;
-}
-.workbench-page .feature-tags {
-  margin: 14px 0;
-}
-.workbench-page .feature-tags span {
-  border: 1px solid #cbd6c9;
-  background: #f8faf4;
-  border-radius: 4px;
-  font-size: 10px;
-}
 .workbench-page .privacy-note {
   padding: 10px 14px;
   font-size: 11px;
@@ -2105,18 +2054,6 @@
   }
   .workbench-page.demo-page {
     padding: 22px 14px 44px;
-  }
-  .workbench-page .demo-heading h1 {
-    font-size: 28px;
-  }
-  .workbench-page .demo-description {
-    font-size: 11px;
-  }
-  .workbench-page .feature-tags {
-    gap: 5px;
-  }
-  .workbench-page .feature-tags span {
-    font-size: 9px;
   }
   .workbench-page .tool-title {
     padding: 16px;

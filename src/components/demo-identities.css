@@ -39,64 +39,6 @@
   margin-top: 12px;
   line-height: 1.8;
 }
-.demo-mode-actions {
-  display: flex;
-  gap: 18px;
-  align-items: center;
-  flex-wrap: wrap;
-  margin: 14px 0;
-  font-size: 11px;
-}
-.demo-mode-actions a {
-  text-decoration: underline;
-  text-underline-offset: 4px;
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-}
-.showcase-page .demo-notice-bar {
-  flex-wrap: wrap;
-  gap: 12px;
-}
-.demo-notice-bar a {
-  min-height: 44px;
-  display: inline-flex;
-  align-items: center;
-}
-.experience-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px;
-  padding: 14px clamp(20px, 4vw, 60px);
-  border-bottom: 1px solid #cbd0c6;
-  background: #f6f6f0;
-}
-.experience-header h1 {
-  font:
-    600 13px/1.5 var(--font-sales),
-    sans-serif;
-  letter-spacing: 0.1em;
-}
-.experience-header .demo-data-disclosure {
-  margin: 0;
-}
-.standalone-experience.showcase-page > .showcase {
-  margin: 0 auto;
-  border: 0;
-  border-radius: 0;
-  max-width: 1440px;
-}
-.standalone-experience.workbench-page {
-  max-width: 1440px;
-  margin: auto;
-  min-height: 100vh;
-}
-.standalone-experience.workbench-page > .experience-header {
-  padding-inline: 0;
-  background: transparent;
-  margin-bottom: 20px;
-}
 .identity-inbox.workbench-page {
   --ink: #1d304c;
   --muted: #546783;
@@ -181,9 +123,6 @@
 }
 .identity-inbox .reply-section {
   border-color: #d6dfeb;
-}
-.identity-inbox .demo-heading h1 {
-  letter-spacing: -0.04em;
 }
 .identity-admin.workbench-page {
   --ink: #222f45;
@@ -303,11 +242,6 @@
   border-radius: 3px;
   border-color: #b4c0d3;
 }
-.identity-admin .demo-heading h1 {
-  font-size: clamp(26px, 3vw, 42px);
-  letter-spacing: -0.04em;
-  font-weight: 550;
-}
 .booking-demo.showcase {
   --ink: #483c33;
   --muted: #746354;
@@ -405,16 +339,6 @@
   border-radius: 20px;
 }
 @media (max-width: 700px) {
-  .experience-header {
-    padding: 10px 18px;
-    gap: 10px;
-  }
-  .experience-header h1 {
-    font-size: 11px;
-  }
-  .experience-header .demo-data-disclosure summary > span {
-    display: none;
-  }
   .identity-admin .revenue-overview {
     margin: 16px;
     padding: 22px;
@@ -439,12 +363,6 @@
   }
   .booking-demo .app-demo-heading h2 span {
     display: block;
-  }
-  .standalone-experience.workbench-page {
-    padding: 16px;
-  }
-  .demo-mode-actions {
-    gap: 14px;
   }
 }
 @media (prefers-reduced-motion: reduce) {

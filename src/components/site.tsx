@@ -1,8 +1,7 @@
 import "./portfolio-styles.css";
 import "./works-chrome.css";
 import Link from "next/link";
-import { ArrowUpRight, ArrowLeft } from "lucide-react";
-import { DemoDataNotice } from "./demo-data-notice";
+import { ArrowUpRight } from "lucide-react";
 import { ContactLink } from "./contact-link";
 import { BrandMark } from "./brand-mark";
 import { WorksNavigation } from "./works-nav";
@@ -85,88 +84,5 @@ export function Footer() {
         </small>
       </div>
     </footer>
-  );
-}
-
-export function DemoShell({
-  number,
-  title,
-  lead,
-  description,
-  features,
-  children,
-}: {
-  number: string;
-  title: string;
-  lead: string;
-  description: string;
-  features: string[];
-  children: React.ReactNode;
-}) {
-  return (
-    <>
-      <Header />
-      <main
-        id="main"
-        className={
-          "demo-page workbench-page identity-" +
-          ({ "01": "csv", "02": "inbox", "03": "admin" }[number] || "csv")
-        }
-      >
-        <Link href="/works#works" className="back">
-          <ArrowLeft size={15} /> 制作デモに戻る
-        </Link>
-        <div className="demo-heading">
-          <div>
-            <span className="eyebrow">LIVE DEMO / {number}</span>
-            <h1>{title}</h1>
-            <p className="demo-lead">{lead}</p>
-          </div>
-          <span className="pill">自主制作デモ</span>
-        </div>
-        <details className="demo-context">
-          <summary>このデモでできること・制作概要</summary>
-          <p className="demo-description">{description}</p>
-          <Link
-            className="text-link"
-            href={`/projects/${({ "01": "csv", "02": "inbox", "03": "admin" } as Record<string, string>)[number] ?? "qa"}`}
-          >
-            制作概要・参考料金・納品物を見る ↗
-          </Link>
-          <div className="feature-tags">
-            {features.map((feature) => (
-              <span key={feature}>{feature}</span>
-            ))}
-            <span>Next.js / TypeScript</span>
-          </div>
-        </details>
-        <div className="demo-mode-actions">
-          <Link
-            prefetch={false}
-            href={
-              "/experience/" +
-              ({ "01": "csv", "02": "inbox", "03": "admin" }[number] || "csv")
-            }
-          >
-            OPEN FULL DEMO ↗
-          </Link>
-          <ContactLink>このデモのような制作を相談する ↗</ContactLink>
-        </div>
-        <DemoDataNotice />
-        {children}
-        <div className="demo-bottom">
-          <div>
-            <h2>このようなツールを、あなたの業務に。</h2>
-            <p>
-              既存のExcel作業の置き換えや、小さな機能追加からご相談いただけます。
-            </p>
-          </div>
-          <ContactLink className="button primary">
-            相談内容をまとめる <ArrowUpRight size={16} />
-          </ContactLink>
-        </div>
-      </main>
-      <Footer />
-    </>
   );
 }

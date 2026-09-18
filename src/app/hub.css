@@ -1121,7 +1121,6 @@
   }
 }
 /* Existing tools retain their behavior, with readable notes and larger row actions. */
-.demo-page .demo-description,
 .demo-page .privacy-note {
   font-size: 13px;
 }

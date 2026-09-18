@@ -122,7 +122,7 @@ body {
   text-wrap: balance;
   overflow-wrap: break-word;
 }
-:where(:lang(ja)) :where(h1, h2, h3, h4, .editorial-heading) {
+:where(:lang(ja)) :where(h1, h2, h3, h4, .editorial-heading, [class*="lead"]) {
   word-break: auto-phrase;
 }
 :where(p, li, dd, figcaption, blockquote) {

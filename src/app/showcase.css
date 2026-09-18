@@ -1,28 +1,5 @@
-﻿.showcase-page {
+.showcase-page {
   background: #f6f7f2;
-}
-.demo-notice-bar {
-  max-width: 1440px;
-  margin: auto;
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  padding: 20px var(--hub-space);
-  border-bottom: 1px solid #dce2d8;
-  font-size: 10px;
-}
-.demo-notice-bar h1 {
-  font-size: 13px;
-  font-weight: 500;
-}
-.demo-notice-bar > span {
-  font-size: 9px;
-  letter-spacing: 1px;
-}
-.demo-notice-bar > a {
-  margin-left: auto;
-  text-decoration: underline;
-  text-underline-offset: 4px;
 }
 .showcase {
   max-width: 1280px;
@@ -57,16 +34,6 @@
 }
 .showcase h3 {
   font-size: 19px;
-}
-.showcase-limit {
-  max-width: 1100px;
-  margin: 35px auto;
-  padding: 24px;
-  text-align: center;
-  font-size: 12px;
-}
-.showcase-limit > .button {
-  margin: 20px 0;
 }
 .demo-content-section {
   padding: 65px 55px;
@@ -935,23 +902,6 @@
   }
 }
 @media (max-width: 700px) {
-  .demo-notice-bar {
-    padding: 15px 20px;
-    flex-wrap: wrap;
-    gap: 8px 15px;
-  }
-  .demo-notice-bar > span {
-    font-size: 8px;
-  }
-  .demo-notice-bar h1 {
-    font-size: 11px;
-  }
-  .demo-notice-bar > a {
-    margin-left: 0;
-    display: block;
-    width: 100%;
-    font-size: 11px;
-  }
   .showcase {
     margin: 16px 12px;
     border-radius: 8px;
@@ -1353,12 +1303,6 @@
   }
   .delivery-package h3 {
     font-size: 25px;
-  }
-  .showcase-limit {
-    font-size: 11px;
-  }
-  .showcase-limit > .button {
-    font-size: 11px;
   }
   .showcase dialog {
     max-width: calc(100vw - 32px);

@@ -921,18 +921,14 @@
    20px target, and this is the same link on a phone. */
 .sales-ui .text-link,
 .sales-ui .back,
-/* Demo chrome: the in-demo nav and the notice bar sit outside .sales-ui
-   and were still rendering at their 20px line height. */
 .demo-local-nav a,
-.demo-notice-bar a,
 .demo-page .text-link,
 .demo-page .back {
   min-height: 28px;
   align-items: center;
 }
 /* The two above are inline links; min-height needs a box to apply to. */
-.demo-local-nav a,
-.demo-notice-bar a {
+.demo-local-nav a {
   display: inline-flex;
 }
 /* The skip link is the first thing a keyboard user reaches on every page,

@@ -1,6 +1,9 @@
 import "@/components/portfolio-styles.css";
+import Link from "next/link";
 import { notFound } from "next/navigation";
+import { ArrowLeft } from "lucide-react";
 import "@/components/demo-identities.css";
+import "@/components/demo-frame.css";
 import { getProject, projects } from "@/lib/portfolio";
 import { pageMetadata } from "@/lib/seo";
 import { DemoDataNotice } from "@/components/demo-data-notice";
@@ -64,6 +67,14 @@ export default async function Experience({
       }
     >
       <div className="experience-header">
+        <Link
+          className="experience-exit"
+          href={"/projects/" + slug}
+          aria-label={"TETSU WORKS — " + p.title + "の制作概要に戻る"}
+        >
+          <ArrowLeft size={15} aria-hidden="true" />
+          TETSU WORKS<span>&nbsp;/ 制作概要</span>
+        </Link>
         <h1>{p.title}</h1>
         <DemoDataNotice text={p.limitation} />
       </div>

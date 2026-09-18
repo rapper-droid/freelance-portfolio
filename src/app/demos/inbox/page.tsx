@@ -1,6 +1,6 @@
 import "@/components/portfolio-styles.css";
 import { pageMetadata } from "@/lib/seo";
-import { DemoShell } from "@/components/site";
+import { DemoShell } from "@/components/demo-frame";
 import "@/components/demo-identities.css";
 import { InboxDemo } from "@/components/inbox-demo";
 export const metadata = pageMetadata(

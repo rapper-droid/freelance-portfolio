@@ -89,51 +89,106 @@ summary:focus-visible,
 .skip-link:focus {
   clip-path: none;
 }
-.empty-page {
-  min-height: 70vh;
-  padding: 140px max(24px, 8vw);
-  line-height: 1.8;
-}
-.empty-page h1 {
-  margin: 20px 0;
-}
-.empty-page .button {
-  display: inline-flex;
-  padding: 14px 24px;
-  margin-top: 24px;
-  color: #101411;
-  background: #f1b761;
-}
+/* 404 and runtime errors: the root layout's only page chrome. Kept here,
+   in the tiny global core, so no HQ or sales stylesheet loads on every route. */
 .error-site {
+  display: grid;
+  grid-template-rows: auto 1fr auto;
   min-height: 100vh;
-  color: #eeeae2;
-  background: #101411;
+  color: var(--tsudowa-ink);
+  background: var(--tsudowa-bg);
+  font-family: var(--font-body);
+}
+.error-header {
+  padding: 16px var(--gutter);
+  border-bottom: 1px solid var(--tsudowa-line);
 }
 .error-home {
   display: inline-flex;
-  min-height: 44px;
   align-items: center;
   gap: 12px;
-  margin: 20px max(24px, 8vw);
-  font-family: var(--font-sales), Arial, sans-serif;
-  font-size: 18px;
-  font-weight: 600;
+  min-height: 44px;
+  font:
+    650 17px/1 var(--font-display);
+  letter-spacing: 0.03em;
+}
+.error-home .brand-mark {
+  width: 32px;
+  height: 32px;
+}
+.error-main {
+  align-self: center;
+  width: 100%;
+  max-width: 880px;
+  padding: clamp(64px, 12vh, 140px) var(--gutter);
 }
 .error-kicker {
-  color: #c0c9b6;
-  font-size: 12px;
-  letter-spacing: 0.08em;
+  font:
+    600 var(--text-label) / 1.4 var(--font-display);
+  letter-spacing: var(--tracking-label);
+  color: var(--color-amber);
 }
-.error-site .empty-page h1 {
-  font-size: clamp(26px, 3vw, 44px);
-  font-weight: 600;
-  line-height: 1.6;
+.error-main h1 {
+  margin: 24px 0 20px;
+  font-size: clamp(28px, 3.6vw, 48px);
+  font-weight: 650;
+  line-height: 1.4;
 }
-.error-site footer {
-  padding: 24px max(24px, 8vw);
-  border-top: 1px solid #3b4835;
-  color: #c0c9b6;
-  font-size: 12px;
+.error-lead {
+  max-width: 36em;
+  font-size: 15px;
+  line-height: 1.9;
+  color: var(--tsudowa-muted);
+}
+.error-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 48px;
+  margin-top: 36px;
+  padding: 0 24px;
+  border: 0;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--tsudowa-bg);
+  background: var(--color-amber);
+  cursor: pointer;
+  transition: filter 200ms ease;
+}
+.error-button:hover {
+  filter: brightness(1.07);
+}
+.error-paths {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  margin-top: 64px;
+  border-top: 1px solid var(--tsudowa-line);
+}
+.error-paths a {
+  display: grid;
+  gap: 6px;
+  min-height: 44px;
+  padding: 18px 20px 18px 0;
+  border-bottom: 1px solid var(--tsudowa-line);
+  font-size: 14px;
+  color: var(--tsudowa-ink);
+  transition: color 200ms ease;
+}
+.error-paths a span {
+  font:
+    600 var(--text-label) / 1.4 var(--font-display);
+  letter-spacing: var(--tracking-label);
+  color: var(--tsudowa-muted);
+}
+.error-paths a:hover {
+  color: var(--color-amber);
+}
+.error-footer {
+  padding: 24px var(--gutter);
+  border-top: 1px solid var(--tsudowa-line);
+  font-size: var(--text-caption);
+  letter-spacing: 0.06em;
+  color: var(--tsudowa-muted);
 }
 @media (prefers-reduced-motion: reduce) {
   html {
