@@ -66,8 +66,19 @@ record set `125fa6a9…`, of the nine mail records `6646dfb1…`):
 - Turnstile keeps its site key, action, hostname list, secret and server-side
   verification. Only the widget size is chosen by the layout (compact below
   300px of form width, flexible above).
-- No new real inquiry was sent in this release; mail sending code was not
-  changed. The only real inquiry recorded in this repository
+- Real inquiry through production, on OWNER request, 2026-09-19 18:50 UTC:
+  one submission from `/contact/general` in Chrome at 390px (compact
+  Turnstile solved, no overflow). `POST /api/contact` 200 `accepted`,
+  confirmation `sent`, receipt `TSW-260919-B9B38B38AF` shown in the success
+  panel. Both mails were delivered (Resend) and reached the owner's Gmail inbox
+  within about five seconds:
+  - owner notice — From `TSUDOWA <no-reply@tsudowa.com>`, To
+    `contact@tsudowa.com` via Cloudflare Email Routing, Reply-To the
+    submitter, source page `/contact/general`;
+  - receipt — Reply-To `contact@tsudowa.com`, plain text and HTML.
+
+  Same receipt number and received time in both; DKIM (`tsudowa.com`) and SPF
+  pass. Only one POST left the browser. The earlier real inquiry
   (`TSW-260917-350B4FF8D9`) went through the preview Worker; see the
   [live contact checkpoint](cloudflare-live-contact-checkpoint.md).
 
@@ -106,9 +117,9 @@ the workers.dev preview scored 99 / 95 / 97 / 95.
   Netlify build), but the wording names technical services and was not
   reviewed by the owner or counsel. No new legal promise, guarantee or
   disclaimer was added in this release.
-- A real end-to-end inquiry through the production Worker is not recorded
-  here and was not sent in this release; send one when convenient (the form
-  code path is unchanged).
+- The production test inquiry `TSW-260919-B9B38B38AF` is in the owner's inbox
+  (two mails, subject "[TSUDOWA][OTHER][未定] TSUDOWA 本番テスト様からのご相談"
+  and its receipt); it needs no reply.
 
 Evidence (screenshots, audit JSON, logs) is outside the repository under
 `outputs/visual-polish-release-20260920/`.
