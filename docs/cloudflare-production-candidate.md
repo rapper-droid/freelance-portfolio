@@ -1,5 +1,9 @@
 # Production candidate state — HEAD `580ebc6`, pre-cutover QA, 2026-09-18 JST
 
+> History. tsudowa.com has since moved to the Workers (apex and www Custom
+> Domains, 2026-09-18 JST) and the Visual Polish build is live; the current
+> state is in [production status](production-status.md).
+
 Current status document for the Cloudflare Workers migration. It supersedes the
 gate verdicts in [final blockers](cloudflare-final-blockers.md) and the
 [live contact checkpoint](cloudflare-live-contact-checkpoint.md); both remain as

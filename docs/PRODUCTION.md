@@ -1,8 +1,10 @@
 # TSUDOWA 本番準備・接続手順
 
-更新日: 2026-09-17
+更新日: 2026-09-20
 
 ## 現在地
+
+2026-09-20 時点の本番は Cloudflare Workers（`tsudowa-production`、version `e41e0535`、Visual Polish 反映済み）です。現在の状態・rollback 手順・確認結果の正本は [production status](production-status.md) です。以下の手順と状態表示は、Workers 移行前（2026-09-17）の記録として残しています。
 
 ```text
 BRAND                 TSUDOWA / ツドワ
@@ -10,8 +12,8 @@ OFFICIAL_ORIGIN        https://tsudowa.com
 CLIENT_SERVICES        TETSU WORKS
 CONTACT_INBOX          contact@tsudowa.com
 CONTACT_SENDER         no-reply@tsudowa.com
-MIGRATION_STATE        READY_FOR_OWNER_REVIEW
-PRODUCTION_STATE       NOT_DEPLOYED_BY_THIS_UNIT
+MIGRATION_STATE        READY_FOR_OWNER_REVIEW   (2026-09-17 時点)
+PRODUCTION_STATE       NOT_DEPLOYED_BY_THIS_UNIT (2026-09-17 時点)
 ```
 
 この文書は、TSUDOWA移行ブランチを本番へ接続する際の正本です。このUnitでは、main統合、本番deploy、DNS、Cloudflare、Resend、Turnstile、Redis、Netlify、メールルーティング、秘密情報を変更しません。公開URLや外部サービスが既に存在していても、このブランチが反映済みとはみなしません。

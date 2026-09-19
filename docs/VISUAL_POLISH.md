@@ -1,8 +1,10 @@
 # Visual / Experience Master Polish — TSUDOWA + TETSU WORKS
 
 Branch `claude/visual-polish-20260918`, based on `895f97b` (the deployed Workers
-candidate). Not deployed: production keeps serving the current Worker version
-until a separate OWNER approval. tetsuworks.com (the older standalone site built
+candidate). **Released to production on 2026-09-20 JST** as Worker version
+`e41e0535` from `8b0f7ee`, after the release fixes at the end of this document;
+current state and rollback are in [production status](production-status.md).
+The sections before "Release" are the original pass-6 record. tetsuworks.com (the older standalone site built
 from `codex/portfolio-sales-hub-v2`) is outside this repository and was not
 touched. The TSUKUTTA LAB product was not touched; only its TSUDOWA gateway
 page `/lab`.
@@ -221,3 +223,29 @@ Verification of the final tree:
   internals changed only in small type and spacing.
 - The privacy sentence was corrected for accuracy; the owner (or legal) should
   confirm the wording before release.
+
+## Release — real Cloudflare QA and production, 2026-09-19/20
+
+The pass-6 QA ran locally with the contact form disabled. On the preview Worker
+the real Turnstile widget and a second detector (text covered by another
+element, sampled on every rendered line) found five defects, each fixed on this
+branch, re-deployed to the preview and re-checked on all 53 routes at all eight
+widths before release:
+
+| Commit    | Defect                                                                                                                                                                                                                                                                                                                    | Fix                                                                                                                                                                                      |
+| --------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `5c1f4a8` | Turnstile's flexible size has a 300px minimum; on 320–390px the form is narrower, so the widget widened the card and the grid, pushing the whole intake section past the viewport (+35px `/contact`, +48px `/contact/general` at 320). Also on the previous production build and on every page with the form (26 routes). | Compact size (150×140) below 300px of form width, flexible above, re-rendered on rotation; inline-size containment around the host; `minmax(0, 1fr)` track. Security settings unchanged. |
+| `f0766dd` | Both mobile menus closed themselves when React hydrated, so a menu opened while the page was loading snapped shut.                                                                                                                                                                                                        | Close only on an actual path change after the first render.                                                                                                                              |
+| `001cb82` | The runtime error screen's kicker contained Japanese at 11px (floor 12px).                                                                                                                                                                                                                                                | Kicker at `--text-caption`.                                                                                                                                                              |
+| `8b0f7ee` | `/works` catalogue intro used `gap: 6%`; a percentage row gap resolves against the final height, so at 320–768px the exhibit hung ~60px into the ribbon and at 768px its box covered the "TETSU WORKSに相談する" CTA (not clickable, also on the previous production).                                                    | Fixed 56px row gap in the one-column layout.                                                                                                                                             |
+| `8b0f7ee` | Collage images over text: the dashboard card over the "01 / PRODUCT WEBSITE / FLOWSTATE" caption (`/works`, 320–430 and 1024–1920px); the dashboard screenshot over "THAT WORKS." and the tagline in the home TETSU WORKS window (320–390px).                                                                             | Caption wraps with a gap and keeps room for the card; the home window places the screenshot after the copy up to 760px.                                                                  |
+
+Each fix has an E2E test that fails on the previous build. Results on the
+released build (preview `90cd99dc` and production `e41e0535`): 424/424 loads
+clean on both, axe 0, covered text 0, real Turnstile 104/104 without overflow
+and solved at 320/360/390/430, interaction checks 55/55, crawler-visible
+metadata identical to the previous production. Details, gates, performance and
+rollback: [production status](production-status.md).
+
+The privacy wording noted under "Known limits" is still awaiting OWNER / legal
+confirmation; it was not changed.
