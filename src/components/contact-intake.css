@@ -130,6 +130,20 @@
 .sales-intake .direct-contact form {
   display: block;
 }
+/* Turnstile host. Inline-size containment keeps the widget's own minimum width
+   from widening the form and the grid around it; contact-send.tsx renders the
+   compact size when less than 300px is available, so nothing is cut off. The
+   reserved height matches the size that will render, so the button below does
+   not jump when the widget appears. */
+.intake-turnstile {
+  container-type: inline-size;
+  min-height: 73px;
+}
+@container (width < 300px) {
+  .intake-turnstile > div {
+    min-height: 148px;
+  }
+}
 .intake-form-head {
   display: flex;
   justify-content: space-between;
@@ -461,7 +475,7 @@
 }
 @media (max-width: 1000px) {
   .sales-ui .sales-intake {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 30px;
   }
   .intake-intro {

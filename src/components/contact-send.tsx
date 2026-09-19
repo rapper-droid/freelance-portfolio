@@ -202,22 +202,46 @@ export function ContactSend({
     }
   }, [fields, source, loaded, state, draftKey]);
   useEffect(() => {
-    if (!scriptReady || !siteKey || !widgetEl.current || !window.turnstile)
-      return;
-    widget.current = window.turnstile.render(widgetEl.current, {
-      sitekey: siteKey,
-      action: "contact",
-      size: "flexible",
-      callback: (v: string) => setToken(v),
-      "expired-callback": () => setToken(""),
-      "error-callback": () => {
-        setToken("");
-        setMessage(
-          "スパム確認を読み込めません。通信環境を確認して再読み込みしてください。下書きはこのタブに残ります。",
-        );
-      },
+    const el = widgetEl.current;
+    if (!scriptReady || !siteKey || !el || !window.turnstile) return;
+    // Turnstile's flexible size never renders below 300px, which is wider than
+    // the form on small phones; there the compact size (150px) is used instead.
+    const sizeFor = () => (el.clientWidth >= 300 ? "flexible" : "compact");
+    let size = "";
+    const render = () => {
+      if (widget.current) window.turnstile?.remove(widget.current);
+      size = sizeFor();
+      setToken("");
+      widget.current =
+        window.turnstile?.render(el, {
+          sitekey: siteKey,
+          action: "contact",
+          size,
+          callback: (v: string) => setToken(v),
+          "expired-callback": () => setToken(""),
+          "error-callback": () => {
+            setToken("");
+            setMessage(
+              "スパム確認を読み込めません。通信環境を確認して再読み込みしてください。下書きはこのタブに残ります。",
+            );
+          },
+        }) ?? null;
+    };
+    render();
+    // A widget cannot change size once rendered: re-render it when the form
+    // crosses the 300px line (rotation, window resize), never while sending
+    // or after the form has been replaced by the success panel.
+    let frame = 0;
+    const resize = new ResizeObserver(() => {
+      cancelAnimationFrame(frame);
+      frame = requestAnimationFrame(() => {
+        if (el.isConnected && !pending.current && sizeFor() !== size) render();
+      });
     });
+    resize.observe(el);
     return () => {
+      resize.disconnect();
+      cancelAnimationFrame(frame);
       if (widget.current) window.turnstile?.remove(widget.current);
       widget.current = null;
     };
@@ -669,7 +693,9 @@ export function ContactSend({
                   )
                 }
               />
-              <div ref={widgetEl} />
+              <div className="intake-turnstile">
+                <div ref={widgetEl} />
+              </div>
             </>
           )}
           {config !== "enabled" && (

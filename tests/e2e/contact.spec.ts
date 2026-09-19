@@ -282,3 +282,46 @@ test("unconfigured general intake cannot report success or submit externally", a
   expect(posts).toEqual([]);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });
+
+test("Turnstile never widens the page: compact below 300px, flexible above", async ({
+  page,
+}) => {
+  await page.route("**/api/contact", (route) =>
+    route.fulfill({ json: { enabled: true, siteKey: "test-public-widget" } }),
+  );
+  // Mirrors Cloudflare's documented sizes: flexible is 100% wide with a 300px
+  // minimum, compact is 150 x 140. Nothing here is sent to Cloudflare.
+  await page.route("https://challenges.cloudflare.com/**", (route) =>
+    route.fulfill({
+      contentType: "application/javascript",
+      body: "window.turnstile={render:(el,o)=>{const d=document.createElement('div');d.className='mock-turnstile';d.dataset.size=o.size;d.style.cssText=o.size==='compact'?'width:150px;height:140px':'width:100%;min-width:300px;height:65px';el.appendChild(d);return d;},reset:()=>{},remove:(d)=>d.remove()};",
+    }),
+  );
+  const overflow = () =>
+    page.evaluate(() => document.documentElement.scrollWidth - innerWidth);
+  for (const [path, width, size] of [
+    ["/contact", 320, "compact"],
+    ["/contact/general", 320, "compact"],
+    ["/contact/general", 360, "compact"],
+    ["/works", 320, "compact"],
+    ["/contact", 430, "flexible"],
+    ["/contact", 1440, "flexible"],
+  ] as const) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto(path);
+    await expect(page.locator(".mock-turnstile")).toHaveAttribute(
+      "data-size",
+      size,
+    );
+    await expect(page.locator(".mock-turnstile")).toHaveCount(1);
+    expect(await overflow()).toBe(0);
+  }
+  // Rotating to a narrow screen re-renders the widget at the compact size.
+  await page.setViewportSize({ width: 320, height: 900 });
+  await expect(page.locator(".mock-turnstile")).toHaveAttribute(
+    "data-size",
+    "compact",
+  );
+  await expect(page.locator(".mock-turnstile")).toHaveCount(1);
+  expect(await overflow()).toBe(0);
+});
