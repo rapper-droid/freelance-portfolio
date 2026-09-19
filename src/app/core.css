@@ -121,8 +121,9 @@ summary:focus-visible,
   max-width: 880px;
   padding: clamp(64px, 12vh, 140px) var(--gutter);
 }
+/* Caption size, not label: the error screen's kicker contains Japanese. */
 .error-kicker {
-  font: 600 var(--text-label) / 1.4 var(--font-display);
+  font: 600 var(--text-caption) / 1.4 var(--font-display);
   letter-spacing: var(--tracking-label);
   color: var(--color-amber);
 }
