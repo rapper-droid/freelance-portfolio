@@ -88,7 +88,8 @@ Workers typecheck, Prettier (whole repository, line endings aside), E2E on the
 Next build 150/150, production Workers build, E2E on the exact deployed
 Workers artifact in local workerd 150/150. Credential patterns, `eval` and new
 `innerHTML` in the diff since `895f97b`: 0; dependency changes: 0. `npm audit`
-could not run (registry answered 503, maintenance).
+(production and all dependencies): 0 vulnerabilities, run after the deploy
+because the registry answered 503 (maintenance) during the gates.
 
 Lighthouse (mobile, median of three), production before → after on the same
 host: `/` 95 → 95, `/works` 92 → 92, `/contact` 94 → 94, `/demos/cafe` 92 → 91;
