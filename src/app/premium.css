@@ -348,8 +348,10 @@
 }
 .works-exhibit-main > div {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
+  gap: 4px 12px;
   background: #eae3d4;
   color: #36382e;
   padding: 14px 20px;
@@ -1725,6 +1727,12 @@
   .sales-ui .catalogue-intro,
   .sales-ui .category-intro {
     grid-template-columns: 1fr;
+  }
+  /* A percentage row gap resolves against the final height, so the section
+     did not grow by it: the exhibit hung ~60px into the ribbon below and
+     covered its CTA at tablet width. A fixed gap keeps the same spacing. */
+  .sales-ui .catalogue-intro {
+    row-gap: 56px;
   }
   .sales-ui .brand-hero {
     display: grid;

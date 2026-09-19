@@ -241,6 +241,9 @@
 .master-works .works-exhibit-main > div {
   margin: 0 -16px;
   background: #eff0f0;
+  /* The dashboard card below overlaps this band by up to ~32px (negative
+     margin plus its tilt); the extra bottom space keeps the caption clear. */
+  padding-bottom: 40px;
 }
 .master-works .works-exhibit-tool {
   background: #202d49;

@@ -1559,16 +1559,25 @@ a:hover .hq-arrow {
     font-size: 36px;
     margin: 8px 0 24px;
   }
+  /* Narrow window: the dashboard follows the copy instead of being pinned to
+     the corner, where it covered "THAT WORKS." and the tagline. It still
+     tilts and bleeds past the right and bottom edges. */
   .hq-works-window {
-    aspect-ratio: 1.2;
-    min-height: 290px;
+    display: grid;
+    aspect-ratio: auto;
+    min-height: 0;
   }
   .hq-works-window strong {
     font-size: 36px;
   }
   .hq-works-window img {
+    position: relative;
+    justify-self: end;
     width: 78%;
-    bottom: -9%;
+    height: auto;
+    right: auto;
+    bottom: auto;
+    margin: 0 -8% -14% 0;
   }
   .hq-world-copy {
     padding-top: 25px;

@@ -225,3 +225,34 @@ test("HQ preview keeps its natural aspect ratio after route-scoped resets", asyn
     1,
   );
 });
+
+test("collage images never cover their copy or the next section's CTA", async ({
+  page,
+}) => {
+  // True when another element is painted over the middle of the target.
+  const covered = (selector: string) =>
+    page
+      .locator(selector)
+      .first()
+      .evaluate((el) => {
+        el.scrollIntoView({ block: "center" });
+        const r = el.getBoundingClientRect();
+        return [0.1, 0.5, 0.9].some((fx) => {
+          const hit = document.elementFromPoint(
+            r.left + r.width * fx,
+            r.top + r.height / 2,
+          );
+          return !!hit && hit !== el && !el.contains(hit);
+        });
+      });
+  for (const width of [320, 390, 768, 1024, 1440]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+    expect(await covered(".hq-works-window strong")).toBe(false);
+    expect(await covered(".hq-works-window small")).toBe(false);
+    await page.goto("/works");
+    expect(await covered(".works-exhibit-main > div span")).toBe(false);
+    expect(await covered(".works-exhibit-main > div b")).toBe(false);
+    expect(await covered(".delivery-ribbon a")).toBe(false);
+  }
+});
