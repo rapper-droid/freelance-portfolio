@@ -37,8 +37,15 @@ export function HqMotion() {
 export function HqNavigation() {
   const menu = useRef<HTMLDetailsElement>(null);
   const path = usePathname();
+  const shownPath = useRef(path);
   useEffect(() => {
+    // Close after a client navigation only: a menu opened while the page was
+    // still hydrating must stay open.
+    if (shownPath.current === path) return;
+    shownPath.current = path;
     if (menu.current) menu.current.open = false;
+  }, [path]);
+  useEffect(() => {
     function escape(event: KeyboardEvent) {
       if (event.key === "Escape" && menu.current?.open) {
         menu.current.open = false;
@@ -47,7 +54,7 @@ export function HqNavigation() {
     }
     document.addEventListener("keydown", escape);
     return () => document.removeEventListener("keydown", escape);
-  }, [path]);
+  }, []);
   const links = (
     <>
       <Link prefetch={false} href="/works">

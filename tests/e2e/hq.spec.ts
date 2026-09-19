@@ -67,6 +67,39 @@ test("mobile native menu supports keyboard, close-on-navigation and generous tou
   ).toBe(true);
 });
 
+test("a mobile menu opened before the page hydrates stays open", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  for (const [path, selector] of [
+    ["/", ".hq-mobile-menu"],
+    ["/works", ".works-menu"],
+  ] as const) {
+    // Hold every script so the native <details> is opened before React runs.
+    let release = () => {};
+    const held = new Promise<void>((resolve) => (release = resolve));
+    await page.route("**/*.js", async (route) => {
+      await held;
+      await route.continue();
+    });
+    await page.goto(path, { waitUntil: "commit" });
+    const menu = page.locator(selector);
+    await menu.locator("summary").click();
+    await expect(menu).toHaveAttribute("open", "");
+    release();
+    await page.waitForFunction(
+      (s) =>
+        Object.keys(document.querySelector(s) ?? {}).some((k) =>
+          k.startsWith("__reactFiber"),
+        ),
+      selector,
+    );
+    await page.waitForTimeout(300);
+    await expect(menu).toHaveAttribute("open", "");
+    await page.unrouteAll();
+  }
+});
+
 test("LAB is an honest independent gateway and build records have real, stable detail destinations", async ({
   page,
 }) => {
