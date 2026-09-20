@@ -1,0 +1,631 @@
+/* =====================================================================
+   Fixed-scope offers, the partner desk and the brief builder.
+   Sits on the TETSU WORKS shell (.sales-ui): dark studio panels for reading,
+   the same warm paper band as the contact intake for anything you fill in.
+   Values come from tokens.css / the .sales-ui variables only.
+   ===================================================================== */
+
+.offer-page h1 {
+  font-size: clamp(32px, 3.4vw, 52px);
+  line-height: 1.38;
+  letter-spacing: -0.035em;
+  margin: 18px 0 20px;
+  text-wrap: balance;
+}
+.offer-page .works-byline {
+  display: block;
+  font-size: var(--text-label);
+  line-height: 1.9;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
+  color: var(--works-muted);
+}
+.offer-page .eyebrow {
+  display: block;
+}
+.offer-page .back {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  font-size: var(--text-small);
+  margin-bottom: var(--space-2);
+}
+.offer-page .text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  font-size: var(--text-small);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.offer-page .hub-section h2 {
+  text-wrap: balance;
+}
+.offer-page .hub-section + .hub-section {
+  border-top: 1px solid var(--hub-border);
+}
+.offer-page .hub-section.offer-brief {
+  border-top: 0;
+}
+
+/* ---- hero ---------------------------------------------------------- */
+.offer-hero {
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
+  gap: clamp(28px, 5vw, 72px);
+  align-items: center;
+}
+.offer-problem {
+  color: var(--hub-muted);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+  max-width: 34em;
+}
+.offer-lead {
+  margin-top: var(--space-4);
+  font-size: var(--text-lead);
+  line-height: var(--leading-body);
+  max-width: 34em;
+}
+.offer-facts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin: var(--space-6) 0 var(--space-5);
+}
+.offer-facts > div {
+  border-top: 1px solid var(--hub-border);
+  padding-top: var(--space-3);
+}
+.offer-facts dt {
+  font-size: var(--text-caption);
+  color: var(--hub-muted);
+  letter-spacing: 0.06em;
+}
+.offer-facts dd {
+  margin-top: var(--space-1);
+  font-size: var(--text-h3);
+  font-weight: 700;
+  line-height: 1.5;
+}
+.offer-facts dd + dd,
+.offer-facts div:last-child dd {
+  font-size: var(--text-body);
+  font-weight: 600;
+}
+.offer-facts small {
+  font-size: var(--text-caption);
+  font-weight: 500;
+  color: var(--hub-muted);
+}
+.offer-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-5);
+}
+.offer-proof {
+  margin: 0;
+  border: 1px solid var(--hub-border);
+  border-radius: var(--radius-md);
+  background: var(--sales-panel);
+  overflow: hidden;
+}
+.offer-proof a {
+  display: block;
+}
+.offer-proof img {
+  display: block;
+  width: 100%;
+  height: auto;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.offer-proof a:hover img {
+  transform: scale(1.015);
+}
+.offer-proof figcaption {
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-4) var(--space-5);
+  font-size: var(--text-small);
+  line-height: 1.8;
+  color: var(--hub-muted);
+}
+.offer-proof figcaption b {
+  color: var(--hub-ink);
+  font-size: var(--text-caption);
+  letter-spacing: 0.08em;
+}
+
+/* ---- scope columns -------------------------------------------------- */
+.offer-columns {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+  margin-top: var(--space-6);
+}
+.offer-columns article {
+  background: var(--sales-panel);
+  border: 1px solid var(--hub-border);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+}
+.offer-columns h3 {
+  font-size: var(--text-h3);
+  line-height: 1.5;
+  margin-bottom: var(--space-3);
+}
+.offer-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+.offer-list li {
+  position: relative;
+  padding-left: 22px;
+  font-size: var(--text-body);
+  line-height: 1.75;
+}
+.offer-list li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0.8em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--hub-accent);
+}
+.offer-list-yes li,
+.offer-list-no li {
+  padding-left: 26px;
+}
+.offer-list-yes li::before,
+.offer-list-no li::before {
+  content: none;
+}
+.offer-list li > svg {
+  position: absolute;
+  left: 0;
+  top: 0.35em;
+}
+.offer-list-yes svg {
+  color: var(--hub-accent);
+}
+.offer-list-no li {
+  color: var(--hub-muted);
+}
+.offer-list a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  color: var(--hub-ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ---- evidence -------------------------------------------------------- */
+.offer-evidence-list {
+  list-style: none;
+  padding: 0;
+  margin: var(--space-5) 0 0;
+  display: grid;
+  gap: var(--space-3);
+}
+.offer-evidence-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 11em) minmax(0, 1fr);
+  gap: var(--space-4);
+  align-items: baseline;
+  padding: var(--space-4) 0;
+  border-top: 1px solid var(--hub-border);
+}
+.offer-evidence-list span {
+  font-size: var(--text-caption);
+  letter-spacing: 0.06em;
+  color: var(--hub-accent);
+  font-weight: 700;
+}
+.offer-evidence-list a,
+.offer-evidence-list p {
+  font-size: var(--text-body);
+  line-height: 1.75;
+}
+.offer-evidence-list a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  color: var(--hub-ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ---- faq (reuses .faq-list, which expects number / text / icon) -------- */
+.offer-faq .faq-list {
+  margin-top: var(--space-5);
+}
+
+/* ---- index ------------------------------------------------------------- */
+.offer-index-intro .section-lead {
+  max-width: 40em;
+}
+.offer-index-intro .offer-actions {
+  margin-top: var(--space-6);
+}
+.offer-index {
+  padding-top: 0;
+}
+.offer-page .hub-section.offer-index {
+  border-top: 0;
+}
+.offer-index-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-5);
+}
+.offer-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  background: var(--sales-panel);
+  border: 1px solid var(--hub-border);
+  border-radius: var(--radius-lg);
+  padding: clamp(20px, 3vw, 36px);
+}
+.offer-card-id {
+  font-size: var(--text-label);
+  letter-spacing: var(--tracking-label);
+  color: var(--hub-accent);
+  font-weight: 700;
+}
+.offer-page .offer-card h2 {
+  font-size: clamp(22px, 1.9vw, 30px);
+  line-height: 1.45;
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+.offer-card h2 a {
+  color: var(--hub-ink);
+}
+.offer-card h2 a:hover {
+  text-decoration: underline;
+  text-underline-offset: 5px;
+}
+.offer-card > p {
+  color: var(--hub-muted);
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+.offer-card dl {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+}
+.offer-card dl > div {
+  display: grid;
+  grid-template-columns: minmax(0, 8em) minmax(0, 1fr);
+  gap: var(--space-3);
+  border-top: 1px solid var(--hub-border);
+  padding-top: var(--space-3);
+}
+.offer-card dt {
+  font-size: var(--text-caption);
+  color: var(--hub-muted);
+}
+.offer-card dd {
+  font-size: var(--text-small);
+  line-height: 1.7;
+}
+.offer-card dd a {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap-min);
+  color: var(--hub-ink);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+.offer-card .button {
+  margin-top: auto;
+  align-self: flex-start;
+}
+.offer-index-more {
+  margin-top: var(--space-7);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--hub-border);
+  display: grid;
+  gap: var(--space-3);
+}
+.offer-index-more p {
+  color: var(--hub-muted);
+  font-size: var(--text-body);
+}
+.offer-index-more > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-6);
+}
+
+/* ---- brief builder (paper band, like the contact intake) ------------------ */
+.sales-ui .offer-brief {
+  max-width: none;
+  background: #eae5dc;
+  color: #252823;
+  display: grid;
+  grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr);
+  gap: clamp(28px, 6vw, 90px);
+  align-items: start;
+  padding: clamp(45px, 7vw, 100px) clamp(20px, 5vw, 70px);
+}
+.sales-ui .offer-brief .eyebrow {
+  color: #6b4a14;
+}
+.sales-ui .offer-brief h2 {
+  color: #1d2a22;
+}
+.sales-ui .offer-brief .section-lead {
+  color: #45483f;
+}
+.offer-brief-warning,
+.offer-brief-platform {
+  margin-top: var(--space-4);
+  font-size: var(--text-small);
+  line-height: 1.8;
+  color: #45483f;
+  border-left: 3px solid #b88a3b;
+  padding-left: var(--space-3);
+}
+.offer-brief-platform {
+  border-left-color: #21533d;
+  color: #1d2a22;
+  font-weight: 600;
+}
+.offer-brief-form {
+  display: grid;
+  gap: var(--space-4);
+  min-width: 0;
+}
+.offer-brief-field {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+.offer-brief-field label,
+.offer-brief-output label {
+  font-size: var(--text-small);
+  font-weight: 700;
+  color: #252823;
+}
+.offer-brief label small {
+  font-size: var(--text-caption);
+  font-weight: 500;
+  color: #5d6055;
+  margin-left: 6px;
+}
+.offer-brief input,
+.offer-brief select,
+.offer-brief textarea {
+  width: 100%;
+  min-height: 48px;
+  color: #233026;
+  border: 1px solid #b8c0b2;
+  border-radius: var(--radius-xs);
+  background: #fff;
+  font: inherit;
+  font-size: 16px;
+  line-height: 1.65;
+  padding: 10px 12px;
+}
+.offer-brief textarea {
+  resize: vertical;
+}
+.offer-brief input:focus-visible,
+.offer-brief select:focus-visible,
+.offer-brief textarea:focus-visible,
+.offer-brief button:focus-visible {
+  outline: 3px solid #21533d;
+  outline-offset: 2px;
+}
+.offer-brief [aria-invalid="true"] {
+  border-color: #a23629;
+}
+.offer-brief-hint {
+  font-size: var(--text-caption);
+  line-height: 1.7;
+  color: #5d6055;
+}
+.offer-brief-pair {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--space-4);
+}
+.offer-brief-output {
+  display: grid;
+  gap: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid #cfd0c4;
+}
+.offer-brief-output textarea {
+  font-size: 15px;
+  line-height: 1.8;
+  background: #fbfaf7;
+}
+.offer-brief-reset {
+  justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  font-size: var(--text-small);
+  color: #21533d;
+  background: none;
+  border: 0;
+  padding: 0;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+.offer-brief-error {
+  color: #8f2c20;
+  font-size: var(--text-small);
+  font-weight: 700;
+}
+.offer-brief-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.sales-ui .offer-brief .button.secondary {
+  background: #fff;
+  color: #1d2a22;
+  border: 1px solid #9aa391;
+}
+.sales-ui .offer-brief .button.primary {
+  background: #1d2a22;
+  border-color: #1d2a22;
+  color: #fbfaf7;
+}
+.offer-brief-status {
+  min-height: 1.8em;
+  font-size: var(--text-small);
+  color: #21533d;
+  font-weight: 600;
+}
+.offer-brief-note {
+  font-size: var(--text-caption);
+  line-height: 1.8;
+  color: #5d6055;
+}
+
+/* ---- related offer on demos and projects --------------------------------- */
+.offer-related {
+  display: grid;
+  gap: var(--space-2);
+  margin-top: var(--space-5);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid var(--hub-border, #332c26);
+  border-radius: var(--radius-md);
+}
+.offer-related span {
+  font-size: var(--text-caption);
+  letter-spacing: 0.06em;
+  color: var(--hub-muted, #c2b7aa);
+}
+.offer-related a {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+/* ---- narrow screens ---------------------------------------------------------- */
+@media (max-width: 960px) {
+  .offer-hero,
+  .sales-ui .offer-brief {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .offer-index-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 700px) {
+  .offer-columns,
+  .offer-facts,
+  .offer-brief-pair {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .offer-evidence-list li {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
+  }
+  .offer-card dl > div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1);
+  }
+  .offer-actions .button,
+  .offer-brief-actions .button {
+    width: 100%;
+    white-space: normal;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .offer-proof img {
+    transition: none;
+  }
+  .offer-proof a:hover img {
+    transform: none;
+  }
+}
+
+/* ---- /works strip ---------------------------------------------------------- */
+.sales-ui .offer-strip {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: var(--space-5) clamp(28px, 5vw, 72px);
+  align-items: start;
+}
+.sales-ui .offer-strip h2 {
+  margin-top: var(--space-3);
+}
+.offer-strip-list {
+  display: grid;
+  gap: var(--space-3);
+}
+.offer-strip-item {
+  position: relative;
+  display: grid;
+  gap: var(--space-2);
+  padding: var(--space-5) calc(var(--space-5) + 28px) var(--space-5)
+    var(--space-5);
+  background: var(--sales-panel);
+  border: 1px solid var(--hub-border);
+  border-radius: var(--radius-md);
+  color: var(--hub-ink);
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+.offer-strip-item:hover {
+  border-color: var(--hub-accent);
+}
+.offer-strip-item strong {
+  font-size: var(--text-h3);
+  line-height: 1.5;
+}
+.offer-strip-meta {
+  font-size: var(--text-small);
+  color: var(--hub-muted);
+}
+.offer-strip-item > svg {
+  position: absolute;
+  right: var(--space-5);
+  top: var(--space-5);
+  color: var(--hub-accent);
+}
+.offer-strip-more {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--space-6);
+}
+.offer-strip .text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  font-size: var(--text-small);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+@media (max-width: 960px) {
+  .sales-ui .offer-strip {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .offer-strip-more {
+    grid-column: auto;
+  }
+}

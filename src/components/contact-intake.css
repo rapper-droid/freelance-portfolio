@@ -525,3 +525,15 @@
     animation: none !important;
   }
 }
+
+/* Marketplace visitors: keep the conversation on the marketplace. */
+.intake-platform-notice {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid #21533d;
+  background: #f6f3ec;
+  color: #1d2a22;
+  font-size: var(--text-small);
+  line-height: 1.8;
+  font-weight: 600;
+}

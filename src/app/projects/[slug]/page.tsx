@@ -5,6 +5,8 @@ import { ArrowUpRight } from "lucide-react";
 import { categories, projects, getProject, pricingNote } from "@/lib/portfolio";
 import "@/components/portfolio-styles.css";
 import "@/components/project-card.css";
+import "@/components/offer-related.css";
+import { offerForDemo } from "@/lib/offers";
 import { pageMetadata } from "@/lib/seo";
 import { Header, Footer } from "@/components/site";
 import { MessageOnly } from "@/components/sales-sections";
@@ -35,6 +37,7 @@ export default async function ProjectPage({
 }) {
   const p = getProject((await params).slug);
   if (!p) notFound();
+  const offer = offerForDemo(p.slug);
   return (
     <>
       <Header />
@@ -194,6 +197,15 @@ export default async function ProjectPage({
               </Link>
             ))}
           </div>
+          {offer && (
+            <p className="offer-related">
+              <span>範囲の決まったメニュー：{offer.demo.cue}</span>
+              <Link href={`/services/${offer.slug}`}>
+                {offer.shortTitle}の範囲と進め方を見る
+                <ArrowUpRight size={15} aria-hidden="true" />
+              </Link>
+            </p>
+          )}
         </section>
         <div className="hub-section message-wrap">
           <MessageOnly />

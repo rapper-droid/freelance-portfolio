@@ -1,8 +1,10 @@
 import "./demo-frame.css";
+import "./offer-related.css";
 import Link from "next/link";
 import { ArrowLeft, ArrowUpRight } from "lucide-react";
 import { contactHref } from "@/lib/contact-options";
 import { categories, getProject, type Project } from "@/lib/portfolio";
+import { offerForDemo } from "@/lib/offers";
 import { Header, Footer } from "./site";
 import { DemoDataNotice } from "./demo-data-notice";
 
@@ -35,6 +37,7 @@ export function DemoFrame({
 }) {
   const tool = variant === "tool";
   const contact = contactHref("/demos/" + slug);
+  const offer = offerForDemo(slug);
   return (
     <>
       <Header />
@@ -106,6 +109,15 @@ export function DemoFrame({
                 <ArrowUpRight size={15} aria-hidden="true" />
               </Link>
             </div>
+            {offer && (
+              <p className="offer-related">
+                <span>{offer.demo.cue}</span>
+                <Link href={`/services/${offer.slug}`}>
+                  {offer.shortTitle}の範囲と進め方を見る
+                  <ArrowUpRight size={15} aria-hidden="true" />
+                </Link>
+              </p>
+            )}
           </section>
         </div>
       </main>

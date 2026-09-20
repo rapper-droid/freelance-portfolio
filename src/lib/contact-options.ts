@@ -1,4 +1,5 @@
 // Intake ranges only. Product prices remain unchanged.
+import { offerRoutes, type OfferSlug } from "./offer-routes";
 export const contactKinds = [
   "Webサイト / LP",
   "UI / 業務ツール",
@@ -70,7 +71,8 @@ export const demoCategories: Record<string, string> = {
   qa: "qa",
 };
 export function contactContext(page: string) {
-  const match = /^\/(works|projects|demos|experience)\/([a-z-]+)$/.exec(page);
+  const match =
+    /^\/(works|projects|demos|experience|services)\/([a-z-]+)$/.exec(page);
   if (match) {
     const [, scope, slug] = match;
     const category =
@@ -78,9 +80,13 @@ export function contactContext(page: string) {
         ? Object.hasOwn(categoryKinds, slug)
           ? slug
           : ""
-        : Object.hasOwn(demoCategories, slug)
-          ? demoCategories[slug]
-          : "";
+        : scope === "services"
+          ? Object.hasOwn(offerRoutes, slug)
+            ? offerRoutes[slug as OfferSlug].category
+            : ""
+          : Object.hasOwn(demoCategories, slug)
+            ? demoCategories[slug]
+            : "";
     if (!category) return null;
     return {
       page,
@@ -92,6 +98,8 @@ export function contactContext(page: string) {
   return [
     "/",
     "/works",
+    "/services",
+    "/partners",
     "/contact",
     "/contact/general",
     "/lab",

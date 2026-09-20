@@ -1,5 +1,6 @@
 "use client";
 import { useRef, useState } from "react";
+import Link from "next/link";
 import {
   ArrowDownToLine,
   FileSpreadsheet,
@@ -8,7 +9,9 @@ import {
   ArrowDownUp,
   Play,
   RotateCcw,
+  ArrowUpRight,
 } from "lucide-react";
+import { track } from "./analytics";
 import {
   parseCsv,
   cleanCsv,
@@ -25,6 +28,7 @@ export function CsvDemo() {
   const [sort, setSort] = useState({ index: 0, asc: true });
   const [dedupe, setDedupe] = useState(true);
   const [trim, setTrim] = useState(true);
+  const [nfkc, setNfkc] = useState(false);
   const [empty, setEmpty] = useState(false);
   const [error, setError] = useState("");
   const [fileName, setFileName] = useState("");
@@ -46,6 +50,7 @@ export function CsvDemo() {
       );
       setError("");
       setNotice(`${d.rows.length}件を読み込みました。`);
+      track("tool_started", { project: "csv" });
     } catch (e) {
       setError(e instanceof Error ? e.message : "読み込めませんでした。");
     }
@@ -158,7 +163,15 @@ export function CsvDemo() {
                 checked={trim}
                 onChange={(e) => setTrim(e.target.checked)}
               />
-              空白・全角英数を整形
+              前後・連続する空白を整える
+            </label>
+            <label className="checkbox">
+              <input
+                type="checkbox"
+                checked={nfkc}
+                onChange={(e) => setNfkc(e.target.checked)}
+              />
+              全角の英数字・記号を半角にそろえる
             </label>
             <label className="checkbox">
               <input
@@ -171,7 +184,7 @@ export function CsvDemo() {
             <button
               className="button primary"
               onClick={() => {
-                const r = cleanCsv(data, dedupe, trim, empty);
+                const r = cleanCsv(data, dedupe, trim, empty, nfkc);
                 setResult(r);
                 setPage(0);
                 setNotice(
@@ -183,7 +196,7 @@ export function CsvDemo() {
             </button>
           </div>
           <p className="small muted option-note">
-            重複は全列の値が一致する行を対象に判定。整形は前後の空白削除・連続空白の統一・全角英数字等の正規化です。
+            重複は全列の値が一致する行を対象に判定します。空白の整理ではセル内の改行も1つの空白にまとめます。全角→半角は商品コードなどの表記を変えることがあるため、必要なときだけ選んでください。元のデータは変更されず、リセットで戻せます。
           </p>
           <div className="stats-grid">
             <div className="stat">
@@ -232,6 +245,20 @@ export function CsvDemo() {
               </small>
             </div>
           </div>
+          {result && (
+            <p className="small muted option-note csv-changes" role="note">
+              整形で変わったセル：{result.changed.toLocaleString("ja-JP")}件
+              {result.examples.length > 0 && (
+                <>
+                  （例：
+                  {result.examples
+                    .map((x) => `${x.column}「${x.before}」→「${x.after}」`)
+                    .join("、")}
+                  ）
+                </>
+              )}
+            </p>
+          )}
           <div className="table-toolbar">
             <div>
               <h3>{result ? "加工後のプレビュー" : "読み込みデータ"}</h3>
@@ -265,6 +292,7 @@ export function CsvDemo() {
                   a.click();
                   setTimeout(() => URL.revokeObjectURL(url), 1000);
                   setNotice("加工済みCSVをダウンロードしました。");
+                  track("tool_completed", { project: "csv" });
                 }}
               >
                 <ArrowDownToLine size={16} /> CSV出力
@@ -356,8 +384,16 @@ export function CsvDemo() {
             </div>
           </div>
           <p className="small muted option-note">
-            CSV出力は検索・並び替えに関わらず加工後の全件を出力します。数式として解釈される値には安全のため先頭にアポストロフィを付けます。
+            CSV出力は検索・並び替えに関わらず加工後の全件を出力します。数式として解釈される値（=、+、-、@などで始まる値）には安全のため先頭にアポストロフィを付けます。-500のような数値はそのまま出力します。
           </p>
+          {result && (
+            <p className="csv-next">
+              <Link href="/services/csv-routine">
+                この処理を、毎回のCSVでそのまま使いたい方へ：CSV整形ルーチンの範囲と進め方
+                <ArrowUpRight size={15} aria-hidden="true" />
+              </Link>
+            </p>
+          )}
         </>
       ) : (
         <div className="empty-state large">

@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import { siteOrigin } from "@/lib/seo";
 import { BRAND_NAME, BRAND_READING, BRAND_TAGLINE } from "@/lib/brand";
 import { Analytics } from "@/components/analytics";
+import { PlatformMemory } from "@/components/platform-memory";
 import { Monitoring } from "@/components/monitoring";
 import { Effects } from "@/components/effects";
 import "./tokens.css";
@@ -85,6 +86,7 @@ export default function RootLayout({
         {children}
         <Effects />
         <Analytics />
+        <PlatformMemory />
         <Monitoring />
       </body>
     </html>

@@ -7,8 +7,10 @@ import { PortfolioGrid } from "@/components/portfolio-grid";
 import { ProjectCard } from "@/components/project-card";
 import { WorksServiceGuide } from "@/components/works-service-guide";
 import { Contact } from "@/components/contact";
+import { OfferStrip } from "@/components/offer-strip";
 import { categories, projects } from "@/lib/portfolio";
 import "@/components/portfolio-styles.css";
+import "@/components/offers.css";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata(
   "全11作品・12カテゴリから制作例を探す",
@@ -41,6 +43,7 @@ export default function AllWorks() {
           <MasterWorks />
         </section>
         <DeliveryRibbon />
+        <OfferStrip />
         <PortfolioGrid
           items={projects.map(({ slug, categories }) => ({ slug, categories }))}
           categoryOptions={categories.map(({ id, name }) => ({ id, name }))}

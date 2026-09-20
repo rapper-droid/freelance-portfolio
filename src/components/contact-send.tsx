@@ -14,6 +14,13 @@ import {
   contactContext,
   safeReference,
 } from "@/lib/contact-options";
+import { DRAFT_KEY } from "@/lib/contact-draft";
+import { offerRoutes, type OfferSlug } from "@/lib/offer-routes";
+import {
+  currentPlatform,
+  platformNames,
+  type Platform,
+} from "@/lib/visit-source";
 type Turnstile = {
   render: (el: HTMLElement, options: Record<string, unknown>) => string;
   reset: (id: string) => void;
@@ -48,7 +55,7 @@ const blank: Fields = {
   company: "",
   email: "",
 };
-const DRAFT = "tsudowa-contact-draft-v2";
+const DRAFT = DRAFT_KEY;
 const validReceipt = (s: unknown): s is string =>
   typeof s === "string" && /^TSW-\d{6}-[A-F0-9]{10}$/.test(s);
 export function ContactSend({
@@ -88,6 +95,7 @@ export function ContactSend({
   const [receipt, setReceipt] = useState("");
   const [receiptAccepted, setReceiptAccepted] = useState(false);
   const [draftNote, setDraftNote] = useState("");
+  const [platform, setPlatform] = useState<Platform | null>(null);
   const [copied, setCopied] = useState("");
   const widgetEl = useRef<HTMLDivElement>(null),
     formRef = useRef<HTMLFormElement>(null),
@@ -114,6 +122,7 @@ export function ContactSend({
           : categoryKinds[context.category] || blank.kind,
       };
       let restored = false;
+      let fromBrief = false;
       let nextSource = context;
       try {
         const saved = JSON.parse(sessionStorage.getItem(draftKey) || "null");
@@ -144,6 +153,7 @@ export function ContactSend({
             )
               submission.current = saved.submission;
             restored = true;
+            fromBrief = saved.origin === "brief";
             started.current = true;
           }
         } else if (saved) sessionStorage.removeItem(draftKey);
@@ -154,8 +164,13 @@ export function ContactSend({
       setFields(next);
       setSource(nextSource);
       setLoaded(true);
+      setPlatform(general ? null : currentPlatform());
       setDraftNote(
-        restored ? "入力途中の相談を、このタブから復元しました。" : "",
+        fromBrief
+          ? "作成した相談メモを引き継ぎました。送信前に内容を確認・編集できます。"
+          : restored
+            ? "入力途中の相談を、このタブから復元しました。"
+            : "",
       );
     });
     return () => cancelAnimationFrame(frame);
@@ -264,6 +279,11 @@ export function ContactSend({
     ) : null;
   }
   const locked = state === "sending" || state === "success" || receiptAccepted;
+  const offerSlug = /^\/services\/([a-z-]+)$/.exec(source.page)?.[1];
+  const offerTitle =
+    offerSlug && Object.hasOwn(offerRoutes, offerSlug)
+      ? offerRoutes[offerSlug as OfferSlug].title
+      : "";
   const template = [
     general ? "【お問い合わせ】TSUDOWA全体" : "【依頼内容】" + fields.kind,
     "【相談内容】" + fields.detail,
@@ -483,6 +503,19 @@ export function ContactSend({
           {draftNote && (
             <p className="intake-draft" role="status">
               {draftNote}
+            </p>
+          )}
+          {platform && (
+            <p className="intake-platform-notice" role="note">
+              {platformNames[platform]}からお越しの方へ：ご相談・ご契約は
+              {platformNames[platform]}
+              のメッセージで進めます。このページの下の「案件サイトのメッセージで相談したい方へ」から、相談内容をコピーしてお使いください。
+            </p>
+          )}
+          {offerTitle && (
+            <p className="intake-source">
+              「{offerTitle}
+              」についてのご相談。種別・内容は自由に変更できます。
             </p>
           )}
           {(source.demo || source.project) && (
@@ -736,7 +769,7 @@ export function ContactSend({
               <span> 受付番号：{receipt}</span>
             )}
           </p>
-          <details className="intake-copy">
+          <details className="intake-copy" open={!!platform || undefined}>
             <summary>
               {general
                 ? "内容をコピーしてメール等で連絡する"

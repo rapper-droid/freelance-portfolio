@@ -75,6 +75,8 @@ export function Footer() {
           <Link href="/works#works">制作例</Link>
           <Link href="/works#services">サービス</Link>
           <Link href="/works#pricing">料金</Link>
+          <Link href="/services">小さく頼めるメニュー</Link>
+          <Link href="/partners">制作会社の方へ</Link>
           <Link href="/works#process">進め方</Link>
           <Link href="/works#faq">よくある質問</Link>
           <Link href="/privacy">プライバシー</Link>

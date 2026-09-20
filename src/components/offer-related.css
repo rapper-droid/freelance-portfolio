@@ -1,0 +1,42 @@
+/* A demo or case study pointing at the fixed-scope offer it proves. */
+.offer-related {
+  display: grid;
+  gap: var(--space-1);
+  margin-top: var(--space-5);
+  padding: var(--space-4) var(--space-5);
+  border: 1px solid currentColor;
+  border-radius: var(--radius-md);
+  max-width: 40em;
+}
+.offer-related span {
+  font-size: var(--text-caption);
+  letter-spacing: 0.06em;
+  opacity: 0.85;
+}
+.offer-related a {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--space-2);
+  min-height: var(--tap-min);
+  font-size: var(--text-body);
+  font-weight: 700;
+  line-height: 1.6;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+/* CSV demo: after a result exists, the offer that turns it into a routine. */
+.csv-next {
+  margin-top: var(--space-4);
+}
+.csv-next a {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0 var(--space-2);
+  min-height: var(--tap-min);
+  font-weight: 700;
+  line-height: 1.6;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}

@@ -2,6 +2,7 @@ import { chromium } from "@playwright/test";
 import { spawn } from "node:child_process";
 import fs from "node:fs/promises";
 import { categories, projects } from "../src/lib/portfolio.ts";
+import { publishedOffers } from "../src/lib/offers.ts";
 const origin = process.env.QA_BASE_URL || "http://localhost:3105";
 const server = process.env.QA_BASE_URL
   ? null
@@ -29,6 +30,9 @@ try {
     "/",
     "/privacy",
     "/works",
+    "/services",
+    ...publishedOffers.map((o) => `/services/${o.slug}`),
+    "/partners",
     ...categories.map((c) => `/works/${c.id}`),
     ...projects.flatMap((p) => [`/projects/${p.slug}`, `/demos/${p.slug}`]),
   ];

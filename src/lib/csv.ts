@@ -53,18 +53,40 @@ export function parseCsv(text: string): CsvData {
     throw new Error("10,000行・50列以内のCSVをご利用ください。");
   return { headers, rows };
 }
+export type CellChange = { column: string; before: string; after: string };
+/**
+ * `trim` collapses surrounding and repeated whitespace (line breaks inside a
+ * cell become one space); `nfkc` folds full-width letters, digits and symbols
+ * to their half-width forms. They are separate because width folding can
+ * change identifiers a business relies on. The source rows are never
+ * modified; the first few changed cells are returned as examples.
+ */
 export function cleanCsv(
   data: CsvData,
   dedupe: boolean,
   trim: boolean,
   removeEmpty: boolean,
+  nfkc = trim,
 ) {
   const seen = new Set<string>();
   let duplicates = 0,
-    empty = 0;
+    empty = 0,
+    changed = 0;
+  const examples: CellChange[] = [];
   const rows = data.rows
     .map((r) =>
-      trim ? r.map((c) => c.normalize("NFKC").trim().replace(/\s+/g, " ")) : r,
+      trim || nfkc
+        ? r.map((c, j) => {
+            let v = nfkc ? c.normalize("NFKC") : c;
+            if (trim) v = v.trim().replace(/\s+/g, " ");
+            if (v !== c) {
+              changed++;
+              if (examples.length < 3)
+                examples.push({ column: data.headers[j], before: c, after: v });
+            }
+            return v;
+          })
+        : r,
     )
     .filter((r) => {
       if (removeEmpty && r.some((c) => !c.trim())) {
@@ -79,7 +101,17 @@ export function cleanCsv(
       seen.add(key);
       return true;
     });
-  return { ...data, rows, duplicates, empty };
+  return { ...data, rows, duplicates, empty, changed, examples };
+}
+/**
+ * Spreadsheet formula injection (OWASP CSV Injection): a cell that starts
+ * with = + - @, a tab or a carriage return is prefixed with an apostrophe so
+ * it is shown as text. Plain numbers such as -500 or +81 are left alone,
+ * because a spreadsheet only ever reads them as the same number.
+ */
+export function neutralizeCell(c: string) {
+  if (/^[+-]?\d+(?:\.\d+)?$/.test(c)) return c;
+  return /^[=+\-@\t\r]/.test(c) || /^\s*[=+\-@]/.test(c) ? "'" + c : c;
 }
 export function exportCsv(data: CsvData) {
   return (
@@ -87,12 +119,7 @@ export function exportCsv(data: CsvData) {
     [data.headers, ...data.rows]
       .map((r) =>
         r
-          .map(
-            (c) =>
-              '"' +
-              (/^[\s]*[=+\-@]/.test(c) ? "'" + c : c).replace(/"/g, '""') +
-              '"',
-          )
+          .map((c) => '"' + neutralizeCell(c).replace(/"/g, '""') + '"')
           .join(","),
       )
       .join("\r\n")

@@ -7,6 +7,7 @@ import { ContactLink } from "./contact-link";
 
 const sections = [
   ["/works#works", "制作例", "WORKS"],
+  ["/services", "小さく頼む", "FIXED MENU"],
   ["/works#services", "サービス", "SERVICES"],
   ["/works#pricing", "料金", "PRICE"],
   ["/works#process", "進め方", "PROCESS"],

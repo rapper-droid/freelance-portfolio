@@ -19,7 +19,9 @@ function visitContext() {
       session = {
         id: crypto.randomUUID(),
         source:
-          source === "crowdworks" || source === "lancers"
+          source === "crowdworks" ||
+          source === "lancers" ||
+          source === "coconala"
             ? source
             : source
               ? "other"
@@ -35,7 +37,7 @@ function visitContext() {
 }
 export function track(
   event: PortfolioEvent,
-  ids: { category?: string; project?: string } = {},
+  ids: { category?: string; project?: string; offer?: string } = {},
 ) {
   if (
     process.env.NEXT_PUBLIC_ANALYTICS_ENABLED !== "true" ||
@@ -49,6 +51,7 @@ export function track(
     ...visitContext(),
     ...(ids.category ? { category: ids.category } : {}),
     ...(ids.project ? { project: ids.project } : {}),
+    ...(ids.offer ? { offer: ids.offer } : {}),
   };
 
   void fetch("/api/analytics", {
@@ -75,8 +78,11 @@ export function Analytics() {
         ? { category: id }
         : kind === "projects"
           ? { project: id }
-          : {};
+          : kind === "services" && id
+            ? { offer: id }
+            : {};
     track("portfolio_visit", ids);
+    if (kind === "services" && id) track("service_view", ids);
     if (kind === "works" && id) track("portfolio_category_view", ids);
     if (kind === "projects") track("portfolio_project_open", ids);
     const seen = new Set<PortfolioEvent>();
