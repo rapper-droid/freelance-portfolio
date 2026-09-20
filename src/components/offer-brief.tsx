@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useId, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 import { ArrowUpRight, Copy, RotateCcw } from "lucide-react";
 import { track } from "./analytics";
 import { briefText, type BriefQuestion } from "@/lib/brief";
@@ -29,6 +30,7 @@ export function OfferBrief({
   questions,
   kind,
   kindMap,
+  suggest,
   title = "この内容で、相談文をつくる。",
   lead = "分かるところだけで大丈夫です。選んだ内容から相談文ができあがり、そのまま編集できます。",
 }: {
@@ -38,6 +40,12 @@ export function OfferBrief({
   questions: readonly BriefQuestion[];
   kind: string;
   kindMap?: { question: string; map: Record<string, string> };
+  /** Menus to suggest for the answer to `suggest.question`. */
+  suggest?: {
+    question: string;
+    map: Record<string, { slug: string; title: string; note: string }[]>;
+    empty: string;
+  };
   title?: string;
   lead?: string;
 }) {
@@ -193,6 +201,23 @@ export function OfferBrief({
             </div>
           );
         })}
+        {suggest && answers[suggest.question] && (
+          <div className="offer-brief-suggest" role="status">
+            <span>あなたの困りごとに近いメニュー</span>
+            {(suggest.map[answers[suggest.question]] ?? []).length ? (
+              <ul>
+                {suggest.map[answers[suggest.question]].map((m) => (
+                  <li key={m.slug}>
+                    <Link href={`/services/${m.slug}`}>{m.title}</Link>
+                    <small>{m.note}</small>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <p>{suggest.empty}</p>
+            )}
+          </div>
+        )}
         <div className="offer-brief-pair">
           <div className="offer-brief-field">
             <label htmlFor={uid + "-timing"}>希望時期</label>

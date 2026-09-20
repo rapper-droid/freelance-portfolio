@@ -1,0 +1,93 @@
+{
+  "document": {
+    "id": "TSUDOWA-GROWTH-ALL-IN-ONE-20260919-v2.0",
+    "sha256": "3c6eeb7d4d2ecef85db68a554a75c6b981d74ad9837da2473e3e574481b8f922",
+    "readFully": true
+  },
+  "repo": "rapper-droid/freelance-portfolio",
+  "branch": "claude/growth-p0-20260920",
+  "baseCommit": "78f04e9",
+  "updatedAt": "2026-09-20",
+  "tasks": [
+    {
+      "id": "GX-00",
+      "title": "全文読込・現況監査・保護境界",
+      "state": "VERIFIED_LOCAL",
+      "evidence": [
+        "docs/growth/CURRENT_STATE.md",
+        "docs/growth/IMPLEMENTATION_MAP.md"
+      ],
+      "next": null
+    },
+    {
+      "id": "GX-01",
+      "title": "売れる範囲と証拠の対応、P0の2商品選定",
+      "state": "VERIFIED_LOCAL",
+      "evidence": [
+        "src/lib/offers.ts",
+        "docs/growth/OFFER_REVIEW.md",
+        "tests/unit/growth-offers.test.ts"
+      ],
+      "next": "価格方針の承認（ACTION_MANIFEST A-02）"
+    },
+    {
+      "id": "GX-02",
+      "title": "商品→デモ→相談のE2E接続",
+      "state": "VERIFIED_LOCAL",
+      "commit": "b8c0bbe",
+      "evidence": [
+        "tests/e2e/growth.spec.ts",
+        "../outputs/growth-qa-20260920/report.json"
+      ],
+      "next": null
+    },
+    {
+      "id": "GX-03",
+      "title": "制作パートナー資料と最小配布セット",
+      "state": "IN_PROGRESS",
+      "evidence": ["src/app/partners/page.tsx"],
+      "next": "媒体別の出品・提案原稿（artifacts/growth-public/listings）"
+    },
+    {
+      "id": "GX-04",
+      "title": "計測・安全性・P0公開準備",
+      "state": "READY_FOR_APPROVAL",
+      "evidence": [
+        "docs/growth/QA_REPORT.md",
+        "docs/growth/ACTION_MANIFEST.md"
+      ],
+      "next": "A-01 本番反映の承認"
+    },
+    {
+      "id": "GX-05",
+      "title": "現在募集中の適合候補と少数提案",
+      "state": "NOT_STARTED",
+      "next": "規約確認 → 候補調査 → 根拠つき下書き（送信しない）"
+    },
+    {
+      "id": "GX-06",
+      "title": "最大6商品・最大3ツール・事例の拡充",
+      "state": "NOT_STARTED",
+      "next": "T03（依頼内容整理）と /rescue、W03の証拠整理"
+    },
+    {
+      "id": "GX-07",
+      "title": "事例を投稿・解説・完成品へ展開",
+      "state": "NOT_STARTED",
+      "next": "CONTENT_PLAN の事例1本目から"
+    },
+    {
+      "id": "GX-08",
+      "title": "再訪・紹介・納品後の導線",
+      "state": "NOT_STARTED",
+      "next": "納品まとめ・事例許諾・紹介文の原稿"
+    },
+    {
+      "id": "GX-09",
+      "title": "実測レビュー・改善・最終検証",
+      "state": "BLOCKED",
+      "blockedBy": "本番未反映・計測未接続のため実測がない（A-01 / A-03）",
+      "next": "承認後に実測を開始する"
+    }
+  ]
+}

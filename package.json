@@ -29,7 +29,9 @@
     "build:production": "node scripts/check-production.mjs && next build",
     "qa:links": "node --experimental-strip-types scripts/link-qa.mjs",
     "qa:design": "node scripts/sales-design-qa.mjs",
-    "qa:seo": "node --experimental-strip-types scripts/seo-regression.mjs"
+    "qa:seo": "node --experimental-strip-types scripts/seo-regression.mjs",
+    "growth:lint": "node --experimental-strip-types scripts/growth-lint.mjs",
+    "growth:brief": "node --experimental-strip-types scripts/growth-brief.mjs"
   },
   "keywords": [],
   "author": "",

@@ -33,6 +33,7 @@ try {
     "/services",
     ...publishedOffers.map((o) => `/services/${o.slug}`),
     "/partners",
+    "/rescue",
     ...categories.map((c) => `/works/${c.id}`),
     ...projects.flatMap((p) => [`/projects/${p.slug}`, `/demos/${p.slug}`]),
   ];

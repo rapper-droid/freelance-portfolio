@@ -155,6 +155,43 @@ test("partner desk: conditions, brief and no fabricated capacity", async ({
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });
 
+test("rescue: trouble first, a suggested menu and a copyable brief", async ({
+  page,
+}) => {
+  const posts = await forbidContactPosts(page);
+  await page.goto("/rescue");
+  await expect(page.getByRole("heading", { level: 1 })).toContainText(
+    "まだ決まっていなくても",
+  );
+  // Not an emergency desk.
+  await expect(page.locator("main")).toContainText(
+    "緊急対応の窓口ではありません",
+  );
+  await page
+    .getByLabel("いちばん困っていること")
+    .selectOption("データ整理を減らしたい");
+  const suggestion = page.locator(".offer-brief-suggest");
+  await expect(suggestion).toContainText("CSV整形ルーチン 1本");
+  await page
+    .getByLabel("どんな場面で困っているか", { exact: false })
+    .fill("毎週の売上CSVを手で並べ替えています");
+  await expect(
+    page.getByLabel("できあがった相談文", { exact: false }),
+  ).toHaveValue(/【いちばん困っていること】データ整理を減らしたい/);
+  // A trouble with no matching menu says so instead of guessing.
+  await page
+    .getByLabel("いちばん困っていること")
+    .selectOption("何を頼むべきか分からない");
+  await expect(suggestion).toContainText("今のメニューには当てはまらない");
+  await page.getByRole("button", { name: "この内容で相談する" }).click();
+  await expect(page).toHaveURL(/\/contact\?from=%2Frescue$/);
+  await expect(page.getByLabel("ご相談内容", { exact: false })).toHaveValue(
+    /毎週の売上CSVを手で並べ替えています/,
+  );
+  expect(posts).toEqual([]);
+  expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
+});
+
 test("CSV tool: separate normalisation, change report and the routine offer", async ({
   page,
 }) => {

@@ -40,3 +40,37 @@
   text-decoration: underline;
   text-underline-offset: 4px;
 }
+
+/* Project pages: what was actually verified, and what an order adds. */
+.project-verification h2 {
+  font-size: var(--text-h3);
+  line-height: 1.5;
+}
+.project-verification {
+  display: grid;
+  gap: var(--space-3);
+  margin-top: var(--space-6);
+  padding-top: var(--space-5);
+  border-top: 1px solid currentColor;
+  max-width: 46em;
+}
+.project-verification .offer-list li {
+  position: relative;
+  padding-left: 22px;
+  font-size: var(--text-body);
+  line-height: 1.75;
+}
+.project-verification .offer-list li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 0.8em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.project-verification a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

@@ -57,6 +57,33 @@ describe("CSV tool edge cases (G07)", () => {
     expect(JSON.stringify(data)).toBe(before);
     expect(cleanCsv(data, false, false, false, false).changed).toBe(0);
   });
+  it("preserves zero, decimals and Japanese text through a full round trip", () => {
+    const data = parseCsv(
+      '商品コード,数量,単価,備考\n00123,0,-12.5,"日本語の備考、テスト"\nABC,10,0.0,ふりがな',
+    );
+    const cleaned = cleanCsv(data, true, true, false, false);
+    expect(cleaned.rows).toEqual([
+      ["00123", "0", "-12.5", "日本語の備考、テスト"],
+      ["ABC", "10", "0.0", "ふりがな"],
+    ]);
+    expect(cleaned.changed).toBe(0);
+    const round = parseCsv(exportCsv(cleaned));
+    expect(round.rows).toEqual(cleaned.rows);
+    expect(round.headers).toEqual(["商品コード", "数量", "単価", "備考"]);
+    // Nothing gained an apostrophe: they are all plain values.
+    expect(exportCsv(cleaned)).not.toContain("'");
+  });
+  it("leaves values untouched when every option is off", () => {
+    const data = parseCsv("コード,名前\nＡ１２, 山田 \nA12,山田");
+    const untouched = cleanCsv(data, false, false, false, false);
+    expect(untouched.rows).toEqual([
+      ["Ａ１２", " 山田 "],
+      ["A12", "山田"],
+    ]);
+    expect(untouched.changed).toBe(0);
+    expect(untouched.examples).toEqual([]);
+    expect(untouched.duplicates).toBe(0);
+  });
   it("keeps the documented limits: 50 columns and 10,000 rows", () => {
     const header = Array.from({ length: 50 }, (_, i) => `h${i}`).join(",");
     expect(

@@ -76,8 +76,8 @@ export default function ServicesPage() {
               メニューにない制作や、どれを選べばよいか分からない場合は、困っていることから相談できます。
             </p>
             <div>
-              <Link href="/contact?from=%2Fservices" className="text-link">
-                困っていることから相談する <ArrowUpRight size={15} />
+              <Link href="/rescue" className="text-link">
+                困っていることから整理する <ArrowUpRight size={15} />
               </Link>
               <Link href="/partners" className="text-link">
                 制作会社・デザイナーの方へ <ArrowUpRight size={15} />

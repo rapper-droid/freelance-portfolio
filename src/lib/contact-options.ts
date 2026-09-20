@@ -100,6 +100,7 @@ export function contactContext(page: string) {
     "/works",
     "/services",
     "/partners",
+    "/rescue",
     "/contact",
     "/contact/general",
     "/lab",

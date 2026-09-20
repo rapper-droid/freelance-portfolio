@@ -140,7 +140,7 @@ describe("contact context for offers and the partner desk", () => {
       "/services/Web-Fix",
     ])
       expect(contactContext(page)).toBeNull();
-    for (const page of ["/services", "/partners"])
+    for (const page of ["/services", "/partners", "/rescue"])
       expect(contactContext(page)).toEqual({
         page,
         category: "",
@@ -282,6 +282,7 @@ describe("sitemap (G29)", () => {
     for (const path of [
       "/services",
       "/partners",
+      "/rescue",
       ...publishedOffers.map((o) => `/services/${o.slug}`),
     ])
       expect(urls.filter((u) => u === path)).toHaveLength(1);
