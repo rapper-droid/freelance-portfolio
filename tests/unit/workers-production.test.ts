@@ -87,8 +87,26 @@ describe("production Worker boundary", () => {
       "RESEND_API_KEY",
       "TURNSTILE_SECRET",
       "RATE_LIMIT_SALT",
+      "POSTHOG_PROJECT_KEY",
       "OWNER_DIAGNOSTICS_ENABLED",
     ])
       expect(production.vars[key]).toBeUndefined();
+    // Analytics: enabled in production, pinned to an ingest host the route
+    // accepts; the preview Worker never measures.
+    expect(production.vars.NEXT_PUBLIC_ANALYTICS_ENABLED).toBe("true");
+    expect(production.vars.POSTHOG_HOST).toBe("https://us.i.posthog.com");
+    expect(preview.vars.NEXT_PUBLIC_ANALYTICS_ENABLED).toBe("false");
+    expect(preview.vars.POSTHOG_HOST).toBeUndefined();
+  });
+  it("refuses to deploy an analytics configuration the route cannot honour", () => {
+    const source = fs.readFileSync("scripts/workers-production.mjs", "utf8");
+    // The guard is the only thing standing between a typo in the ingest host
+    // and events posted to somewhere unintended.
+    expect(source).toContain("https://us.i.posthog.com");
+    expect(source).toContain("https://eu.i.posthog.com");
+    expect(source).toContain("POSTHOG_PROJECT_KEY");
+    const guard = source.slice(source.indexOf("function guard"));
+    expect(guard).toContain("analyticsHosts.includes");
+    expect(guard).toContain("NEXT_PUBLIC_ANALYTICS_ENABLED");
   });
 });

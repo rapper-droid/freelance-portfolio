@@ -2,7 +2,15 @@ import fs from "node:fs";
 import { spawnSync } from "node:child_process";
 import { parse } from "jsonc-parser";
 const root = new URL("../", import.meta.url);
-const secretNames = ["RESEND_API_KEY", "TURNSTILE_SECRET", "RATE_LIMIT_SALT"];
+const secretNames = [
+  "RESEND_API_KEY",
+  "TURNSTILE_SECRET",
+  "RATE_LIMIT_SALT",
+  // The PostHog project key is read server-side at runtime; it stays a Worker
+  // secret so it never lands in this public repository.
+  "POSTHOG_PROJECT_KEY",
+];
+const analyticsHosts = ["https://us.i.posthog.com", "https://eu.i.posthog.com"];
 const errors = [];
 const source = parse(
   fs.readFileSync(new URL("wrangler.production.jsonc", root), "utf8"),
@@ -29,6 +37,12 @@ function guard(config) {
     config.vars?.NEXT_PUBLIC_TURNSTILE_SITE_KEY !==
       "0x4AAAAAAE6gUHBs1hey6e76" ||
     config.assets?.run_worker_first !== true ||
+    !["true", "false"].includes(config.vars?.NEXT_PUBLIC_ANALYTICS_ENABLED) ||
+    // With analytics on, the ingest host must be one the route accepts; with
+    // it off, no host may be configured at all.
+    (config.vars?.NEXT_PUBLIC_ANALYTICS_ENABLED === "true"
+      ? !analyticsHosts.includes(config.vars?.POSTHOG_HOST)
+      : !!config.vars?.POSTHOG_HOST) ||
     Object.keys(config.vars ?? {}).some(
       (name) =>
         secretNames.includes(name) || name.startsWith("OWNER_DIAGNOSTICS"),
@@ -63,7 +77,14 @@ function run(entry, args, commandEnv = env) {
 }
 const action = process.argv[2];
 if (action === "build") {
-  run("scripts/check-production.mjs", [], { ...env, CONTACT_ENABLED: "false" });
+  // Both contact and analytics keep their credentials in Cloudflare, so the
+  // build-time check validates public metadata only. The runtime fails closed
+  // without them: /api/contact reports disabled and /api/analytics returns 204.
+  run("scripts/check-production.mjs", [], {
+    ...env,
+    CONTACT_ENABLED: "false",
+    NEXT_PUBLIC_ANALYTICS_ENABLED: "false",
+  });
   run("scripts/generate-responsive-images.mjs", []);
   run("node_modules/vinext/dist/cli.js", ["build"]);
   guard(
