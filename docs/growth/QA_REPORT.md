@@ -2,7 +2,7 @@
 
 対象コミット: `ef702be`（branch `claude/growth-p0-20260920` = `tsudowa/cloudflare-workers-candidate`）
 実行日: 2026-09-20〜21 / 実行環境: Windows 11, Node v24.19.0, npm 11.17.0
-本番反映: **実施済み**（A-01 承認）。本番 Worker version `ab261d93-a048-42b3-8632-0ffec7631cbe`
+本番反映: **実施済み**。A-01（導線）= version `ab261d93`、A-02（承認価格の公開）= version `6ce20d6f`（現在稼働中）
 
 ## 1. 実行したコマンドと結果
 

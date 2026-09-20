@@ -8,15 +8,15 @@ by name only.
 
 ## What is live
 
-| Item     | Value                                                                                                                                                |
-| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Origin   | `https://tsudowa.com` (TSUDOWA + TETSU WORKS, 58 public routes)                                                                                      |
-| Worker   | `tsudowa-production`                                                                                                                                 |
-| Version  | `ab261d93-a048-42b3-8632-0ffec7631cbe` (100%), deployment `833ca8c7-b19e-40ac-be5d-6477f5862690`                                                     |
-| Deployed | 2026-09-20 15:29 UTC (2026-09-21 00:29 JST) with `node scripts/workers-production.mjs deploy-candidate`                                              |
-| Source   | `tsudowa/cloudflare-workers-candidate` = `claude/growth-p0-20260920` = `ef702be` (both on origin)                                                    |
-| Content  | Growth P0: fixed-scope offers, the brief builder, the partner desk, /rescue and the CSV tool fixes ([docs/growth/QA_REPORT.md](growth/QA_REPORT.md)) |
-| Preview  | `tsudowa-owner-preview` version `42187a28-acf1-4f80-ba8f-a4f810107aed`, same commit, noindex                                                         |
+| Item     | Value                                                                                                                                    |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| Origin   | `https://tsudowa.com` (TSUDOWA + TETSU WORKS, 58 public routes)                                                                          |
+| Worker   | `tsudowa-production`                                                                                                                     |
+| Version  | `ab261d93-a048-42b3-8632-0ffec7631cbe` (100%), deployment `833ca8c7-b19e-40ac-be5d-6477f5862690`                                         |
+| Deployed | 2026-09-20 15:29 UTC (2026-09-21 00:29 JST) with `node scripts/workers-production.mjs deploy-candidate`                                  |
+| Source   | `tsudowa/cloudflare-workers-candidate` = `claude/growth-p0-20260920` = `ef702be` (both on origin)                                        |
+| Content  | Growth P0 plus the approved fixed prices (W01 5,500 yen, W02 16,500 yen, tax included) ([docs/growth/QA_REPORT.md](growth/QA_REPORT.md)) |
+| Preview  | `tsudowa-owner-preview` version `42187a28-acf1-4f80-ba8f-a4f810107aed`, same commit, noindex                                             |
 
 The previous release (Visual Polish, version `e41e0535`, source `8b0f7ee`) is the
 rollback target below; its record is kept in the sections that follow.
@@ -24,9 +24,10 @@ rollback target below; its record is kept in the sections that follow.
 ## Rollback
 
 1. **Primary:** roll the Worker back to the previous production version
-   `e41e0535-a084-4d74-9eff-cf69e040323e` (Visual Polish build; deployment
-   `3f2dd8cc-dbd4-4629-8496-00fb1d756d31`) — Workers & Pages > tsudowa-production >
-   Deployments > Rollback, or `npx wrangler rollback e41e0535-a084-4d74-9eff-cf69e040323e --name tsudowa-production`.
+   `ab261d93-a048-42b3-8632-0ffec7631cbe` (Growth P0 before the prices;
+   deployment `833ca8c7-b19e-40ac-be5d-6477f5862690`, or `e41e0535` for the
+   Visual Polish build before it) — Workers & Pages > tsudowa-production >
+   Deployments > Rollback, or `npx wrangler rollback ab261d93-a048-42b3-8632-0ffec7631cbe --name tsudowa-production`.
    No DNS or mail change is involved.
 2. **Last resort only** (a Worker rollback cannot restore service): the retained
    Netlify known-good deploy `6aabc4aec1247183915ad890`
