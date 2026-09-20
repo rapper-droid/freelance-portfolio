@@ -1,4 +1,4 @@
-# Production status — tsudowa.com on Cloudflare Workers, 2026-09-20 JST
+# Production status — tsudowa.com on Cloudflare Workers, 2026-09-21 JST
 
 Current-state document. Earlier documents ([production candidate](cloudflare-production-candidate.md),
 [cutover simulation](cloudflare-cutover-simulation.md), [PRODUCTION.md](PRODUCTION.md)
@@ -8,22 +8,25 @@ by name only.
 
 ## What is live
 
-| Item     | Value                                                                                                   |
-| -------- | ------------------------------------------------------------------------------------------------------- |
-| Origin   | `https://tsudowa.com` (TSUDOWA + TETSU WORKS, 53 public routes)                                         |
-| Worker   | `tsudowa-production`                                                                                    |
-| Version  | `e41e0535-a084-4d74-9eff-cf69e040323e` (100%), deployment `3f2dd8cc-dbd4-4629-8496-00fb1d756d31`        |
-| Deployed | 2026-09-19 17:52 UTC (2026-09-20 02:52 JST) with `node scripts/workers-production.mjs deploy-candidate` |
-| Source   | `tsudowa/cloudflare-workers-candidate` = `claude/visual-polish-20260918` = `8b0f7ee` (both on origin)   |
-| Content  | Visual Polish ([VISUAL_POLISH.md](VISUAL_POLISH.md)) plus the release fixes listed there                |
-| Preview  | `tsudowa-owner-preview` version `90cd99dc-225d-451f-9105-19291da84949`, same commit, noindex            |
+| Item     | Value                                                                                                                                                |
+| -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Origin   | `https://tsudowa.com` (TSUDOWA + TETSU WORKS, 58 public routes)                                                                                      |
+| Worker   | `tsudowa-production`                                                                                                                                 |
+| Version  | `ab261d93-a048-42b3-8632-0ffec7631cbe` (100%), deployment `833ca8c7-b19e-40ac-be5d-6477f5862690`                                                     |
+| Deployed | 2026-09-20 15:29 UTC (2026-09-21 00:29 JST) with `node scripts/workers-production.mjs deploy-candidate`                                              |
+| Source   | `tsudowa/cloudflare-workers-candidate` = `claude/growth-p0-20260920` = `ef702be` (both on origin)                                                    |
+| Content  | Growth P0: fixed-scope offers, the brief builder, the partner desk, /rescue and the CSV tool fixes ([docs/growth/QA_REPORT.md](growth/QA_REPORT.md)) |
+| Preview  | `tsudowa-owner-preview` version `42187a28-acf1-4f80-ba8f-a4f810107aed`, same commit, noindex                                                         |
+
+The previous release (Visual Polish, version `e41e0535`, source `8b0f7ee`) is the
+rollback target below; its record is kept in the sections that follow.
 
 ## Rollback
 
 1. **Primary:** roll the Worker back to the previous production version
-   `90f14877-dedf-482e-8db7-9e8e469be50c` (pre-Visual-Polish build; deployment
-   `2e189075-7b10-464d-83e4-94edc6e06d39`) — Workers & Pages > tsudowa-production >
-   Deployments > Rollback, or `npx wrangler rollback 90f14877-dedf-482e-8db7-9e8e469be50c --name tsudowa-production`.
+   `e41e0535-a084-4d74-9eff-cf69e040323e` (Visual Polish build; deployment
+   `3f2dd8cc-dbd4-4629-8496-00fb1d756d31`) — Workers & Pages > tsudowa-production >
+   Deployments > Rollback, or `npx wrangler rollback e41e0535-a084-4d74-9eff-cf69e040323e --name tsudowa-production`.
    No DNS or mail change is involved.
 2. **Last resort only** (a Worker rollback cannot restore service): the retained
    Netlify known-good deploy `6aabc4aec1247183915ad890`

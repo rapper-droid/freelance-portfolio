@@ -1,6 +1,8 @@
 # CURRENT_STATE — 集客・受注導線の現況監査
 
 実行日: 2026-09-20（Asia/Tokyo）／監査は read-only で実施。
+**2026-09-21 追記**: この監査に基づく Growth P0 は本番反映済み（Worker version
+`ab261d93`）。以下は反映前の現況記録として残す。
 入力: `TSUDOWA_GROWTH_ALL_IN_ONE_20260919.md`
 （文書ID `TSUDOWA-GROWTH-ALL-IN-ONE-20260919-v2.0`、SHA-256
 `3c6eeb7d4d2ecef85db68a554a75c6b981d74ad9837da2473e3e574481b8f922`、全1467行を読了）

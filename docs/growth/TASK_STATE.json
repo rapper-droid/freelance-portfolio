@@ -7,7 +7,7 @@
   "repo": "rapper-droid/freelance-portfolio",
   "branch": "claude/growth-p0-20260920",
   "baseCommit": "78f04e9",
-  "updatedAt": "2026-09-20",
+  "updatedAt": "2026-09-21",
   "tasks": [
     {
       "id": "GX-00",
@@ -44,19 +44,22 @@
     {
       "id": "GX-03",
       "title": "制作パートナー資料と最小配布セット",
-      "state": "IN_PROGRESS",
-      "evidence": ["src/app/partners/page.tsx"],
-      "next": "媒体別の出品・提案原稿（artifacts/growth-public/listings）"
+      "state": "VERIFIED_LOCAL",
+      "evidence": [
+        "src/app/partners/page.tsx",
+        "artifacts/growth-public/listings/"
+      ],
+      "next": "出品・応募は A-04 の承認後"
     },
     {
       "id": "GX-04",
       "title": "計測・安全性・P0公開準備",
-      "state": "READY_FOR_APPROVAL",
+      "state": "PUBLISHED_VERIFIED",
       "evidence": [
         "docs/growth/QA_REPORT.md",
         "docs/growth/ACTION_MANIFEST.md"
       ],
-      "next": "A-01 本番反映の承認"
+      "next": "計測の有効化は A-03 の承認後"
     },
     {
       "id": "GX-05",
@@ -67,14 +70,15 @@
     {
       "id": "GX-06",
       "title": "最大6商品・最大3ツール・事例の拡充",
-      "state": "NOT_STARTED",
-      "next": "T03（依頼内容整理）と /rescue、W03の証拠整理"
+      "state": "IN_PROGRESS",
+      "next": "事例3本・解説ページ・W03の証拠整理",
+      "evidence": ["src/app/rescue/page.tsx"]
     },
     {
       "id": "GX-07",
       "title": "事例を投稿・解説・完成品へ展開",
       "state": "NOT_STARTED",
-      "next": "CONTENT_PLAN の事例1本目から"
+      "next": "X原稿と撮影指示は作成済み。投稿は A-04 の承認後"
     },
     {
       "id": "GX-08",
@@ -86,8 +90,17 @@
       "id": "GX-09",
       "title": "実測レビュー・改善・最終検証",
       "state": "BLOCKED",
-      "blockedBy": "本番未反映・計測未接続のため実測がない（A-01 / A-03）",
+      "blockedBy": "計測が未接続のため実測がない（A-03 未承認）",
       "next": "承認後に実測を開始する"
     }
-  ]
+  ],
+  "headCommit": "ef702be",
+  "productionSourceBranch": "tsudowa/cloudflare-workers-candidate",
+  "production": {
+    "workerVersion": "ab261d93-a048-42b3-8632-0ffec7631cbe",
+    "deployment": "833ca8c7-b19e-40ac-be5d-6477f5862690",
+    "rollbackVersion": "e41e0535-a084-4d74-9eff-cf69e040323e",
+    "previewVersion": "42187a28-acf1-4f80-ba8f-a4f810107aed",
+    "deployedAt": "2026-09-21T00:29+09:00"
+  }
 }

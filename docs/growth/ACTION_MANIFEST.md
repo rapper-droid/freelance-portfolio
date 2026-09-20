@@ -1,25 +1,41 @@
 # ACTION_MANIFEST — 所長の承認が要る外部操作
 
-更新: 2026-09-20 / 対象 repo: `rapper-droid/freelance-portfolio`
-対象 branch: `claude/growth-p0-20260920`（`78f04e9` から分岐）
+更新: 2026-09-21 / 対象 repo: `rapper-droid/freelance-portfolio`
+Growth ブランチ: `claude/growth-p0-20260920` = `ef702be`（origin と一致）
+本番ソース: `tsudowa/cloudflare-workers-candidate` = `ef702be`（fast-forward、origin と一致）
 
-ここに載っている操作は**まだ何も実行していない**。承認は項目ごと。内容が変わったら
-その項目の承認は無効（各項目に対象コミットを明記する）。
+| 項目                        | 状態                                  |
+| --------------------------- | ------------------------------------- |
+| A-01 本番反映               | **EXECUTED / COMPLETE**（2026-09-21） |
+| A-02 新価格の確定・公開     | PENDING OWNER APPROVAL（未実行）      |
+| A-03 計測の有効化           | PENDING OWNER APPROVAL（未実行）      |
+| A-04 出品・応募・投稿・送信 | PENDING OWNER APPROVAL（未実行）      |
+| A-05 営業URLの統一方針      | PENDING OWNER APPROVAL（未決定）      |
 
 ---
 
-## A-01 本番反映（tsudowa.com に新しい導線を出す）
+## A-01 本番反映 — EXECUTED / COMPLETE
 
-| 項目             | 内容                                                                                                                                                                                                                                                    |
-| ---------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 何をする         | `claude/growth-p0-20260920` を origin へ push → Cloudflare Worker `tsudowa-production` へ deploy（`node scripts/workers-production.mjs deploy-candidate` と同じ手順）                                                                                   |
-| 対象コミット     | `b8c0bbe`（以降のコミットを含める場合は再提示）                                                                                                                                                                                                         |
-| 公開されるもの   | `/services`、`/services/web-fix`、`/services/csv-routine`、`/partners`（新規4ページ）、`/works` のメニュー帯、デモ・作品ページのメニュー導線、`/contact` の案件サイト向け案内、CSVツールの改善、`/privacy` の追記（流入元の記憶）、sitemap への4URL追加 |
-| 公開されないもの | 新しい価格（既存の公開値のみ）、未検証商品、営業データ                                                                                                                                                                                                  |
-| 費用             | 0円（既存 Worker の更新のみ。DNS・メール・secret は触らない）                                                                                                                                                                                           |
-| 影響             | 既存53ルートは表示・内容とも変更なし（QA_REPORT参照）。受付・通知・レート制限の挙動は変更していない                                                                                                                                                     |
-| 戻し方           | Worker のロールバック（現行版 `e41e0535-a084-4d74-9eff-cf69e040323e` へ）。DNS変更を伴わない                                                                                                                                                            |
-| 検証             | lint / typecheck / unit 165 / build / E2E 162 / 4幅×9ルートの表示検査 / axe（QA_REPORT.md）                                                                                                                                                             |
+所長の承認（2026-09-21）に基づき実行済み。DNS・Custom Domain・メール・secret・
+Turnstile・Durable Objects は一切変更していない。
+
+| 項目                                         | 実績                                                                                                                                                                                                                                                 |
+| -------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| デプロイしたコミット                         | `ef702be`（`b8c0bbe` を含む。origin の Growth ブランチ・本番ソースブランチと一致）                                                                                                                                                                   |
+| 本番 Worker version                          | `ab261d93-a048-42b3-8632-0ffec7631cbe` / deployment `833ca8c7-b19e-40ac-be5d-6477f5862690`（2026-09-20T15:29:30Z = 2026-09-21 00:29 JST）                                                                                                            |
+| 直前の本番 version（ロールバック先）         | `e41e0535-a084-4d74-9eff-cf69e040323e` / deployment `3f2dd8cc-dbd4-4629-8496-00fb1d756d31`                                                                                                                                                           |
+| preview version                              | `42187a28-acf1-4f80-ba8f-a4f810107aed`（`tsudowa-owner-preview`、noindex）                                                                                                                                                                           |
+| 公開されたもの                               | `/services`、`/services/web-fix`、`/services/csv-routine`、`/partners`、`/rescue`、`/works` のメニュー帯とナビ項目、デモ・作品ページの導線と検証記録、`/contact` の案件サイト向け案内、CSVツールの改善、`/privacy` の追記、sitemap への5URL追加      |
+| 公開していないもの                           | 新価格（既存の公開値のみ）、未検証商品（W03〜W06）、営業データ（repo 外）                                                                                                                                                                            |
+| 追加費用                                     | 0円（既存 Worker の更新のみ）                                                                                                                                                                                                                        |
+| 実行前ゲート                                 | lint / typecheck / unit 178 / build / Workers typecheck / vinext check / E2E 165 / Workers E2E 165（本番成果物を workerd で実行）/ growth:lint 10ファイル / Prettier / npm audit 0 / 依存追加0 / 秘密情報・eval・innerHTML 0                         |
+| preview QA                                   | 15ルート×6幅=90チェック（本番ベースラインと同一の既知2件のみ）、機能フロー 19/19、axe 0、metadata・canonical 正常、noindex ヘッダあり                                                                                                                |
+| 本番 QA                                      | 全19ルートの HTTP（新規5・既存13は200、未知slugは404）、http→https 301、www→apex 308、90チェック（ベースラインと同一）、機能フロー 19/19、axe 0、`GET /api/contact` enabled:true                                                                     |
+| 性能（反映前 → 反映後、mobile・3回の中央値） | `/` LCP 756→804ms、`/works` 1148→1272ms、`/contact` 568→676ms、`/services`（新規）816ms。CLS はすべて 0.000。TTFB は 384→226ms、739→266ms、166→127ms                                                                                                 |
+| メール・DNS                                  | 反映前後で差分 0。DNS 11件 SHA-256 `3361a0be…`、メール9件 SHA-256 `7015de89…`。Email Routing enabled/ready、contact@ 転送 enabled                                                                                                                    |
+| Custom Domain / TLS                          | `tsudowa.com`（1478f107…）`www.tsudowa.com`（4b3993b1…）とも `tsudowa-production` のまま。証明書は advanced 2件・universal 2件が active（2026-12-15〜16 まで）                                                                                       |
+| Netlify フォールバック                       | 保持。known-good `https://6aabc4aec1247183915ad890--tsudowa.netlify.app/` は 200                                                                                                                                                                     |
+| 戻し方                                       | `npx wrangler rollback e41e0535-a084-4d74-9eff-cf69e040323e --name tsudowa-production`（またはダッシュボードの Deployments > Rollback）。DNS・メールの変更は不要。Worker のロールバックで復旧できない場合だけ、Netlify known-good への切替を別途判断 |
 
 ## A-02 商品価格の確定と公開
 
@@ -68,11 +84,23 @@
 
 ---
 
-## いま実行していないことの確認
+## 実行したこと / していないことの確認（2026-09-21 時点）
 
-- push / PR / merge / 本番 deploy: 未実施
-- DNS・zone・Email Routing・MX・Resend 設定の変更: 未実施
-- secret の作成・変更: 未実施（値を見てもいない）
-- メール・応募・DM・出品・投稿: 未実施
+実行した（A-01 の範囲内）:
+
+- Growth ブランチと本番ソースブランチの origin への通常 push（force push なし、履歴の書き換えなし）
+- `tsudowa-owner-preview` への preview deploy（noindex）
+- `tsudowa-production` への deploy（version `ab261d93`）
+
+実行していない:
+
+- DNS・zone・Custom Domain・Email Routing・MX・Resend 設定の変更: 未実施（前後のハッシュ一致で確認）
+- secret の作成・変更・閲覧: 未実施
+- Turnstile 設定・Durable Objects namespace の変更: 未実施
+- メール・応募・DM・出品・投稿・本番からの実送信: 未実施（A-04 未承認）
+- 新価格の決定・公開: 未実施（A-02 未承認。公開中は既存の承認済み価格のみ）
+- 計測の有効化: 未実施（A-03 未承認。`NEXT_PUBLIC_ANALYTICS_ENABLED=false` のまま）
+- 営業URLの統一（tetsuworks.com 側の変更）: 未実施（A-05 未決定）
 - 課金が発生する操作: 未実施（追加支出 0円）
-- LAB・HQ・CW APPLY OS・本番 checkout への書き込み: 未実施
+- LAB・HQ・CW APPLY OS・`~/freelance-portfolio` 本番 checkout への書き込み: 未実施
+- main / codex ブランチへの push・マージ: 未実施
