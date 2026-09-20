@@ -1,13 +1,13 @@
 # ACTION_MANIFEST — 所長の承認が要る外部操作
 
-更新: 2026-09-21 / 対象 repo: `rapper-droid/freelance-portfolio`
+更新: 2026-09-21（A-02 反映後） / 対象 repo: `rapper-droid/freelance-portfolio`
 Growth ブランチ: `claude/growth-p0-20260920` = `ef702be`（origin と一致）
 本番ソース: `tsudowa/cloudflare-workers-candidate` = `ef702be`（fast-forward、origin と一致）
 
 | 項目                        | 状態                                  |
 | --------------------------- | ------------------------------------- |
 | A-01 本番反映               | **EXECUTED / COMPLETE**（2026-09-21） |
-| A-02 新価格の確定・公開     | PENDING OWNER APPROVAL（未実行）      |
+| A-02 新価格の確定・公開     | **EXECUTED / COMPLETE**（2026-09-21） |
 | A-03 計測の有効化           | PENDING OWNER APPROVAL（未実行）      |
 | A-04 出品・応募・投稿・送信 | PENDING OWNER APPROVAL（未実行）      |
 | A-05 営業URLの統一方針      | PENDING OWNER APPROVAL（未決定）      |
@@ -37,14 +37,17 @@ Turnstile・Durable Objects は一切変更していない。
 | Netlify フォールバック                       | 保持。known-good `https://6aabc4aec1247183915ad890--tsudowa.netlify.app/` は 200                                                                                                                                                                     |
 | 戻し方                                       | `npx wrangler rollback e41e0535-a084-4d74-9eff-cf69e040323e --name tsudowa-production`（またはダッシュボードの Deployments > Rollback）。DNS・メールの変更は不要。Worker のロールバックで復旧できない場合だけ、Netlify known-good への切替を別途判断 |
 
-## A-02 商品価格の確定と公開
+## A-02 商品価格の確定と公開 — EXECUTED / COMPLETE
 
-| 項目       | 内容                                                                                     |
-| ---------- | ---------------------------------------------------------------------------------------- |
-| 何をする   | W01・W02 を定額で出すかを決め、決めた場合のみ `offers.ts` の価格を変更して再公開         |
-| 提示案     | W01 5,500円 / W02 16,500円（いずれも未承認の設計案。市場相場の調査結果ではない）         |
-| 決めること | 定額にするか参考料金のままにするか、税表示、案件サイト手数料の扱い                       |
-| 影響       | 価格は対外的な確約になる。承認前は現在の「参考料金 5,000円〜」「確認後にお見積り」のまま |
+所長の承認（2026-09-21）: W01 = 5,500円、W02 = 16,500円、**税込（総額表示）**。
+
+| 項目               | 実績                                                                                                                                             |
+| ------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 公開した価格       | W01「5,500円（税込）」／ W02「16,500円（税込）」。いずれも範囲（対象1ページ・不具合1種類／入力1形式・ルール最大3つ・出力1形式）とセットで表示    |
+| 範囲外             | 「範囲を超える場合は着手前に別途お見積り」をページに明記                                                                                         |
+| 実装               | `src/lib/offers.ts` の `price.status` を `fixed` に（revision 2）。`tests/unit/growth-offers.test.ts` が承認済み金額・税込表記・範囲の記載を検査 |
+| 変更していないもの | 既存カテゴリの参考料金（`/works` の 5,000円〜 など）、W03〜W06 の未承認価格、構造化データ（Offer の価格は出していない）                          |
+| 営業原稿           | ココナラ・ランサーズ・CrowdWorks の原稿の価格欄を承認価格に更新（**出品・応募は A-04 未承認のまま**。手数料を乗せるかは所長判断）                |
 
 ## A-03 計測の有効化（現在は未計測）
 
@@ -86,11 +89,12 @@ Turnstile・Durable Objects は一切変更していない。
 
 ## 実行したこと / していないことの確認（2026-09-21 時点）
 
-実行した（A-01 の範囲内）:
+実行した（A-01・A-02 の範囲内）:
 
 - Growth ブランチと本番ソースブランチの origin への通常 push（force push なし、履歴の書き換えなし）
 - `tsudowa-owner-preview` への preview deploy（noindex）
-- `tsudowa-production` への deploy（version `ab261d93`）
+- `tsudowa-production` への deploy（Growth P0: version `ab261d93`、価格公開: 下記）
+- 承認済み価格（税込）の公開とそれに伴う再デプロイ
 
 実行していない:
 
@@ -98,7 +102,8 @@ Turnstile・Durable Objects は一切変更していない。
 - secret の作成・変更・閲覧: 未実施
 - Turnstile 設定・Durable Objects namespace の変更: 未実施
 - メール・応募・DM・出品・投稿・本番からの実送信: 未実施（A-04 未承認）
-- 新価格の決定・公開: 未実施（A-02 未承認。公開中は既存の承認済み価格のみ）
+- 新価格の決定・公開: **実施済み**（A-02 承認。W01 5,500円・W02 16,500円、税込）。
+  W03〜W06 の未承認価格は引き続き非公開
 - 計測の有効化: 未実施（A-03 未承認。`NEXT_PUBLIC_ANALYTICS_ENABLED=false` のまま）
 - 営業URLの統一（tetsuworks.com 側の変更）: 未実施（A-05 未決定）
 - 課金が発生する操作: 未実施（追加支出 0円）

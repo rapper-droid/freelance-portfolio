@@ -9,10 +9,11 @@ export type { BriefQuestion } from "./brief";
  *
  * Rules (docs/growth/OFFER_REVIEW.md):
  * - Only `verified` offers are rendered, listed in the sitemap or linked.
- * - A price is shown only when it already appears on the published site
- *   (`reference`) or as "quote after confirmation" (`quote_required`).
- *   Proposed fixed prices wait for the owner in OFFER_REVIEW.md and never
- *   appear here, in structured data or in the client bundle.
+ * - A number is shown only when the owner approved it for this exact scope
+ *   (`fixed`, tax included) or when the site already publishes it
+ *   (`reference`); otherwise the offer promises a quote (`quote_required`).
+ *   A price the owner has not approved stays in OFFER_REVIEW.md and never
+ *   appears here, in structured data or in the client bundle.
  * - Every evidence line must be backed by a demo, a test or a dated record.
  */
 export type OfferState = "draft" | "verified" | "paused";
@@ -41,7 +42,13 @@ export type Offer = {
   revisionPolicy: string;
   schedulePolicy: string;
   price: {
-    status: "reference" | "quote_required";
+    /**
+     * `fixed` is a price the owner approved for this exact scope, shown as a
+     * tax-included total (docs/growth/OFFER_REVIEW.md records the approval).
+     * `reference` repeats a price the site already publishes; `quote_required`
+     * promises a quote instead of a number.
+     */
+    status: "fixed" | "reference" | "quote_required";
     displayLabel: string;
     note: string;
     thirdPartyCosts: string;
@@ -59,7 +66,7 @@ export const offers: readonly Offer[] = [
   {
     id: "W01",
     slug: "web-fix",
-    revision: 1,
+    revision: 2,
     title: "Webページの表示崩れを、1か所直す。",
     shortTitle: "表示崩れの修正 1か所",
     audience: ["business", "partner"],
@@ -97,9 +104,9 @@ export const offers: readonly Offer[] = [
     schedulePolicy:
       "ソースと再現情報を受け取り、作業範囲に合意した時点で納期をお伝えします。即日・24時間以内の対応はお約束していません。",
     price: {
-      status: "reference",
-      displayLabel: "5,000円〜",
-      note: "既存サイト修正の参考料金です。対象と作業量を確認し、着手前に確定額をお伝えします。",
+      status: "fixed",
+      displayLabel: "5,500円（税込）",
+      note: "上の「お渡しするもの」の範囲（対象1ページ・事前に合意した表示不具合1種類）でのお値段です。範囲を超える場合や、直したい箇所が複数ある場合は、着手前に別途お見積りします。",
       thirdPartyCosts:
         "通常、有料素材や外部サービスの費用はかかりません。必要になる場合は着手前にお知らせします。",
     },
@@ -184,12 +191,12 @@ export const offers: readonly Offer[] = [
       },
     ],
     state: "verified",
-    updatedAt: "2026-09-20",
+    updatedAt: "2026-09-21",
   },
   {
     id: "W02",
     slug: "csv-routine",
-    revision: 1,
+    revision: 2,
     title: "毎回のCSV整理を、1本の手順にまとめる。",
     shortTitle: "CSV整形ルーチン 1本",
     audience: ["business", "partner"],
@@ -225,9 +232,9 @@ export const offers: readonly Offer[] = [
     schedulePolicy:
       "サンプルと出力の形を受け取り、ルールに合意した時点で納期をお伝えします。即日・24時間以内の対応はお約束していません。",
     price: {
-      status: "quote_required",
-      displayLabel: "サンプル確認後にお見積り",
-      note: "入力と出力の形式、ルールの数を確認し、着手前に確定額をお伝えします。",
+      status: "fixed",
+      displayLabel: "16,500円（税込）",
+      note: "入力形式1種類・加工ルール最大3つ・出力形式1種類の範囲でのお値段です。サンプルと必要なルールを確認したうえで着手し、この範囲を超える場合は着手前に別途お見積りします。",
       thirdPartyCosts:
         "基本はブラウザやパソコン上で動く形のため、利用料はかかりません。外部サービスを使う場合は、その費用を事前にお知らせします。",
     },
@@ -307,7 +314,7 @@ export const offers: readonly Offer[] = [
       },
     ],
     state: "verified",
-    updatedAt: "2026-09-20",
+    updatedAt: "2026-09-21",
   },
 ];
 

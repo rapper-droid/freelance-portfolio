@@ -76,17 +76,31 @@ describe("offer master (G04, G05, G06, G42, G45)", () => {
           expect(e.href).toMatch(/^\/(demos|projects|works|history)\//);
     }
   });
-  it("shows only a price already published on the site, never a draft price", () => {
+  it("shows only a price the owner approved, and always tax-included", () => {
+    // Approved by the owner on 2026-09-21 for these exact scopes
+    // (docs/growth/OFFER_REVIEW.md). Anything else must not carry a number.
+    const approved: Record<string, string> = {
+      W01: "5,500円（税込）",
+      W02: "16,500円（税込）",
+    };
     const published = new Set<string>(categories.map((c) => c.price));
     for (const o of publishedOffers) {
-      if (o.price.status === "reference")
+      if (o.price.status === "fixed") {
+        expect(o.price.displayLabel).toBe(approved[o.id]);
+        expect(o.price.displayLabel).toContain("税込");
+        // A fixed price only means anything with the scope beside it.
+        expect(o.price.note).toMatch(/範囲/);
+      } else if (o.price.status === "reference")
         expect(published.has(o.price.displayLabel)).toBe(true);
       else expect(o.price.displayLabel).not.toMatch(/\d/);
-      // Draft proposals (docs/growth/OFFER_REVIEW.md) never reach the site.
-      expect(JSON.stringify(o)).not.toMatch(
-        /5,500|16,500|22,000|33,000|55,000/,
-      );
+      // Prices the owner has not approved (W03-W06) never reach the site.
+      expect(JSON.stringify(o)).not.toMatch(/22,000|33,000|55,000/);
     }
+    // Every published offer carries one of the three states, nothing else.
+    for (const o of publishedOffers)
+      expect(["fixed", "reference", "quote_required"]).toContain(
+        o.price.status,
+      );
   });
   it("makes no unbacked promise (G28)", () => {
     const copy = JSON.stringify(publishedOffers);

@@ -43,11 +43,11 @@ test("offer: menu, scope, brief and hand-off to the contact form", async ({
     "完了の確認（検収）",
   ])
     await expect(page.getByRole("heading", { name: heading })).toBeVisible();
-  await expect(
-    page.getByText("参考料金", { exact: false }).first(),
-  ).toBeVisible();
-  await expect(page.locator("main")).toContainText("5,000円〜");
-  await expect(page.locator("main")).not.toContainText("5,500円");
+  // The approved fixed price, tax included, next to the scope it covers.
+  await expect(page.locator("main")).toContainText("5,500円（税込）");
+  await expect(page.locator(".offer-terms")).toContainText("範囲を超える場合");
+  // Prices the owner has not approved never appear.
+  await expect(page.locator("main")).not.toContainText("22,000円");
 
   // The brief refuses to run on an empty required answer.
   await page.getByRole("button", { name: "この内容で相談する" }).click();
