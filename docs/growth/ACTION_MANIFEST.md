@@ -1,6 +1,6 @@
 # ACTION_MANIFEST — 所長の承認が要る外部操作
 
-更新: 2026-09-21（A-02 反映後） / 対象 repo: `rapper-droid/freelance-portfolio`
+更新: 2026-09-21（A-03 反映後） / 対象 repo: `rapper-droid/freelance-portfolio`
 Growth ブランチ: `claude/growth-p0-20260920` = `ef702be`（origin と一致）
 本番ソース: `tsudowa/cloudflare-workers-candidate` = `ef702be`（fast-forward、origin と一致）
 
@@ -8,7 +8,7 @@ Growth ブランチ: `claude/growth-p0-20260920` = `ef702be`（origin と一致�
 | --------------------------- | ------------------------------------- |
 | A-01 本番反映               | **EXECUTED / COMPLETE**（2026-09-21） |
 | A-02 新価格の確定・公開     | **EXECUTED / COMPLETE**（2026-09-21） |
-| A-03 計測の有効化           | PENDING OWNER APPROVAL（未実行）      |
+| A-03 計測の有効化           | **EXECUTED / COMPLETE**（2026-09-21） |
 | A-04 出品・応募・投稿・送信 | PENDING OWNER APPROVAL（未実行）      |
 | A-05 営業URLの統一方針      | PENDING OWNER APPROVAL（未決定）      |
 
@@ -49,15 +49,23 @@ Turnstile・Durable Objects は一切変更していない。
 | 変更していないもの | 既存カテゴリの参考料金（`/works` の 5,000円〜 など）、W03〜W06 の未承認価格、構造化データ（Offer の価格は出していない）                          |
 | 営業原稿           | ココナラ・ランサーズ・CrowdWorks の原稿の価格欄を承認価格に更新（**出品・応募は A-04 未承認のまま**。手数料を乗せるかは所長判断）                |
 
-## A-03 計測の有効化（現在は未計測）
+## A-03 計測の有効化 — EXECUTED / COMPLETE
 
-| 項目     | 内容                                                                                                                                                     |
-| -------- | -------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 何をする | PostHog のプロジェクト作成 → `POSTHOG_HOST` / `POSTHOG_PROJECT_KEY` を Worker の secret に登録 → `NEXT_PUBLIC_ANALYTICS_ENABLED=true` で再ビルド・再公開 |
-| 費用     | PostHog 無料枠（月100万イベント）。超過時は従量課金。**上限と課金設定の確認が必要**                                                                      |
-| 影響     | 匿名の閲覧・デモ・相談操作だけを送信（本文・メール・URLクエリは送らない、DNT/GPC尊重）。送信先が増える                                                   |
-| 代替     | 承認しない場合は「未計測」のまま運用し、相談・返信の件数は手元の台帳（ローカル）で数える                                                                 |
-| 注意     | secret の作成・登録は所長が行う。値はここにも repo にも書かない                                                                                          |
+所長の承認（2026-09-21）に基づき実行し、**PostHog 側で実イベントの受信まで確認**した。
+
+| 項目                 | 実績                                                                                                                                                                                                                  |
+| -------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 送信先               | PostHog 組織「TSUDOWA」プロジェクト id **619418**（LAB とは別組織・別プロジェクト。無料枠 100万イベント/月）                                                                                                          |
+| 実受信の証拠         | 2026-09-21T13:50:43Z `portfolio_visit`（実ブラウザで tsudowa.com/services を1回開いて発生、distinct_id = そのタブのセッションID）／13:50:03Z `service_view`（offer=web-fix）。いずれも本番 `https://tsudowa.com` 由来 |
+| 記録されたプロパティ | `source`・`offer`・`$geoip_disable`・`$ip="0.0.0.0"`・`$process_person_profile=false` のみ。**本文・メール・URL・生IP・個人プロファイルはゼロ**                                                                       |
+| LAB への混入         | なし（プロジェクト 551024 は同時間帯 0 件）                                                                                                                                                                           |
+| 設定                 | `ANALYTICS_ENABLED=true`（サーバー側 runtime var）／`NEXT_PUBLIC_ANALYTICS_ENABLED=true`（ブラウザ側）／`POSTHOG_HOST=https://us.i.posthog.com`。`POSTHOG_PROJECT_KEY` は Worker Secret（repo には書かない）          |
+| 応答の意味           | `/api/analytics` は **202=転送・受理／204=未計測／400=payload 不正／502=upstream 異常**。以前は転送成功と未計測がどちらも 204 で、誤設定が健全に見えていた                                                            |
+| 上限                 | サーバー側で30日2万件（無料枠の2%）。超過分は送信せず 429                                                                                                                                                             |
+| 途中で直した不具合   | ①サーバーの転送判定が build 時 inline される `NEXT_PUBLIC_*` に依存し、ビルド成果物から条件ごと消えていた → runtime var に分離。②Secret が空値で登録されていた（所長が再登録して解消）                                |
+| 費用                 | 0円（PostHog 無料プラン、サブスクリプションなし）                                                                                                                                                                     |
+| 本番 version         | `5ec6e5ee-19b3-455a-9f3c-87e0275a16b5` / deployment `f54121ff`                                                                                                                                                        |
+| ロールバック先       | `2bdd0b86-9067-4348-bc24-fa98d2c4012d`（計測を転送しない版）。DNS・メールの変更は不要                                                                                                                                 |
 
 ## A-04 案件サイト・販売先への出品／応募
 
@@ -104,7 +112,7 @@ Turnstile・Durable Objects は一切変更していない。
 - メール・応募・DM・出品・投稿・本番からの実送信: 未実施（A-04 未承認）
 - 新価格の決定・公開: **実施済み**（A-02 承認。W01 5,500円・W02 16,500円、税込）。
   W03〜W06 の未承認価格は引き続き非公開
-- 計測の有効化: 未実施（A-03 未承認。`NEXT_PUBLIC_ANALYTICS_ENABLED=false` のまま）
+- 計測の有効化: **実施済み**（A-03 承認。PostHog プロジェクト 619418 で実受信を確認）
 - 営業URLの統一（tetsuworks.com 側の変更）: 未実施（A-05 未決定）
 - 課金が発生する操作: 未実施（追加支出 0円）
 - LAB・HQ・CW APPLY OS・`~/freelance-portfolio` 本番 checkout への書き込み: 未実施

@@ -89,18 +89,20 @@
     {
       "id": "GX-09",
       "title": "実測レビュー・改善・最終検証",
-      "state": "BLOCKED",
-      "blockedBy": "計測が未接続のため実測がない（A-03 未承認）",
-      "next": "承認後に実測を開始する"
+      "state": "IN_PROGRESS",
+      "next": "計測が入ったので、数日分のデータが溜まってから最初の実測レビューを行う"
     }
   ],
-  "headCommit": "ef702be",
+  "headCommit": "98ae1ba",
   "productionSourceBranch": "tsudowa/cloudflare-workers-candidate",
   "production": {
-    "workerVersion": "ab261d93-a048-42b3-8632-0ffec7631cbe",
-    "deployment": "833ca8c7-b19e-40ac-be5d-6477f5862690",
-    "rollbackVersion": "e41e0535-a084-4d74-9eff-cf69e040323e",
-    "previewVersion": "42187a28-acf1-4f80-ba8f-a4f810107aed",
-    "deployedAt": "2026-09-21T00:29+09:00"
+    "workerVersion": "5ec6e5ee-19b3-455a-9f3c-87e0275a16b5",
+    "deployment": "f54121ff",
+    "rollbackVersion": "2bdd0b86-9067-4348-bc24-fa98d2c4012d",
+    "deployedAt": "2026-09-21T22:20+09:00",
+    "analytics": {
+      "posthogProject": 619418,
+      "receiptVerifiedAt": "2026-09-21T13:50Z"
+    }
   }
 }
