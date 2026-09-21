@@ -47,9 +47,11 @@
       "state": "VERIFIED_LOCAL",
       "evidence": [
         "src/app/partners/page.tsx",
-        "artifacts/growth-public/listings/"
+        "artifacts/growth-public/listings/",
+        "artifacts/growth-public/listings/PUBLISH_CHECKLIST.md",
+        "tests/unit/growth-listings.test.ts"
       ],
-      "next": "出品・応募は A-04 の承認後"
+      "next": "出品3件は READY（listings/PUBLISH_CHECKLIST.md）。公開は所長が画面で行う"
     },
     {
       "id": "GX-04",
@@ -65,7 +67,7 @@
       "id": "GX-05",
       "title": "現在募集中の適合候補と少数提案",
       "state": "NOT_STARTED",
-      "next": "規約確認 → 候補調査 → 根拠つき下書き（送信しない）"
+      "next": "規約確認は完了（CHANNEL_POLICY 2026-09-21）。次は候補調査 → 案件ごとの応募文（送信しない）"
     },
     {
       "id": "GX-06",
@@ -78,7 +80,7 @@
       "id": "GX-07",
       "title": "事例を投稿・解説・完成品へ展開",
       "state": "NOT_STARTED",
-      "next": "X原稿と撮影指示は作成済み。投稿は A-04 の承認後"
+      "next": "X原稿と撮影指示は作成済み。投稿は未承認のまま"
     },
     {
       "id": "GX-08",
@@ -104,5 +106,38 @@
       "posthogProject": 619418,
       "receiptVerifiedAt": "2026-09-21T13:50Z"
     }
+  },
+  "listings": {
+    "decidedAt": "2026-09-21",
+    "policy": "媒体でも自社サイトと同額。手数料は自己負担",
+    "items": [
+      {
+        "channel": "coconala",
+        "offer": "web-fix",
+        "price": "5,500円（税込）",
+        "feeRate": 0.22,
+        "net": 4290,
+        "leadDays": 5,
+        "state": "READY_FOR_OWNER"
+      },
+      {
+        "channel": "lancers",
+        "offer": "web-fix",
+        "price": "5,500円（税込）",
+        "feeRate": 0.165,
+        "net": 4592,
+        "leadDays": 7,
+        "state": "READY_FOR_OWNER"
+      },
+      {
+        "channel": "lancers",
+        "offer": "csv-routine",
+        "price": "16,500円（税込）",
+        "feeRate": 0.165,
+        "net": 13777,
+        "leadDays": 14,
+        "state": "READY_FOR_OWNER"
+      }
+    ]
   }
 }
