@@ -279,7 +279,12 @@ test("unconfigured general intake cannot report success or submit externally", a
       await request.post("/api/contact", { data: { page: "/contact/general" } })
     ).status(),
   ).toBe(503);
-  expect(posts).toEqual([]);
+  // Measurement, when it is on, is a first-party ping that carries no inquiry
+  // content (tests/unit/analytics-growth.test.ts). Nothing else may be posted,
+  // and nothing at all may leave this origin.
+  expect(posts.filter((url) => !url.endsWith("/api/analytics"))).toEqual([]);
+  const origin = new URL(page.url()).origin;
+  expect(posts.filter((url) => new URL(url).origin !== origin)).toEqual([]);
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });
 
