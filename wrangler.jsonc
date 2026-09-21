@@ -25,6 +25,7 @@
     "CONTACT_ENABLED": "true",
     "CONTACT_ORIGIN": "https://tsudowa-owner-preview.tetsuyasmile52l.workers.dev",
     "NEXT_PUBLIC_ANALYTICS_ENABLED": "false",
+    "ANALYTICS_ENABLED": "false",
     "CONTACT_FROM_EMAIL": "no-reply@tsudowa.com",
     "CONTACT_TO_EMAIL": "contact@tsudowa.com",
     "HOSTING_PLATFORM": "cloudflare",

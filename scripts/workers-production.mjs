@@ -38,9 +38,13 @@ function guard(config) {
       "0x4AAAAAAE6gUHBs1hey6e76" ||
     config.assets?.run_worker_first !== true ||
     !["true", "false"].includes(config.vars?.NEXT_PUBLIC_ANALYTICS_ENABLED) ||
+    // The browser switch and the Worker switch must agree: one decides whether
+    // events are sent, the other whether they are forwarded.
+    config.vars?.ANALYTICS_ENABLED !==
+      config.vars?.NEXT_PUBLIC_ANALYTICS_ENABLED ||
     // With analytics on, the ingest host must be one the route accepts; with
     // it off, no host may be configured at all.
-    (config.vars?.NEXT_PUBLIC_ANALYTICS_ENABLED === "true"
+    (config.vars?.ANALYTICS_ENABLED === "true"
       ? !analyticsHosts.includes(config.vars?.POSTHOG_HOST)
       : !!config.vars?.POSTHOG_HOST) ||
     Object.keys(config.vars ?? {}).some(
@@ -84,6 +88,7 @@ if (action === "build") {
     ...env,
     CONTACT_ENABLED: "false",
     NEXT_PUBLIC_ANALYTICS_ENABLED: "false",
+    ANALYTICS_ENABLED: "false",
   });
   run("scripts/generate-responsive-images.mjs", []);
   run("node_modules/vinext/dist/cli.js", ["build"]);

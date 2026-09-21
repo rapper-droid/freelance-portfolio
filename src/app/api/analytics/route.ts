@@ -1,10 +1,19 @@
 import { limitedJson, quota, clientBucket } from "@/lib/abuse";
 import { reportFailure } from "@/lib/server-monitoring";
-import { analyticsEndpoint, posthogPayload, sessionId } from "@/lib/analytics";
+import {
+  analyticsAllowed,
+  analyticsEndpoint,
+  posthogPayload,
+  sessionId,
+} from "@/lib/analytics";
 export async function POST(request: Request) {
+  // The server decides on its own runtime variable. NEXT_PUBLIC_* values are
+  // inlined into the bundle at build time, so gating the forwarding branch on
+  // one lets a build-time constant decide what the deployed Worker does — and
+  // lets the bundler delete the branch entirely.
   const endpoint = analyticsEndpoint(),
     key = process.env.POSTHOG_PROJECT_KEY;
-  if (!endpoint || !key || process.env.NEXT_PUBLIC_ANALYTICS_ENABLED !== "true")
+  if (!endpoint || !key || !analyticsAllowed())
     return new Response(null, { status: 204 });
   if (request.headers.get("origin") !== new URL(request.url).origin)
     return new Response(null, { status: 403 });
@@ -31,7 +40,10 @@ export async function POST(request: Request) {
       redirect: "manual",
     });
     if (!upstream.ok) await reportFailure("analytics_dependency");
-    return new Response(null, { status: upstream.ok ? 204 : 502 });
+    // 202: the event was forwarded and accepted. 204 (above) means nothing was
+    // measured. The two were indistinguishable before, which hid a
+    // misconfigured key behind an apparently healthy response.
+    return new Response(null, { status: upstream.ok ? 202 : 502 });
   } catch (error) {
     if (error instanceof Error && error.message === "body_too_large")
       return new Response(null, { status: 413 });

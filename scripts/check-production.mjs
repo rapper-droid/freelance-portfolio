@@ -45,7 +45,8 @@ if (process.env.CONTACT_ENABLED === "true") {
 }
 
 if (
-  process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === "true" &&
+  (process.env.NEXT_PUBLIC_ANALYTICS_ENABLED === "true" ||
+    process.env.ANALYTICS_ENABLED === "true") &&
   [
     "POSTHOG_PROJECT_KEY",
     "POSTHOG_HOST",

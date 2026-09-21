@@ -72,6 +72,16 @@ export function posthogPayload(value: unknown, key: string, id: string) {
     },
   };
 }
+/**
+ * Server-side switch, read from the Worker's runtime variables. It is
+ * deliberately not a NEXT_PUBLIC_* value: those are inlined when the bundle is
+ * built, so the deployed Worker would obey whatever was set on the build
+ * machine, and the bundler would fold the branch away. The NEXT_PUBLIC flag
+ * still governs whether the browser sends anything at all.
+ */
+export function analyticsAllowed() {
+  return process.env.ANALYTICS_ENABLED === "true";
+}
 export function analyticsEndpoint() {
   const host = process.env.POSTHOG_HOST;
   return host &&

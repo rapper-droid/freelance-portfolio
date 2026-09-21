@@ -30,6 +30,7 @@ function guard(config) {
     ) ||
     config.vars?.OWNER_REVIEW !== "true" ||
     config.vars?.NEXT_PUBLIC_ANALYTICS_ENABLED !== "false" ||
+    config.vars?.ANALYTICS_ENABLED !== "false" ||
     config.vars?.NEXT_PUBLIC_SITE_URL !== "https://tsudowa.com"
   ) {
     throw new Error("Owner-preview boundary failed; no deployment performed.");

@@ -17,12 +17,14 @@ const request = (body: unknown, origin = "https://portfolio.test") =>
   });
 function configured() {
   vi.stubEnv("NEXT_PUBLIC_ANALYTICS_ENABLED", "true");
+  vi.stubEnv("ANALYTICS_ENABLED", "true");
   vi.stubEnv("POSTHOG_PROJECT_KEY", "fixture-project-token");
   vi.stubEnv("POSTHOG_HOST", "https://eu.i.posthog.com");
 }
 describe("optional analytics transport", () => {
   it("does no network I/O when unconfigured", async () => {
     vi.stubEnv("NEXT_PUBLIC_ANALYTICS_ENABLED", "false");
+    vi.stubEnv("ANALYTICS_ENABLED", "false");
     const mock = vi.fn();
     vi.stubGlobal("fetch", mock);
     expect(
@@ -45,7 +47,7 @@ describe("optional analytics transport", () => {
           }),
         )
       ).status,
-    ).toBe(204);
+    ).toBe(202);
     const [url, options] = mock.mock.calls[0];
     expect(url).toBe("https://eu.i.posthog.com/i/v0/e/");
     expect(options.body).not.toContain("private");

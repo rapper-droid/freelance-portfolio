@@ -26,6 +26,7 @@
     "NEXT_PUBLIC_TURNSTILE_SITE_KEY": "0x4AAAAAAE6gUHBs1hey6e76",
     "CONTACT_ENABLED": "true",
     "NEXT_PUBLIC_ANALYTICS_ENABLED": "true",
+    "ANALYTICS_ENABLED": "true",
     "POSTHOG_HOST": "https://us.i.posthog.com",
     "CONTACT_FROM_EMAIL": "no-reply@tsudowa.com",
     "CONTACT_TO_EMAIL": "contact@tsudowa.com",

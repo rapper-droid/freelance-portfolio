@@ -13,7 +13,9 @@ afterEach(() => {
 
 const session = "8f14e45f-ceea-467a-9b2b-1234567890ab";
 function configured(host = "https://us.i.posthog.com", key = "phc_fixture") {
-  vi.stubEnv("NEXT_PUBLIC_ANALYTICS_ENABLED", "true");
+  // The browser switch is irrelevant to the server: only ANALYTICS_ENABLED is.
+  vi.stubEnv("NEXT_PUBLIC_ANALYTICS_ENABLED", "false");
+  vi.stubEnv("ANALYTICS_ENABLED", "true");
   vi.stubEnv("POSTHOG_HOST", host);
   vi.stubEnv("POSTHOG_PROJECT_KEY", key);
   const sent: { url: string; body: Record<string, unknown> }[] = [];
@@ -50,7 +52,8 @@ describe("growth events over the live analytics route (G08, G31, G49)", () => {
           source: "crowdworks",
         })
       ).status,
-    ).toBe(204);
+      // 202 proves the event was forwarded and accepted, which 204 did not.
+    ).toBe(202);
     expect(sent).toHaveLength(1);
     expect(sent[0].url).toBe("https://us.i.posthog.com/i/v0/e/");
     expect(sent[0].body).toMatchObject({
@@ -93,6 +96,22 @@ describe("growth events over the live analytics route (G08, G31, G49)", () => {
       (await send({ event: "service_view", offer: "not-an-offer", session }))
         .status,
     ).toBe(400);
+    expect(sent).toHaveLength(0);
+  });
+  it("forwards on the runtime switch alone, never on the build-time one", async () => {
+    // A: runtime switch on, key present -> one upstream send, 202.
+    let sent = configured();
+    expect(
+      (await send({ event: "service_view", offer: "web-fix", session })).status,
+    ).toBe(202);
+    expect(sent).toHaveLength(1);
+    // B: runtime switch off -> nothing sent, even with the browser flag on.
+    sent = configured();
+    vi.stubEnv("ANALYTICS_ENABLED", "false");
+    vi.stubEnv("NEXT_PUBLIC_ANALYTICS_ENABLED", "true");
+    expect(
+      (await send({ event: "service_view", offer: "web-fix", session })).status,
+    ).toBe(204);
     expect(sent).toHaveLength(0);
   });
   it("fails closed: no key, or a host outside the allowlist, sends nothing", async () => {
