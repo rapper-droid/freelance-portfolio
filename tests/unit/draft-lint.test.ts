@@ -49,6 +49,16 @@ describe("outbound draft lint (G16, G20, G26)", () => {
     expect(found.filter((f) => f.rule === "price")).toHaveLength(1);
     expect(found.find((f) => f.rule === "price")?.detail).toContain("16,500");
     expect(allowedAmounts(prices).has("5,000")).toBe(true);
+    // An internal note is not something a customer reads: it may quote a
+    // platform's own wording and record what is left after fees.
+    expect(
+      rules(
+        draft(
+          "channel: internal\nstatus: ready_for_owner",
+          "公式FAQは「必ずすべて確認し」と書いている。16,500円の契約で受取は 13,777円。",
+        ),
+      ),
+    ).toEqual([]);
   });
   it("keeps marketplace drafts free of contact details and off-platform hints", () => {
     const body =
