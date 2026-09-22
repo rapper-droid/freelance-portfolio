@@ -25,6 +25,9 @@ const server = process.env.QA_BASE_URL
       { stdio: "ignore", windowsHide: true },
     );
 
+/** Prettier expects a trailing newline, and CI checks the committed report. */
+const EOL = String.fromCharCode(10);
+
 const WIDTHS = [320, 390, 768, 1440];
 // `id` names the screenshot file: the Japanese labels collapse to identical
 // underscore runs, which silently overwrote one track's evidence with another's.
@@ -153,13 +156,15 @@ try {
     await context.close();
   }
 
+  // Trailing newline: this file is committed as evidence and `format:check`
+  // runs over it in CI, so the generator has to emit what Prettier expects.
   await fs.writeFile(
     "artifacts/flow-qa/report.json",
     JSON.stringify(
       { checkedAt: new Date().toISOString(), failures, evidence },
       null,
       2,
-    ),
+    ) + EOL,
   );
 } finally {
   await browser?.close();
