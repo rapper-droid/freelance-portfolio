@@ -29,6 +29,7 @@ try {
     "/",
     "/privacy",
     "/works",
+    "/flow",
     "/services",
     ...publishedOffers.map((o) => `/services/${o.slug}`),
     "/partners",

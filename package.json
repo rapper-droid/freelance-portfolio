@@ -31,7 +31,8 @@
     "qa:design": "node scripts/sales-design-qa.mjs",
     "qa:seo": "node --experimental-strip-types scripts/seo-regression.mjs",
     "growth:lint": "node --experimental-strip-types scripts/growth-lint.mjs",
-    "growth:brief": "node --experimental-strip-types scripts/growth-brief.mjs"
+    "growth:brief": "node --experimental-strip-types scripts/growth-brief.mjs",
+    "qa:flow": "node scripts/flow-qa.mjs"
   },
   "keywords": [],
   "author": "",
