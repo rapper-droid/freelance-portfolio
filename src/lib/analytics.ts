@@ -24,6 +24,15 @@ export const eventNames = [
   "consultation_cta_clicked",
   "tool_started",
   "tool_completed",
+  // Real-utility sample funnel (指示書 §19). Counts only: which step of the
+  // sample was reached. No message body, file name or result ever travels
+  // with these — the parameters are the fixed set below.
+  "scenario_started",
+  "first_result_seen",
+  "sample_completed",
+  "second_run_completed",
+  "exception_reviewed",
+  "consultation_started",
 ] as const;
 export type PortfolioEvent = (typeof eventNames)[number];
 export function safeEvent(value: unknown): {

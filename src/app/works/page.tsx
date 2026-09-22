@@ -6,15 +6,18 @@ import { MasterWorks } from "@/components/master-exhibits";
 import { PortfolioGrid } from "@/components/portfolio-grid";
 import { ProjectCard } from "@/components/project-card";
 import { WorksServiceGuide } from "@/components/works-service-guide";
+import { WorksLead } from "@/components/works-lead";
+import { realUtilityEnabled } from "@/lib/runtime/feature";
 import { Contact } from "@/components/contact";
 import { OfferStrip } from "@/components/offer-strip";
 import { categories, projects } from "@/lib/portfolio";
 import "@/components/portfolio-styles.css";
 import "@/components/offers.css";
+import "@/components/works-lead.css";
 import { pageMetadata } from "@/lib/seo";
 export const metadata = pageMetadata(
-  "全11作品・12カテゴリから制作例を探す",
-  "Webサイト・LP・EC・業務ツールからQAまで。依頼内容で絞り込み、動く自主制作デモ・料金・納期・納品内容を確認できます。",
+  "入力する仕事を減らす｜問い合わせ・日程調整・定期報告と制作例",
+  "問い合わせ対応・日程調整・毎週の集計を、実際に処理が進むところで確認できます。Webサイト・LP・EC・業務ツールの制作例と料金・納期もこのページから。",
   "/works",
 );
 export default function AllWorks() {
@@ -43,6 +46,9 @@ export default function AllWorks() {
           <MasterWorks />
         </section>
         <DeliveryRibbon />
+        {/* 仕事が減る話を、製品名より先に置く（指示書 §11）。
+            既存のギャラリー・カテゴリ入口はこの下にそのまま残る。 */}
+        {realUtilityEnabled() && <WorksLead />}
         <OfferStrip />
         <PortfolioGrid
           items={projects.map(({ slug, categories }) => ({ slug, categories }))}
