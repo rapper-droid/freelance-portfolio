@@ -1,0 +1,258 @@
+{
+  "checkedAt": "2026-09-22T15:53:16.831Z",
+  "failures": 0,
+  "evidence": [
+    {
+      "width": 320,
+      "track": "見積の相談が届いた",
+      "step": 1,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 320,
+      "track": "見積の相談が届いた",
+      "step": 2,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 320,
+      "track": "予約の相談が届いた",
+      "step": 1,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 320,
+      "track": "予約の相談が届いた",
+      "step": 2,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 320,
+      "track": "今週の売上ファイルが届いた",
+      "step": 1,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 320,
+      "track": "今週の売上ファイルが届いた",
+      "step": 2,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 320,
+      "track": "今週の売上ファイルが届いた",
+      "step": 3,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 390,
+      "track": "見積の相談が届いた",
+      "step": 1,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 390,
+      "track": "見積の相談が届いた",
+      "step": 2,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 390,
+      "track": "予約の相談が届いた",
+      "step": 1,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 390,
+      "track": "予約の相談が届いた",
+      "step": 2,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 390,
+      "track": "今週の売上ファイルが届いた",
+      "step": 1,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 390,
+      "track": "今週の売上ファイルが届いた",
+      "step": 2,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 390,
+      "track": "今週の売上ファイルが届いた",
+      "step": 3,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 768,
+      "track": "見積の相談が届いた",
+      "step": 1,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 768,
+      "track": "見積の相談が届いた",
+      "step": 2,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 768,
+      "track": "予約の相談が届いた",
+      "step": 1,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 768,
+      "track": "予約の相談が届いた",
+      "step": 2,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 768,
+      "track": "今週の売上ファイルが届いた",
+      "step": 1,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 768,
+      "track": "今週の売上ファイルが届いた",
+      "step": 2,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 768,
+      "track": "今週の売上ファイルが届いた",
+      "step": 3,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 1440,
+      "track": "見積の相談が届いた",
+      "step": 1,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 1440,
+      "track": "見積の相談が届いた",
+      "step": 2,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 1440,
+      "track": "予約の相談が届いた",
+      "step": 1,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 1440,
+      "track": "予約の相談が届いた",
+      "step": 2,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 1440,
+      "track": "今週の売上ファイルが届いた",
+      "step": 1,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 1440,
+      "track": "今週の売上ファイルが届いた",
+      "step": 2,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    },
+    {
+      "width": 1440,
+      "track": "今週の売上ファイルが届いた",
+      "step": 3,
+      "overflow": false,
+      "panels": 3,
+      "stages": 4,
+      "claimsExecuted": false
+    }
+  ]
+}

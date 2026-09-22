@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-16T19:57:28.665Z",
+  "checkedAt": "2026-09-22T15:52:49.862Z",
   "findings": [
     {
       "width": 320,
@@ -24,6 +24,48 @@
     },
     {
       "width": 320,
+      "route": "/flow",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/services",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/services/web-fix",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/services/csv-routine",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/partners",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/rescue",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
       "route": "/works/web",
       "status": 200,
       "overflow": false,
@@ -283,6 +325,48 @@
     },
     {
       "width": 390,
+      "route": "/flow",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/services",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/services/web-fix",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/services/csv-routine",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/partners",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/rescue",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
       "route": "/works/web",
       "status": 200,
       "overflow": false,
@@ -542,6 +626,48 @@
     },
     {
       "width": 768,
+      "route": "/flow",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/services",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/services/web-fix",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/services/csv-routine",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/partners",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/rescue",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
       "route": "/works/web",
       "status": 200,
       "overflow": false,
@@ -795,6 +921,48 @@
     {
       "width": 1440,
       "route": "/works",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/flow",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/services",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/services/web-fix",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/services/csv-routine",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/partners",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/rescue",
       "status": 200,
       "overflow": false,
       "brokenImages": 0
