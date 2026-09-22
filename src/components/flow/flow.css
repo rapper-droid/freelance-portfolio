@@ -1,0 +1,588 @@
+/* =====================================================================
+   FLOW — 「小さな会社の、ある一日」
+
+   Three panels: what arrived, what was done, what you still decide
+   (指示書 §05). On a phone they stack in that order, because that is the
+   order the story reads; nothing is a shrunken dashboard.
+
+   Colours, type and spacing come from tokens.css. Nothing new is defined
+   here that a token already covers.
+   ===================================================================== */
+
+.flow-stage {
+  background: var(--works-bg);
+  color: var(--works-ink);
+  padding-block: var(--section-y) var(--space-9);
+}
+
+.flow-inner {
+  width: min(100% - var(--gutter) * 2, var(--content-max));
+  margin-inline: auto;
+}
+
+.flow-head {
+  margin-bottom: var(--space-7);
+}
+
+.flow-head .eyebrow {
+  display: block;
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-amber);
+  margin-bottom: var(--space-3);
+}
+
+.flow-head h1 {
+  font-size: var(--text-h1);
+  line-height: var(--leading-tight);
+  margin: 0 0 var(--space-4);
+  /* The measure belongs on each element. Capping the whole block at 62ch of
+     body text made the display-size h1 wrap every two or three characters. */
+  max-width: 20ch;
+}
+
+.flow-head p {
+  font-size: var(--text-lead);
+  line-height: var(--leading-body);
+  color: var(--works-muted);
+  margin: 0;
+  max-width: 62ch;
+}
+
+/* ---- mode notice ------------------------------------------------------- */
+
+.flow-notice {
+  border: 1px solid var(--works-line);
+  border-left: 3px solid var(--color-amber);
+  border-radius: var(--radius-md);
+  background: var(--works-panel);
+  padding: var(--space-5);
+  margin-bottom: var(--space-6);
+}
+
+.flow-notice h2 {
+  font-size: var(--text-small);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-amber);
+  margin: 0 0 var(--space-2);
+}
+
+.flow-notice p {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--works-muted);
+}
+
+.flow-blocked {
+  margin: 0;
+  padding-left: 1.2em;
+  font-size: var(--text-caption);
+  line-height: 1.7;
+  color: var(--works-muted);
+}
+
+.flow-blocked li::marker {
+  color: var(--color-amber-deep);
+}
+
+/* ---- entry choices ----------------------------------------------------- */
+
+.flow-entries {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  margin-bottom: var(--space-7);
+  list-style: none;
+  padding: 0;
+}
+
+.flow-entry {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  width: 100%;
+  min-height: var(--tap-min);
+  text-align: left;
+  padding: var(--space-5);
+  border: 1px solid var(--works-line);
+  border-radius: var(--radius-md);
+  background: var(--works-panel);
+  color: inherit;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
+}
+
+.flow-entry:hover {
+  border-color: var(--color-amber-deep);
+  transform: translateY(-2px);
+}
+
+.flow-entry[aria-pressed="true"] {
+  border-color: var(--color-amber);
+  /* State is not carried by colour alone (指示書 U04). */
+  box-shadow: inset 0 0 0 1px var(--color-amber);
+}
+
+.flow-entry[aria-pressed="true"] .flow-entry-mark::after {
+  content: "選択中";
+  font-size: var(--text-caption);
+  color: var(--color-amber);
+}
+
+.flow-entry-kicker {
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-amber);
+}
+
+.flow-entry strong {
+  font-size: var(--text-h3);
+  line-height: 1.4;
+}
+
+.flow-entry span:last-child {
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--works-muted);
+}
+
+/* ---- the three panels --------------------------------------------------- */
+
+.flow-columns {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .flow-columns {
+    grid-template-columns: repeat(3, 1fr);
+    align-items: start;
+  }
+}
+
+.flow-panel {
+  border: 1px solid var(--works-line);
+  border-radius: var(--radius-md);
+  background: var(--works-panel);
+  padding: var(--space-5);
+  min-width: 0;
+}
+
+.flow-panel > h2 {
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-amber);
+  margin: 0 0 var(--space-4);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--works-line);
+}
+
+.flow-panel h3 {
+  font-size: var(--text-small);
+  margin: var(--space-5) 0 var(--space-2);
+  color: var(--works-ink);
+}
+
+.flow-panel h3:first-of-type {
+  margin-top: 0;
+}
+
+.flow-panel p,
+.flow-panel li {
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--works-muted);
+}
+
+.flow-panel p {
+  margin: 0 0 var(--space-3);
+}
+
+/* ---- stage labels (指示書 §06) ------------------------------------------ */
+
+.flow-stages {
+  display: grid;
+  gap: var(--space-2);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 150px), 1fr));
+  margin-bottom: var(--space-5);
+  list-style: none;
+  padding: 0;
+}
+
+.flow-stages li {
+  border: 1px solid var(--works-line);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+  background: color-mix(in srgb, var(--works-bg) 60%, transparent);
+}
+
+.flow-stages dt {
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--works-muted);
+  margin-bottom: var(--space-1);
+}
+
+.flow-stages dd {
+  margin: 0;
+  font-size: var(--text-small);
+  font-weight: 700;
+  color: var(--works-ink);
+}
+
+.flow-stages li[data-tone="none"] dd,
+.flow-stages li[data-tone="draft"] dd {
+  color: var(--works-muted);
+}
+
+.flow-stages li[data-tone="executed"] dd {
+  color: var(--color-amber);
+}
+
+/* ---- evidence, quotes and diffs ----------------------------------------- */
+
+.flow-list {
+  list-style: none;
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.flow-evidence {
+  border-left: 2px solid var(--color-amber-deep);
+  padding: var(--space-2) var(--space-3);
+  background: color-mix(in srgb, var(--works-bg) 55%, transparent);
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+}
+
+.flow-evidence q {
+  display: block;
+  color: var(--works-ink);
+  font-style: normal;
+}
+
+.flow-evidence small {
+  display: block;
+  margin-top: var(--space-1);
+  font-size: var(--text-caption);
+  color: var(--works-muted);
+}
+
+/* A change this run made, so a reader looks at the difference rather than
+   re-reading everything (指示書 §12). */
+.flow-new {
+  display: inline-block;
+  margin-left: var(--space-2);
+  padding: 1px var(--space-2);
+  border-radius: var(--radius-pill);
+  background: var(--color-amber);
+  color: var(--works-on-accent);
+  font-size: var(--text-caption);
+  font-weight: 700;
+}
+
+.flow-warning {
+  border-left: 2px solid var(--color-amber);
+  padding: var(--space-2) var(--space-3);
+  background: color-mix(in srgb, var(--color-amber) 10%, transparent);
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+  color: var(--works-ink);
+}
+
+/* Severity is marked in words as well as colour. */
+.flow-warning::before {
+  content: "要確認";
+  display: block;
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  color: var(--color-amber);
+  margin-bottom: var(--space-1);
+}
+
+.flow-warning[data-severity="advisory"]::before {
+  content: "参考";
+}
+
+/* ---- actions and approval ------------------------------------------------ */
+
+.flow-action {
+  border: 1px solid var(--works-line);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+}
+
+.flow-action strong {
+  display: block;
+  color: var(--works-ink);
+  font-size: var(--text-small);
+  margin-bottom: var(--space-1);
+}
+
+.flow-action code {
+  font-family: var(--font-mono);
+  font-size: var(--text-caption);
+  color: var(--works-muted);
+  overflow-wrap: anywhere;
+}
+
+.flow-action-state {
+  display: inline-block;
+  margin-top: var(--space-2);
+  font-size: var(--text-caption);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  border: 1px solid currentcolor;
+}
+
+.flow-action[data-executable="false"] .flow-action-state {
+  color: var(--works-muted);
+}
+
+.flow-action[data-executable="true"] .flow-action-state {
+  color: var(--color-amber);
+}
+
+/* ---- reply / report output ------------------------------------------------ */
+
+.flow-output {
+  margin: 0;
+  padding: var(--space-4);
+  border: 1px solid var(--works-line);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--works-bg) 60%, transparent);
+  font-family: var(--font-body);
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--works-ink);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.flow-figures {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 140px), 1fr));
+  margin: 0 0 var(--space-4);
+}
+
+.flow-figure {
+  border: 1px solid var(--works-line);
+  border-radius: var(--radius-sm);
+  padding: var(--space-3);
+}
+
+.flow-figure dt {
+  font-size: var(--text-caption);
+  color: var(--works-muted);
+  margin-bottom: var(--space-1);
+}
+
+.flow-figure dd {
+  margin: 0;
+  font-size: var(--text-h3);
+  font-weight: 700;
+  color: var(--works-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.flow-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-small);
+}
+
+.flow-table th,
+.flow-table td {
+  text-align: left;
+  padding: var(--space-2);
+  border-bottom: 1px solid var(--works-line);
+  color: var(--works-muted);
+}
+
+.flow-table th {
+  color: var(--works-ink);
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+}
+
+.flow-table td:last-child {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.flow-scroll {
+  overflow-x: auto;
+  /* Keeps the table scrollable on a phone without the page scrolling sideways. */
+  max-width: 100%;
+}
+
+/* ---- controls -------------------------------------------------------------- */
+
+.flow-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin: var(--space-6) 0;
+  align-items: center;
+}
+
+.flow-button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-5);
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--color-amber);
+  background: var(--color-amber);
+  color: var(--works-on-accent);
+  font: inherit;
+  font-weight: 700;
+  font-size: var(--text-small);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.flow-button:hover:not(:disabled) {
+  background: var(--color-amber-bright);
+}
+
+.flow-button.secondary {
+  background: transparent;
+  color: var(--works-ink);
+  border-color: var(--works-line);
+}
+
+.flow-button.secondary:hover:not(:disabled) {
+  background: var(--works-panel);
+  border-color: var(--color-amber-deep);
+}
+
+.flow-button:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+.flow-status {
+  font-size: var(--text-small);
+  color: var(--works-muted);
+  /* Reserves the line so appearing text does not shift the buttons. */
+  min-height: 1.5em;
+}
+
+.flow-error {
+  color: var(--color-amber);
+}
+
+.flow-input {
+  display: block;
+  margin-bottom: var(--space-4);
+}
+
+.flow-input span {
+  display: block;
+  font-size: var(--text-small);
+  color: var(--works-muted);
+  margin-bottom: var(--space-2);
+}
+
+.flow-input textarea {
+  width: 100%;
+  min-height: 7.5em;
+  padding: var(--space-3);
+  border: 1px solid var(--works-line);
+  border-radius: var(--radius-sm);
+  background: var(--works-bg);
+  color: var(--works-ink);
+  font: inherit;
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  resize: vertical;
+}
+
+.flow-fineprint {
+  font-size: var(--text-caption);
+  line-height: 1.7;
+  color: var(--works-muted);
+  margin: var(--space-3) 0 0;
+}
+
+/* The demo's reference date, stated rather than drifting (指示書 §08-4). */
+.flow-clock {
+  display: inline-block;
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  color: var(--works-muted);
+  border: 1px dashed var(--works-line);
+  border-radius: var(--radius-pill);
+  padding: var(--space-1) var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.flow-timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.flow-timeline li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-3);
+  font-size: var(--text-caption);
+  line-height: 1.7;
+}
+
+.flow-timeline b {
+  color: var(--color-amber);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.flow-empty {
+  font-size: var(--text-small);
+  color: var(--works-muted);
+  line-height: var(--leading-body);
+  margin: 0;
+}
+
+:where(.flow-stage) :focus-visible {
+  outline: var(--focus-width) solid var(--focus-color);
+  outline-offset: var(--focus-offset);
+}
+
+/* ---- report limits and downloads ------------------------------------------ */
+
+.flow-limits {
+  font-size: var(--text-caption);
+  line-height: 1.7;
+  color: var(--works-muted);
+  border-left: 2px solid var(--works-line);
+  padding-left: var(--space-3);
+}
+
+.flow-downloads {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.flow-downloads .flow-button {
+  font-size: var(--text-caption);
+  padding: 0 var(--space-4);
+}
