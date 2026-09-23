@@ -16,11 +16,14 @@
 | branch         | `claude/ultimate-experience-20260923`                        |
 | 分岐元         | `origin/tsudowa/cloudflare-workers-candidate`（= `cbaf575`） |
 | HEAD           | `git log --oneline -1` で確認（下の一覧の最上段）            |
-| 先行           | 8 commit（すべて **未 push**）                               |
+| 先行           | 12 commit（すべて **未 push**）                              |
 | 未コミット差分 | なし（このセッション分は全て commit 済み）                   |
 
 ```
-（最新）この文書の更新と、検証の証拠ファイルの再生成
+（最新）この文書の更新
+7cce861  feat(demos): STILL, REFINE, SHIP and FLOWSTATE stop being pictures
+b7de10a  feat(forme): the EC demo becomes a shop with a finite number of things
+531e2d1  docs(rebuild): correct the commit list in the handover
 876c03f  chore(qa): refresh the recorded evidence after the final verification pass
 d9bd299  fix(ops): a seeded case gets its arrival time, not a parsed sentence
 e2e422e  feat(ops): RELAY, SMART INBOX and ADMIN become one record
@@ -63,6 +66,17 @@ cbaf575  (分岐元) Merge pull request #5 ...
 
 `/demos/cafe` と `/experience/cafe` の上部に「画面を動かして試せます」パネルを
 置いた。運営画面への導線もここにある（客側ヘッダーには出さない）。
+
+### 新規（P3 で作った FORME）
+
+| URL                        | 何ができるか                                                 |
+| -------------------------- | ------------------------------------------------------------ |
+| `/forme`                   | 店舗トップ。送料・税・クーポンの方針を明示                   |
+| `/forme/items`             | 6 品。分類・検索・並び替え・在庫のみ・お気に入り・3 点比較   |
+| `/forme/items/[productId]` | 商品詳細。色を変えると**写真・価格・在庫**が同時に変わる     |
+| `/forme/cart`              | カート → 受け取り方法・地域 → 内容確認 → 完了                |
+| `/forme/my`                | 注文の状況・支払・取消、お気に入り                           |
+| `/forme/admin`             | 注文の進行・在庫の増減・取り扱い停止・売上。未払いは発送不可 |
 
 ### 既存（このセッションで直したもの）
 
@@ -149,6 +163,40 @@ SMART INBOX の問い合わせ主は顧客一覧に存在せず、ADMIN は自�
 - **RELAY / INBOX と DAYBOOK は別の記録のまま。** スタジオの予約は問い合わせでは
   ない。1 つのモデルに押し込めば、どちらにも合わないものになる。
 
+### 3-5. FORME（架空のオンラインショップ / P3）
+
+KISSA は「その朝つくるもの」を売り、FORME は「数が決まっているもの」を売る。
+その違いがモデルに出ている。
+
+- **在庫は SKU 単位の数**。「残り 2 点」と「売り切れ」は別の文。
+- **在庫は差分で保存**。数か月前にブラウザへ書いた数が、後の版の補充を上書き
+  しない。
+- **注文と在庫の減少は同じ commit**。取消で在庫は戻る。棚は追加時・数量変更時・
+  注文確定時の 3 回確認する（その間に動くから）。
+- **価格は注文時点で控える**。カタログを直しても、過去の注文金額は動かない。
+- **未払いのまま発送しない**。店頭受け取りは別（レジ払い）。ボタンは無効になり、
+  理由を表示する。
+- 送料は全国一律・一定額以上無料・北海道東北と九州沖縄に加算。加算は無料条件を
+  満たしても残す（実費だから）。**クーポン・ポイント・会員階級は作らない**
+  （条件・期限・併用・上限まで実装していないものを画面にだけ置かないため）。
+- **レビュー・評価・受賞・人気順は作らない**。そのフィールドが増えるとテストが
+  落ちる。
+
+支払シミュレーターは KISSA のものをそのまま import している（§16 の指示）。
+
+FORME で見つけて直した不具合：**支払が checkout の中にしかなかった。**
+タブを閉じた客は二度と払えず、配送は未払いのままだから永久に発送できない。
+支払を注文そのものに移した（`qa:forme` が見つけた）。
+
+### 3-6. 見せかけをやめた 4 つのデモ（P3）
+
+| デモ               | 直したこと                                                                                                                                                           |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **STILL / STUDIO** | 固定の 3 枚 → 1 つの内容を 3 比率へ。文字・価格・期間・CTA・トリミングを編集でき、**3 比率を同時表示**。書き出した SVG は画面の内容を持ち、補助線を持たない          |
+| **REFINE**         | Before をわざと崩す演出を**削除**。同じ本文・同じリンクで順番だけ変える。幅切替、読み順（実 DOM 順）、フォーカス順（実タブ順）、対象版と測定条件。改善率は表示しない |
+| **SHIP / CHECK**   | 「これは保存済みの記録で、開いても検査は走らない」と明記。全行に**再現手順**と記録元ファイル。未実施 2 件（E2E・店舗デモ）を理由つきで表示                           |
+| **FLOWSTATE**      | 使用前後、**実際に開ける出力**（Markdown の週次まとめ）、導入手順、対応範囲・権限・接続（6 件中 4 件を「未接続」と明記）、架空料金の注記、動く画面への導線           |
+
 ## 4. 未接続・やっていないこと
 
 | 項目           | 状態                                                                  |
@@ -169,7 +217,8 @@ SMART INBOX の問い合わせ主は顧客一覧に存在せず、ADMIN は自�
 | P2     | RELAY + SMART INBOX + ADMIN を 1 つの案件データで連動            | **完了** |
 | P2     | DAYBOOK（日付は修正済み。保存しないのは意図的 — 3-4 節）         | 部分     |
 | P2     | REPORT FLOW                                                      | 未着手   |
-| P3     | FORME / FLOWSTATE / REFINE / STILL / SHIP の作り込み             | 未着手   |
+| P3     | FORME / FLOWSTATE / REFINE / STILL / SHIP の作り込み             | **完了** |
+| P3     | Automation の技術画面（schema・mapping・retry・ログ）            | 未着手   |
 | P4     | TSUDOWA 全ページ・`/works` 全分類・`/services`・partners・rescue | 未着手   |
 | P5     | 画像の棚卸し、PAGE_CONTRACTS 台帳、画像台帳、コスト台帳          | 未着手   |
 
@@ -184,19 +233,22 @@ SMART INBOX の問い合わせ主は顧客一覧に存在せず、ADMIN は自�
 | ---------------- | ---------------------------------- | --------------------------------------- |
 | lint             | `npm run lint`                     | 0 errors, 0 warnings                    |
 | typecheck        | `npm run typecheck`                | pass                                    |
-| unit             | `npx vitest run`                   | **528 passed** / 39 files               |
+| unit             | `npx vitest run`                   | **589 passed** / 42 files               |
 | build            | `npm run build`                    | success                                 |
-| E2E（3 幅）      | `npm run test:e2e`                 | **249 passed**（5.6 分）                |
+| E2E（3 幅）      | `npm run test:e2e`                 | **333 passed**（7.6 分）                |
 | KISSA 通し       | `npm run qa:kissa`                 | **56/56**（390 / 768 / 1440）           |
-| 操作系の実測     | `npm run qa:controls`              | 112 controls / **動かないボタン 0**     |
+| FORME 通し       | `npm run qa:forme`                 | **62/62**（390 / 768 / 1440）           |
+| 表示崩れ（3 幅） | `npm run qa:visual`                | PASS 43 ルート × 3 幅                   |
+| 操作系の実測     | `npm run qa:controls`              | 140 controls / **動かないボタン 0**     |
 | リンク           | `npm run qa:links`                 | PASS 42 routes, 227 links               |
 | デザイン（6 幅） | `npm run qa:design`                | PASS 6 routes × 6 幅、axe/focus/runtime |
-| ルート台帳       | `node scripts/route-inventory.mjs` | **74 entries**、想定外ステータス 0      |
+| ルート台帳       | `node scripts/route-inventory.mjs` | **81 entries**、想定外ステータス 0      |
 
 ### アクセシビリティ
 
-KISSA の 7 ルート全てで **axe 違反 0**（tablet / desktop / mobile）。
-`tests/e2e/kissa.spec.ts` が CI で毎回検査する。
+KISSA と FORME の各 7 ルート、および P3 の 4 デモで **axe 違反 0**
+（tablet / desktop / mobile）。`kissa.spec.ts`、`forme.spec.ts`、
+`showcase-p3.spec.ts` が CI で毎回検査する。
 
 ### `qa:controls` の 13 件について
 
@@ -216,8 +268,10 @@ KISSA の 7 ルート全てで **axe 違反 0**（tablet / desktop / mobile）�
 
 ```
 tetsuworks.com/kissa      -> 404
+tetsuworks.com/forme      -> 404
 tetsuworks.com/flow       -> 404
 tsudowa-production/kissa  -> 404
+tsudowa-production/forme  -> 404
 tsudowa-production/flow   -> 200
 ```
 
@@ -230,10 +284,11 @@ tsudowa-production/flow   -> 200
 1. `cd C:/Users/tetsu/tanebi-works-ultimate` → `git log --oneline -3` で
    `24911b2` を確認。
 2. `npm run dev` → **`http://localhost:3000/kissa`**（`127.0.0.1` は不可）。
-3. 続きを作るなら **P3（FORME / FLOWSTATE / REFINE / STILL / SHIP）** から。
-   共有記録の手本は 2 つある: `src/lib/shop/`（KISSA）と `src/lib/ops/`
-   （RELAY + INBOX + ADMIN）。どちらも同じ形 — `schemaVersion` つきの
-   localStorage、1 つの Context、判断は純粋関数。
+3. 続きを作るなら **P4（TSUDOWA 全ページ・`/works` 全分類・`/services`）** か、
+   P3 の残り（Automation の技術画面）から。
+   共有記録の手本は 3 つ: `src/lib/shop/`（KISSA）、`src/lib/ops/`
+   （RELAY + INBOX + ADMIN）、`src/lib/forme/`（FORME）。同じ形 —
+   `schemaVersion` つきの localStorage、1 つの Context、判断は純粋関数。
    **provider の更新系は必ず ref から読むこと**（3-3 節の 1 番）。
 4. 触ってはいけない場所: `C:/Users/tetsu/freelance-portfolio`、
    `codex/*` ブランチ、他 worktree の未コミット差分。
@@ -242,6 +297,7 @@ tsudowa-production/flow   -> 200
 
 ```
 npm run qa:kissa      # KISSA を通しで操作して 56 項目を検査
+npm run qa:forme      # FORME を通しで操作して 62 項目を検査
 npm run qa:controls   # 全デモのボタンを押して、何も起きないものを報告
 ```
 
@@ -262,3 +318,9 @@ npm run qa:controls   # 全デモのボタンを押して、何も起きない�
   `agentRules`）。`.gitignore` に入れた。コミットしない。
 - **Playwright MCP のスクリーンショット出力先は `C:/Users/tetsu`**。
   相対パスを渡すと worktree の外に書かれる。絶対パスで指定する。
+- **デモの中に置いたパネルは色を継承してはいけない。** 各デモは自分の
+  アイデンティティで文字色を塗り替えるので、`color: inherit` のままだと
+  暗いパネルに暗い文字が乗って 1.3:1 になる。実際に 2 回起きた
+  （`demo-live-link.css` と `qa-evidence.css`）。色は明示的に書く。
+- **シェル経由で改行エスケープを含む JS を書くと潰れる。**
+  正規表現や文字列に改行エスケープが要るときは Write ツールで書く。
