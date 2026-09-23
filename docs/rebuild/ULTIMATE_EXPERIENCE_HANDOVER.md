@@ -15,11 +15,14 @@
 | worktree       | `C:/Users/tetsu/tanebi-works-ultimate`                       |
 | branch         | `claude/ultimate-experience-20260923`                        |
 | 分岐元         | `origin/tsudowa/cloudflare-workers-candidate`（= `cbaf575`） |
-| HEAD           | `e2e422e`                                                    |
-| 先行           | 5 commit（すべて **未 push**）                               |
+| HEAD           | `git log --oneline -1` で確認（下の一覧の最上段）            |
+| 先行           | 8 commit（すべて **未 push**）                               |
 | 未コミット差分 | なし（このセッション分は全て commit 済み）                   |
 
 ```
+（最新）この文書の更新と、検証の証拠ファイルの再生成
+876c03f  chore(qa): refresh the recorded evidence after the final verification pass
+d9bd299  fix(ops): a seeded case gets its arrival time, not a parsed sentence
 e2e422e  feat(ops): RELAY, SMART INBOX and ADMIN become one record
 41526f0  docs(rebuild): the handover, and KISSA in the route ledger
 24911b2  fix(demos): the sample data follows the calendar instead of a fixed week
