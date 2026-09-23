@@ -122,7 +122,7 @@ export function ContactSend({
           : categoryKinds[context.category] || blank.kind,
       };
       let restored = false;
-      let fromBrief = false;
+      let handoff = "";
       let nextSource = context;
       try {
         const saved = JSON.parse(sessionStorage.getItem(draftKey) || "null");
@@ -153,7 +153,12 @@ export function ContactSend({
             )
               submission.current = saved.submission;
             restored = true;
-            fromBrief = saved.origin === "brief";
+            handoff =
+              saved.origin === "flow"
+                ? "flow"
+                : saved.origin === "brief"
+                  ? "brief"
+                  : "";
             started.current = true;
           }
         } else if (saved) sessionStorage.removeItem(draftKey);
@@ -166,11 +171,13 @@ export function ContactSend({
       setLoaded(true);
       setPlatform(general ? null : currentPlatform());
       setDraftNote(
-        fromBrief
-          ? "作成した相談メモを引き継ぎました。送信前に内容を確認・編集できます。"
-          : restored
-            ? "入力途中の相談を、このタブから復元しました。"
-            : "",
+        handoff === "flow"
+          ? "体験で入力した内容を引き継ぎました。送信前に確認・編集できます。"
+          : handoff === "brief"
+            ? "作成した相談メモを引き継ぎました。送信前に内容を確認・編集できます。"
+            : restored
+              ? "入力途中の相談を、このタブから復元しました。"
+              : "",
       );
     });
     return () => cancelAnimationFrame(frame);

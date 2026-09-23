@@ -245,3 +245,53 @@ test("flow: the report step states its limits and hands back real files", async 
   await page.getByRole("button", { name: /変更ログ・問題行を保存/ }).click();
   expect((await logDownload).suggestedFilename()).toMatch(/\.csv$/);
 });
+
+test("flow: the sample hands its answers to the consultation form — A10", async ({
+  page,
+}) => {
+  await page.goto("/flow");
+  await page.getByRole("button", { name: /見積の相談が届いた/ }).click();
+  await page.getByRole("button", { name: /仕事が進むところを見る/ }).click();
+  await expect(
+    page.getByRole("heading", { name: "自分の作業に当てはめる" }),
+  ).toBeVisible();
+
+  await page.getByLabel("いま使っている道具").fill("Gmail、Googleカレンダー");
+  await page.getByLabel("頻度・件数").fill("月に80件ほど");
+  await page
+    .getByLabel("こうなったら助かること")
+    .fill("返信の下書きまで用意されていてほしい");
+
+  await page.getByRole("button", { name: /この内容で相談する/ }).click();
+
+  // Lands on the form, which says it carried the answers over.
+  await expect(page).toHaveURL(/\/contact\?from=%2Fflow/);
+  await expect(
+    page.getByText(/体験で入力した内容を引き継ぎました/),
+  ).toBeVisible();
+
+  // The answers are in the box, so nothing is typed twice (A10).
+  const detail = page.getByRole("textbox", { name: /ご相談内容/ });
+  await expect(detail).toContainText("問い合わせ対応（返信の準備）");
+  await expect(detail).toContainText("Gmail、Googleカレンダー");
+  await expect(detail).toContainText("月に80件ほど");
+  await expect(detail).toContainText("返信の下書きまで用意されていてほしい");
+
+  // Nothing sensitive rode along in the URL (指示書 §11).
+  expect(page.url()).not.toContain("Gmail");
+  expect(page.url()).not.toContain("80");
+});
+
+test("flow: the handoff works even when nothing was answered", async ({
+  page,
+}) => {
+  await page.goto("/flow");
+  await page.getByRole("button", { name: /予約の相談が届いた/ }).click();
+  await page.getByRole("button", { name: /仕事が進むところを見る/ }).click();
+  await page.getByRole("button", { name: /この内容で相談する/ }).click();
+
+  await expect(page).toHaveURL(/\/contact/);
+  const detail = page.getByRole("textbox", { name: /ご相談内容/ });
+  await expect(detail).toContainText("日程調整");
+  await expect(detail).toContainText("書き足してください");
+});

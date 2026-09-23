@@ -28,6 +28,8 @@ export const MAX_BRIEF = 2000;
  * comes from the brief. Returns false when storage is unavailable, so the
  * caller can fall back to copying.
  */
+export type DraftOrigin = "brief" | "flow";
+
 export function writeBriefDraft(
   page: string,
   brief: {
@@ -38,6 +40,8 @@ export function writeBriefDraft(
     reference?: string;
   },
   now = Date.now(),
+  /** Which surface handed this over; only the restore note differs. */
+  origin: DraftOrigin = "brief",
 ): boolean {
   if (!contactContext(page)) return false;
   try {
@@ -69,7 +73,7 @@ export function writeBriefDraft(
     };
     sessionStorage.setItem(
       DRAFT_KEY,
-      JSON.stringify({ fields, page, origin: "brief", savedAt: now }),
+      JSON.stringify({ fields, page, origin, savedAt: now }),
     );
     return true;
   } catch {

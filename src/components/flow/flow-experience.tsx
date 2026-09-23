@@ -4,6 +4,7 @@ import { useCallback, useId, useMemo, useRef, useState } from "react";
 import { track } from "@/components/analytics";
 import { DEMO_NOW_LABEL, SCENARIOS } from "@/lib/runtime/scenarios";
 import type { ModeNotice, StageLabel } from "@/lib/runtime/present";
+import { FlowHandoff } from "./flow-handoff";
 import { FlowResult, type FlowResponse } from "./flow-result";
 
 /**
@@ -236,6 +237,7 @@ export function FlowExperience({ notice }: { notice: ModeNotice }) {
       )}
 
       {result && <FlowResult result={result} />}
+      {result && current && <FlowHandoff workflow={current} />}
     </div>
   );
 }
