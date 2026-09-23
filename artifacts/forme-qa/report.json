@@ -1,0 +1,316 @@
+{
+  "origin": "http://localhost:3000",
+  "checkedAtIso": "2026-09-23T13:49:41.551Z",
+  "results": [
+    {
+      "name": "hydrate /forme @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/items @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/items @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/items/tumbler @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/items/tumbler @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/items/care-kit @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/items/care-kit @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/cart @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/cart @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/my @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/my @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/admin @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/admin @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "console @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/items @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/items @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/items/tumbler @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/items/tumbler @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/items/care-kit @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/items/care-kit @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/cart @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/cart @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/my @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/my @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/admin @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/admin @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "console @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/items @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/items @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/items/tumbler @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/items/tumbler @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/items/care-kit @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/items/care-kit @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/cart @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/cart @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/my @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/my @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /forme/admin @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /forme/admin @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "console @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "colour changes the photograph",
+      "ok": true,
+      "detail": "als%2Fforme-charcoal-v1.webp&w=3840&q=75"
+    },
+    {
+      "name": "size changes the price",
+      "ok": true,
+      "detail": "¥4,400"
+    },
+    {
+      "name": "an empty shelf cannot be bought",
+      "ok": true,
+      "detail": "在庫切れ"
+    },
+    {
+      "name": "a low shelf says how many are left",
+      "ok": true,
+      "detail": "残り 2 点"
+    },
+    {
+      "name": "cart badge counts what went in",
+      "ok": true,
+      "detail": "カートに 2 点"
+    },
+    {
+      "name": "shipping is charged below the threshold",
+      "ok": true,
+      "detail": "商品 2 点 ¥7,600 送料 ¥600 合計 ¥8,200"
+    },
+    {
+      "name": "collection costs nothing to ship",
+      "ok": true,
+      "detail": "商品 2 点 ¥7,600 受け取り 無料 合計 ¥7,600"
+    },
+    {
+      "name": "the regional surcharge is applied",
+      "ok": true,
+      "detail": "商品 2 点 ¥7,600 送料 ¥900 合計 ¥8,500"
+    },
+    {
+      "name": "order placed",
+      "ok": true,
+      "detail": "F-460D92"
+    },
+    {
+      "name": "buying the last two empties the shelf",
+      "ok": true,
+      "detail": "在庫切れ"
+    },
+    {
+      "name": "an unpaid delivery cannot ship",
+      "ok": true,
+      "detail": "お支払いが未払い（店頭でお支払い）のため、発送できません。"
+    },
+    {
+      "name": "payment recorded",
+      "ok": true,
+      "detail": "商品\n¥7,600\n送料\n¥900\n合計\n¥8,500\n支払\n支払済み"
+    },
+    {
+      "name": "a paid delivery may ship",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "cancelling puts the stock back",
+      "ok": true,
+      "detail": "残り 2 点"
+    },
+    {
+      "name": "an operator's count reaches the shop",
+      "ok": true,
+      "detail": "残り 1 点"
+    },
+    {
+      "name": "unpublishing removes it from the list",
+      "ok": true,
+      "detail": "5 cards"
+    },
+    {
+      "name": "favourites are kept",
+      "ok": true,
+      "detail": "1"
+    }
+  ]
+}

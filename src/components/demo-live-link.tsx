@@ -16,6 +16,31 @@ export type LiveRoute = { href: string; label: string; detail: string };
 
 export const liveRoutes: Record<string, { lead: string; routes: LiveRoute[] }> =
   {
+    ec: {
+      lead: "この制作例には、実際に操作できる店舗サイトがあります。色やサイズを選ぶと写真・価格・在庫が連動し、カートから送料を含めた金額を確認して注文できます。運営画面では在庫を動かし、注文を進め、未払いのまま発送できないことも確かめられます。",
+      routes: [
+        {
+          href: "/forme",
+          label: "店舗サイトを開く",
+          detail: "FORME（架空店舗）のトップ",
+        },
+        {
+          href: "/forme/items",
+          label: "商品を選んで買う",
+          detail: "6 品・絞り込み・比較・お気に入り",
+        },
+        {
+          href: "/forme/my",
+          label: "注文とお気に入りを見る",
+          detail: "注文の状況・支払・取消",
+        },
+        {
+          href: "/forme/admin",
+          label: "運営画面を見る",
+          detail: "在庫の増減・取り扱い停止・発送・売上",
+        },
+      ],
+    },
     cafe: {
       lead: "この制作例には、実際に操作できる店舗サイトがあります。メニューを選んでカートに入れ、受取時間を決めて注文し、席を予約して変更まで行えます。運営側の画面では、同じ記録を店の立場から動かせます。",
       routes: [

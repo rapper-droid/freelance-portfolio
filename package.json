@@ -35,7 +35,8 @@
     "qa:flow": "node scripts/flow-qa.mjs",
     "qa:evidence": "node scripts/qa-evidence.mjs",
     "qa:kissa": "node scripts/kissa-qa.mjs",
-    "qa:controls": "node scripts/inert-controls.mjs"
+    "qa:controls": "node scripts/inert-controls.mjs",
+    "qa:forme": "node scripts/forme-qa.mjs"
   },
   "keywords": [],
   "author": "",

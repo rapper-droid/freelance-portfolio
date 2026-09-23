@@ -24,7 +24,17 @@ const ORIGIN = `http://127.0.0.1:${PORT}`;
 const ASSETS = ["/sitemap.xml", "/robots.txt", "/icon.png", "/apple-icon.png"];
 const APIS = ["/api/contact", "/api/analytics", "/api/flow"];
 
-/** The shop demo. Noindex by design, so the sitemap never mentions it. */
+/** The two shop demos. Noindex by design, so the sitemap never mentions them. */
+const FORME = [
+  "/forme",
+  "/forme/items",
+  "/forme/items/tumbler",
+  "/forme/items/care-kit",
+  "/forme/cart",
+  "/forme/my",
+  "/forme/admin",
+];
+
 const KISSA = [
   "/kissa",
   "/kissa/menu",
@@ -54,6 +64,7 @@ const templateOf = (route) => {
     [/^\/experience\/[^/]+$/, "/experience/[slug]"],
     [/^\/services\/[^/]+$/, "/services/[slug]"],
     [/^\/kissa\/menu\/[^/]+$/, "/kissa/menu/[productId]"],
+    [/^\/forme\/items\/[^/]+$/, "/forme/items/[productId]"],
   ])
     if (pattern.test(route)) return template;
   return route;
@@ -112,7 +123,7 @@ try {
   // KISSA is noindex by design — a fictional shop must not be indexed as a
   // real one — so it never reaches the sitemap. The routes exist and are
   // inventoried here, or the whole shop is invisible to the ledger.
-  for (const route of KISSA) {
+  for (const route of [...KISSA, ...FORME]) {
     const response = await fetch(ORIGIN + route, { redirect: "manual" });
     routes.push({
       kind: "page",

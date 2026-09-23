@@ -1,0 +1,1565 @@
+/* =====================================================================
+   FORME — the objects shop (指示書 §16).
+
+   KISSA is warm paper and roasted brown. FORME is cooler and flatter: a
+   shop that sells objects should not feel like a cafe. The rules behind
+   them are shared; the surfaces are not. Only the spacing, radius and
+   type scales come from the design tokens.
+   ===================================================================== */
+
+.forme {
+  --paper: #f4f4f2;
+  --paper-deep: #e8e8e4;
+  --ink: #23262a;
+  --ink-soft: #62666c;
+  --line: #d9d9d4;
+  --accent: #3f5a4a;
+  --accent-deep: #2c4034;
+  --alert: #9d4b32;
+  --card: #ffffff;
+
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+.forme :focus-visible {
+  outline: var(--focus-width) solid var(--accent);
+  outline-offset: var(--focus-offset);
+}
+
+/* ---- the banner that never leaves ---------------------------------- */
+
+.forme-demo-banner {
+  margin: 0;
+  padding: var(--space-3) var(--gutter);
+  background: var(--ink);
+  color: #f4f4f2;
+  font-size: var(--text-caption);
+  line-height: 1.7;
+  text-align: center;
+}
+
+.forme-demo-banner strong {
+  color: #f0c98a;
+}
+
+.forme-demo-banner a {
+  color: inherit;
+  margin-left: var(--space-3);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---- header --------------------------------------------------------- */
+
+.forme-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: color-mix(in srgb, var(--paper) 92%, transparent);
+  backdrop-filter: blur(8px);
+  border-bottom: 1px solid var(--line);
+}
+
+.forme-header-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: var(--space-4) var(--gutter);
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+}
+
+.forme-logo {
+  display: grid;
+  text-decoration: none;
+  color: inherit;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-h3);
+  letter-spacing: 0.16em;
+  line-height: 1.1;
+}
+
+.forme-logo span {
+  font-size: var(--text-label);
+  letter-spacing: 0.3em;
+  color: var(--ink-soft);
+  font-weight: 400;
+}
+
+.forme-header nav {
+  margin-left: auto;
+}
+
+.forme-header nav ul {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  margin: 0;
+  padding: 0;
+}
+
+.forme-header nav a {
+  color: var(--ink-soft);
+  text-decoration: none;
+  font-size: var(--text-small);
+  padding: var(--space-2) 0;
+  border-bottom: 2px solid transparent;
+}
+
+.forme-header nav a:hover {
+  color: var(--ink);
+}
+
+.forme-header nav a[aria-current="page"] {
+  color: var(--ink);
+  border-bottom-color: var(--accent);
+}
+
+.forme-header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.forme-header-count,
+.forme-cart-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-3);
+  border-radius: var(--radius-pill);
+  text-decoration: none;
+  font-size: var(--text-small);
+}
+
+.forme-header-count {
+  color: var(--ink-soft);
+  border: 1px solid var(--line);
+}
+
+.forme-cart-link {
+  background: var(--accent);
+  color: #f4f4f2;
+  font-weight: 600;
+}
+
+.forme-cart-count {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.5em;
+  height: 1.5em;
+  padding: 0 0.3em;
+  border-radius: var(--radius-pill);
+  background: #ffffff2e;
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- page shell ----------------------------------------------------- */
+
+.forme-main {
+  flex: 1;
+  max-width: 1180px;
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-8) var(--gutter) var(--space-9);
+}
+
+.forme-page-head {
+  margin-bottom: var(--space-7);
+  max-width: 62ch;
+}
+
+.forme-page-head h1 {
+  margin: var(--space-2) 0 var(--space-3);
+  font: 700 var(--text-h2) / 1.2 var(--font-display);
+}
+
+.forme-page-head p {
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: var(--text-small);
+  line-height: 1.9;
+}
+
+.forme-page-head-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+  margin-top: var(--space-3);
+  font-size: var(--text-small);
+}
+
+.forme-page-head-links a {
+  color: var(--accent-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.forme-eyebrow {
+  font-family: var(--font-display);
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+
+.forme-code {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  letter-spacing: 0.1em;
+  color: var(--ink-soft);
+}
+
+/* ---- hero ----------------------------------------------------------- */
+
+.forme-hero {
+  display: grid;
+  gap: var(--space-7);
+  margin-bottom: var(--space-9);
+}
+
+@media (min-width: 900px) {
+  .forme-hero {
+    grid-template-columns: 1fr 1.05fr;
+    align-items: center;
+  }
+}
+
+.forme-hero-copy h1 {
+  margin: var(--space-3) 0 var(--space-4);
+  font: 700 var(--text-h1) / 1.12 var(--font-display);
+}
+
+.forme-hero-copy p {
+  margin: 0 0 var(--space-5);
+  color: var(--ink-soft);
+  line-height: 1.95;
+  max-width: 44ch;
+}
+
+.forme-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.forme-hero-art {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.forme-hero-art a {
+  display: grid;
+  gap: var(--space-2);
+  text-decoration: none;
+  color: inherit;
+  font-size: var(--text-caption);
+  text-align: center;
+}
+
+.forme-hero-art img,
+.forme-hero-art .forme-art {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+  display: block;
+}
+
+/* ---- sections ------------------------------------------------------- */
+
+.forme-section {
+  margin-bottom: var(--space-9);
+}
+
+.forme-section > h2 {
+  margin: 0 0 var(--space-5);
+  font: 700 var(--text-h3) / 1.3 var(--font-display);
+}
+
+.forme-do-grid,
+.forme-info-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+}
+
+.forme-do-grid li,
+.forme-info-grid > div {
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--card);
+}
+
+.forme-do-grid h3,
+.forme-info-grid dt {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-body);
+  font-weight: 700;
+}
+
+.forme-do-grid p,
+.forme-info-grid dd {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-small);
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+
+.forme-info-grid dd {
+  margin: 0;
+}
+
+.forme-info-grid small {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: var(--text-caption);
+  line-height: 1.8;
+}
+
+.forme-do-grid a {
+  font-size: var(--text-small);
+  color: var(--accent-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+/* ---- filters and chips ---------------------------------------------- */
+
+.forme-filters {
+  display: grid;
+  gap: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.forme-chip-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.forme-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--card);
+  color: var(--ink);
+  font-size: var(--text-small);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.forme-chip span {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.6em;
+  padding: 0 0.35em;
+  border-radius: var(--radius-pill);
+  background: var(--paper-deep);
+  font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.forme-chip:hover {
+  border-color: var(--accent);
+}
+
+.forme-chip[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #f4f4f2;
+}
+
+.forme-chip[aria-pressed="true"] span {
+  background: #ffffff2e;
+}
+
+.forme-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-4);
+}
+
+.forme-search {
+  min-width: 240px;
+  flex: 1 1 240px;
+}
+
+.forme-toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  font-size: var(--text-small);
+  cursor: pointer;
+}
+
+.forme-toggle.compact {
+  min-height: 0;
+  font-size: var(--text-caption);
+}
+
+.forme-toggle input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--accent);
+}
+
+.forme-result-count {
+  margin: 0 0 var(--space-5);
+  font-size: var(--text-caption);
+  color: var(--ink-soft);
+}
+
+/* ---- product grid --------------------------------------------------- */
+
+.forme-grid {
+  list-style: none;
+  margin: 0 0 var(--space-8);
+  padding: 0;
+  display: grid;
+  gap: var(--space-5);
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+}
+
+.forme-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--card);
+}
+
+.forme-card-link {
+  display: grid;
+  gap: var(--space-2);
+  text-decoration: none;
+  color: inherit;
+}
+
+.forme-card-link h2 {
+  margin: 0;
+  font-size: var(--text-body);
+  font-weight: 700;
+}
+
+.forme-card-link:hover h2 {
+  color: var(--accent-deep);
+}
+
+.forme-card-summary {
+  margin: 0;
+  font-size: var(--text-caption);
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+
+.forme-art,
+.forme-photo {
+  display: block;
+  width: 100%;
+  height: auto;
+  /* Photographs are 3:2 and the drawings are square. Without a shared ratio
+     the first card is a different height from the rest and the grid reads as
+     a mistake rather than as a set. */
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: var(--radius-sm);
+  background: var(--paper-deep);
+}
+
+/* The detail view is the one place the photograph is worth its own shape. */
+.forme-detail-main .forme-photo {
+  aspect-ratio: 3 / 2;
+}
+
+.forme-swatches {
+  list-style: none;
+  display: flex;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+}
+
+.forme-swatch {
+  display: block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1px solid #0000001f;
+}
+
+.forme-swatch.large {
+  width: 20px;
+  height: 20px;
+}
+
+.forme-card-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-top: auto;
+}
+
+.forme-card-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+}
+
+.forme-price {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.forme-badge {
+  display: inline-block;
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-pill);
+  border: 1px solid currentcolor;
+  font-size: var(--text-caption);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.forme-badge[data-level="in_stock"] {
+  color: var(--accent-deep);
+}
+
+.forme-badge[data-level="low"] {
+  color: #8a5a1c;
+}
+
+.forme-badge[data-level="out"] {
+  color: var(--alert);
+}
+
+.forme-badge[data-status="placed"] {
+  color: var(--ink-soft);
+}
+
+.forme-badge[data-status="preparing"],
+.forme-badge[data-status="shipped"] {
+  color: var(--accent-deep);
+}
+
+.forme-badge[data-status="delivered"] {
+  color: var(--ink);
+}
+
+.forme-badge[data-status="cancelled"] {
+  color: var(--alert);
+}
+
+/* ---- controls ------------------------------------------------------- */
+
+.forme-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-5);
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-pill);
+  background: var(--accent);
+  color: #f4f4f2;
+  font-size: var(--text-small);
+  font-weight: 600;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.forme-button:hover:not(:disabled) {
+  background: var(--accent-deep);
+  border-color: var(--accent-deep);
+}
+
+.forme-button.secondary {
+  background: transparent;
+  color: var(--ink);
+  border-color: var(--line);
+}
+
+.forme-button.secondary:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.forme-button.quiet {
+  background: transparent;
+  border-color: transparent;
+  color: var(--ink-soft);
+  padding: 0 var(--space-3);
+}
+
+.forme-button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.forme-icon-button {
+  display: inline-grid;
+  place-items: center;
+  width: var(--tap-min);
+  height: var(--tap-min);
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.forme-icon-button[aria-pressed="true"] {
+  color: var(--alert);
+  border-color: currentcolor;
+}
+
+.forme-field {
+  display: grid;
+  gap: var(--space-2);
+  margin-bottom: var(--space-4);
+}
+
+.forme-field > span {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: var(--text-caption);
+  font-weight: 700;
+}
+
+.forme-field small {
+  font-size: var(--text-caption);
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+
+.forme-field input,
+.forme-field select,
+.forme-field textarea {
+  min-height: var(--tap-min);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--card);
+  color: inherit;
+  font: inherit;
+  font-size: var(--text-small);
+}
+
+.forme-field textarea {
+  min-height: 96px;
+  resize: vertical;
+}
+
+.forme-field.compact {
+  gap: var(--space-1);
+  margin: 0;
+}
+
+.forme-field.compact input {
+  width: 5.5em;
+  min-height: 36px;
+  padding: 0 var(--space-2);
+}
+
+.forme-quantity input {
+  width: 5.5em;
+}
+
+.forme-axis {
+  border: none;
+  margin: 0 0 var(--space-5);
+  padding: 0;
+}
+
+.forme-axis legend {
+  padding: 0;
+  margin-bottom: var(--space-3);
+  font-size: var(--text-caption);
+  font-weight: 700;
+}
+
+.forme-axis-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.forme-option {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: var(--card);
+  font-size: var(--text-small);
+  cursor: pointer;
+}
+
+.forme-option input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  margin: 0;
+}
+
+.forme-option:has(input:checked) {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.forme-option:has(input:focus-visible) {
+  outline: var(--focus-width) solid var(--accent);
+  outline-offset: var(--focus-offset);
+}
+
+.forme-option small {
+  font-size: var(--text-caption);
+  color: var(--ink-soft);
+}
+
+/* Out of stock is stated, not hidden: a customer may still want to look. */
+.forme-option[data-out="true"] {
+  color: var(--ink-soft);
+}
+
+.forme-option[data-out="true"] small {
+  color: var(--alert);
+}
+
+/* ---- messages ------------------------------------------------------- */
+
+.forme-error {
+  margin: 0 0 var(--space-4);
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--alert);
+  background: color-mix(in srgb, var(--alert) 8%, transparent);
+  color: #7a3826;
+  font-size: var(--text-small);
+  line-height: 1.8;
+}
+
+.forme-note {
+  margin: 0 0 var(--space-5);
+  padding: var(--space-4);
+  border-left: 3px solid var(--accent);
+  background: var(--paper-deep);
+  font-size: var(--text-small);
+  line-height: 1.9;
+}
+
+.forme-note ul {
+  margin: var(--space-2) 0;
+  padding-left: 1.2em;
+}
+
+.forme-fineprint {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-caption);
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+
+.forme-caption {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-caption);
+  color: var(--ink-soft);
+}
+
+.forme-feedback {
+  min-height: 1.6em;
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-small);
+}
+
+.forme-empty {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-4);
+  padding: var(--space-8) var(--space-5);
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-md);
+  text-align: center;
+  color: var(--ink-soft);
+  font-size: var(--text-small);
+}
+
+/* ---- product detail ------------------------------------------------- */
+
+.forme-detail {
+  display: grid;
+  gap: var(--space-7);
+}
+
+@media (min-width: 860px) {
+  .forme-detail {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+  }
+
+  .forme-detail-media {
+    position: sticky;
+    top: 96px;
+  }
+}
+
+.forme-detail-main img,
+.forme-detail-main .forme-art {
+  width: 100%;
+  height: auto;
+  border-radius: var(--radius-md);
+}
+
+.forme-thumbs {
+  list-style: none;
+  display: flex;
+  gap: var(--space-2);
+  margin: var(--space-3) 0 0;
+  padding: 0;
+}
+
+.forme-thumb {
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: transparent;
+  cursor: pointer;
+  overflow: hidden;
+  line-height: 0;
+}
+
+.forme-thumb[aria-pressed="true"] {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.forme-thumb img,
+.forme-thumb .forme-art {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.forme-crumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-3);
+  font-size: var(--text-caption);
+  color: var(--ink-soft);
+}
+
+.forme-crumbs a {
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.forme-detail-body h1 {
+  margin: var(--space-2) 0 var(--space-3);
+  font: 700 var(--text-h2) / 1.2 var(--font-display);
+}
+
+.forme-detail-summary {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-lead);
+  line-height: 1.8;
+}
+
+.forme-detail-description {
+  margin: 0 0 var(--space-5);
+  font-size: var(--text-small);
+  line-height: 1.95;
+  color: var(--ink-soft);
+}
+
+.forme-detail-price {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-2);
+}
+
+.forme-detail-price .forme-price {
+  font-size: var(--text-h3);
+}
+
+.forme-detail-price small {
+  font-size: var(--text-caption);
+  color: var(--ink-soft);
+}
+
+.forme-stock {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-small);
+  font-weight: 700;
+}
+
+.forme-stock[data-level="low"] {
+  color: #8a5a1c;
+}
+
+.forme-stock[data-level="out"] {
+  color: var(--alert);
+}
+
+.forme-detail-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.forme-spec {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-5);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+.forme-spec > div {
+  display: grid;
+  grid-template-columns: 8em 1fr;
+  gap: var(--space-3);
+  font-size: var(--text-small);
+}
+
+.forme-spec dt {
+  color: var(--ink-soft);
+}
+
+.forme-spec dd {
+  margin: 0;
+}
+
+.forme-details {
+  border-top: 1px solid var(--line);
+  padding-top: var(--space-4);
+}
+
+.forme-details summary {
+  cursor: pointer;
+  font-size: var(--text-small);
+  font-weight: 700;
+}
+
+.forme-details p {
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-small);
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+
+/* ---- cart and checkout ---------------------------------------------- */
+
+.forme-steps {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-6);
+  padding: 0;
+}
+
+.forme-steps li {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  font-size: var(--text-caption);
+  color: var(--ink-soft);
+}
+
+.forme-steps li span {
+  display: inline-grid;
+  place-items: center;
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 50%;
+  background: var(--paper-deep);
+  font-variant-numeric: tabular-nums;
+}
+
+.forme-steps li[aria-current="step"] {
+  border-color: var(--accent);
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.forme-steps li[aria-current="step"] span,
+.forme-steps li[data-done="true"] span {
+  background: var(--accent);
+  color: #f4f4f2;
+}
+
+.forme-lines {
+  list-style: none;
+  margin: 0 0 var(--space-5);
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.forme-lines li {
+  display: grid;
+  grid-template-columns: 72px 1fr auto auto auto;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--card);
+}
+
+.forme-line-body a {
+  color: inherit;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: var(--text-small);
+}
+
+.forme-line-body a:hover {
+  color: var(--accent-deep);
+}
+
+.forme-line-body p {
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-caption);
+  color: var(--ink-soft);
+}
+
+.forme-line-qty input {
+  width: 4.5em;
+  min-height: var(--tap-min);
+  padding: 0 var(--space-2);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--card);
+  font: inherit;
+  text-align: center;
+}
+
+@media (max-width: 720px) {
+  .forme-lines li {
+    grid-template-columns: 72px 1fr;
+    grid-template-areas:
+      "art body"
+      "qty price"
+      "remove remove";
+    row-gap: var(--space-3);
+  }
+
+  .forme-lines li > :first-child {
+    grid-area: art;
+  }
+
+  .forme-line-body {
+    grid-area: body;
+  }
+
+  .forme-line-qty {
+    grid-area: qty;
+  }
+
+  .forme-lines .forme-price {
+    grid-area: price;
+    text-align: right;
+  }
+
+  .forme-lines .forme-button {
+    grid-area: remove;
+  }
+}
+
+.forme-summary {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0 0 var(--space-5);
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--card);
+}
+
+.forme-summary > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-4);
+  font-size: var(--text-small);
+}
+
+.forme-summary dt {
+  color: var(--ink-soft);
+}
+
+.forme-summary dd {
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+
+.forme-summary-total {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+  font-weight: 700;
+  font-size: var(--text-body);
+}
+
+.forme-confirm-lines {
+  list-style: none;
+  margin: 0 0 var(--space-4);
+  padding: 0;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.forme-confirm-lines li {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--line);
+  font-size: var(--text-small);
+}
+
+.forme-confirm-lines small {
+  flex: 1;
+  margin-left: var(--space-2);
+  color: var(--ink-soft);
+}
+
+.forme-confirm-lines li > span:last-child {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.forme-done {
+  display: grid;
+  justify-items: center;
+  gap: var(--space-3);
+  padding: var(--space-7) var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--card);
+  text-align: center;
+  margin-bottom: var(--space-6);
+}
+
+.forme-reference {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: var(--text-h3);
+  letter-spacing: 0.1em;
+}
+
+.forme-done p {
+  margin: 0;
+  font-size: var(--text-small);
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+
+.forme-payment {
+  margin-bottom: var(--space-6);
+}
+
+.forme-payment h2 {
+  margin: 0 0 var(--space-4);
+  font-size: var(--text-h3);
+}
+
+.forme-history {
+  list-style: none;
+  margin: 0;
+  padding: var(--space-4) 0 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  gap: var(--space-2);
+}
+
+.forme-history li {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: var(--space-3);
+  font-size: var(--text-caption);
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+
+.forme-history b {
+  color: var(--accent-deep);
+  white-space: nowrap;
+}
+
+.forme-history time {
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 560px) {
+  .forme-history li {
+    grid-template-columns: auto 1fr;
+  }
+
+  .forme-history time {
+    grid-column: 2;
+  }
+}
+
+/* ---- records: orders on both sides ---------------------------------- */
+
+.forme-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-3);
+  border-bottom: 1px solid var(--line);
+}
+
+.forme-tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-pill);
+  background: transparent;
+  color: var(--ink-soft);
+  font-size: var(--text-small);
+  cursor: pointer;
+}
+
+.forme-tabs button span {
+  display: inline-grid;
+  place-items: center;
+  min-width: 1.6em;
+  padding: 0 0.35em;
+  border-radius: var(--radius-pill);
+  background: var(--paper-deep);
+  font-size: var(--text-caption);
+  font-variant-numeric: tabular-nums;
+}
+
+.forme-tabs button[aria-selected="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #f4f4f2;
+}
+
+.forme-tabs button[aria-selected="true"] span {
+  background: #ffffff2e;
+}
+
+.forme-records {
+  list-style: none;
+  margin: 0 0 var(--space-8);
+  padding: 0;
+  display: grid;
+  gap: var(--space-5);
+}
+
+.forme-record {
+  display: grid;
+  gap: var(--space-4);
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--card);
+}
+
+.forme-record[data-status="preparing"],
+.forme-record[data-status="shipped"] {
+  border-left-color: var(--accent);
+}
+
+.forme-record[data-status="delivered"] {
+  border-left-color: var(--accent-deep);
+}
+
+.forme-record[data-status="cancelled"] {
+  border-left-color: var(--alert);
+  opacity: 0.75;
+}
+
+.forme-records.compact .forme-record {
+  padding: var(--space-4);
+  gap: var(--space-3);
+}
+
+.forme-record-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.forme-record-head p {
+  margin: var(--space-2) 0 0;
+  font-size: var(--text-caption);
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+
+.forme-record .forme-reference {
+  font-size: var(--text-body);
+}
+
+.forme-record .forme-summary {
+  margin: 0;
+}
+
+.forme-order-lines {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.forme-order-lines li {
+  display: grid;
+  grid-template-columns: 56px 1fr auto;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-small);
+}
+
+.forme-order-lines img,
+.forme-order-lines .forme-art {
+  width: 56px;
+  height: 56px;
+  object-fit: cover;
+}
+
+.forme-order-lines small,
+.forme-order-lines p {
+  display: block;
+  margin: var(--space-1) 0 0;
+  font-size: var(--text-caption);
+  color: var(--ink-soft);
+}
+
+/* ---- tables --------------------------------------------------------- */
+
+.forme-table-scroll {
+  overflow-x: auto;
+  margin-bottom: var(--space-8);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--card);
+}
+
+.forme-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-small);
+}
+
+.forme-table th,
+.forme-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--line);
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.forme-table thead th {
+  background: var(--paper-deep);
+  font-size: var(--text-caption);
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+.forme-table tbody tr:last-child th,
+.forme-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.forme-table tbody tr[data-hidden="true"] {
+  opacity: 0.55;
+}
+
+.forme-table a {
+  color: var(--accent-deep);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.forme-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: var(--space-4);
+  margin: 0 0 var(--space-5);
+}
+
+.forme-stats > div {
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--card);
+}
+
+.forme-stats dt {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-caption);
+  color: var(--ink-soft);
+}
+
+.forme-stats dd {
+  margin: 0;
+  font-size: var(--text-h3);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---- comparison ----------------------------------------------------- */
+
+.forme-compare {
+  margin-bottom: var(--space-8);
+}
+
+.forme-compare-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  margin-bottom: var(--space-4);
+}
+
+.forme-compare-head h2 {
+  margin: 0;
+  font-size: var(--text-h3);
+}
+
+/* ---- reset section -------------------------------------------------- */
+
+.forme-reset {
+  padding-top: var(--space-6);
+  border-top: 1px solid var(--line);
+}
+
+.forme-reset > h2 {
+  margin-bottom: var(--space-2);
+  font-size: var(--text-h3);
+}
+
+.forme-reset .forme-button.quiet {
+  margin-top: var(--space-3);
+  border: 1px solid var(--line);
+}
+
+/* ---- footer --------------------------------------------------------- */
+
+.forme-footer {
+  border-top: 1px solid var(--line);
+  background: var(--paper-deep);
+}
+
+.forme-footer-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: var(--space-7) var(--gutter);
+  display: grid;
+  gap: var(--space-4);
+}
+
+.forme-wordmark {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--text-h3);
+  letter-spacing: 0.2em;
+}
+
+.forme-footer p {
+  margin: 0;
+  font-size: var(--text-caption);
+  line-height: 1.9;
+  color: var(--ink-soft);
+  max-width: 60ch;
+}
+
+.forme-footer nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.forme-footer nav a {
+  font-size: var(--text-caption);
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (max-width: 640px) {
+  .forme-header-inner {
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+
+  .forme-header nav {
+    order: 3;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .forme-header-actions {
+    margin-left: auto;
+  }
+
+  .forme-hero-art {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .forme-spec > div {
+    grid-template-columns: 1fr;
+    gap: var(--space-1);
+  }
+}
