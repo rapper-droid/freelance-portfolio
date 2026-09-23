@@ -1,0 +1,71 @@
+{
+  "schema": 1,
+  "commit": "3d8641284bfab94c1f9dbe74dec5a1928751e60b",
+  "commitShort": "3d86412",
+  "committedAt": "2026-09-23T11:32:54+09:00",
+  "generatedAt": "2026-09-23T02:49:59.886Z",
+  "dirty": true,
+  "suites": [
+    {
+      "id": "unit",
+      "label": "ユニットテスト",
+      "scope": "automated",
+      "status": "passed",
+      "detail": "36 ファイル / 426 テスト",
+      "checkedAt": "2026-09-23T02:49:55.510Z",
+      "total": 426,
+      "failed": 0,
+      "skipped": 0
+    },
+    {
+      "id": "links",
+      "label": "リンク・アンカー検査",
+      "scope": "automated",
+      "status": "passed",
+      "detail": "42 ルート / 223 リンク",
+      "checkedAt": "2026-09-23T00:44:44.739Z",
+      "total": 223,
+      "failed": 0
+    },
+    {
+      "id": "visual",
+      "label": "表示崩れ検査（4 幅）",
+      "scope": "automated",
+      "status": "passed",
+      "detail": "172 件の確認 / 横溢れ・画像欠けなし",
+      "checkedAt": "2026-09-23T00:41:28.373Z",
+      "total": 172,
+      "failed": 0
+    },
+    {
+      "id": "flow",
+      "label": "体験の操作後検査（4 幅）",
+      "scope": "automated",
+      "status": "passed",
+      "detail": "28 件の確認 / a11y 違反なし",
+      "checkedAt": "2026-09-22T16:18:40.583Z",
+      "total": 28,
+      "failed": 0
+    },
+    {
+      "id": "performance",
+      "label": "性能計測（Lighthouse）",
+      "scope": "automated",
+      "status": "measured",
+      "detail": "18 ルート / performance スコア最小 80",
+      "checkedAt": "2026-09-16T20:02:51.413Z",
+      "total": 18,
+      "failed": null
+    },
+    {
+      "id": "e2e",
+      "label": "E2E（Playwright 3 プロファイル）",
+      "scope": "automated",
+      "status": "not_run",
+      "reason": "実行結果を成果物として保存していないため、この記録には含めていません。",
+      "checkedAt": null,
+      "total": null,
+      "failed": null
+    }
+  ]
+}

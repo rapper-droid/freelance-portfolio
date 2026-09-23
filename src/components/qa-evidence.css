@@ -1,0 +1,202 @@
+/* =====================================================================
+   QA EVIDENCE — the real verification record on /demos/qa (指示書 §10).
+
+   Kept visually distinct from the manual checklist below it so the two are
+   never read as one thing: this table is produced by a script, the
+   checklist by a person.
+   ===================================================================== */
+
+.qa-evidence {
+  margin-bottom: var(--space-7);
+  padding: var(--space-5);
+  border: 1px solid var(--works-line);
+  border-left: 3px solid var(--color-amber);
+  border-radius: var(--radius-md);
+  background: var(--works-panel);
+  color: var(--works-ink);
+}
+
+.qa-evidence-head .eyebrow {
+  display: block;
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-amber);
+  margin-bottom: var(--space-2);
+}
+
+.qa-evidence-head h3 {
+  font-size: var(--text-h3);
+  line-height: 1.4;
+  margin: 0 0 var(--space-3);
+  color: var(--works-ink);
+}
+
+.qa-evidence-head p {
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--works-muted);
+  margin: 0 0 var(--space-5);
+  max-width: 62ch;
+}
+
+.qa-evidence-meta {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
+  margin: 0 0 var(--space-4);
+}
+
+.qa-evidence-meta dt {
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--works-muted);
+  margin-bottom: var(--space-1);
+}
+
+.qa-evidence-meta dd {
+  margin: 0;
+  font-size: var(--text-small);
+  font-weight: 700;
+  color: var(--works-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.qa-evidence-meta code {
+  font-family: var(--font-mono);
+  font-size: var(--text-small);
+}
+
+.qa-evidence-warning {
+  font-size: var(--text-caption);
+  line-height: 1.7;
+  color: var(--works-ink);
+  border-left: 2px solid var(--color-amber);
+  background: color-mix(in srgb, var(--color-amber) 10%, transparent);
+  padding: var(--space-2) var(--space-3);
+  border-radius: 0 var(--radius-xs) var(--radius-xs) 0;
+  margin: 0 0 var(--space-4);
+}
+
+.qa-evidence-scroll {
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.qa-evidence-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-small);
+}
+
+.qa-evidence-table th,
+.qa-evidence-table td {
+  text-align: left;
+  padding: var(--space-3) var(--space-2);
+  border-bottom: 1px solid var(--works-line);
+  color: var(--works-muted);
+  vertical-align: top;
+  /* globals.css styles bare `th` with a light background for the demo tables.
+     Without resetting it here the panel renders light text on a light cell. */
+  background: transparent;
+  /* Same rule sets nowrap on tables; the detail column needs to wrap. */
+  white-space: normal;
+}
+
+.qa-evidence-table thead th {
+  font-size: var(--text-caption);
+  font-weight: 700;
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--works-ink);
+}
+
+.qa-evidence-table tbody th {
+  color: var(--works-ink);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.qa-evidence-status {
+  display: inline-block;
+  padding: 1px var(--space-2);
+  border: 1px solid currentcolor;
+  border-radius: var(--radius-pill);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* Status is carried by the word inside the pill; colour only reinforces it. */
+.qa-evidence-table tr[data-status="passed"] .qa-evidence-status {
+  color: var(--color-amber);
+}
+
+.qa-evidence-table tr[data-status="failed"] .qa-evidence-status {
+  color: #ff8f6b;
+}
+
+.qa-evidence-table tr[data-status="not_run"] .qa-evidence-status,
+.qa-evidence-table tr[data-status="measured"] .qa-evidence-status {
+  color: var(--works-muted);
+}
+
+.qa-evidence-note {
+  font-size: var(--text-caption);
+  line-height: 1.7;
+  color: var(--works-muted);
+  margin: var(--space-4) 0 0;
+}
+
+/* A four-column table does not fit a phone. Below this width each row becomes
+   a card carrying its own labels, so nothing is cut off or scrolled past. */
+@media (max-width: 640px) {
+  .qa-evidence-scroll {
+    overflow-x: visible;
+  }
+
+  .qa-evidence-table thead {
+    /* Header text moves into each cell's ::before below. */
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .qa-evidence-table,
+  .qa-evidence-table tbody,
+  .qa-evidence-table tr,
+  .qa-evidence-table th,
+  .qa-evidence-table td {
+    display: block;
+    width: auto;
+  }
+
+  .qa-evidence-table tr {
+    border: 1px solid var(--works-line);
+    border-radius: var(--radius-sm);
+    padding: var(--space-3);
+    margin-bottom: var(--space-3);
+  }
+
+  .qa-evidence-table th,
+  .qa-evidence-table td {
+    border-bottom: 0;
+    padding: var(--space-1) 0;
+  }
+
+  .qa-evidence-table tbody th {
+    font-size: var(--text-small);
+    white-space: normal;
+    margin-bottom: var(--space-2);
+  }
+
+  .qa-evidence-table td[data-label]::before {
+    content: attr(data-label) "：";
+    color: var(--works-muted);
+    font-size: var(--text-caption);
+  }
+}
