@@ -10,6 +10,7 @@ import {
   newCase,
   receivedLabel,
   saveDraft,
+  ticketArrivalIso,
   seedCases,
   setStatus,
   suggestDraft,
@@ -271,5 +272,45 @@ describe("fromTicket — 見本の並びを崩さない", () => {
     expect(c.owner).toBe("担当B");
     expect(c.category).toBe("請求");
     expect(receivedLabel(c, NOW)).toBe("09/21 11:15");
+    expect(c.receivedAtIso).toBe("2026-09-21T02:15:00.000Z");
+  });
+
+  it("says 本日 for something that arrived today", () => {
+    const c = fromTicket(
+      {
+        id: 1,
+        name: "本日の見本",
+        subject: "確認",
+        body: "確認をお願いします。",
+        date: "09/23 10:30",
+        status: "未対応" as const,
+        owner: "未割当",
+      },
+      NOW,
+    );
+    expect(receivedLabel(c, NOW)).toBe("本日 10:30");
+  });
+
+  it("reads December, seen on New Year's Day, as last year", () => {
+    // Dating it in the current year would put the whole sample eleven
+    // months in the future.
+    const newYear = "2027-01-01T01:00:00.000Z";
+    expect(ticketArrivalIso("12/28 09:00", newYear)).toBe(
+      "2026-12-28T00:00:00.000Z",
+    );
+  });
+
+  it("keeps a stamp later the same day as today", () => {
+    // The sample's times are fixed, so before 10:30 the 10:30 ticket is
+    // slightly ahead of now. That is still today, not a year ago.
+    const morning = "2026-09-22T23:00:00.000Z"; // 08:00 JST
+    expect(ticketArrivalIso("09/23 10:30", morning)).toBe(
+      "2026-09-23T01:30:00.000Z",
+    );
+  });
+
+  it("falls back to now rather than to an invalid date", () => {
+    expect(ticketArrivalIso("nonsense", NOW)).toBe(NOW);
+    expect(ticketArrivalIso("", NOW)).toBe(NOW);
   });
 });

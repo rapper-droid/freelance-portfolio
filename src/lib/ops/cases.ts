@@ -1,4 +1,5 @@
 import { hash } from "@/lib/runtime/ids";
+import { fromJst, toJst } from "@/lib/runtime/rules/datetime";
 import { classify, replyDraft, ticketsFor, type Ticket } from "@/lib/inbox";
 import type {
   CaseCategory,
@@ -118,6 +119,7 @@ export function seedCases(nowIso: string): OpsCase[] {
 export function fromTicket(ticket: Ticket, nowIso: string): OpsCase {
   const { category, urgency } = classifyCase(ticket.subject + ticket.body);
   const caseId = `case-seed-${ticket.id}`;
+  const receivedAtIso = ticketArrivalIso(ticket.date, nowIso);
   return {
     caseId,
     reference: "T-" + hash(caseId).slice(0, 6).toUpperCase(),
@@ -125,33 +127,51 @@ export function fromTicket(ticket: Ticket, nowIso: string): OpsCase {
     customerName: ticket.name,
     subject: ticket.subject,
     body: ticket.body,
-    receivedAtIso: nowIso,
-    // The seed's own display stamp, kept so the list reads like an inbox.
+    receivedAtIso,
     category,
     urgency,
     status: ticket.status,
     owner: ticket.owner,
     draft: "",
     updatedAtIso: nowIso,
-    history: [event(nowIso, "received", `${ticket.date} に受け付けました。`)],
+    history: [event(receivedAtIso, "received", "問い合わせを受け付けました。")],
   };
 }
 
-/** The stamp the inbox shows. Seeded cases keep the sample's own wording. */
+/**
+ * Turns the sample's `MM/DD HH:MM` stamp into a real instant.
+ *
+ * The sample carries a display string, so the year comes from today. A stamp
+ * that lands well ahead of now is last year's — 12/28 read on 1 January is
+ * December, not next December. "Well ahead" is a day, not a second: the
+ * sample's own times are fixed, so a 10:30 ticket looked at over breakfast is
+ * still today's, and treating it as a year old would date the whole inbox
+ * wrong for half of every day.
+ *
+ * An unparseable stamp falls back to now rather than to an invalid date.
+ */
+export function ticketArrivalIso(stamp: string, nowIso: string): string {
+  const match = stamp.match(/^(\d{2})\/(\d{2}) (\d{2}):(\d{2})$/);
+  if (!match) return nowIso;
+  const [month, day, hour, minute] = match.slice(1).map(Number);
+  const now = toJst(nowIso);
+  const at = (year: number) => fromJst({ year, month, day, hour, minute });
+  const thisYear = at(now.year);
+  const aheadByMoreThanADay =
+    Date.parse(thisYear) - Date.parse(nowIso) > 86_400_000;
+  return aheadByMoreThanADay ? at(now.year - 1) : thisYear;
+}
+
+/** The stamp the inbox shows: the time of day, dated only when it is not today. */
 export const receivedLabel = (c: OpsCase, nowIso: string): string => {
-  if (c.source === "seed") {
-    const first = c.history.find((h) => h.event === "received");
-    const stamp = first?.detail.match(/^(\d{2}\/\d{2} \d{2}:\d{2})/)?.[1];
-    if (stamp) return stamp;
-  }
-  const at = new Date(Date.parse(c.receivedAtIso) + 9 * 3600_000);
-  const same =
-    at.toISOString().slice(0, 10) ===
-    new Date(Date.parse(nowIso) + 9 * 3600_000).toISOString().slice(0, 10);
-  const time = at.toISOString().slice(11, 16);
-  return same
+  const at = toJst(c.receivedAtIso);
+  const time = `${String(at.hour).padStart(2, "0")}:${String(at.minute).padStart(2, "0")}`;
+  const today = toJst(nowIso);
+  const sameDay =
+    at.year === today.year && at.month === today.month && at.day === today.day;
+  return sameDay
     ? `本日 ${time}`
-    : `${at.toISOString().slice(5, 10).replace("-", "/")} ${time}`;
+    : `${String(at.month).padStart(2, "0")}/${String(at.day).padStart(2, "0")} ${time}`;
 };
 
 export function setStatus(

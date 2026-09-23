@@ -15,11 +15,13 @@
 | worktree       | `C:/Users/tetsu/tanebi-works-ultimate`                       |
 | branch         | `claude/ultimate-experience-20260923`                        |
 | 分岐元         | `origin/tsudowa/cloudflare-workers-candidate`（= `cbaf575`） |
-| HEAD           | `24911b2`                                                    |
-| 先行           | 3 commit（すべて **未 push**）                               |
+| HEAD           | `e2e422e`                                                    |
+| 先行           | 5 commit（すべて **未 push**）                               |
 | 未コミット差分 | なし（このセッション分は全て commit 済み）                   |
 
 ```
+e2e422e  feat(ops): RELAY, SMART INBOX and ADMIN become one record
+41526f0  docs(rebuild): the handover, and KISSA in the route ledger
 24911b2  fix(demos): the sample data follows the calendar instead of a fixed week
 46bb2b6  feat(kissa): the cafe becomes a shop you can actually use
 fc038dc  feat(shop): one domain layer behind the cafe's menu, orders and tables
@@ -61,16 +63,20 @@ cbaf575  (分岐元) Merge pull request #5 ...
 
 ### 既存（このセッションで直したもの）
 
-| URL              | 変更                                                         |
-| ---------------- | ------------------------------------------------------------ |
-| `/demos/booking` | 週が **今日から 7 日** になった（旧: 2026-09-18〜24 固定）   |
-| `/demos/inbox`   | 問い合わせの日付が **今日基準** になった（旧: 09/07〜09/09） |
+| URL                 | 変更                                                                  |
+| ------------------- | --------------------------------------------------------------------- |
+| `/demos/automation` | RELAY。確認済みにすると **実際に記録が作られ**、SMART INBOX に出る    |
+| `/demos/inbox`      | SMART INBOX。状態・担当・下書きが記録に残り、再読み込みしても消えない |
+| `/demos/admin`      | ADMIN。顧客と問い合わせを紐づけられ、問い合わせから顧客を作れる       |
+| `/demos/booking`    | 週が **今日から 7 日** になった（旧: 2026-09-18〜24 固定）            |
 
 ---
 
-## 3. 完成した体験（KISSA）
+## 3. 完成した体験
 
 「完成」とは、**画面から操作でき、その結果が保存され、他の画面に届く**こと。
+
+### 3-1. KISSA（架空カフェ）
 
 - **注文**: カートの数量変更・削除 → 調理時間と営業時間から計算した受取枠 →
   内容確認 → 注文確定 → 支払（承認/拒否/保留/中断/結果不明）。
@@ -99,6 +105,47 @@ cbaf575  (分岐元) Merge pull request #5 ...
 
 ---
 
+### 3-2. RELAY + SMART INBOX + ADMIN（1 つの案件データ）
+
+3 画面が別々の配列を持っていた。RELAY で返信を「確認済み」にしても誰にも届かず、
+SMART INBOX の問い合わせ主は顧客一覧に存在せず、ADMIN は自分が記録であるはずの
+問い合わせを 1 件も知らなかった。RELAY の上に並ぶ 4 ステップ（受付 → 分類 →
+下書き → 人の確認）は、最後にラベルが変わるだけで終わっていた。
+
+`src/lib/ops/` が 3 画面の共有記録。純粋関数が「何をしてよいか」を決めるので、
+3 画面が食い違えない。
+
+- **RELAY**: 確認済みにすると案件が作られ、受付番号と SMART INBOX への導線が出る。
+  そのあと下書きを直すと、**記録側の確認済みが外れる**。差し戻しも記録に効く。
+- **SMART INBOX**: 見本 6 件 + RELAY が受け付けた分。対応状況・担当・下書きは
+  記録に書かれるので、再読み込みしても残り、ADMIN の集計にも出る。案件ごとに経過。
+- **ADMIN**: 顧客一覧は従来どおり自分の保存領域を持ち、案件とは**明示的に紐づける**。
+  既存顧客に紐づけるか、問い合わせから顧客を作るか。自動照合はしない（同名の別会社を
+  取り違えると、他社の対応履歴が混ざる）。
+
+**確認済みの返信を編集したら確認は外れる** — この記録が存在する理由そのもので、
+専用のテストがある。
+
+### 3-3. このフェーズで見つけて直した不具合（3 件）
+
+1. **provider の更新系が、そのレンダー時点の state を見ていた。** RELAY は
+   「作る → 下書きを書く → 承認する」を 1 つのハンドラで行う。React はその間に
+   再レンダーしないので、承認は「作ったばかりの案件が見つからない」と言って失敗し、
+   未確認の案件だけが残っていた。`commit()` が更新する ref を読むようにした。
+2. **下書きを 1 文字打つたびに経過が 1 行増えていた。** 連続した編集はまとめる。
+   ただし「確認済みを解除した」編集は別の事実なので残す。
+3. **E2E 4 件がスクリーンショットを `../../outputs/` に書いていた。**
+   ユーザーのホームの隣（`C:/Users/outputs`）で、そこが存在するかどうかで
+   合否が変わっていた。`tests/e2e/flow.spec.ts` は既に同じ理由でこの慣習を
+   拒否していた。リポジトリ内に書くようにし、CI も回収する。
+
+### 3-4. 変えなかったもの（削る判断）
+
+- **DAYBOOK は再読み込みでリセットされたまま。** 画面にそう書いてあり、E2E も
+  その挙動を検証している。意図的な設計なので、揃えるためだけに変えない。
+- **RELAY / INBOX と DAYBOOK は別の記録のまま。** スタジオの予約は問い合わせでは
+  ない。1 つのモデルに押し込めば、どちらにも合わないものになる。
+
 ## 4. 未接続・やっていないこと
 
 | 項目           | 状態                                                                  |
@@ -116,8 +163,8 @@ cbaf575  (分岐元) Merge pull request #5 ...
 | 優先度 | 範囲                                                             | 状態     |
 | ------ | ---------------------------------------------------------------- | -------- |
 | P1     | KISSA（メニュー・詳細・カート・注文・予約・変更・運営反映）      | **完了** |
-| P2     | RELAY + SMART INBOX + ADMIN を 1 つの案件データで連動            | 未着手   |
-| P2     | DAYBOOK（日付は修正済み。保存・連動は未）                        | 部分     |
+| P2     | RELAY + SMART INBOX + ADMIN を 1 つの案件データで連動            | **完了** |
+| P2     | DAYBOOK（日付は修正済み。保存しないのは意図的 — 3-4 節）         | 部分     |
 | P2     | REPORT FLOW                                                      | 未着手   |
 | P3     | FORME / FLOWSTATE / REFINE / STILL / SHIP の作り込み             | 未着手   |
 | P4     | TSUDOWA 全ページ・`/works` 全分類・`/services`・partners・rescue | 未着手   |
@@ -134,11 +181,11 @@ cbaf575  (分岐元) Merge pull request #5 ...
 | ---------------- | ---------------------------------- | --------------------------------------- |
 | lint             | `npm run lint`                     | 0 errors, 0 warnings                    |
 | typecheck        | `npm run typecheck`                | pass                                    |
-| unit             | `npx vitest run`                   | **500 passed** / 38 files               |
+| unit             | `npx vitest run`                   | **528 passed** / 39 files               |
 | build            | `npm run build`                    | success                                 |
-| E2E（3 幅）      | `npm run test:e2e`                 | **213 passed**（8.9 分）                |
+| E2E（3 幅）      | `npm run test:e2e`                 | **249 passed**（5.6 分）                |
 | KISSA 通し       | `npm run qa:kissa`                 | **56/56**（390 / 768 / 1440）           |
-| 操作系の実測     | `npm run qa:controls`              | 106 controls / **動かないボタン 0**     |
+| 操作系の実測     | `npm run qa:controls`              | 112 controls / **動かないボタン 0**     |
 | リンク           | `npm run qa:links`                 | PASS 42 routes, 227 links               |
 | デザイン（6 幅） | `npm run qa:design`                | PASS 6 routes × 6 幅、axe/focus/runtime |
 | ルート台帳       | `node scripts/route-inventory.mjs` | **74 entries**、想定外ステータス 0      |
@@ -180,11 +227,11 @@ tsudowa-production/flow   -> 200
 1. `cd C:/Users/tetsu/tanebi-works-ultimate` → `git log --oneline -3` で
    `24911b2` を確認。
 2. `npm run dev` → **`http://localhost:3000/kissa`**（`127.0.0.1` は不可）。
-3. 続きを作るなら **P2 の「1 つの案件データ」** から。
-   `/demos/inbox` と `/demos/admin` は今それぞれ別の種データを持っていて、
-   画面間で連動しない。KISSA の `src/lib/shop/store.ts` と
-   `src/components/kissa/shop-provider.tsx` が、そのまま手本になる
-   （`schemaVersion` つき localStorage + 1 つの Context + 純粋な domain 関数）。
+3. 続きを作るなら **P3（FORME / FLOWSTATE / REFINE / STILL / SHIP）** から。
+   共有記録の手本は 2 つある: `src/lib/shop/`（KISSA）と `src/lib/ops/`
+   （RELAY + INBOX + ADMIN）。どちらも同じ形 — `schemaVersion` つきの
+   localStorage、1 つの Context、判断は純粋関数。
+   **provider の更新系は必ず ref から読むこと**（3-3 節の 1 番）。
 4. 触ってはいけない場所: `C:/Users/tetsu/freelance-portfolio`、
    `codex/*` ブランチ、他 worktree の未コミット差分。
 
