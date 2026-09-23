@@ -1,0 +1,570 @@
+{
+  "generatedAt": "2026-09-23T08:46:35.470Z",
+  "counts": {
+    "page": 58,
+    "api": 3,
+    "asset": 4,
+    "error": 1
+  },
+  "byTemplate": {
+    "/": 1,
+    "/contact": 1,
+    "/contact/general": 1,
+    "/demos/[slug]": 11,
+    "/flow": 1,
+    "/history": 1,
+    "/lab": 1,
+    "/partners": 1,
+    "/privacy": 1,
+    "/projects/[slug]": 11,
+    "/rescue": 1,
+    "/services": 1,
+    "/services/[slug]": 2,
+    "/works": 1,
+    "/works/[category]": 12,
+    "/experience/[slug]": 11,
+    "/api/contact": 1,
+    "/api/analytics": 1,
+    "/api/flow": 1,
+    "/sitemap.xml": 1,
+    "/robots.txt": 1,
+    "/icon.png": 1,
+    "/apple-icon.png": 1,
+    "/_not-found": 1
+  },
+  "unexpected": [],
+  "routes": [
+    {
+      "kind": "page",
+      "template": "/",
+      "route": "/",
+      "entity": null,
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/contact",
+      "route": "/contact",
+      "entity": null,
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/contact/general",
+      "route": "/contact/general",
+      "entity": null,
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/demos/[slug]",
+      "route": "/demos/admin",
+      "entity": "admin",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/demos/[slug]",
+      "route": "/demos/automation",
+      "entity": "automation",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/demos/[slug]",
+      "route": "/demos/booking",
+      "entity": "booking",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/demos/[slug]",
+      "route": "/demos/cafe",
+      "entity": "cafe",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/demos/[slug]",
+      "route": "/demos/creative",
+      "entity": "creative",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/demos/[slug]",
+      "route": "/demos/csv",
+      "entity": "csv",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/demos/[slug]",
+      "route": "/demos/ec",
+      "entity": "ec",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/demos/[slug]",
+      "route": "/demos/improvement",
+      "entity": "improvement",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/demos/[slug]",
+      "route": "/demos/inbox",
+      "entity": "inbox",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/demos/[slug]",
+      "route": "/demos/qa",
+      "entity": "qa",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/demos/[slug]",
+      "route": "/demos/saas",
+      "entity": "saas",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/flow",
+      "route": "/flow",
+      "entity": null,
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/history",
+      "route": "/history",
+      "entity": null,
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/lab",
+      "route": "/lab",
+      "entity": null,
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/partners",
+      "route": "/partners",
+      "entity": null,
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/privacy",
+      "route": "/privacy",
+      "entity": null,
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/projects/[slug]",
+      "route": "/projects/admin",
+      "entity": "admin",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/projects/[slug]",
+      "route": "/projects/automation",
+      "entity": "automation",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/projects/[slug]",
+      "route": "/projects/booking",
+      "entity": "booking",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/projects/[slug]",
+      "route": "/projects/cafe",
+      "entity": "cafe",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/projects/[slug]",
+      "route": "/projects/creative",
+      "entity": "creative",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/projects/[slug]",
+      "route": "/projects/csv",
+      "entity": "csv",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/projects/[slug]",
+      "route": "/projects/ec",
+      "entity": "ec",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/projects/[slug]",
+      "route": "/projects/improvement",
+      "entity": "improvement",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/projects/[slug]",
+      "route": "/projects/inbox",
+      "entity": "inbox",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/projects/[slug]",
+      "route": "/projects/qa",
+      "entity": "qa",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/projects/[slug]",
+      "route": "/projects/saas",
+      "entity": "saas",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/rescue",
+      "route": "/rescue",
+      "entity": null,
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/services",
+      "route": "/services",
+      "entity": null,
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/services/[slug]",
+      "route": "/services/csv-routine",
+      "entity": "csv-routine",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/services/[slug]",
+      "route": "/services/web-fix",
+      "entity": "web-fix",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/works",
+      "route": "/works",
+      "entity": null,
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/works/[category]",
+      "route": "/works/api",
+      "entity": "api",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/works/[category]",
+      "route": "/works/apps",
+      "entity": "apps",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/works/[category]",
+      "route": "/works/automation",
+      "entity": "automation",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/works/[category]",
+      "route": "/works/coding",
+      "entity": "coding",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/works/[category]",
+      "route": "/works/design",
+      "entity": "design",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/works/[category]",
+      "route": "/works/ec",
+      "entity": "ec",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/works/[category]",
+      "route": "/works/improvement",
+      "entity": "improvement",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/works/[category]",
+      "route": "/works/lp",
+      "entity": "lp",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/works/[category]",
+      "route": "/works/nextjs",
+      "entity": "nextjs",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/works/[category]",
+      "route": "/works/qa",
+      "entity": "qa",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/works/[category]",
+      "route": "/works/responsive",
+      "entity": "responsive",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/works/[category]",
+      "route": "/works/web",
+      "entity": "web",
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/experience/[slug]",
+      "route": "/experience/admin",
+      "entity": "admin",
+      "status": 200,
+      "inSitemap": false
+    },
+    {
+      "kind": "page",
+      "template": "/experience/[slug]",
+      "route": "/experience/automation",
+      "entity": "automation",
+      "status": 200,
+      "inSitemap": false
+    },
+    {
+      "kind": "page",
+      "template": "/experience/[slug]",
+      "route": "/experience/booking",
+      "entity": "booking",
+      "status": 200,
+      "inSitemap": false
+    },
+    {
+      "kind": "page",
+      "template": "/experience/[slug]",
+      "route": "/experience/cafe",
+      "entity": "cafe",
+      "status": 200,
+      "inSitemap": false
+    },
+    {
+      "kind": "page",
+      "template": "/experience/[slug]",
+      "route": "/experience/creative",
+      "entity": "creative",
+      "status": 200,
+      "inSitemap": false
+    },
+    {
+      "kind": "page",
+      "template": "/experience/[slug]",
+      "route": "/experience/csv",
+      "entity": "csv",
+      "status": 200,
+      "inSitemap": false
+    },
+    {
+      "kind": "page",
+      "template": "/experience/[slug]",
+      "route": "/experience/ec",
+      "entity": "ec",
+      "status": 200,
+      "inSitemap": false
+    },
+    {
+      "kind": "page",
+      "template": "/experience/[slug]",
+      "route": "/experience/improvement",
+      "entity": "improvement",
+      "status": 200,
+      "inSitemap": false
+    },
+    {
+      "kind": "page",
+      "template": "/experience/[slug]",
+      "route": "/experience/inbox",
+      "entity": "inbox",
+      "status": 200,
+      "inSitemap": false
+    },
+    {
+      "kind": "page",
+      "template": "/experience/[slug]",
+      "route": "/experience/qa",
+      "entity": "qa",
+      "status": 200,
+      "inSitemap": false
+    },
+    {
+      "kind": "page",
+      "template": "/experience/[slug]",
+      "route": "/experience/saas",
+      "entity": "saas",
+      "status": 200,
+      "inSitemap": false
+    },
+    {
+      "kind": "api",
+      "template": "/api/contact",
+      "route": "/api/contact",
+      "entity": null,
+      "status": 200,
+      "inSitemap": false,
+      "expectedStatus": 200
+    },
+    {
+      "kind": "api",
+      "template": "/api/analytics",
+      "route": "/api/analytics",
+      "entity": null,
+      "status": 405,
+      "inSitemap": false,
+      "expectedStatus": 405
+    },
+    {
+      "kind": "api",
+      "template": "/api/flow",
+      "route": "/api/flow",
+      "entity": null,
+      "status": 200,
+      "inSitemap": false,
+      "expectedStatus": 200
+    },
+    {
+      "kind": "asset",
+      "template": "/sitemap.xml",
+      "route": "/sitemap.xml",
+      "entity": null,
+      "status": 200,
+      "inSitemap": false
+    },
+    {
+      "kind": "asset",
+      "template": "/robots.txt",
+      "route": "/robots.txt",
+      "entity": null,
+      "status": 200,
+      "inSitemap": false
+    },
+    {
+      "kind": "asset",
+      "template": "/icon.png",
+      "route": "/icon.png",
+      "entity": null,
+      "status": 200,
+      "inSitemap": false
+    },
+    {
+      "kind": "asset",
+      "template": "/apple-icon.png",
+      "route": "/apple-icon.png",
+      "entity": null,
+      "status": 200,
+      "inSitemap": false
+    },
+    {
+      "kind": "error",
+      "template": "/_not-found",
+      "route": "/__inventory_probe_404",
+      "entity": null,
+      "status": 404,
+      "inSitemap": false,
+      "expectedStatus": 404
+    }
+  ]
+}
