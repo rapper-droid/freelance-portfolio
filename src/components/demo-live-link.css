@@ -96,3 +96,11 @@
     transition: none;
   }
 }
+
+/* On a case study page the panel is a direct child of <main>, which carries no
+   gutter of its own — the demo pages wrap it in their already-padded canvas.
+   Without this the border would run off both edges of a phone. */
+.case-ui .demo-live {
+  margin-block: var(--space-8);
+  padding-inline: var(--hub-space);
+}

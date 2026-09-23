@@ -27,7 +27,7 @@ describe("HQ editorial contract", () => {
     }
   });
   it("keeps history source-backed, date-explicit and extensible without fake live state", () => {
-    expect(hqUpdatedAt).toBe("2026-09-17");
+    expect(hqUpdatedAt).toBe("2026-09-24");
     expect(new Set(buildRecords.map((r) => r.id)).size).toBe(
       buildRecords.length,
     );

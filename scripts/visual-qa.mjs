@@ -28,6 +28,12 @@ try {
   const routes = [
     "/",
     "/privacy",
+    // The TSUDOWA pages were missing from this sweep, which is why a build log
+    // that had grown to seven entries was never measured at 320px.
+    "/history",
+    "/lab",
+    "/contact",
+    "/contact/general",
     "/works",
     "/flow",
     "/services",

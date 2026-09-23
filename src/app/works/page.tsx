@@ -39,6 +39,17 @@ export default function AllWorks() {
             <p>
               12カテゴリで絞り込み、制作例の詳細・操作デモ・参考料金をご確認ください。
             </p>
+            {/* The two operable shops are the strongest thing on this page and
+                the cards sit below the fold, so they are named here. */}
+            {/* No line break inside a Japanese sentence: JSX collapses the
+                newline to a space, which shows up as a gap mid-sentence. */}
+            <p className="works-operable">
+              このうち <Link href="/kissa">KISSA（カフェ）</Link> と{" "}
+              <Link href="/forme">FORME（ショップ）</Link>
+              {
+                "は、注文・席予約・在庫まで実際に操作できます。架空店舗のため、実際の注文・予約・支払いは発生しません。"
+              }
+            </p>
             <Link href="#works" className="button primary">
               制作例から探す <ArrowRight size={16} />
             </Link>

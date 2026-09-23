@@ -253,7 +253,9 @@ export function HqHome() {
             </p>
           </div>
           <div className="hq-log-list">
-            {buildRecords.map((record) => (
+            {/* The latest four. BUILD LOG below holds the rest, so the
+                home page stays an entrance rather than an archive. */}
+            {buildRecords.slice(0, 4).map((record) => (
               <Link
                 prefetch={false}
                 href={"/history#" + record.id}

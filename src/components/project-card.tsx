@@ -5,7 +5,11 @@ import { ArrowUpRight } from "lucide-react";
 import { categories, type Project } from "@/lib/portfolio";
 import { caseLabels } from "@/lib/sales-ui";
 import { previewPath } from "@/lib/preview";
+import { workingEntry } from "@/lib/working-versions";
 export function ProjectCard({ project: p }: { project: Project }) {
+  // KISSA and FORME are shops, not pictures of shops. A visitor who only
+  // ever sees the card should still be told the real one exists.
+  const working = workingEntry(p.slug);
   return (
     <article className="project-card" data-project={p.slug}>
       <Link
@@ -75,6 +79,16 @@ export function ProjectCard({ project: p }: { project: Project }) {
           >
             詳細を見る <ArrowUpRight size={16} />
           </Link>
+          {working && (
+            <Link
+              className="project-working"
+              href={working.href}
+              data-working-version={p.slug}
+              aria-label={`${p.title}の操作できる版を開く`}
+            >
+              操作できる版 <ArrowUpRight size={16} />
+            </Link>
+          )}
         </div>
       </div>
     </article>

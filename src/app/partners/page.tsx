@@ -174,7 +174,10 @@ export default function PartnersPage() {
           <ul className="offer-evidence-list">
             {[
               ["表示の修正", "Before / After比較デモ", "/demos/improvement"],
-              ["ページ実装", "カフェ公式サイトのデモ", "/demos/cafe"],
+              // Implementation quality shows best in the shops: they carry
+              // real state, the failure cases, and the operator's side.
+              ["ページ実装", "注文と予約まで動く店舗サイト", "/kissa"],
+              ["EC・在庫", "在庫と注文が動くショップ", "/forme"],
               ["データ処理", "CSV加工デモ", "/demos/csv"],
               ["確認と納品", "QA・納品工程のデモ", "/demos/qa"],
             ].map(([kind, label, href]) => (

@@ -3,9 +3,9 @@ import { getProject, type CategoryId } from "./portfolio";
 export const selectedSlugs = ["cafe", "saas", "ec", "inbox"] as const;
 export const selectedProjects = selectedSlugs.map((slug) => getProject(slug)!);
 export const caseLabels: Record<string, string> = {
-  cafe: "Coffee Website",
+  cafe: "Cafe Site & Orders",
   saas: "SaaS LP",
-  ec: "Product Page",
+  ec: "Shop & Inventory",
   inbox: "AI Workflow",
 };
 export const services: {

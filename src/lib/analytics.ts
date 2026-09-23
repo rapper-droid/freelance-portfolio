@@ -14,6 +14,10 @@ export const eventNames = [
   "portfolio_category_view",
   "portfolio_project_open",
   "portfolio_live_demo_click",
+  // Separate from the showcase demo above: this is a visitor who went to the
+  // shop that actually takes an order (指示書 §13). Same `project` parameter,
+  // so the same slug allowlist applies and nothing else travels.
+  "portfolio_working_version_click",
   "portfolio_delivery_info_view",
   "portfolio_copy_contact_message",
   // Growth funnel (docs/growth/IMPLEMENTATION_MAP.md). Names describe what

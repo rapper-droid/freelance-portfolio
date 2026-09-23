@@ -157,6 +157,7 @@ export default function RescuePage() {
               ["範囲の決まったメニュー", "小さく頼めるメニュー", "/services"],
               ["データ整理", "CSV加工デモを触る", "/demos/csv"],
               ["問い合わせ対応", "問い合わせ管理デモを触る", "/demos/inbox"],
+              ["注文・予約の受付", "注文まで動く店舗サイトを触る", "/kissa"],
               ["制作会社・デザイナー", "実装パートナー窓口", "/partners"],
             ].map(([kind, label, href]) => (
               <li key={href}>

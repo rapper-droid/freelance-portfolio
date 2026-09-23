@@ -1,72 +1,20 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { liveRoutes } from "@/lib/working-versions";
 import "./demo-live-link.css";
 
 /**
  * The bridge from a showcase demo to its working version (指示書 §10, §13).
  *
- * Some demos are a look; one of them is a shop you can actually order from.
+ * Some demos are a look; two of them are shops you can actually order from.
  * Leaving the working version to be discovered would waste the only thing
  * that separates it from a screenshot, so the demo page says where it is and
  * what can be done there — including the operator's side, which is the half a
  * visitor would never guess exists.
+ *
+ * The routes themselves live in `@/lib/working-versions`, because the card on
+ * /works and the catalogue's own honesty tests need the same list.
  */
-
-export type LiveRoute = { href: string; label: string; detail: string };
-
-export const liveRoutes: Record<string, { lead: string; routes: LiveRoute[] }> =
-  {
-    ec: {
-      lead: "この制作例には、実際に操作できる店舗サイトがあります。色やサイズを選ぶと写真・価格・在庫が連動し、カートから送料を含めた金額を確認して注文できます。運営画面では在庫を動かし、注文を進め、未払いのまま発送できないことも確かめられます。",
-      routes: [
-        {
-          href: "/forme",
-          label: "店舗サイトを開く",
-          detail: "FORME（架空店舗）のトップ",
-        },
-        {
-          href: "/forme/items",
-          label: "商品を選んで買う",
-          detail: "6 品・絞り込み・比較・お気に入り",
-        },
-        {
-          href: "/forme/my",
-          label: "注文とお気に入りを見る",
-          detail: "注文の状況・支払・取消",
-        },
-        {
-          href: "/forme/admin",
-          label: "運営画面を見る",
-          detail: "在庫の増減・取り扱い停止・発送・売上",
-        },
-      ],
-    },
-    cafe: {
-      lead: "この制作例には、実際に操作できる店舗サイトがあります。メニューを選んでカートに入れ、受取時間を決めて注文し、席を予約して変更まで行えます。運営側の画面では、同じ記録を店の立場から動かせます。",
-      routes: [
-        {
-          href: "/kissa",
-          label: "店舗サイトを開く",
-          detail: "KISSA（架空店舗）のトップ",
-        },
-        {
-          href: "/kissa/menu",
-          label: "メニューから注文する",
-          detail: "14 品・温度やサイズの選択・カート",
-        },
-        {
-          href: "/kissa/reserve",
-          label: "席を予約する",
-          detail: "空席の確認・仮押さえ・確定",
-        },
-        {
-          href: "/kissa/admin",
-          label: "運営画面を見る",
-          detail: "注文の進行・席の状況・売り切れの切り替え",
-        },
-      ],
-    },
-  };
 
 export function DemoLiveLink({ slug }: { slug: string }) {
   const live = liveRoutes[slug];
@@ -94,8 +42,9 @@ export function DemoLiveLink({ slug }: { slug: string }) {
           ))}
         </ul>
         <p className="demo-live-note">
-          架空の店舗です。実際の注文・予約・支払いは発生せず、入力した内容は
-          お使いのブラウザの中だけに保存されます。
+          {
+            "架空の店舗です。実際の注文・予約・支払いは発生せず、入力した内容はお使いのブラウザの中だけに保存されます。"
+          }
         </p>
       </div>
     </section>

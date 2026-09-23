@@ -117,6 +117,13 @@ export function Analytics() {
         track("portfolio_live_demo_click", {
           project: link.getAttribute("data-live-demo") ?? undefined,
         });
+      const working = (e.target as Element)?.closest?.(
+        "a[data-working-version]",
+      );
+      if (working)
+        track("portfolio_working_version_click", {
+          project: working.getAttribute("data-working-version") ?? undefined,
+        });
     }
     document.addEventListener("click", click);
     return () => {

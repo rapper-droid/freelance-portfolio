@@ -313,6 +313,14 @@
   font-size: 14px;
   line-height: 1.9;
 }
+/* The two operable shops, named in the opening paragraph: they need to read as
+   links, not as emphasis. */
+.catalogue-copy .works-operable a {
+  color: var(--hub-accent);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
 .catalogue-copy .hero-actions {
   margin-top: 28px;
 }

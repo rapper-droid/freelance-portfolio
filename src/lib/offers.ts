@@ -114,7 +114,7 @@ export const offers: readonly Offer[] = [
       slug: "improvement",
       label: "REFINE — Before / After",
       tryThis:
-        "同じ原稿のBefore / Afterを切り替えて、読み順・余白・ボタンの違いを確かめられます。",
+        "同じ原稿のBefore / Afterを切り替え、360 / 768 / 1200pxの各幅で、読み順とフォーカス順の違いまで確かめられます。",
       cue: "自分のサイトの気になる1か所を、こんなふうに直したい",
     },
     evidence: [
