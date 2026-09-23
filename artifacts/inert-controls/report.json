@@ -1,6 +1,6 @@
 {
   "origin": "http://localhost:3000",
-  "checkedAtIso": "2026-09-23T12:50:19.971Z",
+  "checkedAtIso": "2026-09-23T13:16:47.600Z",
   "routes": [
     {
       "route": "/demos/cafe",
@@ -98,7 +98,7 @@
         {
           "route": "/demos/inbox",
           "index": 5,
-          "label": "サンプル商店 09/23 10:30 請求書の宛名変更について 先月の請求書につ"
+          "label": "サンプル商店 本日 10:30 請求書の宛名変更について 先月の請求書について、"
         }
       ],
       "errors": []
