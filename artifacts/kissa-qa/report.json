@@ -1,6 +1,6 @@
 {
   "origin": "http://localhost:3000",
-  "checkedAtIso": "2026-09-23T18:50:59.307Z",
+  "checkedAtIso": "2026-09-23T19:36:50.497Z",
   "results": [
     {
       "name": "hydrate /kissa @390",
@@ -240,17 +240,17 @@
     {
       "name": "pickup slots offered",
       "ok": true,
-      "detail": "8 slots"
+      "detail": "11 slots"
     },
     {
       "name": "order placed",
       "ok": true,
-      "detail": "K-C711DD"
+      "detail": "K-4A4A6D"
     },
     {
       "name": "payment decline recorded",
       "ok": true,
-      "detail": "ご注文を承りました  K-C711DD  2026年9月24日（木） 08:00 にお受け取りください。 お支払い状況：拒否"
+      "detail": "ご注文を承りました  K-4A4A6D  2026年9月24日（木） 08:00 にお受け取りください。 お支払い状況：拒否"
     },
     {
       "name": "payment replay refused",
@@ -265,7 +265,7 @@
     {
       "name": "table booked",
       "ok": true,
-      "detail": "R-E741C4"
+      "detail": "R-A20156"
     },
     {
       "name": "booking moved",
