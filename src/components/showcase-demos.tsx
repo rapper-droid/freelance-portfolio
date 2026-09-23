@@ -3,15 +3,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import "@/app/showcase.css";
 import "@/app/cafe-demo.css";
 import Image from "next/image";
-import {
-  ArrowUpRight,
-  Check,
-  Plus,
-  X,
-  Download,
-  ArrowRight,
-} from "lucide-react";
-import { WorkspaceVisual } from "./project-visuals";
+import { ArrowUpRight, Check, Plus, X, Download } from "lucide-react";
 import { CafeArt, AccessMap } from "./cafe-art";
 import {
   coffeeMenu,
@@ -21,6 +13,9 @@ import {
   yen,
   type MenuItem,
 } from "@/lib/cafe-menu";
+import { FlowstateLp } from "./flowstate-lp";
+import { RefineCompare } from "./refine-compare";
+import { StillStudio } from "./still-studio";
 import { OpsProvider } from "./ops/ops-provider";
 import { RelayWorkspace } from "./ops/relay-workspace";
 import { OPS_REFERENCE_ISO } from "@/lib/ops/types";
@@ -34,7 +29,6 @@ import {
   validateBooking,
   qaItems,
   deliveryManifest,
-  creativeSvg,
   type Booking,
 } from "@/lib/showcase";
 function download(text: string, filename: string, type: string) {
@@ -329,121 +323,17 @@ export function CafeDemo() {
     </div>
   );
 }
+/**
+ * FLOWSTATE (指示書 §17).
+ *
+ * The page moved to its own file when it gained the sections §17 asks for:
+ * before and after, the actual downloadable output, adoption steps, and a
+ * table of what is connected and what is not.
+ */
 export function SaasDemo() {
-  const [annual, setAnnual] = useState(false);
-  return (
-    <div className="saas-demo showcase">
-      <nav className="demo-local-nav" aria-label="SaaSデモ内">
-        <b>◈ FLOWSTATE</b>
-        <a href="#folio-features">機能</a>
-        <a href="#folio-pricing">プラン</a>
-      </nav>
-      <section className="saas-hero">
-        <span className="saas-pill">A CALMER WAY TO WORK</span>
-        <h2>
-          仕事を整える。
-          <br />
-          <span>余裕が生まれる。</span>
-        </h2>
-        <p>
-          タスクも、プロジェクトも、次の一歩も。
-          <br />
-          チームの見通しをひとつにするワークスペース。
-        </p>
-        <a href="#folio-pricing" className="button primary">
-          プランを比較する <ArrowRight size={17} />
-        </a>
-        <div className="saas-product">
-          <WorkspaceVisual />
-        </div>
-      </section>
-      <section className="demo-content-section" id="folio-features">
-        <span className="eyebrow">LESS NOISE. MORE FOCUS.</span>
-        <h2>必要なことが、必要な場所に。</h2>
-        <div className="demo-three-columns">
-          {[
-            ["01", "見通せる", "タスクの状況と次のアクションを、一覧で把握。"],
-            ["02", "まとまる", "プロジェクトの情報をひとつの場所に整理。"],
-            ["03", "迷わない", "誰が、何を、いつまでに。役割を明快に。"],
-          ].map(([n, t, d]) => (
-            <article key={n}>
-              <span>{n}</span>
-              <h3>{t}</h3>
-              <p>{d}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-      <section className="demo-content-section" id="folio-pricing" data-feature>
-        <div className="demo-section-heading">
-          <h2>チームに合う、シンプルなプラン。</h2>
-          <div className="segmented">
-            <button aria-pressed={!annual} onClick={() => setAnnual(false)}>
-              月額
-            </button>
-            <button aria-pressed={annual} onClick={() => setAnnual(true)}>
-              年額
-            </button>
-          </div>
-        </div>
-        <div className="demo-three-columns folio-plans">
-          {[
-            ["Personal", 0, "個人のタスク整理"],
-            ["Team", annual ? 980 : 1200, "小さなチームの進行管理"],
-            ["Studio", annual ? 1980 : 2400, "複数プロジェクトの運用"],
-          ].map(([name, price, desc]) => (
-            <article
-              key={name}
-              className={name === "Team" ? "recommended" : ""}
-            >
-              <span>{name}</span>
-              <h3>
-                ¥{Number(price).toLocaleString("ja-JP")}
-                <small> / 月・人</small>
-              </h3>
-              <p>{desc}</p>
-              <p className="demo-fineprint">
-                {annual && price
-                  ? `年払い ¥${(Number(price) * 12).toLocaleString("ja-JP")} / 人`
-                  : "月単位の想定料金"}
-              </p>
-              <p>
-                ✓ タスク整理
-                <br />✓ プロジェクト一覧
-                <br />✓ ステータス管理
-              </p>
-            </article>
-          ))}
-        </div>
-        <p className="demo-fineprint">
-          架空SaaSの想定プラン・税込価格です。実際のサービス利用や契約はできません。
-        </p>
-      </section>
-      <section className="demo-content-section faq">
-        <h2>よくある質問</h2>
-        {[
-          [
-            "これは利用できるサービスですか？",
-            "SaaSの魅力を伝えるための自主制作LPです。プロダクト画面はデザインプレビューで、登録・課金はありません。",
-          ],
-          [
-            "どの端末で見られますか？",
-            "LPはPC・タブレット・スマートフォンに合わせて表示を調整しています。",
-          ],
-          [
-            "自社サービスのLPとして依頼できますか？",
-            "このポートフォリオの相談文を使い、ご利用中のクラウドソーシングサービスのメッセージでご相談ください。",
-          ],
-        ].map(([q, a]) => (
-          <details key={q}>
-            <summary>{q}</summary>
-            <p>{a}</p>
-          </details>
-        ))}
-      </section>
-    </div>
-  );
+  return <FlowstateLp />;
 }
+
 export function EcDemo() {
   const colors = [
     { name: "Sage", label: "セージ", value: "#829078" },
@@ -878,166 +768,28 @@ export function BookingDemo() {
     </div>
   );
 }
+/**
+ * REFINE (指示書 §17).
+ *
+ * The comparison moved to its own file when it gained a width switch, a
+ * reading-order overlay and a focus-order overlay; it is now a thing you
+ * inspect rather than a picture of two layouts.
+ */
 export function ImprovementDemo() {
-  const [after, setAfter] = useState(true);
-  return (
-    <div className="improvement-demo showcase">
-      <div className="app-demo-heading">
-        <span className="eyebrow">REFINE / BEFORE & AFTER</span>
-        <h2>伝わる順番に、整える。</h2>
-        <p>
-          同じ情報を、異なるレイアウトで比較。架空ページの改善サンプルです。
-        </p>
-      </div>
-      <div className="segmented improvement-toggle">
-        <button aria-pressed={!after} onClick={() => setAfter(false)}>
-          Before
-        </button>
-        <button aria-pressed={after} onClick={() => setAfter(true)}>
-          After
-        </button>
-      </div>
-      <section
-        className={`comparison-site ${after ? "is-after" : "is-before"}`}
-        data-feature
-      >
-        <header>
-          GREEN ROOM <span>暮らしの整理サポート</span>
-        </header>
-        <div>
-          <span>SPACE FOR WHAT MATTERS</span>
-          <h2>
-            暮らしに、
-            <br />
-            余白をつくる。
-          </h2>
-          <p>
-            整理収納のオンライン相談。
-            <br />
-            自分に合う、片付けの仕組みを一緒に考えます。
-          </p>
-          <a href="#refine-notes" className="button primary">
-            改善したポイントを見る <ArrowRight size={16} />
-          </a>
-        </div>
-        <aside>
-          <div className="room-art">
-            <span />
-            <span />
-            <span />
-          </div>
-        </aside>
-        <footer>サービス紹介 / 相談の流れ / よくある質問</footer>
-      </section>
-      <section className="demo-content-section" id="refine-notes">
-        <h2>
-          {after ? "After：読み手の順番で設計" : "Before：改善前の課題を再現"}
-        </h2>
-        <div className="demo-three-columns">
-          {[
-            [
-              "情報階層",
-              after
-                ? "見出し → 説明 → 行動を一方向に整理。"
-                : "同じ強さの情報が並び、主役が曖昧。",
-            ],
-            [
-              "余白・配置",
-              after
-                ? "適切な行長と余白で、内容を追いやすく。"
-                : "コンテンツが詰まり、読み進めにくい配置。",
-            ],
-            [
-              "モバイル",
-              after
-                ? "縦一列に並べ替え、CTAのタップ領域を確保。"
-                : "重要な操作への案内が埋もれやすい構成。",
-            ],
-          ].map(([t, d]) => (
-            <article key={t}>
-              <h3>{t}</h3>
-              <p>{d}</p>
-            </article>
-          ))}
-        </div>
-        <p className="demo-fineprint">
-          改善方針を見せる比較です。売上・CVR・速度などの実測改善値は主張していません。
-        </p>
-      </section>
-    </div>
-  );
+  return <RefineCompare />;
 }
+
+/**
+ * STILL / STUDIO (指示書 §17).
+ *
+ * The editor moved to its own file: it is now a design that can be written,
+ * cropped and exported rather than three fixed posters, and that did not fit
+ * beside seven other demos in one module.
+ */
 export function CreativeDemo() {
-  const [style, setStyle] = useState(0),
-    [ratio, setRatio] = useState("square");
-  const titles = ["MAKE ROOM.", "SLOW DAYS.", "LESS. BETTER."];
-  return (
-    <div className="creative-demo showcase">
-      <div className="app-demo-heading">
-        <span className="eyebrow">STILL / STUDIO — CREATIVE COLLECTION</span>
-        <h2>らしさを、展開する。</h2>
-        <p>
-          3つの方向性 × 3つのフォーマット。オリジナルSVGで制作した広告サンプル。
-        </p>
-      </div>
-      <div className="creative-workspace">
-        <section className="creative-controls">
-          <h3>アートディレクション</h3>
-          <div className="creative-style-buttons">
-            {titles.map((t, i) => (
-              <button
-                key={t}
-                aria-pressed={style === i}
-                onClick={() => setStyle(i)}
-              >
-                <span>0{i + 1}</span>
-                {t}
-              </button>
-            ))}
-          </div>
-          <label>
-            フォーマット
-            <select value={ratio} onChange={(e) => setRatio(e.target.value)}>
-              <option value="square">SNS投稿 / 1080 × 1080</option>
-              <option value="portrait">ストーリー / 1080 × 1920</option>
-              <option value="landscape">広告バナー / 1200 × 630</option>
-            </select>
-          </label>
-          <p>
-            見出し・図形・余白を一貫したルールで展開。用途に合わせて比率を調整できます。
-          </p>
-          <button
-            className="button primary"
-            onClick={() =>
-              download(
-                creativeSvg(style, ratio),
-                `still-${style + 1}-${ratio}.svg`,
-                "image/svg+xml",
-              )
-            }
-          >
-            <Download size={16} />
-            SVGをダウンロード
-          </button>
-          <p className="demo-fineprint">
-            全素材は本サイトの自主制作。架空の広告で、配信実績ではありません。
-          </p>
-        </section>
-        <div className="creative-preview" data-feature>
-          <Image
-            unoptimized
-            src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(creativeSvg(style, ratio))}`}
-            alt={`${titles[style]} / ${ratio}の広告クリエイティブ`}
-            width={ratio === "landscape" ? 1200 : 1080}
-            height={
-              ratio === "portrait" ? 1920 : ratio === "landscape" ? 630 : 1080
-            }
-          />
-        </div>
-      </div>
-    </div>
-  );
+  return <StillStudio />;
 }
+
 export function QaDemo() {
   const [checked, setChecked] = useState<string[]>([]),
     [notice, setNotice] = useState("");

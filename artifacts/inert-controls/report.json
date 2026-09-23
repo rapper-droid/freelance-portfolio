@@ -1,6 +1,6 @@
 {
   "origin": "http://localhost:3000",
-  "checkedAtIso": "2026-09-23T14:10:31.955Z",
+  "checkedAtIso": "2026-09-23T15:27:39.378Z",
   "routes": [
     {
       "route": "/demos/cafe",
@@ -16,11 +16,11 @@
     },
     {
       "route": "/demos/saas",
-      "total": 2,
+      "total": 3,
       "findings": [
         {
           "route": "/demos/saas",
-          "index": 0,
+          "index": 1,
           "label": "月額"
         }
       ],
@@ -51,14 +51,14 @@
         {
           "route": "/demos/booking",
           "index": 0,
-          "label": "WED 23 2件"
+          "label": "THU 24 2件"
         }
       ],
       "errors": []
     },
     {
       "route": "/demos/improvement",
-      "total": 2,
+      "total": 3,
       "findings": [
         {
           "route": "/demos/improvement",
@@ -70,12 +70,12 @@
     },
     {
       "route": "/demos/creative",
-      "total": 4,
+      "total": 5,
       "findings": [
         {
           "route": "/demos/creative",
           "index": 0,
-          "label": "01 MAKE ROOM."
+          "label": "MAKE ROOM."
         }
       ],
       "errors": []

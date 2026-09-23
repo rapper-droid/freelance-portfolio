@@ -7,7 +7,6 @@ import {
   validateBooking,
   qaItems,
   deliveryManifest,
-  creativeSvg,
 } from "../../src/lib/showcase";
 import { safeEvent, posthogPayload } from "../../src/lib/analytics";
 import { redactError } from "../../src/lib/monitoring";
@@ -67,11 +66,6 @@ describe("delivery and creative output", () => {
   it("does not release an incomplete manifest", () => {
     expect(() => deliveryManifest(qaItems.slice(1))).toThrow();
     expect(deliveryManifest(qaItems).kind).toBe("SELF-INITIATED DEMO");
-  });
-  it("exports bounded original SVG in each format", () => {
-    expect(creativeSvg(0, "portrait")).toContain('height="1920"');
-    expect(creativeSvg(2, "landscape")).toContain('height="630"');
-    expect(creativeSvg(99, "<script>")).not.toContain("<script>");
   });
 });
 describe("privacy boundaries", () => {

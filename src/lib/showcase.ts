@@ -133,18 +133,3 @@ export function deliveryManifest(checked: string[]) {
     })),
   };
 }
-export function creativeSvg(style: number, ratio: string) {
-  const sizes: Record<string, [number, number]> = {
-    square: [1080, 1080],
-    portrait: [1080, 1920],
-    landscape: [1200, 630],
-  };
-  const [w, h] = sizes[ratio] ?? sizes.square;
-  const palettes = [
-    ["#263baf", "#d6ec97", "MAKE ROOM."],
-    ["#e8dcc5", "#4d4939", "SLOW DAYS."],
-    ["#263f35", "#e9efd4", "LESS. BETTER."],
-  ];
-  const [bg, fg, title] = palettes[style] ?? palettes[0];
-  return `<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}" viewBox="0 0 ${w} ${h}"><rect width="${w}" height="${h}" fill="${bg}"/><circle cx="${w * 0.78}" cy="${h * 0.65}" r="${w * 0.3}" fill="none" stroke="${fg}" stroke-width="${w * 0.12}"/><text x="${w * 0.08}" y="${h * 0.12}" fill="${fg}" font-family="Arial" font-size="${w * 0.025}">STILL / STUDIO — SELF-INITIATED DEMO</text><text x="${w * 0.08}" y="${h * 0.4}" fill="${fg}" font-family="Arial" font-weight="bold" font-size="${w * 0.09}">${title}</text><text x="${w * 0.08}" y="${h * 0.92}" fill="${fg}" font-family="Arial" font-size="${w * 0.025}">A NEW PERSPECTIVE / ORIGINAL CREATIVE</text></svg>`;
-}

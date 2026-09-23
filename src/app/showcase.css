@@ -661,55 +661,188 @@ details.api-contract[open] summary::after {
 .booking-demo > p[role="status"] {
   padding: 0 45px 25px;
 }
-.improvement-toggle {
-  margin: 0 45px 30px;
+/* =====================================================================
+   REFINE — the same page, arranged twice (指示書 §17).
+
+   Before and After share every visual rule below. The previous version
+   greyed the artwork out, shrank it and swapped the typeface for the
+   "before", which is the exaggeration §17 forbids. Only the order of the
+   blocks differs now, so the comparison is about the order.
+   ===================================================================== */
+
+.refine-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px;
+  margin: 0 45px 24px;
 }
-.comparison-site {
+
+.improvement-toggle {
+  margin: 0;
+}
+
+.refine-select,
+.refine-check {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.refine-select select {
+  min-height: 36px;
+  padding: 0 8px;
+  border: 1px solid #ced7c3;
+  border-radius: 6px;
+  background: white;
+  font: inherit;
+  font-size: 12px;
+}
+
+.refine-check input {
+  width: 16px;
+  height: 16px;
+  accent-color: #263f35;
+}
+
+.refine-stage {
+  display: grid;
+  gap: 24px;
   margin: 0 45px 30px;
+  padding: 24px;
   background: #e8eadc;
   border: 1px solid #c8cfbd;
+  /* A fixed-width page inside a flexible page: the frame scrolls rather
+     than squashing the thing being measured. */
+  overflow-x: auto;
+}
+
+.refine-stage[data-mode="both"] {
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
+  align-items: start;
+}
+
+.refine-frame {
+  margin: 0;
   display: grid;
-  grid-template-columns: 1.1fr 1fr;
-  overflow: hidden;
+  gap: 10px;
 }
-.comparison-site header {
-  grid-column: 1/-1;
-  padding: 22px 30px;
-  border-bottom: 1px solid #cbd2bd;
-  font-weight: bold;
-  letter-spacing: 2px;
-}
-.comparison-site header span {
+
+.refine-frame figcaption {
   font-size: 12px;
-  margin-left: 20px;
-  letter-spacing: 0;
+  font-weight: bold;
+  color: #3c4a3f;
 }
-.comparison-site > div {
-  padding: 45px;
+
+.refine-viewport {
+  max-width: 100%;
+  background: white;
+  border: 1px solid #c8cfbd;
 }
-.comparison-site > div > span {
-  font-size: 11px;
-  letter-spacing: 2px;
+
+.refine-page {
+  display: grid;
+  gap: 18px;
+  padding: 24px;
 }
-.comparison-site h2 {
-  font-size: 43px;
-  line-height: 1.5;
-  margin: 20px 0;
+
+.refine-block {
+  position: relative;
 }
-.comparison-site p {
-  font-size: 13px;
-  line-height: 2;
-}
-.comparison-site .button {
-  margin-top: 25px;
-}
-.comparison-site aside {
+
+/* The reading-order marker sits outside the block so it never pushes the
+   layout around — the overlay must not change what it is describing. */
+.refine-marker {
+  position: absolute;
+  left: -14px;
+  top: -8px;
+  z-index: 1;
   display: grid;
   place-items: center;
-  padding: 30px;
-  background: #e0e4d2;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #263f35;
+  color: #f2f5ec;
+  font-size: 11px;
+  font-weight: bold;
 }
-.room-art {
+
+.refine-page[data-order="true"] .refine-block {
+  outline: 1px dashed #8fa07f;
+  outline-offset: 6px;
+}
+
+.refine-nav {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #dfe3d6;
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+
+.refine-nav nav {
+  display: flex;
+  gap: 16px;
+  letter-spacing: 0;
+}
+
+.refine-nav a,
+.refine-links a {
+  font-size: 12px;
+  color: #3c4a3f;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.refine-kicker {
+  margin: 0;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: #5d6b58;
+}
+
+.refine-headline {
+  margin: 0;
+  font-size: clamp(24px, 3.2vw, 40px);
+  line-height: 1.4;
+}
+
+.refine-body {
+  margin: 0;
+  font-size: 13px;
+  line-height: 2;
+  max-width: 46ch;
+}
+
+.refine-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 20px;
+  border-radius: 999px;
+  background: #263f35;
+  color: #f2f5ec;
+  font-size: 13px;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.refine-links {
+  display: flex;
+  gap: 18px;
+  padding-top: 12px;
+  border-top: 1px solid #dfe3d6;
+}
+
+.refine-art {
   width: 210px;
   height: 250px;
   border-radius: 120px 120px 0 0;
@@ -717,8 +850,10 @@ details.api-contract[open] summary::after {
   position: relative;
   background: linear-gradient(135deg, #bcc2a7, #e1d8bd);
   overflow: hidden;
+  max-width: 100%;
 }
-.room-art span:nth-child(1) {
+
+.refine-art span:nth-child(1) {
   position: absolute;
   bottom: 0;
   left: 20px;
@@ -727,7 +862,8 @@ details.api-contract[open] summary::after {
   background: #8d9a7b;
   border-radius: 40px 40px 0 0;
 }
-.room-art span:nth-child(2) {
+
+.refine-art span:nth-child(2) {
   position: absolute;
   bottom: 0;
   right: 0;
@@ -736,7 +872,8 @@ details.api-contract[open] summary::after {
   background: #a9b39b;
   border-radius: 50px 50px 0 0;
 }
-.room-art span:nth-child(3) {
+
+.refine-art span:nth-child(3) {
   position: absolute;
   width: 160px;
   height: 20px;
@@ -745,49 +882,81 @@ details.api-contract[open] summary::after {
   bottom: 70px;
   transform: rotate(-8deg);
 }
-.comparison-site footer {
-  grid-column: 1/-1;
-  padding: 20px 30px;
+
+.refine-focus-list {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 12px 14px;
+  background: #f3f5ee;
+  border: 1px solid #ced7c3;
+  border-radius: 6px;
+  display: grid;
+  gap: 6px;
   font-size: 12px;
-  border-top: 1px solid #cbd2bd;
 }
-.comparison-site.is-before {
-  background: #fff;
-  font-family: Arial, sans-serif;
+
+.refine-focus-list b {
+  display: inline-grid;
+  place-items: center;
+  width: 20px;
+  height: 20px;
+  margin-right: 6px;
+  border-radius: 50%;
+  background: #263f35;
+  color: #f2f5ec;
+  font-size: 11px;
 }
-.is-before > div {
-  padding: 20px;
+
+.refine-conditions {
+  display: grid;
+  gap: 14px;
+  margin: 0 0 18px;
 }
-.is-before h2 {
-  font-size: 24px;
-  line-height: 1.2;
-  letter-spacing: 0;
-  margin: 12px 0;
+
+.refine-conditions > div {
+  display: grid;
+  grid-template-columns: 11em 1fr;
+  gap: 16px;
+  font-size: 13px;
+  line-height: 1.9;
 }
-.is-before header {
-  background: #e1e6e9;
-  letter-spacing: 0;
+
+.refine-conditions dt {
+  font-weight: bold;
 }
-.is-before .button {
-  margin-top: 10px;
-  background: #555;
-  color: white;
-  padding: 10px;
+
+.refine-conditions dd {
+  margin: 0;
 }
-.is-before aside {
-  background: #eee;
+
+@media (max-width: 860px) {
+  .refine-controls,
+  .refine-stage {
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  .refine-conditions > div {
+    grid-template-columns: 1fr;
+    gap: 4px;
+  }
 }
-.is-before .room-art {
-  border-radius: 0;
-  width: 150px;
-  height: 160px;
-  filter: grayscale(1);
-}
+
 .creative-workspace {
   display: grid;
   grid-template-columns: 0.8fr 1.2fr;
   gap: 50px;
   padding: 10px 45px 45px;
+}
+@media (max-width: 860px) {
+  .creative-workspace {
+    grid-template-columns: 1fr;
+    gap: 28px;
+    padding: 10px 20px 28px;
+  }
+  .creative-all {
+    padding: 0 20px 28px;
+  }
 }
 .creative-controls > p {
   font-size: 13px;
@@ -815,6 +984,94 @@ details.api-contract[open] summary::after {
 .creative-style-buttons button span {
   font-size: 11px;
 }
+/* The editor's own controls: text fields, sliders and a palette. */
+.creative-controls h3 {
+  margin: 26px 0 12px;
+  font-size: 13px;
+}
+.creative-controls h3:first-child {
+  margin-top: 0;
+}
+.creative-controls label {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 14px;
+  font-size: 12px;
+}
+.creative-controls input[type="text"],
+.creative-controls input:not([type]),
+.creative-controls select {
+  min-height: 40px;
+  padding: 0 10px;
+  border: 1px solid #ced7c3;
+  border-radius: 6px;
+  background: white;
+  font: inherit;
+  font-size: 13px;
+}
+.creative-controls input[type="range"] {
+  accent-color: #263f35;
+}
+.creative-check {
+  display: flex !important;
+  align-items: center;
+  gap: 8px;
+}
+.creative-check input {
+  width: 16px;
+  height: 16px;
+  accent-color: #263f35;
+}
+.creative-swatch {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  border: 2px solid;
+  flex: none;
+}
+.creative-problems {
+  margin: 0 0 14px;
+  padding: 12px 14px 12px 30px;
+  border-left: 3px solid #a4482b;
+  background: #fbebda;
+  font-size: 12px;
+  line-height: 1.8;
+}
+
+/* All three ratios at once: this is where a stale price would show. */
+.creative-all {
+  padding: 0 45px 45px;
+}
+.creative-all h3 {
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+.creative-all ul {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 18px;
+  align-items: end;
+}
+.creative-all li {
+  display: grid;
+  gap: 8px;
+  justify-items: center;
+  font-size: 11px;
+  color: #4a5b4e;
+  text-align: center;
+}
+.creative-all img {
+  width: 100%;
+  height: auto;
+  max-height: 260px;
+  object-fit: contain;
+  box-shadow: 0 10px 22px #203c3117;
+}
+
 .creative-preview {
   background: #e9ece4;
   display: grid;
@@ -1395,4 +1652,201 @@ details.api-contract[open] summary::after {
 
 .qa-demo h2 span {
   display: inline-block;
+}
+
+/* =====================================================================
+   FLOWSTATE — the sections §17 asks a service page to carry.
+   ===================================================================== */
+
+.flowstate-compare {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+  margin-bottom: 18px;
+}
+
+.flowstate-compare article {
+  padding: 18px;
+  border: 1px solid #ced7c3;
+  border-radius: 8px;
+  background: white;
+}
+
+.flowstate-compare h3 {
+  margin: 0 0 12px;
+  font-size: 13px;
+}
+
+.flowstate-before,
+.flowstate-after {
+  display: flex;
+  gap: 8px;
+  margin: 0 0 10px;
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.flowstate-before svg,
+.flowstate-after svg {
+  flex: none;
+  margin-top: 4px;
+}
+
+.flowstate-before {
+  color: #7a6a5a;
+}
+
+.flowstate-after {
+  color: #26402f;
+  font-weight: bold;
+}
+
+.flowstate-figures {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+  gap: 12px;
+  margin: 18px 0;
+}
+
+.flowstate-figures > div {
+  padding: 14px;
+  border: 1px solid #ced7c3;
+  border-radius: 8px;
+  background: white;
+  text-align: center;
+}
+
+.flowstate-figures span {
+  display: block;
+  font-size: 11px;
+  color: #5d6b58;
+  margin-bottom: 6px;
+}
+
+.flowstate-figures b {
+  font-size: 22px;
+  font-variant-numeric: tabular-nums;
+}
+
+.flowstate-table-scroll {
+  overflow-x: auto;
+  margin-bottom: 18px;
+  border: 1px solid #ced7c3;
+  border-radius: 8px;
+  background: white;
+}
+
+.flowstate-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+}
+
+.flowstate-table th,
+.flowstate-table td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid #e2e7dc;
+  vertical-align: top;
+}
+
+.flowstate-table thead th {
+  background: #f3f5ee;
+  font-size: 11px;
+  color: #4a5b4e;
+  white-space: nowrap;
+}
+
+.flowstate-table tbody tr:last-child th,
+.flowstate-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.flowstate-table small {
+  display: block;
+  margin-top: 4px;
+  font-size: 10px;
+  line-height: 1.7;
+  color: #5d6b58;
+}
+
+/* "Connected" and "not connected" are words first; the tint only follows. */
+.flowstate-state {
+  font-weight: bold;
+}
+
+.flowstate-table tr[data-connected="false"] .flowstate-state {
+  color: #8a5a1c;
+}
+
+.flowstate-table tr[data-connected="true"] .flowstate-state {
+  color: #26402f;
+}
+
+.flowstate-price-warning {
+  margin: 0 0 18px;
+  padding: 14px 16px;
+  border-left: 3px solid #8a5a1c;
+  background: #fbf3e6;
+  font-size: 12px;
+  line-height: 1.9;
+}
+
+.flowstate-steps {
+  list-style: none;
+  counter-reset: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.flowstate-steps li {
+  padding: 18px;
+  border: 1px solid #ced7c3;
+  border-radius: 8px;
+  background: white;
+}
+
+.flowstate-steps h3 {
+  margin: 0 0 8px;
+  font-size: 13px;
+}
+
+.flowstate-steps p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.9;
+  color: #4a5b4e;
+}
+
+.flowstate-real {
+  list-style: none;
+  margin: 18px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+
+.flowstate-real li {
+  display: grid;
+  gap: 4px;
+  padding: 14px 16px;
+  border: 1px solid #ced7c3;
+  border-radius: 8px;
+  background: white;
+}
+
+.flowstate-real a {
+  font-size: 13px;
+  font-weight: bold;
+  color: #26402f;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.flowstate-real span {
+  font-size: 12px;
+  color: #4a5b4e;
 }
