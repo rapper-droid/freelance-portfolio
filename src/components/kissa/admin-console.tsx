@@ -269,36 +269,43 @@ export function AdminConsole() {
               </Link>
             </div>
           ) : (
-            <table className="kissa-table">
-              <caption className="sr-only">本日の予約一覧</caption>
-              <thead>
-                <tr>
-                  <th scope="col">時間</th>
-                  <th scope="col">席</th>
-                  <th scope="col">人数</th>
-                  <th scope="col">お名前</th>
-                  <th scope="col">状態</th>
-                </tr>
-              </thead>
-              <tbody>
-                {todaysTables.map((r) => (
-                  <tr
-                    key={r.reservationId}
-                    data-occupying={isOccupying(r, nowIso)}
-                  >
-                    <td>{formatJst(r.startIso).slice(-5)}</td>
-                    <td>{seatById(r.seatId)?.label ?? r.seatId}</td>
-                    <td>{r.partySize} 名</td>
-                    <td>{r.name || "—"}</td>
-                    <td>
-                      <span className="kissa-badge" data-state={r.status}>
-                        {RESERVATION_STATUS_LABELS[r.status]}
-                      </span>
-                    </td>
+            <div
+              className="kissa-table-scroll"
+              tabIndex={0}
+              role="region"
+              aria-label="本日の予約一覧"
+            >
+              <table className="kissa-table">
+                <caption className="sr-only">本日の予約一覧</caption>
+                <thead>
+                  <tr>
+                    <th scope="col">時間</th>
+                    <th scope="col">席</th>
+                    <th scope="col">人数</th>
+                    <th scope="col">お名前</th>
+                    <th scope="col">状態</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {todaysTables.map((r) => (
+                    <tr
+                      key={r.reservationId}
+                      data-occupying={isOccupying(r, nowIso)}
+                    >
+                      <td>{formatJst(r.startIso).slice(-5)}</td>
+                      <td>{seatById(r.seatId)?.label ?? r.seatId}</td>
+                      <td>{r.partySize} 名</td>
+                      <td>{r.name || "—"}</td>
+                      <td>
+                        <span className="kissa-badge" data-state={r.status}>
+                          {RESERVATION_STATUS_LABELS[r.status]}
+                        </span>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           )}
 
           {laterTables.length > 0 && (
@@ -334,54 +341,61 @@ export function AdminConsole() {
             ここで変えた状態は、メニューと商品ページにそのまま出ます。売り切れにした商品は
             カートに入れられなくなり、すでにカートにある場合は注文の直前に知らせます。
           </p>
-          <table className="kissa-table">
-            <caption className="sr-only">商品の販売状態</caption>
-            <thead>
-              <tr>
-                <th scope="col">商品</th>
-                <th scope="col">価格</th>
-                <th scope="col">販売状態</th>
-              </tr>
-            </thead>
-            <tbody>
-              {products.map((product) => {
-                const current =
-                  state.saleOverrides[product.id] ?? product.saleState;
-                return (
-                  <tr key={product.id}>
-                    <th scope="row">
-                      <Link href={`/kissa/menu/${product.id}`}>
-                        {product.name}
-                      </Link>
-                    </th>
-                    <td>{formatMoney(product.price)}</td>
-                    <td>
-                      <label className="kissa-field compact">
-                        <span className="sr-only">
-                          {product.name}の販売状態
-                        </span>
-                        <select
-                          value={current}
-                          onChange={(e) =>
-                            setSaleState(
-                              product.id,
-                              e.target.value as SaleState,
-                            )
-                          }
-                        >
-                          {SALE_STATES.map(([value, label]) => (
-                            <option key={value} value={value}>
-                              {label}
-                            </option>
-                          ))}
-                        </select>
-                      </label>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
+          <div
+            className="kissa-table-scroll"
+            tabIndex={0}
+            role="region"
+            aria-label="商品の販売状態"
+          >
+            <table className="kissa-table">
+              <caption className="sr-only">商品の販売状態</caption>
+              <thead>
+                <tr>
+                  <th scope="col">商品</th>
+                  <th scope="col">価格</th>
+                  <th scope="col">販売状態</th>
+                </tr>
+              </thead>
+              <tbody>
+                {products.map((product) => {
+                  const current =
+                    state.saleOverrides[product.id] ?? product.saleState;
+                  return (
+                    <tr key={product.id}>
+                      <th scope="row">
+                        <Link href={`/kissa/menu/${product.id}`}>
+                          {product.name}
+                        </Link>
+                      </th>
+                      <td>{formatMoney(product.price)}</td>
+                      <td>
+                        <label className="kissa-field compact">
+                          <span className="sr-only">
+                            {product.name}の販売状態
+                          </span>
+                          <select
+                            value={current}
+                            onChange={(e) =>
+                              setSaleState(
+                                product.id,
+                                e.target.value as SaleState,
+                              )
+                            }
+                          >
+                            {SALE_STATES.map(([value, label]) => (
+                              <option key={value} value={value}>
+                                {label}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
         </>
       )}
 

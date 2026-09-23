@@ -1,9 +1,17 @@
-import { createHash } from "node:crypto";
+import { sha256Hex } from "./sha256";
 
 /**
  * Hashing and key derivation for the runtime. Everything here is
  * deterministic: the same input always produces the same key, which is what
  * makes a retry safe to run twice (指示書 §15).
+ *
+ * The digest comes from `./sha256` rather than from `node:crypto`, because
+ * these keys are computed in the browser too — cart lines, order references,
+ * payment idempotency — and `node:crypto` is not there. The deployed build
+ * failed exactly that way: adding to cart threw
+ * `createHash is not a function` and the cart stayed empty, while the dev
+ * server was happy. The values are identical, so nothing already derived
+ * changes.
  */
 
 /** Stable stringify: object key order never changes a hash. */
@@ -22,10 +30,7 @@ export function canonical(value: unknown): string {
 }
 
 export function hash(value: unknown): string {
-  return createHash("sha256")
-    .update(canonical(value))
-    .digest("hex")
-    .slice(0, 32);
+  return sha256Hex(canonical(value)).slice(0, 32);
 }
 
 /**

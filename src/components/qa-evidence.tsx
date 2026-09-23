@@ -71,7 +71,16 @@ export function QaEvidencePanel() {
         </p>
       )}
 
-      <div className="qa-evidence-scroll">
+      {/* Focusable: the table gained a reproduce column and now scrolls
+          sideways at tablet width, and a scroll region nobody can reach with
+          a keyboard is a region some readers cannot read. CI caught this at
+          768px where the local run did not — Linux metrics, wider table. */}
+      <div
+        className="qa-evidence-scroll"
+        tabIndex={0}
+        role="region"
+        aria-label="自動検査の実行結果"
+      >
         <table className="qa-evidence-table">
           <caption className="sr-only">自動検査の実行結果</caption>
           <thead>

@@ -1513,12 +1513,21 @@
   border: 1px solid var(--line);
 }
 
+/* A five-column booking list does not fit a phone. The wrapper scrolls —
+   not the table itself — because the wrapper is what carries the tabindex
+   that makes the region reachable with a keyboard. */
+.kissa-table-scroll {
+  overflow-x: auto;
+  margin-bottom: var(--space-8);
+  border-radius: 12px;
+}
+
+.kissa-table-scroll .kissa-table {
+  margin-bottom: 0;
+}
+
 @media (max-width: 640px) {
-  /* A five-column booking list does not fit a phone; the table scrolls
-     rather than reflowing into something that loses its header. */
   .kissa-table {
-    display: block;
-    overflow-x: auto;
     white-space: nowrap;
   }
 }

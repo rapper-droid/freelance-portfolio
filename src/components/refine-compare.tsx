@@ -257,7 +257,17 @@ export function RefineCompare() {
         </label>
       </div>
 
-      <section className="refine-stage" data-feature data-mode={mode}>
+      {/* The stage scrolls sideways when two fixed-width pages are shown at
+          once, so it is reachable with a keyboard. A scroll region nobody can
+          reach is a region some readers cannot read. */}
+      <section
+        className="refine-stage"
+        data-feature
+        data-mode={mode}
+        tabIndex={0}
+        role="region"
+        aria-label="Before / After の比較"
+      >
         {shown.map((variant) => (
           <figure key={variant} className="refine-frame">
             <figcaption>
