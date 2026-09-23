@@ -1,0 +1,302 @@
+/* =====================================================================
+   WORKS LEAD — the section /works now opens with (指示書 §11).
+
+   Sits above the existing gallery without changing it. Uses the shared
+   tokens only; the portfolio cascade below is untouched.
+   ===================================================================== */
+
+/* Width and gutter come from .hub-section, which every other band on
+   /works already uses; only the rhythm below it is set here. */
+.works-lead {
+  border-bottom: 1px solid var(--works-line);
+}
+
+.works-lead-intro {
+  max-width: 62ch;
+  margin-bottom: var(--space-7);
+}
+
+.works-lead-intro h2 {
+  font-size: var(--text-h2);
+  line-height: var(--leading-tight);
+  margin: var(--space-3) 0 var(--space-4);
+}
+
+.works-lead-intro p {
+  font-size: var(--text-lead);
+  line-height: var(--leading-body);
+  margin: 0 0 var(--space-5);
+}
+
+.works-lead-grid {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+  list-style: none;
+  margin: 0 0 var(--space-7);
+  padding: 0;
+}
+
+.works-lead-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  padding: var(--space-5);
+  border: 1px solid var(--works-line);
+  border-radius: var(--radius-md);
+  background: var(--works-panel);
+}
+
+.works-lead-kicker {
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-amber);
+}
+
+.works-lead-card h3 {
+  font-size: var(--text-h3);
+  line-height: 1.4;
+  margin: var(--space-2) 0 var(--space-4);
+}
+
+.works-lead-label {
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--works-muted);
+  margin: var(--space-4) 0 var(--space-2);
+}
+
+.works-lead-card ul {
+  margin: 0;
+  padding-left: 1.2em;
+}
+
+.works-lead-card li,
+.works-lead-card p:not(.works-lead-label) {
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--works-muted);
+  margin: 0;
+}
+
+.works-lead-card li::marker {
+  color: var(--color-amber-deep);
+}
+
+.works-lead-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: var(--tap-min);
+  margin-top: auto;
+  padding-top: var(--space-4);
+  font-size: var(--text-small);
+  font-weight: 700;
+  color: var(--color-amber);
+  text-decoration: none;
+}
+
+.works-lead-link:hover {
+  text-decoration: underline;
+}
+
+/* ---- execution state ---------------------------------------------------- */
+
+.works-lead-state {
+  border: 1px solid var(--works-line);
+  border-left: 3px solid var(--color-amber);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  margin-bottom: var(--space-7);
+  background: var(--works-panel);
+}
+
+.works-lead-state h3 {
+  font-size: var(--text-small);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-amber);
+  margin: 0 0 var(--space-4);
+}
+
+.works-lead-state ul {
+  margin: 0 0 var(--space-4);
+  padding-left: 1.2em;
+  display: grid;
+  gap: var(--space-2);
+}
+
+.works-lead-state li {
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--works-muted);
+}
+
+.works-lead-state b {
+  color: var(--works-ink);
+}
+
+.works-lead-fineprint {
+  font-size: var(--text-caption);
+  line-height: 1.7;
+  color: var(--works-muted);
+  margin: 0;
+}
+
+/* ---- savings calculator -------------------------------------------------- */
+
+.works-lead-savings h3 {
+  font-size: var(--text-h3);
+  margin: 0 0 var(--space-2);
+}
+
+.works-lead-savings > p {
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--works-muted);
+  margin: 0 0 var(--space-5);
+  max-width: 62ch;
+}
+
+.savings {
+  display: grid;
+  gap: var(--space-5);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 900px) {
+  .savings {
+    grid-template-columns: 1.1fr 1fr;
+    align-items: start;
+  }
+}
+
+.savings-inputs {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+}
+
+.savings-field {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.savings-field span {
+  grid-column: 1 / -1;
+  font-size: var(--text-caption);
+  color: var(--works-muted);
+}
+
+.savings-field input {
+  min-height: var(--tap-min);
+  width: 100%;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--works-line);
+  border-radius: var(--radius-sm);
+  background: var(--works-bg);
+  color: var(--works-ink);
+  font: inherit;
+  font-size: var(--text-body);
+  font-variant-numeric: tabular-nums;
+}
+
+.savings-field small {
+  font-size: var(--text-small);
+  color: var(--works-muted);
+}
+
+.savings-output {
+  border: 1px solid var(--works-line);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+  background: var(--works-panel);
+}
+
+.savings-kicker {
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  text-transform: uppercase;
+  color: var(--color-amber);
+  margin: 0 0 var(--space-2);
+}
+
+.savings-figure {
+  font-size: var(--text-small);
+  color: var(--works-muted);
+  margin: 0 0 var(--space-4);
+}
+
+.savings-figure strong {
+  display: block;
+  font-size: var(--text-h2);
+  line-height: 1.1;
+  color: var(--works-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.savings-breakdown {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0 0 var(--space-4);
+}
+
+.savings-breakdown > div {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding-bottom: var(--space-2);
+  border-bottom: 1px solid var(--works-line);
+}
+
+.savings-breakdown dt,
+.savings-breakdown dd {
+  margin: 0;
+  font-size: var(--text-small);
+  color: var(--works-muted);
+}
+
+.savings-breakdown dd {
+  color: var(--works-ink);
+  font-variant-numeric: tabular-nums;
+}
+
+.savings-note,
+.savings-caveat {
+  font-size: var(--text-caption);
+  line-height: 1.7;
+  margin: 0 0 var(--space-3);
+  color: var(--works-muted);
+}
+
+/* Marked in words, not colour alone. */
+.savings-caveat::before {
+  content: "注意：";
+  color: var(--color-amber);
+  font-weight: 700;
+}
+
+.savings-assumptions summary {
+  cursor: pointer;
+  font-size: var(--text-small);
+  color: var(--color-amber);
+  min-height: var(--tap-min);
+  display: flex;
+  align-items: center;
+}
+
+.savings-assumptions p,
+.savings-assumptions li {
+  font-size: var(--text-caption);
+  line-height: 1.7;
+  color: var(--works-muted);
+}
+
+.savings-assumptions ul {
+  padding-left: 1.2em;
+  margin: 0 0 var(--space-3);
+}

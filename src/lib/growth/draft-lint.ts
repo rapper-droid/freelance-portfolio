@@ -160,16 +160,24 @@ export function lintDraft(
       add("placeholder", "TODO / 要確認 が残っています");
   }
 
-  for (const claim of unbackedClaims)
-    if (body.includes(claim)) add("claim", `根拠のない表現: ${claim}`);
+  // `internal` drafts are notes to ourselves — an operating checklist, a spec
+  // sheet — that nobody outside reads. The claim and price rules exist to
+  // govern what a customer is told, so they do not apply there, for the same
+  // reason the contact rules below already skip it. An internal note quoting a
+  // platform's own wording, or recording what is left after fees, is correct.
+  const customerFacing = meta.channel !== "internal";
+  if (customerFacing) {
+    for (const claim of unbackedClaims)
+      if (body.includes(claim)) add("claim", `根拠のない表現: ${claim}`);
 
-  const amounts = allowedAmounts(publishedPrices);
-  for (const found of body.matchAll(/([\d,]+)\s*円/g))
-    if (!amounts.has(found[1]))
-      add(
-        "price",
-        `未承認の金額: ${found[0]}（公開済みの価格のみ使用できます）`,
-      );
+    const amounts = allowedAmounts(publishedPrices);
+    for (const found of body.matchAll(/([\d,]+)\s*円/g))
+      if (!amounts.has(found[1]))
+        add(
+          "price",
+          `未承認の金額: ${found[0]}（公開済みの価格のみ使用できます）`,
+        );
+  }
 
   const marketplace =
     meta.channel === "coconala" ||
