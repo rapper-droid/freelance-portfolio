@@ -23,9 +23,11 @@ export function QaEvidencePanel() {
     <section className="qa-evidence" aria-labelledby="qa-evidence-heading">
       <div className="qa-evidence-head">
         <span className="eyebrow">AUTOMATED VERIFICATION / 自動検査の記録</span>
-        <h3 id="qa-evidence-heading">
+        {/* h2: the frame above renders the h1 and the demo below opens with
+            its own h2, so h3 here would skip a level. */}
+        <h2 id="qa-evidence-heading">
           この記録は、実際に走った検査の結果です。
-        </h3>
+        </h2>
         <p>
           下のチェックリストは人が手で確認した記録、こちらは機械が実行した記録です。
           画面の操作でこの表が変わることはありません。
