@@ -16,7 +16,7 @@
 | branch         | `claude/ultimate-experience-20260923`                        |
 | 分岐元         | `origin/tsudowa/cloudflare-workers-candidate`（= `cbaf575`） |
 | HEAD           | `git log --oneline -1` で確認（下の一覧の最上段）            |
-| 先行           | 12 commit（すべて **未 push**）                              |
+| 状態           | **push 済み・PR #6 merge 済み・tsudowa.com へ deploy 済み**  |
 | 未コミット差分 | なし（このセッション分は全て commit 済み）                   |
 
 ```
@@ -37,10 +37,12 @@ cbaf575  (分岐元) Merge pull request #5 ...
 **他の柱・他の worktree・`codex/*` ブランチは一切触っていない。**
 本番 checkout `C:/Users/tetsu/freelance-portfolio` も未変更。
 
-### push していない理由
+### 公開の経路
 
-初回 push は取り消せないため承認ゲート。`tsudowa/cloudflare-workers-candidate`
-への PR を出すところから所長の判断。
+`claude/ultimate-experience-20260923` → PR #6 →
+`tsudowa/cloudflare-workers-candidate`（merge commit `6d2668f`）→
+`node scripts/workers-production.mjs deploy-candidate` → tsudowa.com。
+tetsuworks.com（Netlify、Codex 所有ブランチ）は所長の判断で対象外。
 
 ---
 
@@ -257,27 +259,45 @@ KISSA と FORME の各 7 ルート、および P3 の 4 デモで **axe 違反 0
 
 ---
 
-## 6. 本番に反映されていない範囲
+## 6. 本番の状況
 
-| 配信先                                                         | 現在の中身                                                       |
-| -------------------------------------------------------------- | ---------------------------------------------------------------- |
-| **tetsuworks.com**（Netlify / `codex/portfolio-sales-hub-v2`） | 古い。`/flow` も `/kissa` も無い。DAYBOOK は 2026-09-18 週のまま |
-| **tsudowa-production.tetsuyasmile52l.workers.dev**             | `cbaf575` 相当。`/flow` はある。`/kissa` は無い                  |
+**tsudowa.com は公開済みです。**
 
-**このセッションの 3 commit はどこにも deploy されていない。** 実測値:
+| 配信先                                                         | 中身                                                      |
+| -------------------------------------------------------------- | --------------------------------------------------------- |
+| **tsudowa.com**（Cloudflare Worker `tsudowa-production`）      | **このセッションの全成果が反映済み**。version `46f3f849`  |
+| **tetsuworks.com**（Netlify / `codex/portfolio-sales-hub-v2`） | 古いまま（`ce03541`）。所長の判断で今回は更新していません |
+
+実測（デプロイ後）:
 
 ```
-tetsuworks.com/kissa      -> 404
-tetsuworks.com/forme      -> 404
-tetsuworks.com/flow       -> 404
-tsudowa-production/kissa  -> 404
-tsudowa-production/forme  -> 404
-tsudowa-production/flow   -> 200
+tsudowa.com/kissa         -> 200   qa:kissa 56/56（本番に対して実行）
+tsudowa.com/forme         -> 200   qa:forme 62/62（本番に対して実行）
+tsudowa.com/demos/saas    -> 200   週次まとめの書き出しが本番で動作
+tsudowa.com/demos/automation -> RELAY で受け付けた案件が INBOX に 7 件
+33 ルート全て 200 / 実行時エラー 0 / sitemap に店舗は 0 件
+tetsuworks.com/forme      -> 404（未更新のため）
 ```
 
-反映には所長の承認が要る（本番デプロイ・初回 push は承認ゲート）。
+- **PR**: [#6](https://github.com/rapper-droid/freelance-portfolio/pull/6)（merge 済み）
+- **ロールバック先**: `9aaaed9e-1069-483c-aa64-01b2895d4e5c`
+  （`npx wrangler rollback 9aaaed9e-1069-483c-aa64-01b2895d4e5c --name tsudowa-production`）
+- 詳細は [docs/production-status.md](../production-status.md)
 
----
+### デプロイして初めて分かった不具合（2 件）
+
+ローカルのテストは全部通っていたのに、preview で壊れていました。
+
+1. **カートが空のままだった。** `runtime/ids.ts` が `node:crypto` を import して
+   おり、店舗はカートの行キー・注文番号・支払の idempotency をブラウザ側で計算
+   する。Workers のバンドルに `node:crypto` は無く、
+   `createHash is not a function` で落ちていた。Web Crypto は非同期なので使えない
+   （純粋関数の中で await できない）。同期の SHA-256 を `runtime/sha256.ts` に
+   実装した。**Node と 1 ビットも違わない出力**なので、既存の id は一切変わらない。
+2. **横スクロール領域 3 か所がキーボードで到達できなかった。** うち 1 件は CI が
+   768px で捕まえた（ローカルは Windows のフォント幅で溢れなかった）。残り 2 件は
+   探して見つけたもので、REFINE の並べて表示と、KISSA の運営表（空の sandbox では
+   表自体が描画されないため axe が一度も見ていなかった）。
 
 ## 7. 次のセッションが最初にやること
 

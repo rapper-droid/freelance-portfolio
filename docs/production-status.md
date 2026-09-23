@@ -1,4 +1,4 @@
-# Production status — tsudowa.com on Cloudflare Workers, 2026-09-21 JST
+# Production status — tsudowa.com on Cloudflare Workers, 2026-09-24 JST
 
 Current-state document. Earlier documents ([production candidate](cloudflare-production-candidate.md),
 [cutover simulation](cloudflare-cutover-simulation.md), [PRODUCTION.md](PRODUCTION.md)
@@ -8,26 +8,48 @@ by name only.
 
 ## What is live
 
-| Item     | Value                                                                                                                                     |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| Origin   | `https://tsudowa.com` (TSUDOWA + TETSU WORKS, 58 public routes)                                                                           |
-| Worker   | `tsudowa-production`                                                                                                                      |
-| Version  | `ab261d93-a048-42b3-8632-0ffec7631cbe` (100%), deployment `833ca8c7-b19e-40ac-be5d-6477f5862690`                                          |
-| Deployed | 2026-09-20 15:29 UTC (2026-09-21 00:29 JST) with `node scripts/workers-production.mjs deploy-candidate`                                   |
-| Source   | `tsudowa/cloudflare-workers-candidate` = `claude/growth-p0-20260920` = `ef702be` (both on origin)                                         |
-| Content  | Growth P0, the approved fixed prices, and measurement sending to PostHog project 619418 ([docs/growth/QA_REPORT.md](growth/QA_REPORT.md)) |
-| Preview  | `tsudowa-owner-preview` version `42187a28-acf1-4f80-ba8f-a4f810107aed`, same commit, noindex                                              |
+| Item     | Value                                                                                                                                                   |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Origin   | `https://tsudowa.com` (TSUDOWA + TETSU WORKS, 47 routes in the sitemap plus 14 noindex shop routes)                                                     |
+| Worker   | `tsudowa-production`                                                                                                                                    |
+| Version  | `46f3f849-ae09-4d57-a36d-e4c158f89ffd`                                                                                                                  |
+| Deployed | 2026-09-24 JST with `node scripts/workers-production.mjs deploy-candidate`                                                                              |
+| Source   | `tsudowa/cloudflare-workers-candidate` = `6d2668f` (merge of PR #6, tree identical to `ec4422e`)                                                        |
+| Content  | The operable demos: KISSA and FORME, the shared operations record behind RELAY / SMART INBOX / ADMIN, and the rebuilt STILL, REFINE, SHIP and FLOWSTATE |
 
-The previous release (Visual Polish, version `e41e0535`, source `8b0f7ee`) is the
-rollback target below; its record is kept in the sections that follow.
+### Verified after this deployment, against `https://tsudowa.com`
+
+| Check                                      | Result                                     |
+| ------------------------------------------ | ------------------------------------------ |
+| Route smoke, 33 routes                     | all 200                                    |
+| `QA_BASE_URL=https://tsudowa.com qa:kissa` | 56/56                                      |
+| `QA_BASE_URL=https://tsudowa.com qa:forme` | 62/62                                      |
+| Runtime errors across 12 routes            | none                                       |
+| RELAY → SMART INBOX on production          | case filed, 7 tickets in the inbox         |
+| Downloads (FLOWSTATE, STILL)               | real files, correct names                  |
+| `/kissa`, `/forme`                         | `noindex, follow`; absent from the sitemap |
+| `/api/analytics` on GET                    | 405, which is its contract                 |
+| `/api/contact`                             | 200 (enabled; nothing was sent)            |
+| Unknown route                              | 404                                        |
+
+Two defects were found by deploying rather than by testing, fixed, and the
+fix verified on the preview before this release:
+
+1. `runtime/ids.ts` imported `node:crypto`, which the Workers client bundle
+   does not have. Adding to cart threw and the cart stayed empty, while every
+   local test passed. SHA-256 is now implemented in `runtime/sha256.ts`,
+   synchronous and byte-identical to Node's, so no derived id changed.
+2. Three scrollable regions had no keyboard access. CI caught one at 768px
+   that the local run did not; the other two were latent.
 
 ## Rollback
 
-1. **Primary:** roll the Worker back to the previous production version
-   `2bdd0b86-9067-4348-bc24-fa98d2c4012d` (the build before measurement
-   forwarded anything; `ab261d93` and `e41e0535` are the releases before that) — Workers & Pages > tsudowa-production >
-   Deployments > Rollback, or `npx wrangler rollback 2bdd0b86-9067-4348-bc24-fa98d2c4012d --name tsudowa-production`.
-   No DNS or mail change is involved.
+1. **Primary:** roll the Worker back to the version this release replaced,
+   `9aaaed9e-1069-483c-aa64-01b2895d4e5c` — Workers & Pages >
+   tsudowa-production > Deployments > Rollback, or
+   `npx wrangler rollback 9aaaed9e-1069-483c-aa64-01b2895d4e5c --name tsudowa-production`.
+   No DNS or mail change is involved. Earlier releases, oldest last:
+   `609058eb`, `cfb7abac`, `2bdd0b86`, `ab261d93`, `e41e0535`.
 2. **Last resort only** (a Worker rollback cannot restore service): the retained
    Netlify known-good deploy `6aabc4aec1247183915ad890`
    (`https://6aabc4aec1247183915ad890--tsudowa.netlify.app`, HTTP 200 on
