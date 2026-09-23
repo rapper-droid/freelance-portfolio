@@ -34,7 +34,8 @@
     "growth:brief": "node --experimental-strip-types scripts/growth-brief.mjs",
     "qa:flow": "node scripts/flow-qa.mjs",
     "qa:evidence": "node scripts/qa-evidence.mjs",
-    "qa:kissa": "node scripts/kissa-qa.mjs"
+    "qa:kissa": "node scripts/kissa-qa.mjs",
+    "qa:controls": "node scripts/inert-controls.mjs"
   },
   "keywords": [],
   "author": "",

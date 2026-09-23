@@ -1,10 +1,20 @@
 "use client";
 import { OperationsOverview } from "./operations-overview";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Inbox, Search, Sparkles, Copy, RotateCcw } from "lucide-react";
-import { tickets, classify, replyDraft, type Ticket } from "@/lib/inbox";
+import {
+  tickets,
+  ticketsFor,
+  classify,
+  replyDraft,
+  type Ticket,
+} from "@/lib/inbox";
 export function InboxDemo() {
-  const [items, setItems] = useState(tickets);
+  // The server renders the list dated from a fixed instant so the page has
+  // content before JavaScript arrives; the effect then re-dates it against
+  // today, which is why the stamps move with the calendar without a mismatch.
+  const [seed, setSeed] = useState<Ticket[]>(tickets);
+  const [edited, setEdited] = useState<Ticket[] | null>(null);
   const [selected, setSelected] = useState<number | null>(1001);
   const [query, setQuery] = useState("");
   const [status, setStatus] = useState("すべて");
@@ -13,6 +23,16 @@ export function InboxDemo() {
   const [owner, setOwner] = useState("すべて");
   const [draft, setDraft] = useState("");
   const [notice, setNotice] = useState("");
+  const started = useRef(false);
+  useEffect(() => {
+    if (started.current) return;
+    started.current = true;
+    setSeed(ticketsFor(new Date().toISOString()));
+  }, []);
+
+  // Edits win; otherwise the list is whatever today's seed produced.
+  const items = edited ?? seed;
+
   const filtered = items.filter((t) => {
     const c = classify(t.subject + t.body);
     return (
@@ -29,7 +49,7 @@ export function InboxDemo() {
   const ticket = filtered.find((t) => t.id === selected);
   const info = ticket ? classify(ticket.subject + ticket.body) : null;
   function update(patch: Partial<Ticket>) {
-    setItems(items.map((t) => (t.id === selected ? { ...t, ...patch } : t)));
+    setEdited(items.map((t) => (t.id === selected ? { ...t, ...patch } : t)));
     setNotice("対応状況を更新しました。");
   }
   return (
@@ -42,7 +62,7 @@ export function InboxDemo() {
         <button
           className="button secondary"
           onClick={() => {
-            setItems(tickets);
+            setEdited(null);
             setQuery("");
             setStatus("すべて");
             setCategory("すべて");

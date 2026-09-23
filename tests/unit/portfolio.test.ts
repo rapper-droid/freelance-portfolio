@@ -1,7 +1,9 @@
 ﻿import { describe, it, expect } from "vitest";
 import { categories, projects, projectsFor } from "../../src/lib/portfolio";
 import {
-  bookingSeed,
+  bookingSeedFor,
+  bookingWeek,
+  bookingWeekday,
   validateBooking,
   qaItems,
   deliveryManifest,
@@ -26,22 +28,39 @@ describe("catalog routes", () => {
   });
 });
 describe("booking conflicts", () => {
+  // Any instant works: the week is derived from it, so the test is not
+  // pinned to a calendar that expires.
+  const NOW = "2026-09-23T01:00:00.000Z";
+  const week = bookingWeek(NOW);
+  const rows = bookingSeedFor(NOW);
+
   it("rejects occupied slots and invalid input", () => {
     const base = {
-      date: "2026-09-18",
+      date: week[0],
       time: "10:00",
       name: "テスト",
       service: "スタジオ利用",
     };
-    expect(validateBooking(bookingSeed, base)).toContain("予約があります");
-    expect(validateBooking(bookingSeed, { ...base, time: "12:00" })).toBe("");
-    expect(validateBooking(bookingSeed, { ...base, name: " " })).not.toBe("");
+    expect(validateBooking(rows, base, NOW)).toContain("予約があります");
+    expect(validateBooking(rows, { ...base, time: "12:00" }, NOW)).toBe("");
+    expect(validateBooking(rows, { ...base, name: " " }, NOW)).not.toBe("");
     expect(
-      validateBooking(bookingSeed, { ...base, date: "2026-10-18" }),
+      validateBooking(rows, { ...base, date: "2026-10-18" }, NOW),
     ).not.toBe("");
-    expect(validateBooking(bookingSeed, { ...base, time: "25:00" })).not.toBe(
-      "",
-    );
+    expect(validateBooking(rows, { ...base, time: "25:00" }, NOW)).not.toBe("");
+  });
+
+  it("follows the calendar instead of a fixed week", () => {
+    // The demo is judged from whenever it is opened, so today must be the
+    // first day on offer and a year later must produce a different week.
+    expect(week[0]).toBe("2026-09-23");
+    expect(week).toHaveLength(7);
+    expect(bookingWeekday("2026-09-23")).toBe("WED");
+    expect(bookingWeek("2027-03-02T01:00:00.000Z")[0]).toBe("2027-03-02");
+  });
+
+  it("places its sample bookings inside the week it shows", () => {
+    for (const row of rows) expect(week).toContain(row.date);
   });
 });
 describe("delivery and creative output", () => {

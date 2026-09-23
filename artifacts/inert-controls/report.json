@@ -1,0 +1,227 @@
+{
+  "origin": "http://localhost:3000",
+  "checkedAtIso": "2026-09-23T11:36:09.917Z",
+  "routes": [
+    {
+      "route": "/demos/cafe",
+      "total": 2,
+      "findings": [
+        {
+          "route": "/demos/cafe",
+          "index": 0,
+          "label": "Coffee"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/demos/saas",
+      "total": 2,
+      "findings": [
+        {
+          "route": "/demos/saas",
+          "index": 0,
+          "label": "月額"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/demos/ec",
+      "total": 7,
+      "findings": [
+        {
+          "route": "/demos/ec",
+          "index": 1,
+          "label": "(無題)"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/demos/automation",
+      "total": 1,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/demos/booking",
+      "total": 14,
+      "findings": [
+        {
+          "route": "/demos/booking",
+          "index": 0,
+          "label": "WED 23 2件"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/demos/improvement",
+      "total": 2,
+      "findings": [
+        {
+          "route": "/demos/improvement",
+          "index": 1,
+          "label": "After"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/demos/creative",
+      "total": 4,
+      "findings": [
+        {
+          "route": "/demos/creative",
+          "index": 0,
+          "label": "01 MAKE ROOM."
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/demos/qa",
+      "total": 1,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/demos/inbox",
+      "total": 12,
+      "findings": [
+        {
+          "route": "/demos/inbox",
+          "index": 1,
+          "label": "すべて 6 件"
+        },
+        {
+          "route": "/demos/inbox",
+          "index": 5,
+          "label": "サンプル商店 09/23 10:30 請求書の宛名変更について 先月の請求書につ"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/demos/admin",
+      "total": 19,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/demos/csv",
+      "total": 2,
+      "findings": [
+        {
+          "route": "/demos/csv",
+          "index": 0,
+          "label": "CSVを選択"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/flow",
+      "total": 4,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/works",
+      "total": 14,
+      "findings": [
+        {
+          "route": "/works",
+          "index": 0,
+          "label": "すべて11"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/services",
+      "total": 0,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/rescue",
+      "total": 2,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/partners",
+      "total": 2,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/contact",
+      "total": 1,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/kissa",
+      "total": 0,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/kissa/menu",
+      "total": 6,
+      "findings": [
+        {
+          "route": "/kissa/menu",
+          "index": 0,
+          "label": "すべて 14"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/kissa/menu/latte",
+      "total": 2,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/kissa/reserve",
+      "total": 0,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/kissa/order",
+      "total": 2,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/kissa/my",
+      "total": 3,
+      "findings": [
+        {
+          "route": "/kissa/my",
+          "index": 0,
+          "label": "注文 0"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/kissa/admin",
+      "total": 4,
+      "findings": [
+        {
+          "route": "/kissa/admin",
+          "index": 0,
+          "label": "注文 0"
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

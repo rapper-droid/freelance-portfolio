@@ -1,5 +1,5 @@
 ﻿"use client";
-import { useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import "@/app/showcase.css";
 import "@/app/cafe-demo.css";
 import Image from "next/image";
@@ -23,8 +23,12 @@ import {
 } from "@/lib/cafe-menu";
 import { classify, replyDraft } from "@/lib/inbox";
 import {
-  bookingSeed,
+  BOOKING_REFERENCE_ISO,
+  bookingLabel,
+  bookingSeedFor,
   bookingTimes,
+  bookingWeek,
+  bookingWeekday,
   validateBooking,
   qaItems,
   deliveryManifest,
@@ -782,8 +786,19 @@ export function AutomationDemo() {
   );
 }
 export function BookingDemo() {
-  const [rows, setRows] = useState(bookingSeed),
-    [date, setDate] = useState("2026-09-18"),
+  // Today is read once per mount, on the client, so the server and the browser
+  // agree on first paint and the demo still moves with the calendar.
+  // Seeded from a fixed instant so the server renders a full week, then
+  // re-derived from today after mount. Rendering nothing until then would
+  // leave the demo blank to anyone without JavaScript.
+  const [session, setSession] = useState<{ nowIso: string; rows: Booking[] }>(
+    () => ({
+      nowIso: BOOKING_REFERENCE_ISO,
+      rows: bookingSeedFor(BOOKING_REFERENCE_ISO),
+    }),
+  );
+  const [rows, setRows] = useState<Booking[] | null>(null),
+    [picked, setPicked] = useState(""),
     [query, setQuery] = useState("");
   const [name, setName] = useState(""),
     [time, setTime] = useState("10:00"),
@@ -793,9 +808,25 @@ export function BookingDemo() {
   const [remove, setRemove] = useState<Booking | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const confirm = useRef<HTMLDialogElement>(null);
-  const filtered = rows
+
+  const started = useRef(false);
+  useEffect(() => {
+    if (started.current) return;
+    started.current = true;
+    const nowIso = new Date().toISOString();
+    setSession({ nowIso, rows: bookingSeedFor(nowIso) });
+  }, []);
+
+  const week = useMemo(() => bookingWeek(session.nowIso), [session]);
+  // Derived rather than stored, so the first render after mount does not need
+  // a second state write to choose a day.
+  const current = rows ?? session.rows;
+  const date = picked || week[0] || "";
+
+  const filtered = current
     .filter((r) => r.date === date && r.name.includes(query))
     .sort((a, b) => a.time.localeCompare(b.time));
+
   return (
     <div className="booking-demo showcase">
       <div className="app-demo-heading">
@@ -804,33 +835,32 @@ export function BookingDemo() {
           <span>今日の予定を、</span>
           <span>心地よく。</span>
         </h2>
-        <p>2026年9月18日〜24日の架空予約。変更はこの画面内のみです。</p>
+        <p>
+          {bookingLabel(week[0])}〜{bookingLabel(week[week.length - 1])}
+          の架空予約。変更はこの画面内のみです。
+        </p>
       </div>
       <nav className="booking-week" aria-label="表示週">
-        {[18, 19, 20, 21, 22, 23, 24].map((day, index) => (
+        {week.map((key) => (
           <button
-            key={day}
-            aria-label={`9月${day}日を表示`}
-            aria-pressed={date === `2026-09-${day}`}
-            onClick={() => setDate(`2026-09-${day}`)}
+            key={key}
+            aria-label={`${bookingLabel(key)}を表示`}
+            aria-pressed={date === key}
+            onClick={() => setPicked(key)}
           >
-            <span>
-              {["FRI", "SAT", "SUN", "MON", "TUE", "WED", "THU"][index]}
-            </span>
-            <b>{day}</b>
-            <small>
-              {rows.filter((row) => row.date === `2026-09-${day}`).length}件
-            </small>
+            <span>{bookingWeekday(key)}</span>
+            <b>{Number(key.slice(8))}</b>
+            <small>{current.filter((row) => row.date === key).length}件</small>
           </button>
         ))}
       </nav>
       <div className="booking-toolbar">
         <label>
           表示日
-          <select value={date} onChange={(e) => setDate(e.target.value)}>
-            {[18, 19, 20, 21, 22, 23, 24].map((d) => (
-              <option value={`2026-09-${d}`} key={d}>
-                9月{d}日
+          <select value={date} onChange={(e) => setPicked(e.target.value)}>
+            {week.map((key) => (
+              <option value={key} key={key}>
+                {bookingLabel(key)}
               </option>
             ))}
           </select>
@@ -860,14 +890,14 @@ export function BookingDemo() {
         <div>
           <span>選択日の予約</span>
           <b>
-            {rows.filter((r) => r.date === date).length}
+            {current.filter((r) => r.date === date).length}
             <small> 件</small>
           </b>
         </div>
         <div>
           <span>空き時間枠</span>
           <b>
-            {8 - rows.filter((r) => r.date === date).length}
+            {8 - current.filter((r) => r.date === date).length}
             <small> 枠</small>
           </b>
         </div>
@@ -878,7 +908,9 @@ export function BookingDemo() {
       </div>
       <section className="booking-list" data-feature>
         <div className="demo-section-heading">
-          <h3>{date.replaceAll("-", " / ")} の予約</h3>
+          <h3>
+            {bookingLabel(date)}（{bookingWeekday(date)}）の予約
+          </h3>
           <span>架空データ</span>
         </div>
         {filtered.map((r) => (
@@ -917,17 +949,17 @@ export function BookingDemo() {
           <X size={18} />
         </button>
         <h2 id="booking-title">予約を追加</h2>
-        <p>{date} / 架空の名前でお試しください。</p>
+        <p>{bookingLabel(date)} / 架空の名前でお試しください。</p>
         <form
           onSubmit={(e) => {
             e.preventDefault();
             const item = { date, time, name: name.trim(), service };
-            const problem = validateBooking(rows, item);
+            const problem = validateBooking(current, item, session.nowIso);
             if (problem) {
               setError(problem);
               return;
             }
-            setRows([...rows, { ...item, id: crypto.randomUUID() }]);
+            setRows([...current, { ...item, id: crypto.randomUUID() }]);
             setNotice("予約を追加しました。再読み込みで初期化されます。");
             dialog.current?.close();
           }}
@@ -980,7 +1012,7 @@ export function BookingDemo() {
           <button
             className="button primary"
             onClick={() => {
-              setRows(rows.filter((r) => r.id !== remove?.id));
+              setRows(current.filter((r) => r.id !== remove?.id));
               setNotice("予約を取り消しました。");
               confirm.current?.close();
             }}

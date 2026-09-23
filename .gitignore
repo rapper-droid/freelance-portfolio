@@ -35,3 +35,4 @@ artifacts/flow-qa/*.png
 /AGENTS.md
 /CLAUDE.md
 artifacts/kissa-qa/*.png
+artifacts/inert-controls/*.png
