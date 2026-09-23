@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-23T15:21:38.637Z",
+  "checkedAt": "2026-09-23T19:11:07.052Z",
   "findings": [
     {
       "width": 320,
@@ -17,6 +17,34 @@
     },
     {
       "width": 320,
+      "route": "/history",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/lab",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/contact",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/contact/general",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
       "route": "/works",
       "status": 200,
       "overflow": false,
@@ -318,6 +346,34 @@
     },
     {
       "width": 390,
+      "route": "/history",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/lab",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/contact",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/contact/general",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
       "route": "/works",
       "status": 200,
       "overflow": false,
@@ -613,6 +669,34 @@
     {
       "width": 768,
       "route": "/privacy",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/history",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/lab",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/contact",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/contact/general",
       "status": 200,
       "overflow": false,
       "brokenImages": 0
@@ -914,6 +998,34 @@
     {
       "width": 1440,
       "route": "/privacy",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/history",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/lab",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/contact",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/contact/general",
       "status": 200,
       "overflow": false,
       "brokenImages": 0

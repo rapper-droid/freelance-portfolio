@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-23T16:34:32.306Z",
+  "checkedAt": "2026-09-23T19:08:48.467Z",
   "routes": 42,
   "links": [
     {
@@ -55,15 +55,19 @@
       "status": 200
     },
     {
-      "path": "/history#independent-demos",
+      "path": "/history#kissa-shop",
       "status": 200
     },
     {
-      "path": "/history#sales-intake",
+      "path": "/history#forme-shop",
       "status": 200
     },
     {
-      "path": "/history#parent-brand",
+      "path": "/history#one-record",
+      "status": 200
+    },
+    {
+      "path": "/history#showcase-rebuild",
       "status": 200
     },
     {
@@ -124,6 +128,14 @@
     },
     {
       "path": "/works#faq",
+      "status": 200
+    },
+    {
+      "path": "/kissa",
+      "status": 200
+    },
+    {
+      "path": "/forme",
       "status": 200
     },
     {
@@ -563,6 +575,18 @@
       "status": 200
     },
     {
+      "path": "/kissa/menu",
+      "status": 200
+    },
+    {
+      "path": "/kissa/reserve",
+      "status": 200
+    },
+    {
+      "path": "/kissa/admin",
+      "status": 200
+    },
+    {
       "path": "/works/coding",
       "status": 200
     },
@@ -584,22 +608,6 @@
     },
     {
       "path": "/contact",
-      "status": 200
-    },
-    {
-      "path": "/kissa",
-      "status": 200
-    },
-    {
-      "path": "/kissa/menu",
-      "status": 200
-    },
-    {
-      "path": "/kissa/reserve",
-      "status": 200
-    },
-    {
-      "path": "/kissa/admin",
       "status": 200
     },
     {
@@ -671,6 +679,18 @@
       "status": 200
     },
     {
+      "path": "/forme/items",
+      "status": 200
+    },
+    {
+      "path": "/forme/my",
+      "status": 200
+    },
+    {
+      "path": "/forme/admin",
+      "status": 200
+    },
+    {
       "path": "/projects/ec#contact",
       "status": 200
     },
@@ -688,22 +708,6 @@
     },
     {
       "path": "/experience/ec",
-      "status": 200
-    },
-    {
-      "path": "/forme",
-      "status": 200
-    },
-    {
-      "path": "/forme/items",
-      "status": 200
-    },
-    {
-      "path": "/forme/my",
-      "status": 200
-    },
-    {
-      "path": "/forme/admin",
       "status": 200
     },
     {
