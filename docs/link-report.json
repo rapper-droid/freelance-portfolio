@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-09-16T20:08:41.612Z",
-  "routes": 37,
+  "checkedAt": "2026-09-22T16:57:52.312Z",
+  "routes": 42,
   "links": [
     {
       "path": "/#main",
@@ -11,19 +11,15 @@
       "status": 200
     },
     {
-      "path": "/#brands",
+      "path": "/works",
       "status": 200
     },
     {
-      "path": "/#tetsu-works",
+      "path": "/lab",
       "status": 200
     },
     {
-      "path": "/#works",
-      "status": 200
-    },
-    {
-      "path": "/#process",
+      "path": "/history",
       "status": 200
     },
     {
@@ -31,7 +27,19 @@
       "status": 200
     },
     {
+      "path": "/#about",
+      "status": 200
+    },
+    {
+      "path": "/experience/cafe",
+      "status": 200
+    },
+    {
       "path": "/projects/cafe",
+      "status": 200
+    },
+    {
+      "path": "/experience/inbox",
       "status": 200
     },
     {
@@ -39,7 +47,175 @@
       "status": 200
     },
     {
-      "path": "/#services",
+      "path": "/experience/automation",
+      "status": 200
+    },
+    {
+      "path": "/projects/automation",
+      "status": 200
+    },
+    {
+      "path": "/history#independent-demos",
+      "status": 200
+    },
+    {
+      "path": "/history#sales-intake",
+      "status": 200
+    },
+    {
+      "path": "/history#parent-brand",
+      "status": 200
+    },
+    {
+      "path": "/contact",
+      "status": 200
+    },
+    {
+      "path": "/contact/general",
+      "status": 200
+    },
+    {
+      "path": "/privacy",
+      "status": 200
+    },
+    {
+      "path": "/privacy#main",
+      "status": 200
+    },
+    {
+      "path": "/privacy#inquiry",
+      "status": 200
+    },
+    {
+      "path": "/privacy#storage",
+      "status": 200
+    },
+    {
+      "path": "/privacy#measurement",
+      "status": 200
+    },
+    {
+      "path": "/contact",
+      "status": 200
+    },
+    {
+      "path": "/works#main",
+      "status": 200
+    },
+    {
+      "path": "/works#works",
+      "status": 200
+    },
+    {
+      "path": "/services",
+      "status": 200
+    },
+    {
+      "path": "/works#services",
+      "status": 200
+    },
+    {
+      "path": "/works#pricing",
+      "status": 200
+    },
+    {
+      "path": "/works#process",
+      "status": 200
+    },
+    {
+      "path": "/works#faq",
+      "status": 200
+    },
+    {
+      "path": "/projects/saas",
+      "status": 200
+    },
+    {
+      "path": "/projects/admin",
+      "status": 200
+    },
+    {
+      "path": "/works#contact",
+      "status": 200
+    },
+    {
+      "path": "/services/web-fix",
+      "status": 200
+    },
+    {
+      "path": "/services/csv-routine",
+      "status": 200
+    },
+    {
+      "path": "/partners",
+      "status": 200
+    },
+    {
+      "path": "/demos/cafe",
+      "status": 200
+    },
+    {
+      "path": "/demos/saas",
+      "status": 200
+    },
+    {
+      "path": "/projects/ec",
+      "status": 200
+    },
+    {
+      "path": "/demos/ec",
+      "status": 200
+    },
+    {
+      "path": "/demos/automation",
+      "status": 200
+    },
+    {
+      "path": "/projects/booking",
+      "status": 200
+    },
+    {
+      "path": "/demos/booking",
+      "status": 200
+    },
+    {
+      "path": "/projects/improvement",
+      "status": 200
+    },
+    {
+      "path": "/demos/improvement",
+      "status": 200
+    },
+    {
+      "path": "/projects/creative",
+      "status": 200
+    },
+    {
+      "path": "/demos/creative",
+      "status": 200
+    },
+    {
+      "path": "/projects/qa",
+      "status": 200
+    },
+    {
+      "path": "/demos/qa",
+      "status": 200
+    },
+    {
+      "path": "/projects/csv",
+      "status": 200
+    },
+    {
+      "path": "/demos/csv",
+      "status": 200
+    },
+    {
+      "path": "/demos/inbox",
+      "status": 200
+    },
+    {
+      "path": "/demos/admin",
       "status": 200
     },
     {
@@ -75,111 +251,71 @@
       "status": 200
     },
     {
-      "path": "/works",
+      "path": "/works#intake-fields",
       "status": 200
     },
     {
-      "path": "/demos/cafe",
+      "path": "/rescue",
       "status": 200
     },
     {
-      "path": "/projects/saas",
+      "path": "/services#main",
       "status": 200
     },
     {
-      "path": "/demos/saas",
+      "path": "/contact",
       "status": 200
     },
     {
-      "path": "/projects/ec",
+      "path": "/services/web-fix#main",
       "status": 200
     },
     {
-      "path": "/demos/ec",
+      "path": "/contact",
       "status": 200
     },
     {
-      "path": "/demos/inbox",
+      "path": "/services/web-fix#brief",
       "status": 200
     },
     {
-      "path": "/projects/qa",
+      "path": "/services/csv-routine#main",
       "status": 200
     },
     {
-      "path": "/#faq",
+      "path": "/contact",
       "status": 200
     },
     {
-      "path": "/privacy",
+      "path": "/services/csv-routine#brief",
       "status": 200
     },
     {
-      "path": "/privacy#main",
+      "path": "/partners#main",
       "status": 200
     },
     {
-      "path": "/works#main",
+      "path": "/contact",
       "status": 200
     },
     {
-      "path": "/works#works",
+      "path": "/partners#brief",
       "status": 200
     },
     {
-      "path": "/projects/automation",
+      "path": "/rescue#main",
       "status": 200
     },
     {
-      "path": "/demos/automation",
-      "status": 200
-    },
-    {
-      "path": "/projects/booking",
-      "status": 200
-    },
-    {
-      "path": "/demos/booking",
-      "status": 200
-    },
-    {
-      "path": "/projects/improvement",
-      "status": 200
-    },
-    {
-      "path": "/demos/improvement",
-      "status": 200
-    },
-    {
-      "path": "/projects/creative",
-      "status": 200
-    },
-    {
-      "path": "/demos/creative",
-      "status": 200
-    },
-    {
-      "path": "/demos/qa",
-      "status": 200
-    },
-    {
-      "path": "/projects/csv",
-      "status": 200
-    },
-    {
-      "path": "/demos/csv",
-      "status": 200
-    },
-    {
-      "path": "/projects/admin",
-      "status": 200
-    },
-    {
-      "path": "/demos/admin",
+      "path": "/contact",
       "status": 200
     },
     {
       "path": "/works/web#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -191,7 +327,15 @@
       "status": 200
     },
     {
+      "path": "/works/web#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/works/lp#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -203,7 +347,15 @@
       "status": 200
     },
     {
+      "path": "/works/lp#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/works/coding#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -215,7 +367,15 @@
       "status": 200
     },
     {
+      "path": "/works/coding#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/works/nextjs#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -227,7 +387,15 @@
       "status": 200
     },
     {
+      "path": "/works/nextjs#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/works/responsive#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -239,7 +407,15 @@
       "status": 200
     },
     {
+      "path": "/works/responsive#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/works/improvement#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -251,7 +427,15 @@
       "status": 200
     },
     {
+      "path": "/works/improvement#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/works/ec#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -263,7 +447,15 @@
       "status": 200
     },
     {
+      "path": "/works/ec#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/works/apps#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -275,7 +467,15 @@
       "status": 200
     },
     {
+      "path": "/works/apps#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/works/api#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -287,7 +487,15 @@
       "status": 200
     },
     {
+      "path": "/works/api#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/works/automation#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -299,7 +507,15 @@
       "status": 200
     },
     {
+      "path": "/works/automation#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/works/design#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -311,7 +527,15 @@
       "status": 200
     },
     {
+      "path": "/works/design#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/works/qa#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -323,7 +547,15 @@
       "status": 200
     },
     {
+      "path": "/works/qa#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/projects/cafe#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -339,7 +571,15 @@
       "status": 200
     },
     {
+      "path": "/projects/cafe#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/demos/cafe#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -359,6 +599,10 @@
       "status": 200
     },
     {
+      "path": "/contact",
+      "status": 200
+    },
+    {
       "path": "/works/nextjs",
       "status": 200
     },
@@ -367,7 +611,19 @@
       "status": 200
     },
     {
+      "path": "/projects/saas#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/demos/saas#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
+      "status": 200
+    },
+    {
+      "path": "/experience/saas",
       "status": 200
     },
     {
@@ -383,11 +639,27 @@
       "status": 200
     },
     {
+      "path": "/contact",
+      "status": 200
+    },
+    {
       "path": "/projects/ec#contact",
       "status": 200
     },
     {
+      "path": "/projects/ec#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/demos/ec#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
+      "status": 200
+    },
+    {
+      "path": "/experience/ec",
       "status": 200
     },
     {
@@ -399,7 +671,15 @@
       "status": 200
     },
     {
+      "path": "/contact",
+      "status": 200
+    },
+    {
       "path": "/projects/automation#contact",
+      "status": 200
+    },
+    {
+      "path": "/projects/automation#intake-fields",
       "status": 200
     },
     {
@@ -407,7 +687,15 @@
       "status": 200
     },
     {
+      "path": "/contact",
+      "status": 200
+    },
+    {
       "path": "/projects/booking#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -415,11 +703,27 @@
       "status": 200
     },
     {
+      "path": "/projects/booking#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/demos/booking#main",
       "status": 200
     },
     {
+      "path": "/contact",
+      "status": 200
+    },
+    {
+      "path": "/experience/booking",
+      "status": 200
+    },
+    {
       "path": "/projects/improvement#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -431,7 +735,19 @@
       "status": 200
     },
     {
+      "path": "/projects/improvement#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/demos/improvement#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
+      "status": 200
+    },
+    {
+      "path": "/experience/improvement",
       "status": 200
     },
     {
@@ -443,7 +759,15 @@
       "status": 200
     },
     {
+      "path": "/contact",
+      "status": 200
+    },
+    {
       "path": "/projects/creative#contact",
+      "status": 200
+    },
+    {
+      "path": "/projects/creative#intake-fields",
       "status": 200
     },
     {
@@ -451,7 +775,19 @@
       "status": 200
     },
     {
+      "path": "/contact",
+      "status": 200
+    },
+    {
+      "path": "/experience/creative",
+      "status": 200
+    },
+    {
       "path": "/projects/qa#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -459,7 +795,19 @@
       "status": 200
     },
     {
+      "path": "/projects/qa#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/demos/qa#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
+      "status": 200
+    },
+    {
+      "path": "/experience/qa",
       "status": 200
     },
     {
@@ -467,7 +815,15 @@
       "status": 200
     },
     {
+      "path": "/contact",
+      "status": 200
+    },
+    {
       "path": "/projects/csv#contact",
+      "status": 200
+    },
+    {
+      "path": "/projects/csv#intake-fields",
       "status": 200
     },
     {
@@ -475,7 +831,19 @@
       "status": 200
     },
     {
+      "path": "/contact",
+      "status": 200
+    },
+    {
+      "path": "/experience/csv",
+      "status": 200
+    },
+    {
       "path": "/projects/inbox#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -483,7 +851,15 @@
       "status": 200
     },
     {
+      "path": "/projects/inbox#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/demos/inbox#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
       "status": 200
     },
     {
@@ -491,11 +867,27 @@
       "status": 200
     },
     {
+      "path": "/contact",
+      "status": 200
+    },
+    {
       "path": "/projects/admin#contact",
       "status": 200
     },
     {
+      "path": "/projects/admin#intake-fields",
+      "status": 200
+    },
+    {
       "path": "/demos/admin#main",
+      "status": 200
+    },
+    {
+      "path": "/contact",
+      "status": 200
+    },
+    {
+      "path": "/experience/admin",
       "status": 200
     }
   ]

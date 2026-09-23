@@ -10,6 +10,40 @@ const server = process.env.QA_BASE_URL
       ["node_modules/next/dist/bin/next", "start", "--port", "3105"],
       { stdio: "ignore", windowsHide: true },
     );
+/**
+ * Which section lives on which route.
+ *
+ * These captures used to assume one page held everything, which stopped being
+ * true when TSUDOWA became the home page and the sales sections moved to
+ * /works. Screenshotting a section where it does not exist waits out the full
+ * locator timeout and fails the build, so each id is listed against the route
+ * that actually renders it.
+ *
+ * `works` and `contact` exist on both routes and mean different things, so
+ * they carry an explicit file name rather than colliding on `works-<width>`.
+ */
+const SECTIONS = {
+  "/": [
+    { id: "brands" },
+    { id: "tetsu-works" },
+    { id: "works", name: "home-works" },
+    { id: "contact", name: "home-contact" },
+  ],
+  "/works": [
+    { id: "services" },
+    { id: "works", name: "works-gallery" },
+    { id: "pricing" },
+    { id: "delivery" },
+    { id: "process" },
+    { id: "faq" },
+    { id: "qa" },
+    { id: "contact", name: "works-contact" },
+  ],
+};
+
+/** The two brands use different footers; capture whichever the route renders. */
+const FOOTERS = { "/": ".hq-footer", "/works": ".site-footer" };
+
 let browser;
 try {
   let ready = false;
@@ -102,28 +136,15 @@ try {
           path: `docs/screenshots/sales-ui/${slug}-${width}-full.png`,
           fullPage: true,
         });
-        if (route === "/")
-          for (const id of [
-            "brands",
-            "tetsu-works",
-            "services",
-            "works",
-            "pricing",
-            "delivery",
-            "process",
-            "faq",
-            "qa",
-            "contact",
-          ]) {
-            await page.locator(`#${id}`).screenshot({
-              path: `docs/screenshots/sales-ui/${id}-${width}.png`,
-            });
-          }
-        if (route === "/")
-          await page.locator(".site-footer").screenshot({
-            path: `docs/screenshots/sales-ui/footer-${width}.png`,
+        for (const { id, name } of SECTIONS[route] ?? [])
+          await page.locator(`#${id}`).screenshot({
+            path: `docs/screenshots/sales-ui/${name ?? id}-${width}.png`,
           });
-        if (route === "/")
+        if (FOOTERS[route])
+          await page.locator(FOOTERS[route]).screenshot({
+            path: `docs/screenshots/sales-ui/${slug}-footer-${width}.png`,
+          });
+        if (route === "/works")
           for (const project of ["cafe", "saas", "ec", "inbox"])
             await page.locator(`[data-project="${project}"]`).screenshot({
               path: `docs/screenshots/sales-ui/feature-${project}-${width}.png`,
