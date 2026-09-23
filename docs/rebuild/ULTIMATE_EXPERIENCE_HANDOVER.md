@@ -16,11 +16,15 @@
 | branch         | `claude/ultimate-experience-20260923`                        |
 | 分岐元         | `origin/tsudowa/cloudflare-workers-candidate`（= `cbaf575`） |
 | HEAD           | `git log --oneline -1` で確認（下の一覧の最上段）            |
-| 状態           | **push 済み・PR #6 merge 済み・tsudowa.com へ deploy 済み**  |
+| 状態           | P1〜P3 は deploy 済み。**P4 は commit 済み・本番未反映**     |
 | 未コミット差分 | なし（このセッション分は全て commit 済み）                   |
 
 ```
 （最新）この文書の更新
+e4c7c66  feat(works): the catalogue leads to the shops, and stops denying them
+4409120  docs: record the release — tsudowa.com is live on this work
+ec4422e  fix: the cart was empty on the deployed build, 3 regions had no keyboard
+d1cc1d4  docs(rebuild): record the P3 phase in the handover
 7cce861  feat(demos): STILL, REFINE, SHIP and FLOWSTATE stop being pictures
 b7de10a  feat(forme): the EC demo becomes a shop with a finite number of things
 531e2d1  docs(rebuild): correct the commit list in the handover
@@ -199,6 +203,46 @@ FORME で見つけて直した不具合：**支払が checkout の中にしか�
 | **SHIP / CHECK**   | 「これは保存済みの記録で、開いても検査は走らない」と明記。全行に**再現手順**と記録元ファイル。未実施 2 件（E2E・店舗デモ）を理由つきで表示                           |
 | **FLOWSTATE**      | 使用前後、**実際に開ける出力**（Markdown の週次まとめ）、導入手順、対応範囲・権限・接続（6 件中 4 件を「未接続」と明記）、架空料金の注記、動く画面への導線           |
 
+### 3-7. 制作例の説明と、店への導線（P4）
+
+**直した嘘。** P1〜P3 で中身が変わったのに、カタログは古い説明のままだった。
+どれも書いた時点では本当で、出荷した時点では嘘になっていた。
+
+| 制作例                            | 書いてあったこと                         | 実際                                         |
+| --------------------------------- | ---------------------------------------- | -------------------------------------------- |
+| SMART INBOX                       | 「再読み込みで初期化」                   | 案件記録は残る。RELAY・ADMIN と同じ記録      |
+| KISSA                             | 「来店予約・実店舗案内は行いません」     | 席を予約でき、変更・取消もできる             |
+| FORME                             | 「注文・決済・個人情報入力はありません」 | 注文でき、在庫が減り、取消で戻る             |
+| STILL / REFINE / SHIP / FLOWSTATE | P3 以前の機能一覧                        | 編集・書き出し・幅切替・検査記録が入っている |
+
+11 件の `summary` / `challenge` / `solution` / `features` / `limitation` を
+実態に合わせた。**`price` / `duration` / `categories` / `deliverables` /
+`qa` は 1 文字も変えていない**（営業境界）。`categories` の `scope` も
+変えていない — 売る範囲を広げるのは所長の判断で、文章の整理ではないため。
+
+**足した導線。** KISSA と FORME は自分のデモページからしか辿れなかった。
+そのデモページは `/works` → `/works/<分類>` → `/projects/<slug>` の先にある。
+
+| 場所                            | 追加したもの                                                         |
+| ------------------------------- | -------------------------------------------------------------------- |
+| `/works` 冒頭                   | 2 つの店を名指しし、「実際の注文・予約・支払いは発生しません」と併記 |
+| 制作例カード（11 件中 2 件）    | 3 つ目の操作「操作できる版」（塗りつぶし＝最強の行動）               |
+| `/works/<分類>`                 | 同じカードなので自動で入る                                           |
+| `/projects/cafe` `/projects/ec` | 「操作できる版」パネル（4 経路）をヒーローの直後に                   |
+| `/partners`                     | 「ページ実装」の証拠を screenshot から `/kissa` へ。`/forme` を追加  |
+| `/rescue`                       | 「注文・予約の受付」の行を追加                                       |
+| `/history` `/`                  | P1〜P3 の成果を日付つきの記録 4 件として追加                         |
+
+経路の正本は `src/lib/working-versions.ts`。パネル・カード・テストが同じ記録を読む。
+
+**計測。** `portfolio_working_version_click` を追加した。showcase デモの
+クリックに混ぜると「実際に店へ行った人」の数が読めなくなるため、別の名前にした。
+パラメータは既存の `project` のみで、slug の許可リストを通る。
+
+**テストで捕まえたもの。** `portfolio-claims.test.ts` は 22 個の価格・納期を
+固定し、「できることを、できないと書く」文を落とす。書いた直後に 1 件捕まえた
+（SHIP の limitation から「自主制作」が消えていた）。
+
 ## 4. 未接続・やっていないこと
 
 | 項目           | 状態                                                                  |
@@ -221,8 +265,12 @@ FORME で見つけて直した不具合：**支払が checkout の中にしか�
 | P2     | REPORT FLOW                                                      | 未着手   |
 | P3     | FORME / FLOWSTATE / REFINE / STILL / SHIP の作り込み             | **完了** |
 | P3     | Automation の技術画面（schema・mapping・retry・ログ）            | 未着手   |
-| P4     | TSUDOWA 全ページ・`/works` 全分類・`/services`・partners・rescue | 未着手   |
+| P4     | TSUDOWA 全ページ・`/works` 全分類・`/services`・partners・rescue | **完了** |
 | P5     | 画像の棚卸し、PAGE_CONTRACTS 台帳、画像台帳、コスト台帳          | 未着手   |
+
+P4 で `/services` の中身を変えなかったのは、公開中の 2 件（`web-fix`・
+`csv-routine`）が参照するデモが REFINE と CSV AUTOMATOR で、店ではないため。
+REFINE の説明文だけ、P3 で足した幅切替と読み順に合わせて直した。
 
 **P2 以降は「調査もしていない」のではなく「実装していない」。**
 `npm run qa:controls` で全デモの操作系は実測済み（下記 5 節）。
@@ -231,26 +279,30 @@ FORME で見つけて直した不具合：**支払が checkout の中にしか�
 
 ## 5. 検証結果（すべて実行済み・数値は実測）
 
-| 検証             | コマンド                           | 結果                                    |
-| ---------------- | ---------------------------------- | --------------------------------------- |
-| lint             | `npm run lint`                     | 0 errors, 0 warnings                    |
-| typecheck        | `npm run typecheck`                | pass                                    |
-| unit             | `npx vitest run`                   | **589 passed** / 42 files               |
-| build            | `npm run build`                    | success                                 |
-| E2E（3 幅）      | `npm run test:e2e`                 | **333 passed**（7.6 分）                |
-| KISSA 通し       | `npm run qa:kissa`                 | **56/56**（390 / 768 / 1440）           |
-| FORME 通し       | `npm run qa:forme`                 | **62/62**（390 / 768 / 1440）           |
-| 表示崩れ（3 幅） | `npm run qa:visual`                | PASS 43 ルート × 3 幅                   |
-| 操作系の実測     | `npm run qa:controls`              | 140 controls / **動かないボタン 0**     |
-| リンク           | `npm run qa:links`                 | PASS 42 routes, 227 links               |
-| デザイン（6 幅） | `npm run qa:design`                | PASS 6 routes × 6 幅、axe/focus/runtime |
-| ルート台帳       | `node scripts/route-inventory.mjs` | **81 entries**、想定外ステータス 0      |
+| 検証             | コマンド                           | 結果                                        |
+| ---------------- | ---------------------------------- | ------------------------------------------- |
+| lint             | `npm run lint`                     | 0 errors, 0 warnings                        |
+| typecheck        | `npm run typecheck`                | pass                                        |
+| unit             | `npx vitest run`                   | **606 passed** / 44 files                   |
+| build            | `npm run build`                    | success                                     |
+| E2E（3 幅）      | `npm run test:e2e`                 | **348 passed**（7.3 分）                    |
+| KISSA 通し       | `npm run qa:kissa`                 | **56/56**（390 / 768 / 1440）               |
+| FORME 通し       | `npm run qa:forme`                 | **62/62**（390 / 768 / 1440）               |
+| 表示崩れ（4 幅） | `npm run qa:visual`                | PASS **47 ルート** × 320/390/768/1440       |
+| 操作系の実測     | `npm run qa:controls`              | 140 controls / **動かないボタン 0**         |
+| リンク           | `npm run qa:links`                 | PASS 42 routes, **234 links**               |
+| SEO              | `npm run qa:seo`                   | PASS 41 routes（要 `NEXT_PUBLIC_SITE_URL`） |
+| デザイン（6 幅） | `npm run qa:design`                | PASS 6 routes × 6 幅、axe/focus/runtime     |
+| ルート台帳       | `node scripts/route-inventory.mjs` | **81 entries**、想定外ステータス 0          |
 
 ### アクセシビリティ
 
 KISSA と FORME の各 7 ルート、および P3 の 4 デモで **axe 違反 0**
 （tablet / desktop / mobile）。`kissa.spec.ts`、`forme.spec.ts`、
 `showcase-p3.spec.ts` が CI で毎回検査する。
+
+`qa:visual` に `/history`・`/lab`・`/contact`・`/contact/general` を足した。
+この 4 つは今まで一度も幅検査を通っていなかった。
 
 ### `qa:controls` の 13 件について
 
@@ -263,10 +315,10 @@ KISSA と FORME の各 7 ルート、および P3 の 4 デモで **axe 違反 0
 
 **tsudowa.com は公開済みです。**
 
-| 配信先                                                         | 中身                                                      |
-| -------------------------------------------------------------- | --------------------------------------------------------- |
-| **tsudowa.com**（Cloudflare Worker `tsudowa-production`）      | **このセッションの全成果が反映済み**。version `46f3f849`  |
-| **tetsuworks.com**（Netlify / `codex/portfolio-sales-hub-v2`） | 古いまま（`ce03541`）。所長の判断で今回は更新していません |
+| 配信先                                                         | 中身                                                       |
+| -------------------------------------------------------------- | ---------------------------------------------------------- |
+| **tsudowa.com**（Cloudflare Worker `tsudowa-production`）      | **P1〜P3 が反映済み**。version `46f3f849`。**P4 は未反映** |
+| **tetsuworks.com**（Netlify / `codex/portfolio-sales-hub-v2`） | 古いまま（`ce03541`）。所長の判断で今回は更新していません  |
 
 実測（デプロイ後）:
 
@@ -302,15 +354,18 @@ tetsuworks.com/forme      -> 404（未更新のため）
 ## 7. 次のセッションが最初にやること
 
 1. `cd C:/Users/tetsu/tanebi-works-ultimate` → `git log --oneline -3` で
-   `24911b2` を確認。
-2. `npm run dev` → **`http://localhost:3000/kissa`**（`127.0.0.1` は不可）。
-3. 続きを作るなら **P4（TSUDOWA 全ページ・`/works` 全分類・`/services`）** か、
+   `e4c7c66` を確認。
+2. `npm run dev` → **`http://localhost:3000/works`**（`127.0.0.1` は不可）。
+   カードの「操作できる版」から店へ入れる。
+3. **P4 は本番未反映。** 反映するなら PR → `tsudowa/cloudflare-workers-candidate`
+   → `node scripts/workers-production.mjs deploy-candidate`（所長の承認が必要）。
+4. 続きを作るなら **P5（全 route の最終 QA・画像 coverage・性能・docs）** か、
    P3 の残り（Automation の技術画面）から。
    共有記録の手本は 3 つ: `src/lib/shop/`（KISSA）、`src/lib/ops/`
    （RELAY + INBOX + ADMIN）、`src/lib/forme/`（FORME）。同じ形 —
    `schemaVersion` つきの localStorage、1 つの Context、判断は純粋関数。
    **provider の更新系は必ず ref から読むこと**（3-3 節の 1 番）。
-4. 触ってはいけない場所: `C:/Users/tetsu/freelance-portfolio`、
+5. 触ってはいけない場所: `C:/Users/tetsu/freelance-portfolio`、
    `codex/*` ブランチ、他 worktree の未コミット差分。
 
 ### 追加した npm scripts
@@ -342,5 +397,10 @@ npm run qa:controls   # 全デモのボタンを押して、何も起きない�
   アイデンティティで文字色を塗り替えるので、`color: inherit` のままだと
   暗いパネルに暗い文字が乗って 1.3:1 になる。実際に 2 回起きた
   （`demo-live-link.css` と `qa-evidence.css`）。色は明示的に書く。
+- **JSX の中で日本語を改行すると、画面に空白が出る。** React は行間の改行を
+  半角スペース 1 つに潰すので、`架空店舗のため、` で改行して次の行を
+  `実際の注文…` から始めると、読み手には「架空店舗のため、 実際の注文」と
+  見える。Prettier は印字幅で勝手に折るので、行を繋いでも元に戻される。
+  文を `{"…"}` に入れると折られない。**`src/` 全体に 70 か所ある**（P5 で掃除）。
 - **シェル経由で改行エスケープを含む JS を書くと潰れる。**
   正規表現や文字列に改行エスケープが要るときは Write ツールで書く。
