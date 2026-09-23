@@ -586,3 +586,62 @@
   font-size: var(--text-caption);
   padding: 0 var(--space-4);
 }
+
+/* ---- handoff to the consultation form (指示書 §11, A10) ------------------- */
+
+.flow-handoff {
+  margin-top: var(--space-7);
+  padding: var(--space-5);
+  border: 1px solid var(--works-line);
+  border-left: 3px solid var(--color-amber);
+  border-radius: var(--radius-md);
+  background: var(--works-panel);
+}
+
+.flow-handoff h2 {
+  font-size: var(--text-h3);
+  margin: 0 0 var(--space-3);
+  color: var(--works-ink);
+}
+
+.flow-handoff > p {
+  font-size: var(--text-small);
+  line-height: var(--leading-body);
+  color: var(--works-muted);
+  margin: 0 0 var(--space-5);
+  max-width: 62ch;
+}
+
+.flow-handoff-fields {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr));
+}
+
+.flow-handoff-field {
+  display: grid;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.flow-handoff-field span {
+  font-size: var(--text-caption);
+  letter-spacing: var(--tracking-label);
+  color: var(--works-muted);
+}
+
+.flow-handoff-field input {
+  min-height: var(--tap-min);
+  width: 100%;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--works-line);
+  border-radius: var(--radius-sm);
+  background: var(--works-bg);
+  color: var(--works-ink);
+  font: inherit;
+  font-size: var(--text-small);
+}
+
+.flow-handoff-field input::placeholder {
+  color: color-mix(in srgb, var(--works-muted) 70%, transparent);
+}

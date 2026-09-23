@@ -105,6 +105,7 @@ export function contactContext(page: string) {
     "/contact/general",
     "/lab",
     "/history",
+    "/flow",
   ].includes(page)
     ? { page, category: "", project: "", demo: "" }
     : null;
