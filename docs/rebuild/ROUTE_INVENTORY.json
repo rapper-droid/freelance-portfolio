@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-23T08:46:35.470Z",
+  "generatedAt": "2026-09-23T11:44:29.585Z",
   "counts": {
-    "page": 58,
+    "page": 66,
     "api": 3,
     "asset": 4,
     "error": 1
@@ -23,6 +23,13 @@
     "/works": 1,
     "/works/[category]": 12,
     "/experience/[slug]": 11,
+    "/kissa": 1,
+    "/kissa/menu": 1,
+    "/kissa/menu/[productId]": 2,
+    "/kissa/reserve": 1,
+    "/kissa/order": 1,
+    "/kissa/my": 1,
+    "/kissa/admin": 1,
     "/api/contact": 1,
     "/api/analytics": 1,
     "/api/flow": 1,
@@ -497,6 +504,78 @@
       "entity": "saas",
       "status": 200,
       "inSitemap": false
+    },
+    {
+      "kind": "page",
+      "template": "/kissa",
+      "route": "/kissa",
+      "entity": null,
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/menu",
+      "route": "/kissa/menu",
+      "entity": null,
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/menu/[productId]",
+      "route": "/kissa/menu/drip-house",
+      "entity": "drip-house",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/menu/[productId]",
+      "route": "/kissa/menu/latte",
+      "entity": "latte",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/reserve",
+      "route": "/kissa/reserve",
+      "entity": null,
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/order",
+      "route": "/kissa/order",
+      "entity": null,
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/my",
+      "route": "/kissa/my",
+      "entity": null,
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/admin",
+      "route": "/kissa/admin",
+      "entity": null,
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
     },
     {
       "kind": "api",

@@ -23,6 +23,18 @@ const ORIGIN = `http://127.0.0.1:${PORT}`;
 /** Routes that serve something other than an HTML page. */
 const ASSETS = ["/sitemap.xml", "/robots.txt", "/icon.png", "/apple-icon.png"];
 const APIS = ["/api/contact", "/api/analytics", "/api/flow"];
+
+/** The shop demo. Noindex by design, so the sitemap never mentions it. */
+const KISSA = [
+  "/kissa",
+  "/kissa/menu",
+  "/kissa/menu/drip-house",
+  "/kissa/menu/latte",
+  "/kissa/reserve",
+  "/kissa/order",
+  "/kissa/my",
+  "/kissa/admin",
+];
 /** Requested to confirm the 404 boundary still answers 404. */
 const ERROR_PROBE = "/__inventory_probe_404";
 /** Endpoints whose correct answer to a GET is not 200. */
@@ -41,6 +53,7 @@ const templateOf = (route) => {
     [/^\/demos\/[^/]+$/, "/demos/[slug]"],
     [/^\/experience\/[^/]+$/, "/experience/[slug]"],
     [/^\/services\/[^/]+$/, "/services/[slug]"],
+    [/^\/kissa\/menu\/[^/]+$/, "/kissa/menu/[productId]"],
   ])
     if (pattern.test(route)) return template;
   return route;
@@ -93,6 +106,22 @@ try {
       entity: route.split("/").pop(),
       status: response.status,
       inSitemap: false,
+    });
+  }
+
+  // KISSA is noindex by design — a fictional shop must not be indexed as a
+  // real one — so it never reaches the sitemap. The routes exist and are
+  // inventoried here, or the whole shop is invisible to the ledger.
+  for (const route of KISSA) {
+    const response = await fetch(ORIGIN + route, { redirect: "manual" });
+    routes.push({
+      kind: "page",
+      template: templateOf(route),
+      route,
+      entity: templateOf(route) === route ? null : route.split("/").pop(),
+      status: response.status,
+      inSitemap: false,
+      noindex: true,
     });
   }
 
