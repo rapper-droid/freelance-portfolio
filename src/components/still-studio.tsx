@@ -70,8 +70,9 @@ export function StillStudio() {
         <span className="eyebrow">STILL / STUDIO — CREATIVE COLLECTION</span>
         <h2>らしさを、展開する。</h2>
         <p>
-          ひとつの内容を、三つの比率へ。文字・価格・期間・CTAを書き換えると、
-          三つとも同じ内容で更新されます。書き出したファイルは実際に開けます。
+          {
+            "ひとつの内容を、三つの比率へ。文字・価格・期間・CTAを書き換えると、三つとも同じ内容で更新されます。書き出したファイルは実際に開けます。"
+          }
         </p>
       </div>
 
@@ -240,8 +241,9 @@ export function StillStudio() {
       <section className="creative-all">
         <h3>三つの比率を同時に確認する</h3>
         <p className="demo-fineprint">
-          すべて同じ内容から描いています。価格や期間を変えると、三つとも同時に
-          変わります。片方だけ古いまま残ることはありません。
+          {
+            "すべて同じ内容から描いています。価格や期間を変えると、三つとも同時に変わります。片方だけ古いまま残ることはありません。"
+          }
         </p>
         <ul>
           {RATIOS.map((value) => (

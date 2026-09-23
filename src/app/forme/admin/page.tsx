@@ -24,8 +24,9 @@ export default function FormeAdminPage() {
         <span className="forme-eyebrow">ADMIN</span>
         <h1>運営画面</h1>
         <p>
-          客側の画面と同じ記録を操作します。在庫を変えると商品ページに、注文を進めると
-          お客さまの確認画面に、そのまま反映されます。
+          {
+            "客側の画面と同じ記録を操作します。在庫を変えると商品ページに、注文を進めるとお客さまの確認画面に、そのまま反映されます。"
+          }
         </p>
         <p className="forme-page-head-links">
           <Link href="/forme/my">ご注文・お気に入り</Link>

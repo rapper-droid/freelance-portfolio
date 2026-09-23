@@ -25,8 +25,9 @@ export default async function FormeItems({
         <span className="forme-eyebrow">ITEMS</span>
         <h1>商品一覧</h1>
         <p>
-          在庫は一つずつ数えています。売り切れは売り切れ、残りわずかは残りわずかと
-          表示します。
+          {
+            "在庫は一つずつ数えています。売り切れは売り切れ、残りわずかは残りわずかと表示します。"
+          }
         </p>
       </div>
       <p className="forme-note">{ART_DISCLOSURE}</p>

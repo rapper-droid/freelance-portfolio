@@ -64,8 +64,9 @@ export function FlowHandoff({ workflow }: { workflow: HandoffWorkflow }) {
       <h2 id="flow-handoff-heading">自分の作業に当てはめる</h2>
       <p>
         いま見たのは「{troubleLabel(workflow)}
-        」でした。あなたの場合を 3 つだけ教えていただければ、
-        そのまま相談に引き継ぎます。空欄のままでも進めます。
+        {
+          "」でした。あなたの場合を 3 つだけ教えていただければ、そのまま相談に引き継ぎます。空欄のままでも進めます。"
+        }
       </p>
 
       <div className="flow-handoff-fields">
@@ -100,8 +101,9 @@ export function FlowHandoff({ workflow }: { workflow: HandoffWorkflow }) {
       </div>
 
       <p className="flow-fineprint">
-        入力はこのブラウザ内だけで相談フォームへ渡します。URL には含めません。
-        送信前に内容を確認・編集できます。ここで送信されることはありません。
+        {
+          "入力はこのブラウザ内だけで相談フォームへ渡します。URL には含めません。送信前に内容を確認・編集できます。ここで送信されることはありません。"
+        }
       </p>
     </section>
   );

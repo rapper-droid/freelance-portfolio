@@ -238,8 +238,9 @@ export function ProductDetail({ product }: { product: Product }) {
           )}
         </dl>
         <p className="kissa-fineprint">
-          アレルゲンは、このデモのレシピ資料に記載がある項目のみ表示しています。
-          栄養や健康に関する表示は行っていません。
+          {
+            "アレルゲンは、このデモのレシピ資料に記載がある項目のみ表示しています。栄養や健康に関する表示は行っていません。"
+          }
         </p>
       </div>
     </div>

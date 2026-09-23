@@ -219,8 +219,9 @@ export default async function ProjectPage({
               </ul>
               <p className="honesty-note">
                 確認日 {offer.updatedAt}
-                。記載しているのは実際に行った検証だけで、
-                作業時間の削減や売上の変化は測定していません。
+                {
+                  "。記載しているのは実際に行った検証だけで、作業時間の削減や売上の変化は測定していません。"
+                }
               </p>
             </div>
           )}

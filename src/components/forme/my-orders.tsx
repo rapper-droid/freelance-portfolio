@@ -314,8 +314,9 @@ export function MyOrders() {
       <section className="forme-section forme-reset">
         <h2>この端末のデータ</h2>
         <p className="forme-fineprint">
-          注文・お気に入り・在庫の変更は、このブラウザの中だけに保存されています。
-          サーバーには送信されず、他の方には見えません。
+          {
+            "注文・お気に入り・在庫の変更は、このブラウザの中だけに保存されています。サーバーには送信されず、他の方には見えません。"
+          }
         </p>
         <button type="button" className="forme-button quiet" onClick={reset}>
           この端末の体験データを初期化する

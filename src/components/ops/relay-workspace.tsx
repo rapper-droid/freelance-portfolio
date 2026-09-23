@@ -131,8 +131,9 @@ export function RelayWorkspace() {
         <span className="eyebrow">RELAY / SUPPORT OPERATIONS</span>
         <h2>自動化に、人の判断を。</h2>
         <p>
-          AI導入を想定した体験デモ。現在はキーワード・定型文でローカル処理します。
-          確認済みにすると、同じ記録が SMART INBOX と ADMIN に現れます。
+          {
+            "AI導入を想定した体験デモ。現在はキーワード・定型文でローカル処理します。確認済みにすると、同じ記録が SMART INBOX と ADMIN に現れます。"
+          }
         </p>
       </div>
 

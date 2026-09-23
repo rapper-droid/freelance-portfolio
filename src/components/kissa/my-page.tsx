@@ -501,8 +501,9 @@ export function MyPage() {
       <section className="kissa-section kissa-reset">
         <h2>この端末のデータ</h2>
         <p className="kissa-fineprint">
-          注文と予約は、このブラウザの中だけに保存されています。サーバーには送信されず、
-          他の方には見えません。
+          {
+            "注文と予約は、このブラウザの中だけに保存されています。サーバーには送信されず、他の方には見えません。"
+          }
         </p>
         <button type="button" className="kissa-button quiet" onClick={reset}>
           この端末の体験データを初期化する

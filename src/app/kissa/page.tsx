@@ -45,8 +45,9 @@ export default function KissaTop() {
             席をひとつ空けています。
           </h1>
           <p>
-            自家焙煎のコーヒーと、朝のトースト。
-            席の予約も、受け取りのご注文も、この画面から進められます。
+            {
+              "自家焙煎のコーヒーと、朝のトースト。席の予約も、受け取りのご注文も、この画面から進められます。"
+            }
           </p>
           <div className="kissa-hero-actions">
             <Link href="/kissa/menu" className="kissa-button">

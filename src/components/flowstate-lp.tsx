@@ -127,8 +127,9 @@ export function FlowstateLp() {
           ))}
         </div>
         <p className="demo-fineprint">
-          作業の流れの説明です。時間短縮率や削減額は測定していないため、数値は
-          書いていません。
+          {
+            "作業の流れの説明です。時間短縮率や削減額は測定していないため、数値は書いていません。"
+          }
         </p>
       </section>
 
@@ -138,8 +139,9 @@ export function FlowstateLp() {
           <span>サンプルの一週間から生成</span>
         </div>
         <p>
-          金曜に届くまとめです。下の表とまったく同じ内容が、そのままファイルに
-          なります。書き出したファイルはテキストエディタでもそのまま開けます。
+          {
+            "金曜に届くまとめです。下の表とまったく同じ内容が、そのままファイルになります。書き出したファイルはテキストエディタでもそのまま開けます。"
+          }
         </p>
 
         <div className="flowstate-figures">
@@ -215,8 +217,9 @@ export function FlowstateLp() {
       <section className="demo-content-section" id="folio-scope">
         <h2>対応範囲・権限・接続</h2>
         <p>
-          このページで実際に動いているものと、実装していないものを分けて書いて
-          います。接続していないものは「未接続」と書き、できるふりをしません。
+          {
+            "このページで実際に動いているものと、実装していないものを分けて書いています。接続していないものは「未接続」と書き、できるふりをしません。"
+          }
         </p>
         <div
           className="flowstate-table-scroll"
@@ -279,8 +282,9 @@ export function FlowstateLp() {
         </div>
         <p className="flowstate-price-warning">
           <strong>以下は架空の想定価格です。</strong>
-          このサービスは販売しておらず、登録・課金・契約はできません。実際の
-          制作のご依頼料金とは関係ありません。
+          {
+            "このサービスは販売しておらず、登録・課金・契約はできません。実際の制作のご依頼料金とは関係ありません。"
+          }
         </p>
         <div className="demo-three-columns folio-plans">
           {[
