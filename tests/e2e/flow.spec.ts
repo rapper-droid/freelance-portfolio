@@ -295,3 +295,41 @@ test("flow: the handoff works even when nothing was answered", async ({
   await expect(detail).toContainText("日程調整");
   await expect(detail).toContainText("書き足してください");
 });
+
+test("qa page: the real verification record sits apart from the checklist — U08", async ({
+  page,
+}) => {
+  await page.goto("/demos/qa");
+
+  const panel = page.locator(".qa-evidence");
+  await expect(panel).toBeVisible();
+
+  // The record names the commit and the moment it was taken.
+  await expect(panel.getByText(/対象コミット/)).toBeVisible();
+  await expect(panel.locator("code")).toHaveText(/^[0-9a-f]{7,}$/);
+  await expect(panel.getByText(/JST/).first()).toBeVisible();
+
+  // A suite nobody ran is shown as 未実施 and is not counted as PASS (O10).
+  await expect(
+    panel.getByText("未実施", { exact: true }).first(),
+  ).toBeVisible();
+  await expect(
+    panel.getByText(/PASS \d+ \/ FAIL \d+ \/ 未実施 \d+/),
+  ).toBeVisible();
+
+  // It says outright that pressing things here cannot change it.
+  await expect(
+    panel.getByText(/画面の操作でこの表が変わることはありません/),
+  ).toBeVisible();
+
+  // The manual checklist is still its own, separate thing.
+  await expect(
+    page.getByRole("heading", { name: "納品前の確認項目" }),
+  ).toBeVisible();
+
+  // Ticking every manual box must not alter the automated record.
+  const before = await panel.innerText();
+  for (const box of await page.locator(".qa-checklist input").all())
+    await box.check();
+  expect(await panel.innerText()).toBe(before);
+});

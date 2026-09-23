@@ -5,6 +5,8 @@ import "@/components/demo-identities.css";
 import { projects, getProject } from "@/lib/portfolio";
 import { pageMetadata } from "@/lib/seo";
 import { DemoFrame, demoKicker } from "@/components/demo-frame";
+import { QaEvidencePanel } from "@/components/qa-evidence";
+import "@/components/qa-evidence.css";
 import {
   CafeDemo,
   SaasDemo,
@@ -57,6 +59,10 @@ export default async function DemoPage({
       name={p.name}
       kicker={demoKicker(p)}
       variant="showcase"
+      // SHIP / CHECK shows the real verification record above the manual
+      // checklist (指示書 §10, U08). It is a server component, so it is passed
+      // in here rather than rendered inside the client demo.
+      context={slug === "qa" ? <QaEvidencePanel /> : undefined}
       outro={{
         heading: "この体験を、あなたのサービスでも。",
         text: p.limitation,
