@@ -19,7 +19,7 @@ import {
   placeOrder,
   prepMinutesFor,
 } from "@/lib/shop/order";
-import { attemptPayment } from "@/lib/shop/payment";
+import { attemptPayment, isReplay, paymentKeyFor } from "@/lib/shop/payment";
 import type { Cart } from "@/lib/shop/types";
 
 /** 受け入れ基準 Q13, Q14, Q17, Q19（指示書 §10, §12）。 */
@@ -424,6 +424,33 @@ describe("payment simulator — 実決済と混同しない", () => {
     expect(attempt.external).toBe(false);
   });
 
+  it("recognises an attempt rebuilt from a stored order", () => {
+    // The console and the order screen do not keep attempt records; they
+    // reconstruct one from the order. If that reconstruction derives a
+    // different key, nothing ever matches and the guard is decoration.
+    const first = attemptPayment({
+      orderId: "o9",
+      amount,
+      outcome: "approve",
+      atIso: AT,
+    });
+    const rebuilt = {
+      ...first,
+      attemptId: first.reference!,
+      idempotencyKey: paymentKeyFor("o9", amount),
+      detail: "",
+    };
+    const replay = attemptPayment({
+      orderId: "o9",
+      amount,
+      outcome: "approve",
+      atIso: AT,
+      previous: [rebuilt],
+    });
+    expect(isReplay(replay)).toBe(true);
+    expect(replay.detail).toContain("再実行しません");
+  });
+
   it("does not charge twice for the same order and amount", () => {
     const first = attemptPayment({
       orderId: "o1",
@@ -458,5 +485,54 @@ describe("payment simulator — 実決済と混同しない", () => {
     });
     expect(replay.state).toBe("outcome_unknown");
     expect(replay.detail).toContain("自動での再実行はしません");
+  });
+});
+
+describe("pickup slots — 受付が終わったら次に開く日へ回す", () => {
+  // 2026-09-23 (水) 19:30 JST. Past the last order, and a closing day.
+  const EVENING = "2026-09-23T10:30:00.000Z";
+
+  it("offers the next open day rather than nothing", () => {
+    const slots = pickupSlots(withLatte(), EVENING);
+    expect(slots.length).toBeGreaterThan(0);
+    // Wednesday is a closing day, so every slot lands on the Thursday.
+    for (const slot of slots) expect(slot.dayKey).toBe("2026-09-24");
+  });
+
+  it("starts a later day at opening, not at the current time", () => {
+    const slots = pickupSlots(withLatte(), EVENING);
+    expect(slots[0].minute).toBe(8 * 60);
+    expect(slots[0].label).toBe("9/24 08:00");
+  });
+
+  it("keeps today's labels free of a date", () => {
+    const slots = pickupSlots(withLatte(), NOW);
+    expect(slots[0].dayKey).toBe("2026-09-24");
+    expect(slots[0].label).toBe("09:15");
+  });
+
+  it("still refuses a slot outside the cart's serving window", () => {
+    const toast = addToCart(emptyCart(), {
+      productId: "toast-set",
+      variantIds: [],
+      quantity: 1,
+      atIso: EVENING,
+    });
+    if (!toast.ok) throw new Error("setup");
+    const slots = pickupSlots(toast.cart, EVENING);
+    expect(slots.length).toBeGreaterThan(0);
+    for (const slot of slots) expect(slot.minute).toBeLessThanOrEqual(11 * 60);
+  });
+
+  it("accepts an order for the rolled-forward day", () => {
+    const cart = withLatte();
+    const slot = pickupSlots(cart, EVENING)[0];
+    const result = placeOrder({
+      cart,
+      pickupAtIso: slot.iso,
+      nowIso: EVENING,
+      existingOrders: [],
+    });
+    expect(result.ok).toBe(true);
   });
 });

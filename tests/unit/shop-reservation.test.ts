@@ -323,3 +323,49 @@ describe("sandbox storage — Q35 更新で保存を消さない", () => {
     );
   });
 });
+
+describe("reservationSlots — 変更中の予約は自分の枠を塞がない", () => {
+  it("counts the moving booking's own seat as free to it", () => {
+    const existing = reservation();
+    const blind = reservationSlots(
+      NOW,
+      2,
+      HOURS.defaultStayMinutes,
+      [existing],
+      NOW,
+    );
+    const moving = reservationSlots(
+      NOW,
+      2,
+      HOURS.defaultStayMinutes,
+      [existing],
+      NOW,
+      existing.reservationId,
+    );
+    const noon = (list: typeof blind) =>
+      list.find((s) => s.label === "12:00")?.seatCount ?? -1;
+    // Table A and the joined A+B are held by the booking being moved, so
+    // excluding it hands both back.
+    expect(noon(moving)).toBe(noon(blind) + 2);
+  });
+
+  it("offers a slot the booking itself made full", () => {
+    // One sitting per eligible seat at noon: nothing is left for anyone else.
+    const seats = ["table-a", "table-b", "window"];
+    const all = seats.map((seatId, i) =>
+      reservation({ reservationId: `r${i}`, seatId }),
+    );
+    const blind = reservationSlots(NOW, 2, HOURS.defaultStayMinutes, all, NOW);
+    expect(blind.find((s) => s.label === "12:00")?.available).toBe(false);
+
+    const moving = reservationSlots(
+      NOW,
+      2,
+      HOURS.defaultStayMinutes,
+      all,
+      NOW,
+      "r0",
+    );
+    expect(moving.find((s) => s.label === "12:00")?.available).toBe(true);
+  });
+});

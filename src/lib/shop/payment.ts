@@ -65,6 +65,28 @@ const STATE_OF: Record<PaymentOutcome, PaymentState> = {
 };
 
 /**
+ * The key an order's payment is recognised by.
+ *
+ * Exported because callers that rebuild a past attempt from a stored order
+ * have to produce the same key; one computed a different way would never
+ * match, and the guard against charging twice would quietly never fire.
+ */
+export function paymentKeyFor(orderId: string, amount: Money): string {
+  return (
+    "pay-" +
+    hash({
+      orderId,
+      minorUnits: amount.minorUnits,
+      currency: amount.currency,
+    }).slice(0, 16)
+  );
+}
+
+/** True when this attempt was answered from a settled one, not run again. */
+export const isReplay = (attempt: PaymentAttempt) =>
+  attempt.attemptId.startsWith("replay-");
+
+/**
  * Runs one simulated attempt.
  *
  * `previous` matters: replaying the same key after a success returns the
@@ -79,13 +101,7 @@ export function attemptPayment(input: {
   atIso: string;
   previous?: readonly PaymentAttempt[];
 }): PaymentAttempt {
-  const idempotencyKey =
-    "pay-" +
-    hash({
-      orderId: input.orderId,
-      minorUnits: input.amount.minorUnits,
-      currency: input.amount.currency,
-    }).slice(0, 16);
+  const idempotencyKey = paymentKeyFor(input.orderId, input.amount);
 
   const settled = input.previous?.find(
     (a) =>

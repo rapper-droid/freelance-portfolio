@@ -124,13 +124,20 @@ export type ReservationSlot = {
   seatCount: number;
 };
 
-/** Start times on a given day, with how many tables each one still has. */
+/**
+ * Start times on a given day, with how many tables each one still has.
+ *
+ * `excludeReservationId` is what makes moving a booking work: the sitting
+ * being moved must not count against the times it could move to, or a guest
+ * is told their own table is taken.
+ */
 export function reservationSlots(
   dayIso: string,
   partySize: number,
   durationMinutes: number,
   reservations: readonly Reservation[],
   nowIso: string,
+  excludeReservationId?: string,
 ): ReservationSlot[] {
   const day = toJst(dayIso);
   const weekday = weekdayOf(day.year, day.month, day.day);
@@ -159,6 +166,7 @@ export function reservationSlots(
       durationMinutes,
       reservations,
       nowIso,
+      excludeReservationId,
     );
     const seatCount = options.filter((o) => o.available).length;
     slots.push({

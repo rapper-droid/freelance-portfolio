@@ -26,11 +26,8 @@ export const SLOT_STEP_MINUTES = 15;
 export const SLOT_HORIZON_MINUTES = 6 * 60;
 /** Orders per slot the counter can hand over comfortably. */
 export const SLOT_CAPACITY = 3;
-
-const minuteOfDay = (iso: string) => {
-  const p = toJst(iso);
-  return p.hour * 60 + p.minute;
-};
+/** How many days ahead to look for the next open one. */
+const DAY_SEARCH_LIMIT = 7;
 
 /** The longest prep time in the cart; that is when the whole order is ready. */
 export function prepMinutesFor(cart: Cart): number {
@@ -45,6 +42,8 @@ export function prepMinutesFor(cart: Cart): number {
 export type Slot = {
   iso: string;
   minute: number;
+  /** The JST calendar day the slot falls on, as YYYY-MM-DD. */
+  dayKey: string;
   label: string;
   /** False when the shop can take it but this slot is already busy. */
   available: boolean;
@@ -52,12 +51,17 @@ export type Slot = {
 };
 
 /**
- * Pickup slots for a cart on a given day.
+ * Pickup slots for a cart.
  *
  * Respects opening hours, the last-order time, each product's own serving
  * window and how many orders already share a slot. A product served only at
  * breakfast cannot be collected at four in the afternoon, and saying so here
  * is cheaper than saying sorry at the counter.
+ *
+ * When today is over — or closed — it rolls forward to the next day the shop
+ * is open rather than returning nothing. A cafe takes tomorrow's order at
+ * closing time, and a screen that says "no times available" to everyone who
+ * arrives after 18:30 would be describing a shop that does not.
  */
 export function pickupSlots(
   cart: Cart,
@@ -67,7 +71,6 @@ export function pickupSlots(
   const prep = prepMinutesFor(cart);
   const now = toJst(nowIso);
   const nowMinute = now.hour * 60 + now.minute;
-  const earliest = nowMinute + prep;
 
   // The narrowest serving window across the cart bounds every slot.
   let servedFrom = HOURS.openMinute;
@@ -81,39 +84,58 @@ export function pickupSlots(
       servedTo = Math.min(servedTo, product.servedTo);
   }
 
-  const slots: Slot[] = [];
-  const first =
-    Math.ceil(Math.max(earliest, servedFrom) / SLOT_STEP_MINUTES) *
-    SLOT_STEP_MINUTES;
+  for (let offset = 0; offset <= DAY_SEARCH_LIMIT; offset++) {
+    const date = new Date(
+      Date.UTC(now.year, now.month - 1, now.day) + offset * 86_400_000,
+    );
+    const year = date.getUTCFullYear();
+    const month = date.getUTCMonth() + 1;
+    const day = date.getUTCDate();
+    const key = `${year}-${String(month).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+    if (!HOURS.businessDays.includes(date.getUTCDay())) continue;
+    if (HOURS.closedDates.includes(key)) continue;
 
-  for (
-    let minute = first;
-    minute <= Math.min(servedTo, nowMinute + SLOT_HORIZON_MINUTES);
-    minute += SLOT_STEP_MINUTES
-  ) {
-    const iso = fromJst({
-      year: now.year,
-      month: now.month,
-      day: now.day,
-      hour: Math.floor(minute / 60),
-      minute: minute % 60,
-    });
-    const taken = existingOrders.filter(
-      (o) => o.status !== "cancelled" && o.pickupAtIso === iso,
-    ).length;
-    slots.push({
-      iso,
-      minute,
-      label: `${String(Math.floor(minute / 60)).padStart(2, "0")}:${String(minute % 60).padStart(2, "0")}`,
-      available: taken < SLOT_CAPACITY,
-      reason:
-        taken < SLOT_CAPACITY
-          ? undefined
-          : "この時間は受取が混み合っています。",
-    });
+    // Today the kitchen still has to make it; a later day starts at opening.
+    const earliest = offset === 0 ? nowMinute + prep : servedFrom;
+    const last =
+      offset === 0
+        ? Math.min(servedTo, nowMinute + SLOT_HORIZON_MINUTES)
+        : servedTo;
+    const first =
+      Math.ceil(Math.max(earliest, servedFrom) / SLOT_STEP_MINUTES) *
+      SLOT_STEP_MINUTES;
+
+    const slots: Slot[] = [];
+    for (let minute = first; minute <= last; minute += SLOT_STEP_MINUTES) {
+      const iso = fromJst({
+        year,
+        month,
+        day,
+        hour: Math.floor(minute / 60),
+        minute: minute % 60,
+      });
+      const taken = existingOrders.filter(
+        (o) => o.status !== "cancelled" && o.pickupAtIso === iso,
+      ).length;
+      const clock = `${String(Math.floor(minute / 60)).padStart(2, "0")}:${String(minute % 60).padStart(2, "0")}`;
+      slots.push({
+        iso,
+        minute,
+        dayKey: key,
+        // Only a different day needs a date; today's slots stay short.
+        label: offset === 0 ? clock : `${month}/${day} ${clock}`,
+        available: taken < SLOT_CAPACITY,
+        reason:
+          taken < SLOT_CAPACITY
+            ? undefined
+            : "この時間は受取が混み合っています。",
+      });
+    }
+
+    if (slots.length) return slots;
   }
 
-  return slots;
+  return [];
 }
 
 export type PlaceResult =
