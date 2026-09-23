@@ -53,23 +53,33 @@ test("customer chart updates, persists and returns after deleting a customer", a
 test("booking week is keyboard operable and stays synchronized with filters", async ({
   page,
 }) => {
+  // The week rolls with the calendar now, so the days are read off the screen
+  // rather than written here. The previous version named 9月19日 and
+  // 2026-09-24, which stopped existing the moment the demo stopped being
+  // pinned to that week — the rot the rolling week exists to prevent.
   await page.goto("/demos/booking");
-  const day19 = page.getByRole("button", { name: "9月19日を表示" });
-  await day19.focus();
+  const days = page.locator(".booking-week button");
+  await expect(days).toHaveCount(7);
+
+  const second = days.nth(1);
+  const secondValue = await second.getAttribute("aria-label");
+  await second.focus();
   await page.keyboard.press("Enter");
-  await expect(day19).toHaveAttribute("aria-pressed", "true");
-  await expect(
-    page.getByRole("combobox", { name: "表示日", exact: true }),
-  ).toHaveValue("2026-09-19");
+  await expect(second).toHaveAttribute("aria-pressed", "true");
+
+  const picker = page.getByRole("combobox", { name: "表示日", exact: true });
+  const options = await picker
+    .locator("option")
+    .evaluateAll((es) => es.map((e) => (e as HTMLOptionElement).value));
+  await expect(picker).toHaveValue(options[1]);
+
   const count = await page.locator(".booking-list article").count();
-  await expect(day19).toContainText(`${count}件`);
-  await page
-    .getByRole("combobox", { name: "表示日", exact: true })
-    .selectOption("2026-09-24");
-  await expect(
-    page.getByRole("button", { name: "9月24日を表示" }),
-  ).toHaveAttribute("aria-pressed", "true");
-  await expect(day19).toHaveAttribute("aria-pressed", "false");
+  await expect(second).toContainText(`${count}件`);
+  expect(secondValue).toContain("を表示");
+
+  await picker.selectOption(options[4]);
+  await expect(days.nth(4)).toHaveAttribute("aria-pressed", "true");
+  await expect(second).toHaveAttribute("aria-pressed", "false");
 });
 
 test("cafe menu photographs follow the selected menu without hiding prices", async ({

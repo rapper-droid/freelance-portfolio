@@ -78,10 +78,20 @@ async function checkLayout(browser) {
 
       const overflow = await page.evaluate(() => {
         const de = document.documentElement;
+        // A wide table inside a scroller is not a broken layout; it is the
+        // scroller doing its job. Only content the page itself cannot
+        // contain counts.
+        const scrolls = (el) => {
+          for (let n = el.parentElement; n; n = n.parentElement)
+            if (/auto|scroll/.test(getComputedStyle(n).overflowX)) return true;
+          return false;
+        };
         return [...document.querySelectorAll("body *")]
           .filter((el) => {
             const r = el.getBoundingClientRect();
-            return r.width > 0 && (r.right > de.clientWidth + 1 || r.left < -1);
+            if (r.width === 0) return false;
+            if (r.right <= de.clientWidth + 1 && r.left >= -1) return false;
+            return !scrolls(el);
           })
           .slice(0, 5)
           .map((el) => el.tagName + "." + String(el.className).slice(0, 40));

@@ -87,7 +87,7 @@ test("sales intake validates, preserves draft through reload, retries same ID, c
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.locator("#contact").screenshot({
     path:
-      "../../outputs/master-hq/contact-success-" + info.project.name + ".png",
+      "artifacts/e2e-screenshots/contact-success-" + info.project.name + ".png",
   });
 });
 test("unsafe URL and invalid email are adjacent, accessible validation errors", async ({

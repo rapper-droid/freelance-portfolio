@@ -36,3 +36,5 @@ artifacts/flow-qa/*.png
 /CLAUDE.md
 artifacts/kissa-qa/*.png
 artifacts/inert-controls/*.png
+artifacts/e2e-screenshots/
+artifacts/qa-ops/

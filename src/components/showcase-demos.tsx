@@ -21,7 +21,9 @@ import {
   yen,
   type MenuItem,
 } from "@/lib/cafe-menu";
-import { classify, replyDraft } from "@/lib/inbox";
+import { OpsProvider } from "./ops/ops-provider";
+import { RelayWorkspace } from "./ops/relay-workspace";
+import { OPS_REFERENCE_ISO } from "@/lib/ops/types";
 import {
   BOOKING_REFERENCE_ISO,
   bookingLabel,
@@ -623,168 +625,20 @@ export function EcDemo() {
     </div>
   );
 }
+/**
+ * RELAY (指示書 §14).
+ *
+ * The workspace moved to components/ops so it can share the case record with
+ * SMART INBOX and ADMIN; this is the provider it needs, nothing more.
+ */
 export function AutomationDemo() {
-  const [input, setInput] = useState(
-    "本日からフォームが動かず業務が停止しています。至急確認をお願いします。",
-  );
-  const [result, setResult] = useState<ReturnType<typeof classify> | null>(
-    null,
-  );
-  const [draft, setDraft] = useState("");
-  const [approved, setApproved] = useState(false);
-  const [notice, setNotice] = useState("");
   return (
-    <div className="automation-demo showcase">
-      <div className="app-demo-heading">
-        <span className="eyebrow">RELAY / SUPPORT OPERATIONS</span>
-        <h2>自動化に、人の判断を。</h2>
-        <p>
-          AI導入を想定した体験デモ。現在はキーワード・定型文でローカル処理します。
-        </p>
-      </div>
-      <ol className="relay-flow">
-        {["受付", "分類", "下書き", "人の確認"].map((s, i) => (
-          <li
-            key={s}
-            className={i === 0 || (result && i < 3) || approved ? "done" : ""}
-          >
-            <span>0{i + 1}</span>
-            {s}
-          </li>
-        ))}
-      </ol>
-      <div className="relay-workspace" data-feature>
-        <section>
-          <span className="eyebrow">01 / INPUT</span>
-          <h3>問い合わせ内容</h3>
-          <label>
-            テスト用の問い合わせ
-            <textarea
-              rows={6}
-              maxLength={2000}
-              value={input}
-              onChange={(e) => {
-                setInput(e.target.value);
-                setResult(null);
-                setDraft("");
-                setApproved(false);
-                setNotice("");
-              }}
-            />
-          </label>
-          <button
-            className="button primary"
-            disabled={!input.trim()}
-            onClick={() => {
-              setResult(classify(input));
-              setDraft(
-                replyDraft({
-                  id: 1,
-                  name: "サンプルのお客様",
-                  subject: "",
-                  body: input,
-                  date: "",
-                  status: "未対応",
-                  owner: "未割当",
-                }),
-              );
-              setApproved(false);
-              setNotice(
-                "分類と返信下書きを作成しました。担当者が確認してください。",
-              );
-            }}
-          >
-            分類・下書きを実行 <ArrowRight size={16} />
-          </button>
-          <p className="demo-fineprint">
-            入力内容は外部送信しません。実際の個人情報は入力しないでください。
-          </p>
-        </section>
-        <section>
-          <span className="eyebrow">02 / REVIEW</span>
-          <h3>担当者の確認</h3>
-          {result ? (
-            <>
-              <div className="relay-result">
-                <span>
-                  分類 <b>{result.category}</b>
-                </span>
-                <span>
-                  緊急度 <b>{result.urgency}</b>
-                </span>
-              </div>
-              <label>
-                返信下書き
-                <textarea
-                  rows={8}
-                  aria-label="返信下書き"
-                  value={draft}
-                  maxLength={4000}
-                  onChange={(e) => {
-                    setDraft(e.target.value);
-                    setApproved(false);
-                    setNotice("変更した下書きを再確認してください。");
-                  }}
-                />
-              </label>
-              <div className="showcase-actions">
-                <button
-                  className="button primary"
-                  disabled={!draft.trim() || approved}
-                  onClick={() => {
-                    setApproved(true);
-                    setNotice("確認済みにしました。メールは送信されません。");
-                  }}
-                >
-                  内容を確認済みにする
-                </button>
-                <button
-                  className="button secondary"
-                  onClick={() => {
-                    setApproved(false);
-                    setNotice(
-                      "下書きを差し戻しました。編集して再確認してください。",
-                    );
-                  }}
-                >
-                  差し戻す
-                </button>
-              </div>
-            </>
-          ) : (
-            <div className="relay-empty">
-              問い合わせを入力して実行すると、
-              <br />
-              分類結果と返信下書きが表示されます。
-            </div>
-          )}
-          <p role="status">{notice}</p>
-        </section>
-      </div>
-      <details className="api-contract">
-        <summary>API連携を実装する場合のデータ契約例</summary>
-        <p>
-          接続設計サンプルです。以下のAPIは公開・接続されていません。実装時は認証・入力検証・タイムアウト・コスト上限・人の確認を設けます。
-        </p>
-        <pre>
-          {JSON.stringify(
-            {
-              request: { ticketId: "demo-001", text: "匿名化した本文" },
-              response: {
-                category: "support",
-                draft: "要確認の返信案",
-                requiresHumanReview: true,
-              },
-              failure: { code: "UPSTREAM_UNAVAILABLE", retryable: true },
-            },
-            null,
-            2,
-          )}
-        </pre>
-      </details>
-    </div>
+    <OpsProvider referenceIso={OPS_REFERENCE_ISO}>
+      <RelayWorkspace />
+    </OpsProvider>
   );
 }
+
 export function BookingDemo() {
   // Today is read once per mount, on the client, so the server and the browser
   // agree on first paint and the demo still moves with the calendar.

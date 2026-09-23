@@ -17,6 +17,10 @@ import {
   type AdminData,
   type Customer,
 } from "@/lib/admin";
+import { OpsProvider } from "./ops/ops-provider";
+import { CaseCount, CaseLinkPanel } from "./ops/case-link-panel";
+import { OPS_REFERENCE_ISO } from "@/lib/ops/types";
+
 const KEY = "works-admin-v1";
 const blank = {
   name: "",
@@ -24,7 +28,7 @@ const blank = {
   status: "見込み" as Customer["status"],
   revenue: 0,
 };
-export function AdminDemo() {
+function AdminWorkspace() {
   const [data, setData] = useState<AdminData>(initialAdmin);
   const [ready, setReady] = useState(false);
   const [notice, setNotice] = useState("");
@@ -114,6 +118,41 @@ export function AdminDemo() {
     );
     dialog.current?.close();
   }
+  /**
+   * Adds a customer from an enquiry.
+   *
+   * Goes through the same commit as the dialog, so the row is stored and the
+   * action lands in the history like any other — a second, quieter path for
+   * creating customers is how two screens start disagreeing about what exists.
+   */
+  function createCustomerFromCase(name: string): string | null {
+    const trimmed = name.trim();
+    if (!trimmed || data.customers.length >= 1000) return null;
+    const customer: Customer = {
+      id: crypto.randomUUID(),
+      name: trimmed.slice(0, 40),
+      contact: "未設定",
+      status: "見込み",
+      revenue: 0,
+    };
+    const action = `${customer.name}を問い合わせから追加しました`;
+    commit(
+      {
+        customers: [...data.customers, customer],
+        history: [
+          {
+            id: crypto.randomUUID(),
+            text: action,
+            at: new Date().toISOString(),
+          },
+          ...data.history,
+        ].slice(0, 30),
+      },
+      action + "。",
+    );
+    return customer.id;
+  }
+
   function openEdit(c: Customer | null) {
     setEdit(c);
     setForm(
@@ -243,6 +282,7 @@ export function AdminDemo() {
               <th>担当者</th>
               <th>ステータス</th>
               <th>累計売上</th>
+              <th>問い合わせ</th>
               <th className="right">操作</th>
             </tr>
           </thead>
@@ -267,6 +307,9 @@ export function AdminDemo() {
                 </td>
                 <td data-label="累計売上">
                   ¥{c.revenue.toLocaleString("ja-JP")}
+                </td>
+                <td data-label="問い合わせ">
+                  <CaseCount customerId={c.id} />
                 </td>
                 <td>
                   <div className="row-actions">
@@ -306,6 +349,10 @@ export function AdminDemo() {
         {notice ||
           "サンプルデータを編集・追加してお試しください。変更はこのブラウザに保存されます。"}
       </p>
+      <CaseLinkPanel
+        customers={data.customers}
+        onCreateCustomer={createCustomerFromCase}
+      />
       <section className="history-section">
         <h3>
           <HistoryIcon size={17} /> 操作履歴 <small>直近30件</small>
@@ -479,5 +526,20 @@ export function AdminDemo() {
         </div>
       </dialog>
     </div>
+  );
+}
+
+/**
+ * ADMIN (指示書 §14).
+ *
+ * The customer list keeps its own storage — it is a different record with a
+ * different lifetime — and reads the shared cases through the provider, so
+ * the two can be joined without either owning the other.
+ */
+export function AdminDemo() {
+  return (
+    <OpsProvider referenceIso={OPS_REFERENCE_ISO}>
+      <AdminWorkspace />
+    </OpsProvider>
   );
 }

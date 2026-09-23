@@ -1,6 +1,6 @@
 {
   "origin": "http://localhost:3000",
-  "checkedAtIso": "2026-09-23T11:32:07.949Z",
+  "checkedAtIso": "2026-09-23T12:57:43.614Z",
   "results": [
     {
       "name": "hydrate /kissa @390",
@@ -245,12 +245,12 @@
     {
       "name": "order placed",
       "ok": true,
-      "detail": "K-19E454"
+      "detail": "K-436DF0"
     },
     {
       "name": "payment decline recorded",
       "ok": true,
-      "detail": "ご注文を承りました  K-19E454  2026年9月24日（木） 08:00 にお受け取りください。 お支払い状況：拒否"
+      "detail": "ご注文を承りました  K-436DF0  2026年9月24日（木） 08:00 にお受け取りください。 お支払い状況：拒否"
     },
     {
       "name": "payment replay refused",
@@ -265,7 +265,7 @@
     {
       "name": "table booked",
       "ok": true,
-      "detail": "R-FFF978"
+      "detail": "R-F00219"
     },
     {
       "name": "booking moved",

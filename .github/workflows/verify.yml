@@ -36,6 +36,7 @@ jobs:
           name: portfolio-qa
           path: |
             playwright-report/
+            artifacts/e2e-screenshots/
             docs/screenshots/portfolio/visual-report.json
             docs/screenshots/sales-ui/
             docs/link-report.json

@@ -2301,3 +2301,106 @@ th button {
     animation: none !important;
   }
 }
+
+/* --- Cases: the record RELAY, SMART INBOX and ADMIN share (指示書 §14) --- */
+.case-link {
+  padding: 24px;
+  border-top: 1px solid var(--line);
+}
+.case-link-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 12px;
+}
+.case-link-list li {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+}
+.case-link-body {
+  min-width: 0;
+  flex: 1 1 260px;
+}
+.case-link-body b {
+  display: block;
+  margin: 4px 0 2px;
+  font-size: 13px;
+}
+.case-link-body p {
+  margin: 0 0 4px;
+  font-size: 12px;
+  line-height: 1.7;
+  color: var(--muted);
+  /* Two lines is enough to recognise an enquiry; the full text lives in the
+     inbox, and a wall of body copy here would bury the controls. */
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.case-link-body small {
+  font-size: 10px;
+  color: var(--muted);
+}
+.case-link-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: 8px;
+}
+.case-count {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  white-space: nowrap;
+}
+.badge.approved {
+  background: #e6f2e5;
+  color: #166341;
+  gap: 4px;
+}
+.case-history {
+  margin-top: 18px;
+  border-top: 1px solid var(--line);
+  padding-top: 14px;
+}
+.case-history summary {
+  font-size: 12px;
+  cursor: pointer;
+  color: var(--muted);
+}
+.case-history ul {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: grid;
+  gap: 8px;
+}
+.case-history li {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  font-size: 11px;
+  line-height: 1.7;
+  color: var(--muted);
+}
+.case-history b {
+  color: var(--ink);
+  white-space: nowrap;
+}
+.reply-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
