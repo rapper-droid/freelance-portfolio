@@ -12,6 +12,11 @@ export default defineConfig({
     baseURL: e2eOrigin,
     trace: "retain-on-failure",
     screenshot: "only-on-failure",
+    // Entrance animations interpolate colour, so axe sampling mid-transition
+    // reads a foreground almost identical to the background and reports a
+    // contrast failure that no user ever sees. qa:visual, qa:design and
+    // qa:flow already run reduced; this brings E2E in line with them.
+    reducedMotion: "reduce",
   },
   webServer: {
     command: `npm run start -- --hostname 127.0.0.1 --port ${e2ePort}`,
