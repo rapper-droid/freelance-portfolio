@@ -51,17 +51,40 @@ try {
     for (const link of data.links)
       if (new URL(link).origin === new URL(origin).origin) links.add(link);
   }
+  /**
+   * Ids for a page a link points at, loading it if the crawl never visited it.
+   *
+   * Without this, a route that is linked but not seeded above has no entry in
+   * `ids`, and every anchor into it is reported broken even when the element
+   * is right there — which is what `/history#…` hit. Treating "not crawled"
+   * as "not present" turns a gap in the seed list into a false failure.
+   */
+  const idsFor = async (pathname) => {
+    if (!ids.has(pathname)) {
+      await page.goto(origin + pathname);
+      ids.set(
+        pathname,
+        new Set(
+          await page.evaluate(() =>
+            Array.from(document.querySelectorAll("[id]")).map((el) => el.id),
+          ),
+        ),
+      );
+    }
+    return ids.get(pathname);
+  };
+
   const results = [];
   for (const link of links) {
     const url = new URL(link);
     const response = await page.request.get(link);
     if (!response.ok())
       throw new Error(`Broken link ${url.pathname}: ${response.status()}`);
-    if (
-      url.hash &&
-      !ids.get(url.pathname)?.has(decodeURIComponent(url.hash.slice(1)))
-    )
-      throw new Error(`Broken anchor ${url.pathname}${url.hash}`);
+    if (url.hash) {
+      const anchor = decodeURIComponent(url.hash.slice(1));
+      if (!(await idsFor(url.pathname)).has(anchor))
+        throw new Error(`Broken anchor ${url.pathname}${url.hash}`);
+    }
     results.push({ path: url.pathname + url.hash, status: response.status() });
   }
   await fs.writeFile(
