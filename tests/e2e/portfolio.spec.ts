@@ -1,5 +1,15 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+
+/**
+ * Screenshots are written inside the repository.
+ *
+ * They used to go to `../../outputs/`, which resolves to a sibling of the
+ * user's home directory: whether these tests pass depended on whether that
+ * directory happened to exist, and four of them failed for that reason and
+ * nothing else. `tests/e2e/flow.spec.ts` already refused to follow the older
+ * convention for the same reason.
+ */
 import fs from "node:fs/promises";
 import type { Page } from "@playwright/test";
 async function prepareScreenshot(page: Page) {
@@ -63,7 +73,7 @@ test("home: navigation, copy, responsive layout and accessibility", async ({
   await page.goto("/");
   await prepareScreenshot(page);
   await page.screenshot({
-    path: `../../outputs/master-hq/e2e-screenshots/home-${testInfo.project.name}.png`,
+    path: `artifacts/e2e-screenshots/home-${testInfo.project.name}.png`,
     fullPage: true,
   });
 });
@@ -90,7 +100,7 @@ test("CSV: sample, clean, aggregate, search, sort and download", async ({
   expect(content).toContain("サンプル顧客1");
   await prepareScreenshot(page);
   await page.screenshot({
-    path: `../../outputs/master-hq/e2e-screenshots/csv-${testInfo.project.name}.png`,
+    path: `artifacts/e2e-screenshots/csv-${testInfo.project.name}.png`,
     fullPage: true,
   });
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
@@ -144,7 +154,7 @@ test("inbox: filter, detail, assignment, draft and status", async ({
   );
   await prepareScreenshot(page);
   await page.screenshot({
-    path: `../../outputs/master-hq/e2e-screenshots/inbox-${testInfo.project.name}.png`,
+    path: `artifacts/e2e-screenshots/inbox-${testInfo.project.name}.png`,
     fullPage: true,
   });
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
@@ -182,7 +192,7 @@ test("admin: CRUD, persistence, filter, history, cancel and reset", async ({
   await page.getByLabel("顧客を検索").clear();
   await prepareScreenshot(page);
   await page.screenshot({
-    path: `../../outputs/master-hq/e2e-screenshots/admin-${testInfo.project.name}.png`,
+    path: `artifacts/e2e-screenshots/admin-${testInfo.project.name}.png`,
     fullPage: true,
   });
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);

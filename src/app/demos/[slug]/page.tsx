@@ -6,6 +6,7 @@ import { projects, getProject } from "@/lib/portfolio";
 import { pageMetadata } from "@/lib/seo";
 import { DemoFrame, demoKicker } from "@/components/demo-frame";
 import { QaEvidencePanel } from "@/components/qa-evidence";
+import { DemoLiveLink, liveRoutes } from "@/components/demo-live-link";
 import "@/components/qa-evidence.css";
 import {
   CafeDemo,
@@ -62,7 +63,16 @@ export default async function DemoPage({
       // SHIP / CHECK shows the real verification record above the manual
       // checklist (指示書 §10, U08). It is a server component, so it is passed
       // in here rather than rendered inside the client demo.
-      context={slug === "qa" ? <QaEvidencePanel /> : undefined}
+      context={
+        slug === "qa" ? (
+          <QaEvidencePanel />
+        ) : Object.hasOwn(liveRoutes, slug) ? (
+          // Above the static canvas: the operable version is the point of this
+          // demo, and a visitor should not have to scroll past a picture of a
+          // cafe to find the cafe.
+          <DemoLiveLink slug={slug} />
+        ) : undefined
+      }
       outro={{
         heading: "この体験を、あなたのサービスでも。",
         text: p.limitation,

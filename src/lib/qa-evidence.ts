@@ -28,6 +28,10 @@ export type QaSuite = {
   status: SuiteStatus;
   detail?: string;
   reason?: string;
+  /** The command that reproduces this row. §17 asks for the steps. */
+  command?: string;
+  /** The committed report this row was read from, where there is one. */
+  source?: string;
   checkedAt: string | null;
   total: number | null;
   failed: number | null;

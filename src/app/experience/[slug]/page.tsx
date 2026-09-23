@@ -7,6 +7,7 @@ import "@/components/demo-frame.css";
 import { getProject, projects } from "@/lib/portfolio";
 import { pageMetadata } from "@/lib/seo";
 import { DemoDataNotice } from "@/components/demo-data-notice";
+import { DemoLiveLink } from "@/components/demo-live-link";
 import { InboxDemo } from "@/components/inbox-demo";
 import { AdminDemo } from "@/components/admin-demo";
 import { CsvDemo } from "@/components/csv-demo";
@@ -78,6 +79,9 @@ export default async function Experience({
         <h1>{p.title}</h1>
         <DemoDataNotice text={p.limitation} />
       </div>
+      {/* The standalone view is the one a visitor lands on from "OPEN FULL
+          DEMO", so the operable version has to be reachable from here too. */}
+      <DemoLiveLink slug={slug} />
       <Demo />
     </main>
   );

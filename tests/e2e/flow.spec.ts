@@ -306,7 +306,11 @@ test("qa page: the real verification record sits apart from the checklist — U0
 
   // The record names the commit and the moment it was taken.
   await expect(panel.getByText(/対象コミット/)).toBeVisible();
-  await expect(panel.locator("code")).toHaveText(/^[0-9a-f]{7,}$/);
+  // Scoped to the metadata block: every row now also carries its reproduce
+  // command in a <code>, so an unscoped match finds fourteen of them.
+  await expect(panel.locator(".qa-evidence-meta code").first()).toHaveText(
+    /^[0-9a-f]{7,}$/,
+  );
   await expect(panel.getByText(/JST/).first()).toBeVisible();
 
   // A suite nobody ran is shown as 未実施 and is not counted as PASS (O10).

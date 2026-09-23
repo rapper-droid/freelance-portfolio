@@ -1,17 +1,9 @@
 ﻿"use client";
-import { useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import "@/app/showcase.css";
 import "@/app/cafe-demo.css";
 import Image from "next/image";
-import {
-  ArrowUpRight,
-  Check,
-  Plus,
-  X,
-  Download,
-  ArrowRight,
-} from "lucide-react";
-import { WorkspaceVisual } from "./project-visuals";
+import { ArrowUpRight, Check, Plus, X, Download } from "lucide-react";
 import { CafeArt, AccessMap } from "./cafe-art";
 import {
   coffeeMenu,
@@ -21,14 +13,22 @@ import {
   yen,
   type MenuItem,
 } from "@/lib/cafe-menu";
-import { classify, replyDraft } from "@/lib/inbox";
+import { FlowstateLp } from "./flowstate-lp";
+import { RefineCompare } from "./refine-compare";
+import { StillStudio } from "./still-studio";
+import { OpsProvider } from "./ops/ops-provider";
+import { RelayWorkspace } from "./ops/relay-workspace";
+import { OPS_REFERENCE_ISO } from "@/lib/ops/types";
 import {
-  bookingSeed,
+  BOOKING_REFERENCE_ISO,
+  bookingLabel,
+  bookingSeedFor,
   bookingTimes,
+  bookingWeek,
+  bookingWeekday,
   validateBooking,
   qaItems,
   deliveryManifest,
-  creativeSvg,
   type Booking,
 } from "@/lib/showcase";
 function download(text: string, filename: string, type: string) {
@@ -323,121 +323,17 @@ export function CafeDemo() {
     </div>
   );
 }
+/**
+ * FLOWSTATE (指示書 §17).
+ *
+ * The page moved to its own file when it gained the sections §17 asks for:
+ * before and after, the actual downloadable output, adoption steps, and a
+ * table of what is connected and what is not.
+ */
 export function SaasDemo() {
-  const [annual, setAnnual] = useState(false);
-  return (
-    <div className="saas-demo showcase">
-      <nav className="demo-local-nav" aria-label="SaaSデモ内">
-        <b>◈ FLOWSTATE</b>
-        <a href="#folio-features">機能</a>
-        <a href="#folio-pricing">プラン</a>
-      </nav>
-      <section className="saas-hero">
-        <span className="saas-pill">A CALMER WAY TO WORK</span>
-        <h2>
-          仕事を整える。
-          <br />
-          <span>余裕が生まれる。</span>
-        </h2>
-        <p>
-          タスクも、プロジェクトも、次の一歩も。
-          <br />
-          チームの見通しをひとつにするワークスペース。
-        </p>
-        <a href="#folio-pricing" className="button primary">
-          プランを比較する <ArrowRight size={17} />
-        </a>
-        <div className="saas-product">
-          <WorkspaceVisual />
-        </div>
-      </section>
-      <section className="demo-content-section" id="folio-features">
-        <span className="eyebrow">LESS NOISE. MORE FOCUS.</span>
-        <h2>必要なことが、必要な場所に。</h2>
-        <div className="demo-three-columns">
-          {[
-            ["01", "見通せる", "タスクの状況と次のアクションを、一覧で把握。"],
-            ["02", "まとまる", "プロジェクトの情報をひとつの場所に整理。"],
-            ["03", "迷わない", "誰が、何を、いつまでに。役割を明快に。"],
-          ].map(([n, t, d]) => (
-            <article key={n}>
-              <span>{n}</span>
-              <h3>{t}</h3>
-              <p>{d}</p>
-            </article>
-          ))}
-        </div>
-      </section>
-      <section className="demo-content-section" id="folio-pricing" data-feature>
-        <div className="demo-section-heading">
-          <h2>チームに合う、シンプルなプラン。</h2>
-          <div className="segmented">
-            <button aria-pressed={!annual} onClick={() => setAnnual(false)}>
-              月額
-            </button>
-            <button aria-pressed={annual} onClick={() => setAnnual(true)}>
-              年額
-            </button>
-          </div>
-        </div>
-        <div className="demo-three-columns folio-plans">
-          {[
-            ["Personal", 0, "個人のタスク整理"],
-            ["Team", annual ? 980 : 1200, "小さなチームの進行管理"],
-            ["Studio", annual ? 1980 : 2400, "複数プロジェクトの運用"],
-          ].map(([name, price, desc]) => (
-            <article
-              key={name}
-              className={name === "Team" ? "recommended" : ""}
-            >
-              <span>{name}</span>
-              <h3>
-                ¥{Number(price).toLocaleString("ja-JP")}
-                <small> / 月・人</small>
-              </h3>
-              <p>{desc}</p>
-              <p className="demo-fineprint">
-                {annual && price
-                  ? `年払い ¥${(Number(price) * 12).toLocaleString("ja-JP")} / 人`
-                  : "月単位の想定料金"}
-              </p>
-              <p>
-                ✓ タスク整理
-                <br />✓ プロジェクト一覧
-                <br />✓ ステータス管理
-              </p>
-            </article>
-          ))}
-        </div>
-        <p className="demo-fineprint">
-          架空SaaSの想定プラン・税込価格です。実際のサービス利用や契約はできません。
-        </p>
-      </section>
-      <section className="demo-content-section faq">
-        <h2>よくある質問</h2>
-        {[
-          [
-            "これは利用できるサービスですか？",
-            "SaaSの魅力を伝えるための自主制作LPです。プロダクト画面はデザインプレビューで、登録・課金はありません。",
-          ],
-          [
-            "どの端末で見られますか？",
-            "LPはPC・タブレット・スマートフォンに合わせて表示を調整しています。",
-          ],
-          [
-            "自社サービスのLPとして依頼できますか？",
-            "このポートフォリオの相談文を使い、ご利用中のクラウドソーシングサービスのメッセージでご相談ください。",
-          ],
-        ].map(([q, a]) => (
-          <details key={q}>
-            <summary>{q}</summary>
-            <p>{a}</p>
-          </details>
-        ))}
-      </section>
-    </div>
-  );
+  return <FlowstateLp />;
 }
+
 export function EcDemo() {
   const colors = [
     { name: "Sage", label: "セージ", value: "#829078" },
@@ -619,171 +515,34 @@ export function EcDemo() {
     </div>
   );
 }
+/**
+ * RELAY (指示書 §14).
+ *
+ * The workspace moved to components/ops so it can share the case record with
+ * SMART INBOX and ADMIN; this is the provider it needs, nothing more.
+ */
 export function AutomationDemo() {
-  const [input, setInput] = useState(
-    "本日からフォームが動かず業務が停止しています。至急確認をお願いします。",
-  );
-  const [result, setResult] = useState<ReturnType<typeof classify> | null>(
-    null,
-  );
-  const [draft, setDraft] = useState("");
-  const [approved, setApproved] = useState(false);
-  const [notice, setNotice] = useState("");
   return (
-    <div className="automation-demo showcase">
-      <div className="app-demo-heading">
-        <span className="eyebrow">RELAY / SUPPORT OPERATIONS</span>
-        <h2>自動化に、人の判断を。</h2>
-        <p>
-          AI導入を想定した体験デモ。現在はキーワード・定型文でローカル処理します。
-        </p>
-      </div>
-      <ol className="relay-flow">
-        {["受付", "分類", "下書き", "人の確認"].map((s, i) => (
-          <li
-            key={s}
-            className={i === 0 || (result && i < 3) || approved ? "done" : ""}
-          >
-            <span>0{i + 1}</span>
-            {s}
-          </li>
-        ))}
-      </ol>
-      <div className="relay-workspace" data-feature>
-        <section>
-          <span className="eyebrow">01 / INPUT</span>
-          <h3>問い合わせ内容</h3>
-          <label>
-            テスト用の問い合わせ
-            <textarea
-              rows={6}
-              maxLength={2000}
-              value={input}
-              onChange={(e) => {
-                setInput(e.target.value);
-                setResult(null);
-                setDraft("");
-                setApproved(false);
-                setNotice("");
-              }}
-            />
-          </label>
-          <button
-            className="button primary"
-            disabled={!input.trim()}
-            onClick={() => {
-              setResult(classify(input));
-              setDraft(
-                replyDraft({
-                  id: 1,
-                  name: "サンプルのお客様",
-                  subject: "",
-                  body: input,
-                  date: "",
-                  status: "未対応",
-                  owner: "未割当",
-                }),
-              );
-              setApproved(false);
-              setNotice(
-                "分類と返信下書きを作成しました。担当者が確認してください。",
-              );
-            }}
-          >
-            分類・下書きを実行 <ArrowRight size={16} />
-          </button>
-          <p className="demo-fineprint">
-            入力内容は外部送信しません。実際の個人情報は入力しないでください。
-          </p>
-        </section>
-        <section>
-          <span className="eyebrow">02 / REVIEW</span>
-          <h3>担当者の確認</h3>
-          {result ? (
-            <>
-              <div className="relay-result">
-                <span>
-                  分類 <b>{result.category}</b>
-                </span>
-                <span>
-                  緊急度 <b>{result.urgency}</b>
-                </span>
-              </div>
-              <label>
-                返信下書き
-                <textarea
-                  rows={8}
-                  aria-label="返信下書き"
-                  value={draft}
-                  maxLength={4000}
-                  onChange={(e) => {
-                    setDraft(e.target.value);
-                    setApproved(false);
-                    setNotice("変更した下書きを再確認してください。");
-                  }}
-                />
-              </label>
-              <div className="showcase-actions">
-                <button
-                  className="button primary"
-                  disabled={!draft.trim() || approved}
-                  onClick={() => {
-                    setApproved(true);
-                    setNotice("確認済みにしました。メールは送信されません。");
-                  }}
-                >
-                  内容を確認済みにする
-                </button>
-                <button
-                  className="button secondary"
-                  onClick={() => {
-                    setApproved(false);
-                    setNotice(
-                      "下書きを差し戻しました。編集して再確認してください。",
-                    );
-                  }}
-                >
-                  差し戻す
-                </button>
-              </div>
-            </>
-          ) : (
-            <div className="relay-empty">
-              問い合わせを入力して実行すると、
-              <br />
-              分類結果と返信下書きが表示されます。
-            </div>
-          )}
-          <p role="status">{notice}</p>
-        </section>
-      </div>
-      <details className="api-contract">
-        <summary>API連携を実装する場合のデータ契約例</summary>
-        <p>
-          接続設計サンプルです。以下のAPIは公開・接続されていません。実装時は認証・入力検証・タイムアウト・コスト上限・人の確認を設けます。
-        </p>
-        <pre>
-          {JSON.stringify(
-            {
-              request: { ticketId: "demo-001", text: "匿名化した本文" },
-              response: {
-                category: "support",
-                draft: "要確認の返信案",
-                requiresHumanReview: true,
-              },
-              failure: { code: "UPSTREAM_UNAVAILABLE", retryable: true },
-            },
-            null,
-            2,
-          )}
-        </pre>
-      </details>
-    </div>
+    <OpsProvider referenceIso={OPS_REFERENCE_ISO}>
+      <RelayWorkspace />
+    </OpsProvider>
   );
 }
+
 export function BookingDemo() {
-  const [rows, setRows] = useState(bookingSeed),
-    [date, setDate] = useState("2026-09-18"),
+  // Today is read once per mount, on the client, so the server and the browser
+  // agree on first paint and the demo still moves with the calendar.
+  // Seeded from a fixed instant so the server renders a full week, then
+  // re-derived from today after mount. Rendering nothing until then would
+  // leave the demo blank to anyone without JavaScript.
+  const [session, setSession] = useState<{ nowIso: string; rows: Booking[] }>(
+    () => ({
+      nowIso: BOOKING_REFERENCE_ISO,
+      rows: bookingSeedFor(BOOKING_REFERENCE_ISO),
+    }),
+  );
+  const [rows, setRows] = useState<Booking[] | null>(null),
+    [picked, setPicked] = useState(""),
     [query, setQuery] = useState("");
   const [name, setName] = useState(""),
     [time, setTime] = useState("10:00"),
@@ -793,9 +552,25 @@ export function BookingDemo() {
   const [remove, setRemove] = useState<Booking | null>(null);
   const dialog = useRef<HTMLDialogElement>(null);
   const confirm = useRef<HTMLDialogElement>(null);
-  const filtered = rows
+
+  const started = useRef(false);
+  useEffect(() => {
+    if (started.current) return;
+    started.current = true;
+    const nowIso = new Date().toISOString();
+    setSession({ nowIso, rows: bookingSeedFor(nowIso) });
+  }, []);
+
+  const week = useMemo(() => bookingWeek(session.nowIso), [session]);
+  // Derived rather than stored, so the first render after mount does not need
+  // a second state write to choose a day.
+  const current = rows ?? session.rows;
+  const date = picked || week[0] || "";
+
+  const filtered = current
     .filter((r) => r.date === date && r.name.includes(query))
     .sort((a, b) => a.time.localeCompare(b.time));
+
   return (
     <div className="booking-demo showcase">
       <div className="app-demo-heading">
@@ -804,33 +579,32 @@ export function BookingDemo() {
           <span>今日の予定を、</span>
           <span>心地よく。</span>
         </h2>
-        <p>2026年9月18日〜24日の架空予約。変更はこの画面内のみです。</p>
+        <p>
+          {bookingLabel(week[0])}〜{bookingLabel(week[week.length - 1])}
+          の架空予約。変更はこの画面内のみです。
+        </p>
       </div>
       <nav className="booking-week" aria-label="表示週">
-        {[18, 19, 20, 21, 22, 23, 24].map((day, index) => (
+        {week.map((key) => (
           <button
-            key={day}
-            aria-label={`9月${day}日を表示`}
-            aria-pressed={date === `2026-09-${day}`}
-            onClick={() => setDate(`2026-09-${day}`)}
+            key={key}
+            aria-label={`${bookingLabel(key)}を表示`}
+            aria-pressed={date === key}
+            onClick={() => setPicked(key)}
           >
-            <span>
-              {["FRI", "SAT", "SUN", "MON", "TUE", "WED", "THU"][index]}
-            </span>
-            <b>{day}</b>
-            <small>
-              {rows.filter((row) => row.date === `2026-09-${day}`).length}件
-            </small>
+            <span>{bookingWeekday(key)}</span>
+            <b>{Number(key.slice(8))}</b>
+            <small>{current.filter((row) => row.date === key).length}件</small>
           </button>
         ))}
       </nav>
       <div className="booking-toolbar">
         <label>
           表示日
-          <select value={date} onChange={(e) => setDate(e.target.value)}>
-            {[18, 19, 20, 21, 22, 23, 24].map((d) => (
-              <option value={`2026-09-${d}`} key={d}>
-                9月{d}日
+          <select value={date} onChange={(e) => setPicked(e.target.value)}>
+            {week.map((key) => (
+              <option value={key} key={key}>
+                {bookingLabel(key)}
               </option>
             ))}
           </select>
@@ -860,14 +634,14 @@ export function BookingDemo() {
         <div>
           <span>選択日の予約</span>
           <b>
-            {rows.filter((r) => r.date === date).length}
+            {current.filter((r) => r.date === date).length}
             <small> 件</small>
           </b>
         </div>
         <div>
           <span>空き時間枠</span>
           <b>
-            {8 - rows.filter((r) => r.date === date).length}
+            {8 - current.filter((r) => r.date === date).length}
             <small> 枠</small>
           </b>
         </div>
@@ -878,7 +652,9 @@ export function BookingDemo() {
       </div>
       <section className="booking-list" data-feature>
         <div className="demo-section-heading">
-          <h3>{date.replaceAll("-", " / ")} の予約</h3>
+          <h3>
+            {bookingLabel(date)}（{bookingWeekday(date)}）の予約
+          </h3>
           <span>架空データ</span>
         </div>
         {filtered.map((r) => (
@@ -917,17 +693,17 @@ export function BookingDemo() {
           <X size={18} />
         </button>
         <h2 id="booking-title">予約を追加</h2>
-        <p>{date} / 架空の名前でお試しください。</p>
+        <p>{bookingLabel(date)} / 架空の名前でお試しください。</p>
         <form
           onSubmit={(e) => {
             e.preventDefault();
             const item = { date, time, name: name.trim(), service };
-            const problem = validateBooking(rows, item);
+            const problem = validateBooking(current, item, session.nowIso);
             if (problem) {
               setError(problem);
               return;
             }
-            setRows([...rows, { ...item, id: crypto.randomUUID() }]);
+            setRows([...current, { ...item, id: crypto.randomUUID() }]);
             setNotice("予約を追加しました。再読み込みで初期化されます。");
             dialog.current?.close();
           }}
@@ -980,7 +756,7 @@ export function BookingDemo() {
           <button
             className="button primary"
             onClick={() => {
-              setRows(rows.filter((r) => r.id !== remove?.id));
+              setRows(current.filter((r) => r.id !== remove?.id));
               setNotice("予約を取り消しました。");
               confirm.current?.close();
             }}
@@ -992,166 +768,28 @@ export function BookingDemo() {
     </div>
   );
 }
+/**
+ * REFINE (指示書 §17).
+ *
+ * The comparison moved to its own file when it gained a width switch, a
+ * reading-order overlay and a focus-order overlay; it is now a thing you
+ * inspect rather than a picture of two layouts.
+ */
 export function ImprovementDemo() {
-  const [after, setAfter] = useState(true);
-  return (
-    <div className="improvement-demo showcase">
-      <div className="app-demo-heading">
-        <span className="eyebrow">REFINE / BEFORE & AFTER</span>
-        <h2>伝わる順番に、整える。</h2>
-        <p>
-          同じ情報を、異なるレイアウトで比較。架空ページの改善サンプルです。
-        </p>
-      </div>
-      <div className="segmented improvement-toggle">
-        <button aria-pressed={!after} onClick={() => setAfter(false)}>
-          Before
-        </button>
-        <button aria-pressed={after} onClick={() => setAfter(true)}>
-          After
-        </button>
-      </div>
-      <section
-        className={`comparison-site ${after ? "is-after" : "is-before"}`}
-        data-feature
-      >
-        <header>
-          GREEN ROOM <span>暮らしの整理サポート</span>
-        </header>
-        <div>
-          <span>SPACE FOR WHAT MATTERS</span>
-          <h2>
-            暮らしに、
-            <br />
-            余白をつくる。
-          </h2>
-          <p>
-            整理収納のオンライン相談。
-            <br />
-            自分に合う、片付けの仕組みを一緒に考えます。
-          </p>
-          <a href="#refine-notes" className="button primary">
-            改善したポイントを見る <ArrowRight size={16} />
-          </a>
-        </div>
-        <aside>
-          <div className="room-art">
-            <span />
-            <span />
-            <span />
-          </div>
-        </aside>
-        <footer>サービス紹介 / 相談の流れ / よくある質問</footer>
-      </section>
-      <section className="demo-content-section" id="refine-notes">
-        <h2>
-          {after ? "After：読み手の順番で設計" : "Before：改善前の課題を再現"}
-        </h2>
-        <div className="demo-three-columns">
-          {[
-            [
-              "情報階層",
-              after
-                ? "見出し → 説明 → 行動を一方向に整理。"
-                : "同じ強さの情報が並び、主役が曖昧。",
-            ],
-            [
-              "余白・配置",
-              after
-                ? "適切な行長と余白で、内容を追いやすく。"
-                : "コンテンツが詰まり、読み進めにくい配置。",
-            ],
-            [
-              "モバイル",
-              after
-                ? "縦一列に並べ替え、CTAのタップ領域を確保。"
-                : "重要な操作への案内が埋もれやすい構成。",
-            ],
-          ].map(([t, d]) => (
-            <article key={t}>
-              <h3>{t}</h3>
-              <p>{d}</p>
-            </article>
-          ))}
-        </div>
-        <p className="demo-fineprint">
-          改善方針を見せる比較です。売上・CVR・速度などの実測改善値は主張していません。
-        </p>
-      </section>
-    </div>
-  );
+  return <RefineCompare />;
 }
+
+/**
+ * STILL / STUDIO (指示書 §17).
+ *
+ * The editor moved to its own file: it is now a design that can be written,
+ * cropped and exported rather than three fixed posters, and that did not fit
+ * beside seven other demos in one module.
+ */
 export function CreativeDemo() {
-  const [style, setStyle] = useState(0),
-    [ratio, setRatio] = useState("square");
-  const titles = ["MAKE ROOM.", "SLOW DAYS.", "LESS. BETTER."];
-  return (
-    <div className="creative-demo showcase">
-      <div className="app-demo-heading">
-        <span className="eyebrow">STILL / STUDIO — CREATIVE COLLECTION</span>
-        <h2>らしさを、展開する。</h2>
-        <p>
-          3つの方向性 × 3つのフォーマット。オリジナルSVGで制作した広告サンプル。
-        </p>
-      </div>
-      <div className="creative-workspace">
-        <section className="creative-controls">
-          <h3>アートディレクション</h3>
-          <div className="creative-style-buttons">
-            {titles.map((t, i) => (
-              <button
-                key={t}
-                aria-pressed={style === i}
-                onClick={() => setStyle(i)}
-              >
-                <span>0{i + 1}</span>
-                {t}
-              </button>
-            ))}
-          </div>
-          <label>
-            フォーマット
-            <select value={ratio} onChange={(e) => setRatio(e.target.value)}>
-              <option value="square">SNS投稿 / 1080 × 1080</option>
-              <option value="portrait">ストーリー / 1080 × 1920</option>
-              <option value="landscape">広告バナー / 1200 × 630</option>
-            </select>
-          </label>
-          <p>
-            見出し・図形・余白を一貫したルールで展開。用途に合わせて比率を調整できます。
-          </p>
-          <button
-            className="button primary"
-            onClick={() =>
-              download(
-                creativeSvg(style, ratio),
-                `still-${style + 1}-${ratio}.svg`,
-                "image/svg+xml",
-              )
-            }
-          >
-            <Download size={16} />
-            SVGをダウンロード
-          </button>
-          <p className="demo-fineprint">
-            全素材は本サイトの自主制作。架空の広告で、配信実績ではありません。
-          </p>
-        </section>
-        <div className="creative-preview" data-feature>
-          <Image
-            unoptimized
-            src={`data:image/svg+xml;charset=utf-8,${encodeURIComponent(creativeSvg(style, ratio))}`}
-            alt={`${titles[style]} / ${ratio}の広告クリエイティブ`}
-            width={ratio === "landscape" ? 1200 : 1080}
-            height={
-              ratio === "portrait" ? 1920 : ratio === "landscape" ? 630 : 1080
-            }
-          />
-        </div>
-      </div>
-    </div>
-  );
+  return <StillStudio />;
 }
+
 export function QaDemo() {
   const [checked, setChecked] = useState<string[]>([]),
     [notice, setNotice] = useState("");

@@ -1,3 +1,5 @@
+import { toJst } from "@/lib/runtime/rules/datetime";
+
 export type Ticket = {
   id: number;
   name: string;
@@ -36,13 +38,29 @@ export function replyDraft(ticket: Ticket) {
   };
   return `${ticket.name} 様\n\nお問い合わせありがとうございます。\n${message[category]}\n\n確認のうえ、改めてご案内いたします。\nどうぞよろしくお願いいたします。`;
 }
-export const tickets: Ticket[] = [
+/**
+ * The sample inbox (指示書 §17).
+ *
+ * Each ticket carries how long ago it arrived rather than a written date. A
+ * fixed date makes the demo read as abandoned within weeks, and one of these
+ * says "as of today" in its body — which a two-week-old stamp contradicts on
+ * the same screen.
+ */
+type TicketSeed = Omit<Ticket, "date"> & {
+  /** Days before today, in JST. */
+  daysAgo: number;
+  /** HH:MM, JST. */
+  at: string;
+};
+
+const ticketSeed: TicketSeed[] = [
   {
     id: 1001,
     name: "サンプル商店",
     subject: "請求書の宛名変更について",
     body: "先月の請求書について、宛名の変更をお願いできますか。確認をお願いします。",
-    date: "09/09 10:30",
+    daysAgo: 0,
+    at: "10:30",
     status: "未対応",
     owner: "未割当",
   },
@@ -51,7 +69,8 @@ export const tickets: Ticket[] = [
     name: "デモ制作室",
     subject: "【至急】フォームが動かない",
     body: "本日から送信時にエラーが出ています。業務が停止しているため至急確認をお願いします。",
-    date: "09/09 09:45",
+    daysAgo: 0,
+    at: "09:45",
     status: "未対応",
     owner: "未割当",
   },
@@ -60,7 +79,8 @@ export const tickets: Ticket[] = [
     name: "架空デザイン",
     subject: "契約更新の相談",
     body: "来月の契約更新にあたり、プラン変更を相談したいです。",
-    date: "09/08 16:20",
+    daysAgo: 1,
+    at: "16:20",
     status: "対応中",
     owner: "担当A",
   },
@@ -69,7 +89,8 @@ export const tickets: Ticket[] = [
     name: "サンプル企画",
     subject: "CSVデータ加工の見積もり",
     body: "顧客データの整形を依頼したいです。対応可能でしょうか。",
-    date: "09/08 14:00",
+    daysAgo: 1,
+    at: "14:00",
     status: "未対応",
     owner: "未割当",
   },
@@ -78,7 +99,8 @@ export const tickets: Ticket[] = [
     name: "デモラボ",
     subject: "領収書の発行について",
     body: "支払済みの料金について領収書を発行いただけますか。",
-    date: "09/07 11:15",
+    daysAgo: 2,
+    at: "11:15",
     status: "完了",
     owner: "担当B",
   },
@@ -87,8 +109,36 @@ export const tickets: Ticket[] = [
     name: "架空ストア",
     subject: "スマートフォン表示の不具合",
     body: "商品一覧の表示が崩れています。確認をお願いします。",
-    date: "09/07 10:10",
+    daysAgo: 2,
+    at: "10:10",
     status: "対応中",
     owner: "担当A",
   },
 ];
+
+/** The sample inbox as of a given moment, newest first. */
+export function ticketsFor(nowIso: string): Ticket[] {
+  const today = toJst(nowIso);
+  const start = Date.UTC(today.year, today.month - 1, today.day);
+  return ticketSeed.map((seed) => {
+    const d = new Date(start - seed.daysAgo * 86_400_000);
+    const stamp = `${String(d.getUTCMonth() + 1).padStart(2, "0")}/${String(
+      d.getUTCDate(),
+    ).padStart(2, "0")} ${seed.at}`;
+    return {
+      id: seed.id,
+      name: seed.name,
+      subject: seed.subject,
+      body: seed.body,
+      status: seed.status,
+      owner: seed.owner,
+      date: stamp,
+    };
+  });
+}
+
+/**
+ * A fixed rendering for anything that needs the list without a clock —
+ * server components, tests, and the exhibit index.
+ */
+export const tickets: Ticket[] = ticketsFor("2026-09-23T01:00:00.000Z");

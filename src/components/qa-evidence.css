@@ -200,3 +200,40 @@
     font-size: var(--text-caption);
   }
 }
+
+/* The reproduce column: a command is read, not prose.
+
+   These sit on the panel, which is dark. An earlier version borrowed the
+   showcase's light surfaces and put the panel's muted ink on them at 1.6:1 —
+   the same mistake the demo bridge made. Both colours are stated here. */
+.qa-evidence-saved {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--color-amber);
+  background: color-mix(in srgb, var(--works-ink) 6%, transparent);
+  color: var(--works-ink);
+  font-size: var(--text-caption);
+  line-height: 1.9;
+}
+
+.qa-evidence-saved strong {
+  color: var(--color-amber);
+}
+
+.qa-evidence-saved code,
+.qa-evidence-table code {
+  font-family: var(--font-mono);
+  font-size: var(--text-label);
+  background: color-mix(in srgb, var(--works-ink) 10%, transparent);
+  color: var(--works-ink);
+  padding: 1px 5px;
+  border-radius: var(--radius-xs);
+  white-space: nowrap;
+}
+
+.qa-evidence-table td small {
+  display: block;
+  margin-top: var(--space-2);
+  font-size: var(--text-label);
+  color: var(--works-muted);
+}

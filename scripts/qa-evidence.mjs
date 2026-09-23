@@ -43,13 +43,20 @@ const readJson = (relative) => {
   }
 };
 
-/** A suite nobody has run yet, so the page can still name it. */
-const notRun = (id, label, scope, reason) => ({
+/**
+ * A suite nobody has run yet, so the page can still name it.
+ *
+ * A check that is absent from the list reads as a check that passed. Naming
+ * it, with the command that would run it, is the difference between "we did
+ * not verify this" and silence (指示書 §17).
+ */
+const notRun = (id, label, scope, reason, command) => ({
   id,
   label,
   scope,
   status: "not_run",
   reason,
+  command,
   checkedAt: null,
   total: null,
   failed: null,
@@ -86,12 +93,14 @@ function unitSuite() {
       "ユニットテスト",
       "automated",
       "vitest の結果を取得できませんでした。",
+      "npx vitest run",
     );
   const failed = raw.numFailedTests ?? 0;
   return {
     id: "unit",
     label: "ユニットテスト",
     scope: "automated",
+    command: "npx vitest run",
     status: failed ? "failed" : "passed",
     // testResults is one entry per file; numTotalTestSuites counts describe
     // blocks, which reads as a far larger and wrong "file" count.
@@ -104,14 +113,16 @@ function unitSuite() {
 }
 
 /** Reads a report another QA script already wrote, or reports it as not run. */
-function fromReport(id, label, relative, read, hint) {
+function fromReport(id, label, relative, read, hint, command) {
   const raw = readJson(relative);
-  if (!raw?.checkedAt) return notRun(id, label, "automated", hint);
+  if (!raw?.checkedAt) return notRun(id, label, "automated", hint, command);
   const { status, detail, total, failed } = read(raw);
   return {
     id,
     label,
     scope: "automated",
+    command,
+    source: relative,
     status,
     detail,
     checkedAt: new Date(raw.checkedAt).toISOString(),
@@ -135,6 +146,7 @@ function performanceSuite() {
       "性能計測（Lighthouse）",
       "automated",
       "`npm run qa:performance` が未実行です。",
+      "npm run qa:performance",
     );
   // Raw Lighthouse reports: the score is categories.performance.score (0–1)
   // and the timestamp is fetchTime. Starting `worst` at 100 and finding no
@@ -154,12 +166,15 @@ function performanceSuite() {
       "性能計測（Lighthouse）",
       "automated",
       "計測ファイルからスコアを読み取れませんでした。",
+      "npm run qa:performance",
     );
   const worst = Math.min(...scores);
   return {
     id: "performance",
     label: "性能計測（Lighthouse）",
     scope: "automated",
+    command: "npm run qa:performance",
+    source: "docs/performance/*.json",
     // A score is a measurement, not a pass mark: report it, do not grade it.
     status: "measured",
     detail: `${files.length} ルート / performance スコア最小 ${worst}`,
@@ -182,6 +197,7 @@ const suites = [
       failed: 0,
     }),
     "`npm run qa:links` が未実行です。",
+    "npm run qa:links",
   ),
   fromReport(
     "visual",
@@ -198,6 +214,7 @@ const suites = [
       };
     },
     "`npm run qa:visual` が未実行です。",
+    "npm run qa:visual",
   ),
   fromReport(
     "flow",
@@ -210,6 +227,7 @@ const suites = [
       failed: raw.failures ?? 0,
     }),
     "`npm run qa:flow` が未実行です。",
+    "npm run qa:flow",
   ),
   performanceSuite(),
   // Playwright writes no committed report, so it is named and marked not_run
@@ -219,6 +237,14 @@ const suites = [
     "E2E（Playwright 3 プロファイル）",
     "automated",
     "実行結果を成果物として保存していないため、この記録には含めていません。",
+    "npm run test:e2e",
+  ),
+  notRun(
+    "shops",
+    "店舗デモの通し操作（KISSA / FORME）",
+    "automated",
+    "訪問者ごとの sandbox を使うため、結果を成果物として保存していません。",
+    "npm run qa:kissa && npm run qa:forme",
   ),
 ];
 

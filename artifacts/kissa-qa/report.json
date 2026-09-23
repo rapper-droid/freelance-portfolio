@@ -1,0 +1,286 @@
+{
+  "origin": "http://localhost:3000",
+  "checkedAtIso": "2026-09-23T16:30:54.631Z",
+  "results": [
+    {
+      "name": "hydrate /kissa @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/menu @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/menu @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/menu/latte @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/menu/latte @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/reserve @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/reserve @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/order @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/order @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/my @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/my @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/admin @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/admin @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "console @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/menu @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/menu @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/menu/latte @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/menu/latte @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/reserve @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/reserve @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/order @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/order @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/my @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/my @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/admin @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/admin @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "console @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/menu @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/menu @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/menu/latte @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/menu/latte @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/reserve @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/reserve @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/order @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/order @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/my @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/my @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /kissa/admin @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /kissa/admin @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "console @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "variant pricing",
+      "ok": true,
+      "detail": "¥700"
+    },
+    {
+      "name": "cart badge",
+      "ok": true,
+      "detail": "カートに 1 点"
+    },
+    {
+      "name": "pickup slots offered",
+      "ok": true,
+      "detail": "43 slots"
+    },
+    {
+      "name": "order placed",
+      "ok": true,
+      "detail": "K-004E6C"
+    },
+    {
+      "name": "payment decline recorded",
+      "ok": true,
+      "detail": "ご注文を承りました  K-004E6C  2026年9月25日（金） 08:00 にお受け取りください。 お支払い状況：拒否"
+    },
+    {
+      "name": "payment replay refused",
+      "ok": true,
+      "detail": "同じ注文・同じ金額の支払は完了済みです。再実行しません。"
+    },
+    {
+      "name": "replay writes no extra history",
+      "ok": true,
+      "detail": "2 events"
+    },
+    {
+      "name": "table booked",
+      "ok": true,
+      "detail": "R-9D48A6"
+    },
+    {
+      "name": "booking moved",
+      "ok": true,
+      "detail": "2026年9月24日（木） 09:00 から 2 名 テーブル A"
+    },
+    {
+      "name": "sold out reaches the menu",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "kitchen status reaches the customer",
+      "ok": true,
+      "detail": "受取待ち"
+    }
+  ]
+}

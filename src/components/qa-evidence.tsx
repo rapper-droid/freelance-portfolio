@@ -32,6 +32,14 @@ export function QaEvidencePanel() {
           下のチェックリストは人が手で確認した記録、こちらは機械が実行した記録です。
           画面の操作でこの表が変わることはありません。
         </p>
+        <p className="qa-evidence-saved">
+          <strong>これは保存済みの記録です。</strong>
+          このページを開いたときに検査が走るわけではありません。下の表は{" "}
+          <code>{evidence.commitShort}</code> の時点で実行した結果を
+          <code>docs/qa-evidence.json</code>{" "}
+          に保存したもので、各行の「再現手順」をそのまま実行すれば同じ検査を
+          手元で走らせられます。
+        </p>
       </div>
 
       <dl className="qa-evidence-meta">
@@ -63,7 +71,16 @@ export function QaEvidencePanel() {
         </p>
       )}
 
-      <div className="qa-evidence-scroll">
+      {/* Focusable: the table gained a reproduce column and now scrolls
+          sideways at tablet width, and a scroll region nobody can reach with
+          a keyboard is a region some readers cannot read. CI caught this at
+          768px where the local run did not — Linux metrics, wider table. */}
+      <div
+        className="qa-evidence-scroll"
+        tabIndex={0}
+        role="region"
+        aria-label="自動検査の実行結果"
+      >
         <table className="qa-evidence-table">
           <caption className="sr-only">自動検査の実行結果</caption>
           <thead>
@@ -72,6 +89,7 @@ export function QaEvidencePanel() {
               <th scope="col">結果</th>
               <th scope="col">内容</th>
               <th scope="col">実行日時</th>
+              <th scope="col">再現手順</th>
             </tr>
           </thead>
           <tbody>
@@ -86,6 +104,14 @@ export function QaEvidencePanel() {
                 </td>
                 <td data-label="内容">{suite.detail ?? suite.reason ?? "—"}</td>
                 <td data-label="実行日時">{formatStamp(suite.checkedAt)}</td>
+                <td data-label="再現手順">
+                  {suite.command ? <code>{suite.command}</code> : "—"}
+                  {suite.source && (
+                    <small>
+                      記録元 <code>{suite.source}</code>
+                    </small>
+                  )}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -94,7 +120,7 @@ export function QaEvidencePanel() {
 
       <p className="qa-evidence-note">
         「未実施」は失敗ではなく、この記録に含めていない検査です。PASS
-        には数えていません。
+        には数えていません。理由と再現手順は同じ行に書いています。
         記録には件数・日時・コミットハッシュだけを含み、失敗内容の本文・ファイルの中身・
         環境変数は含めていません。
       </p>

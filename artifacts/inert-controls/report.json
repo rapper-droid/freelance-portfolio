@@ -1,0 +1,287 @@
+{
+  "origin": "http://localhost:3000",
+  "checkedAtIso": "2026-09-23T15:27:39.378Z",
+  "routes": [
+    {
+      "route": "/demos/cafe",
+      "total": 2,
+      "findings": [
+        {
+          "route": "/demos/cafe",
+          "index": 0,
+          "label": "Coffee"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/demos/saas",
+      "total": 3,
+      "findings": [
+        {
+          "route": "/demos/saas",
+          "index": 1,
+          "label": "月額"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/demos/ec",
+      "total": 7,
+      "findings": [
+        {
+          "route": "/demos/ec",
+          "index": 1,
+          "label": "(無題)"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/demos/automation",
+      "total": 1,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/demos/booking",
+      "total": 14,
+      "findings": [
+        {
+          "route": "/demos/booking",
+          "index": 0,
+          "label": "THU 24 2件"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/demos/improvement",
+      "total": 3,
+      "findings": [
+        {
+          "route": "/demos/improvement",
+          "index": 1,
+          "label": "After"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/demos/creative",
+      "total": 5,
+      "findings": [
+        {
+          "route": "/demos/creative",
+          "index": 0,
+          "label": "MAKE ROOM."
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/demos/qa",
+      "total": 1,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/demos/inbox",
+      "total": 12,
+      "findings": [
+        {
+          "route": "/demos/inbox",
+          "index": 1,
+          "label": "すべて 6 件"
+        },
+        {
+          "route": "/demos/inbox",
+          "index": 5,
+          "label": "サンプル商店 本日 10:30 請求書の宛名変更について 先月の請求書について、"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/demos/admin",
+      "total": 25,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/demos/csv",
+      "total": 2,
+      "findings": [
+        {
+          "route": "/demos/csv",
+          "index": 0,
+          "label": "CSVを選択"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/flow",
+      "total": 4,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/works",
+      "total": 14,
+      "findings": [
+        {
+          "route": "/works",
+          "index": 0,
+          "label": "すべて11"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/services",
+      "total": 0,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/rescue",
+      "total": 2,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/partners",
+      "total": 2,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/contact",
+      "total": 1,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/forme",
+      "total": 0,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/forme/items",
+      "total": 11,
+      "findings": [
+        {
+          "route": "/forme/items",
+          "index": 0,
+          "label": "すべて 6"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/forme/items/tumbler",
+      "total": 5,
+      "findings": [
+        {
+          "route": "/forme/items/tumbler",
+          "index": 0,
+          "label": "(無題)"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/forme/cart",
+      "total": 2,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/forme/my",
+      "total": 3,
+      "findings": [
+        {
+          "route": "/forme/my",
+          "index": 0,
+          "label": "注文 0"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/forme/admin",
+      "total": 4,
+      "findings": [
+        {
+          "route": "/forme/admin",
+          "index": 0,
+          "label": "注文 0"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/kissa",
+      "total": 0,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/kissa/menu",
+      "total": 6,
+      "findings": [
+        {
+          "route": "/kissa/menu",
+          "index": 0,
+          "label": "すべて 14"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/kissa/menu/latte",
+      "total": 2,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/kissa/reserve",
+      "total": 0,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/kissa/order",
+      "total": 2,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/kissa/my",
+      "total": 3,
+      "findings": [
+        {
+          "route": "/kissa/my",
+          "index": 0,
+          "label": "注文 0"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/kissa/admin",
+      "total": 4,
+      "findings": [
+        {
+          "route": "/kissa/admin",
+          "index": 0,
+          "label": "注文 0"
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

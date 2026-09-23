@@ -183,17 +183,31 @@ test("booking validates collisions, creates, filters, cancels and resets on relo
 });
 test("improvement and creative export", async ({ page }) => {
   await page.goto("/demos/improvement");
+  // The comparison is now the same blocks in a different order rather than
+  // two differently styled pages, so the assertion is about the order.
+  const blocks = () =>
+    page
+      .locator(".refine-page .refine-block")
+      .evaluateAll((els) => els.map((el) => el.getAttribute("data-block")));
+
   await page.getByRole("button", { name: "Before", exact: true }).click();
-  await expect(page.locator(".comparison-site")).toHaveClass(/is-before/);
+  await expect(page.locator(".refine-page")).toHaveClass(/is-before/);
+  const before = await blocks();
   await page.getByRole("button", { name: "After", exact: true }).click();
-  await expect(page.locator(".comparison-site")).toHaveClass(/is-after/);
+  await expect(page.locator(".refine-page")).toHaveClass(/is-after/);
+  const after = await blocks();
+  expect(after).not.toEqual(before);
+  expect([...after].sort()).toEqual([...before].sort());
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   await page.goto("/demos/creative");
   await page.getByRole("button", { name: /SLOW DAYS/ }).click();
   await page.getByLabel("フォーマット").selectOption("portrait");
   const dl = page.waitForEvent("download");
-  await page.getByRole("button", { name: "SVGをダウンロード" }).click();
-  expect((await dl).suggestedFilename()).toBe("still-2-portrait.svg");
+  await page.getByRole("button", { name: "この比率を書き出す" }).click();
+  // Named after the direction now rather than its position in an array: the
+  // file is recognisable on a desktop, and reordering the palettes no longer
+  // renames everyone's downloads.
+  expect((await dl).suggestedFilename()).toBe("still-clay-portrait.svg");
   await expect(page.locator(".creative-preview img")).toHaveAttribute(
     "height",
     "1920",
