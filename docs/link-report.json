@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-24T02:58:18.373Z",
+  "checkedAt": "2026-09-24T06:20:28.238Z",
   "routes": 42,
   "links": [
     {
@@ -136,6 +136,10 @@
     },
     {
       "path": "/forme",
+      "status": 200
+    },
+    {
+      "path": "/report",
       "status": 200
     },
     {
@@ -864,6 +868,14 @@
     },
     {
       "path": "/contact",
+      "status": 200
+    },
+    {
+      "path": "/report/recipes",
+      "status": 200
+    },
+    {
+      "path": "/report/history",
       "status": 200
     },
     {

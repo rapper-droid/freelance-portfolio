@@ -1,6 +1,6 @@
 {
   "origin": "http://localhost:3000",
-  "checkedAtIso": "2026-09-24T03:09:28.375Z",
+  "checkedAtIso": "2026-09-24T05:54:59.206Z",
   "routes": [
     {
       "route": "/demos/cafe",
@@ -224,6 +224,42 @@
           "route": "/forme/admin",
           "index": 0,
           "label": "注文 0"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/report",
+      "total": 5,
+      "findings": [
+        {
+          "route": "/report",
+          "index": 0,
+          "label": "ファイルを選ぶ"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/report/recipes",
+      "total": 3,
+      "findings": [
+        {
+          "route": "/report/recipes",
+          "index": 1,
+          "label": "書き出したファイルを読み込む"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/report/history",
+      "total": 3,
+      "findings": [
+        {
+          "route": "/report/history",
+          "index": 1,
+          "label": "書き出したファイルを読み込む"
         }
       ],
       "errors": []

@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-24T03:00:28.536Z",
+  "checkedAt": "2026-09-24T05:35:29.727Z",
   "findings": [
     {
       "width": 320,
@@ -59,6 +59,27 @@
     },
     {
       "width": 320,
+      "route": "/report",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/report/recipes",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
+      "route": "/report/history",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
       "route": "/services",
       "status": 200,
       "overflow": false,
@@ -388,6 +409,27 @@
     },
     {
       "width": 390,
+      "route": "/report",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/report/recipes",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
+      "route": "/report/history",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
       "route": "/services",
       "status": 200,
       "overflow": false,
@@ -717,6 +759,27 @@
     },
     {
       "width": 768,
+      "route": "/report",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/report/recipes",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
+      "route": "/report/history",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
       "route": "/services",
       "status": 200,
       "overflow": false,
@@ -1040,6 +1103,27 @@
     {
       "width": 1440,
       "route": "/flow",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/report",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/report/recipes",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/report/history",
       "status": 200,
       "overflow": false,
       "brokenImages": 0
