@@ -24,7 +24,9 @@ npm run dev          # http://localhost:3000（127.0.0.1 は hydration しない
 | 自分のデータを持ち出す      | `/kissa/my` の一番下 | 書き出し・読み込み・控え・初期化        |
 | 検証の記録                  | `/demos/qa`          | 実行済みの検査と、未実施の理由          |
 
-**本番（tsudowa.com）には P1〜P3 までが反映済み。P4・P5 は未反映。**
+**本番（tsudowa.com）に P1〜P5 すべて反映済み**（2026-09-24、Worker version
+`afee9cdf`）。デプロイ後の検証は 12/12 + 11/11 + qa:kissa 56/56 + qa:forme 62/62。
+ロールバック先は `46f3f849-ae09-4d57-a36d-e4c158f89ffd`。
 
 ---
 
@@ -140,9 +142,8 @@ Lighthouse の performance スコアは負荷で数点動く。20 ルートを�
 
 ## 5. 所長の操作が必要なもの
 
-1. **本番反映の承認。** P4（`e4c7c66`）以降は未反映。手順は
-   PR → `tsudowa/cloudflare-workers-candidate` →
-   `node scripts/workers-production.mjs deploy-candidate`。
+1. ~~本番反映の承認~~ — **2026-09-24 に実施済み**（PR #8 → `6b0445d` →
+   version `afee9cdf`）。次回も同じ手順で、所長の承認が要る。
 2. tetsuworks.com（Netlify / Codex 所有ブランチ）は今回の対象外のまま。
 3. 実メール・実決済・外部 AI の有効化は、それぞれ別の承認が要る。
 

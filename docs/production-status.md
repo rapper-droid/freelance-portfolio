@@ -8,61 +8,64 @@ by name only.
 
 ## What is live
 
-| Item     | Value                                                                                                                                                   |
-| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Origin   | `https://tsudowa.com` (TSUDOWA + TETSU WORKS, 47 routes in the sitemap plus 14 noindex shop routes)                                                     |
-| Worker   | `tsudowa-production`                                                                                                                                    |
-| Version  | `46f3f849-ae09-4d57-a36d-e4c158f89ffd`                                                                                                                  |
-| Deployed | 2026-09-24 JST with `node scripts/workers-production.mjs deploy-candidate`                                                                              |
-| Source   | `tsudowa/cloudflare-workers-candidate` = `6d2668f` (merge of PR #6, tree identical to `ec4422e`)                                                        |
-| Content  | The operable demos: KISSA and FORME, the shared operations record behind RELAY / SMART INBOX / ADMIN, and the rebuilt STILL, REFINE, SHIP and FLOWSTATE |
-
-### Not on production yet
-
-Three pieces of work are committed and not deployed: `e4c7c66` (P4 — the
-catalogue's descriptions, the routes into the shops from /works,
-/works/<category>, /projects/<slug>, partners and rescue, the dated build
-records, and `portfolio_working_version_click`), `755ad93` (61 Japanese
-sentences that rendered with a space in the middle), and P5 — the sandbox
-export/import and quarantine, the PAGE_CONTRACTS and image-coverage ledgers,
-performance budgets, and the shops added to the performance sweep. They sit on
-`claude/ultimate-experience-20260923`. Releasing them needs the owner's approval, then the usual path: PR into
-`tsudowa/cloudflare-workers-candidate`, then
-`node scripts/workers-production.mjs deploy-candidate`.
+| Item     | Value                                                                                                                                                                               |
+| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Origin   | `https://tsudowa.com` (apex 200; `www` 308 → apex; `http` 301 → `https`)                                                                                                            |
+| Worker   | `tsudowa-production`                                                                                                                                                                |
+| Version  | `afee9cdf-e2d6-4363-be2a-73599fc690f2`                                                                                                                                              |
+| Deployed | 2026-09-24 JST with `node scripts/workers-production.mjs deploy-candidate`                                                                                                          |
+| Source   | `tsudowa/cloudflare-workers-candidate` = `6b0445d` (merge of PR #8; tree `4a59afcc`, identical to `98d263c`)                                                                        |
+| Content  | **P1–P5.** The operable shops, the shared operations record, the rebuilt demos, the corrected catalogue and its routes into the shops, and the sandbox export / import / quarantine |
 
 ### Verified after this deployment, against `https://tsudowa.com`
 
-| Check                                      | Result                                     |
-| ------------------------------------------ | ------------------------------------------ |
-| Route smoke, 33 routes                     | all 200                                    |
-| `QA_BASE_URL=https://tsudowa.com qa:kissa` | 56/56                                      |
-| `QA_BASE_URL=https://tsudowa.com qa:forme` | 62/62                                      |
-| Runtime errors across 12 routes            | none                                       |
-| RELAY → SMART INBOX on production          | case filed, 7 tickets in the inbox         |
-| Downloads (FLOWSTATE, STILL)               | real files, correct names                  |
-| `/kissa`, `/forme`                         | `noindex, follow`; absent from the sitemap |
-| `/api/analytics` on GET                    | 405, which is its contract                 |
-| `/api/contact`                             | 200 (enabled; nothing was sent)            |
-| Unknown route                              | 404                                        |
+| Check                                                  | Result                                         |
+| ------------------------------------------------------ | ---------------------------------------------- |
+| `scripts/post-deploy-check.mjs` (89 pages + contracts) | **12/12**, run twice                           |
+| `QA_BASE_URL=… qa:kissa`                               | **56/56**                                      |
+| `QA_BASE_URL=… qa:forme`                               | **62/62**                                      |
+| Production flow smoke (11 checks)                      | **11/11**                                      |
+| RELAY → SMART INBOX → ADMIN                            | one record, visible on all three               |
+| Cart on the deployed bundle                            | works (this is what broke last release)        |
+| Sandbox export → clear storage → import                | the cart comes back                            |
+| FLOWSTATE download                                     | a real 1,328-byte file                         |
+| `/works` → 「操作できる版」 → `/kissa`                 | lands on the shop                              |
+| `/kissa`, `/forme`                                     | `noindex`; absent from the sitemap             |
+| `/works`                                               | indexed (so the check above cannot pass blind) |
+| `/api/analytics` on GET / cross-origin POST            | 405 / 403                                      |
+| `/api/contact`                                         | 200 (enabled; nothing was sent)                |
+| Unknown route                                          | 404                                            |
+| Secret names in HTML                                   | none                                           |
+| Turnstile widget                                       | live on `/works`                               |
+| Runtime page errors                                    | none                                           |
 
-Two defects were found by deploying rather than by testing, fixed, and the
-fix verified on the preview before this release:
+### One thing seen and explained
 
-1. `runtime/ids.ts` imported `node:crypto`, which the Workers client bundle
-   does not have. Adding to cart threw and the cart stayed empty, while every
-   local test passed. SHA-256 is now implemented in `runtime/sha256.ts`,
-   synchronous and byte-identical to Node's, so no derived id changed.
-2. Three scrollable regions had no keyboard access. CI caught one at 768px
-   that the local run did not; the other two were latent.
+The first FORME walkthrough after deployment reported three console 503s and
+scored 59/62. `/api/analytics` returns 503 when the forward to PostHog throws,
+which is the measurement path failing, not the visitor's. A rerun scored 62/62,
+five fresh sessions produced fifteen consecutive `202`s, and no user-facing
+route returned anything other than its expected status. It was transient
+upstream unavailability; the failure is reported to Sentry as
+`analytics_dependency` by design.
+
+### What the previous release taught
+
+`runtime/ids.ts` imported `node:crypto`, which the Workers client bundle does
+not have: adding to cart threw and the cart stayed empty while every local test
+passed. That is why `scripts/post-deploy-check.mjs` exists and why the flow
+smoke opens the real shop. Both were run against the _current_ production
+before this deploy, so neither is a check that has only ever passed on the
+build it was written for.
 
 ## Rollback
 
 1. **Primary:** roll the Worker back to the version this release replaced,
-   `9aaaed9e-1069-483c-aa64-01b2895d4e5c` — Workers & Pages >
+   `46f3f849-ae09-4d57-a36d-e4c158f89ffd` — Workers & Pages >
    tsudowa-production > Deployments > Rollback, or
-   `npx wrangler rollback 9aaaed9e-1069-483c-aa64-01b2895d4e5c --name tsudowa-production`.
+   `npx wrangler rollback 46f3f849-ae09-4d57-a36d-e4c158f89ffd --name tsudowa-production`.
    No DNS or mail change is involved. Earlier releases, oldest last:
-   `609058eb`, `cfb7abac`, `2bdd0b86`, `ab261d93`, `e41e0535`.
+   `9aaaed9e`, `609058eb`, `cfb7abac`, `2bdd0b86`, `ab261d93`, `e41e0535`.
 2. **Last resort only** (a Worker rollback cannot restore service): the retained
    Netlify known-good deploy `6aabc4aec1247183915ad890`
    (`https://6aabc4aec1247183915ad890--tsudowa.netlify.app`, HTTP 200 on

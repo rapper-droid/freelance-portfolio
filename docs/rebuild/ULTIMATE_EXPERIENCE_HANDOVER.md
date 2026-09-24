@@ -10,14 +10,14 @@
 
 ## 1. Git の保存状況
 
-| 項目           | 値                                                           |
-| -------------- | ------------------------------------------------------------ |
-| worktree       | `C:/Users/tetsu/tanebi-works-ultimate`                       |
-| branch         | `claude/ultimate-experience-20260923`                        |
-| 分岐元         | `origin/tsudowa/cloudflare-workers-candidate`（= `cbaf575`） |
-| HEAD           | `git log --oneline -1` で確認（下の一覧の最上段）            |
-| 状態           | P1〜P3 は deploy 済み。**P4 は commit 済み・本番未反映**     |
-| 未コミット差分 | なし（このセッション分は全て commit 済み）                   |
+| 項目           | 値                                                                 |
+| -------------- | ------------------------------------------------------------------ |
+| worktree       | `C:/Users/tetsu/tanebi-works-ultimate`                             |
+| branch         | `claude/ultimate-experience-20260923`                              |
+| 分岐元         | `origin/tsudowa/cloudflare-workers-candidate`（= `cbaf575`）       |
+| HEAD           | `git log --oneline -1` で確認（下の一覧の最上段）                  |
+| 状態           | **P1〜P5 すべて tsudowa.com へ deploy 済み**（version `afee9cdf`） |
+| 未コミット差分 | なし（このセッション分は全て commit 済み）                         |
 
 ```
 （最新）この文書の更新
@@ -394,10 +394,10 @@ KISSA と FORME の各 7 ルート、および P3 の 4 デモで **axe 違反 0
 
 **tsudowa.com は公開済みです。**
 
-| 配信先                                                         | 中身                                                       |
-| -------------------------------------------------------------- | ---------------------------------------------------------- |
-| **tsudowa.com**（Cloudflare Worker `tsudowa-production`）      | **P1〜P3 が反映済み**。version `46f3f849`。**P4 は未反映** |
-| **tetsuworks.com**（Netlify / `codex/portfolio-sales-hub-v2`） | 古いまま（`ce03541`）。所長の判断で今回は更新していません  |
+| 配信先                                                         | 中身                                                         |
+| -------------------------------------------------------------- | ------------------------------------------------------------ |
+| **tsudowa.com**（Cloudflare Worker `tsudowa-production`）      | **P1〜P5 が反映済み**。version `afee9cdf`。PR #8 / `6b0445d` |
+| **tetsuworks.com**（Netlify / `codex/portfolio-sales-hub-v2`） | 古いまま（`ce03541`）。所長の判断で今回は更新していません    |
 
 実測（デプロイ後）:
 
@@ -436,9 +436,11 @@ tetsuworks.com/forme      -> 404（未更新のため）
    `e4c7c66` を確認。
 2. `npm run dev` → **`http://localhost:3000/works`**（`127.0.0.1` は不可）。
    カードの「操作できる版」から店へ入れる。
-3. **P4 と日本語の改行修正は本番未反映。** 反映するなら PR →
-   `tsudowa/cloudflare-workers-candidate` →
+3. **P1〜P5 は本番反映済み**（2026-09-24、version `afee9cdf`）。
+   次に反映するときは PR → `tsudowa/cloudflare-workers-candidate` →
    `node scripts/workers-production.mjs deploy-candidate`（所長の承認が必要）。
+   デプロイ後は必ず `node scripts/post-deploy-check.mjs https://tsudowa.com` と
+   `QA_BASE_URL=https://tsudowa.com` での `qa:kissa` / `qa:forme` を通す。
 4. 続きを作るなら **P3 の残り（Automation の技術画面 — 入力 sample・schema・
    mapping・実行計画・承認・各工程の状態・失敗・retry・出力とログ）** か、
    **REPORT FLOW**、または 8 幅の visual baseline から。
@@ -495,5 +497,9 @@ npm run qa:contracts  # 画面契約。台帳と結合するので、契約の�
   だった。別ポートを使うか、`Get-NetTCPConnection -LocalPort <port>` で落とす。
 - **PowerShell の `Set-Content -Encoding utf8` は日本語を壊すことがある。**
   日本語を含むファイルの書き換えは Python か Write ツールで行う。
+- **Playwright の `networkidle` は Turnstile のあるページで永久に来ない。**
+  `/works` は 599ms で描画されているのに待ち続ける。ウィジェットが接続を保つため。
+  待つなら要素で待つ。逆に店の画面は `domcontentloaded` では早すぎるので、
+  `qa:kissa` と同じ hydration の印（カートバッジの文言）を待つ。
 - **シェル経由で改行エスケープを含む JS を書くと潰れる。**
   正規表現や文字列に改行エスケープが要るときは Write ツールで書く。
