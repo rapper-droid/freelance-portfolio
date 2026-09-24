@@ -165,6 +165,29 @@ async function relay(input: { scenario: string; text?: string }) {
   return {
     workflow: "relay",
     scenario: input.scenario,
+    /**
+     * The technical console reads the plan itself rather than the presentation
+     * view: payload hashes, idempotency keys and the plan version are the
+     * whole point of that screen, and a view built for a business reader
+     * deliberately drops them (指示書 §17 Automation／API の技術画面).
+     *
+     * Nothing new is computed for it. This is the same run, returned twice at
+     * two levels of detail, so the two screens can never disagree.
+     */
+    technical: {
+      plan: result.plan,
+      payloads: result.payloads,
+      run: {
+        runId: result.run.runId,
+        mode: result.run.mode,
+        workflow: result.run.workflow,
+        status: result.run.status,
+        inputSource: result.run.inputSource,
+        createdAt: result.run.createdAt,
+      },
+      sourceText: text,
+      extraction: result.extraction,
+    },
     stages: stageLabels(result.run),
     status: result.run.status,
     timeline: result.run.timeline,
