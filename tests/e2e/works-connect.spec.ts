@@ -3,25 +3,32 @@ import AxeBuilder from "@axe-core/playwright";
 import { liveRoutes } from "../../src/lib/working-versions";
 
 /**
- * P4: the catalogue has to lead to the operable shops.
+ * P4: the catalogue has to lead to the things you can actually operate.
  *
- * KISSA and FORME were reachable only from their own demo pages, which a
- * visitor reaches after /works, /works/<category> and /projects/<slug>. Every
- * one of those is a place where the strongest thing on the site was invisible.
+ * KISSA, FORME and now REPORT FLOW were reachable only from their own demo
+ * pages, which a visitor reaches after /works, /works/<category> and
+ * /projects/<slug>. Every one of those is a place where the strongest thing on
+ * the site was invisible.
  */
 
-const OPERABLE = Object.keys(liveRoutes).sort(); // cafe, ec
+const OPERABLE = Object.keys(liveRoutes).sort(); // cafe, csv, ec
 
 test("/works names the operable shops and every card that has one offers it", async ({
   page,
 }) => {
   await page.goto("/works");
 
-  const intro = page.locator(".works-operable");
-  await expect(intro).toContainText("実際の注文・予約・支払いは発生しません");
-  await expect(intro.locator("a")).toHaveCount(2);
-  await expect(intro.locator('a[href="/kissa"]')).toBeVisible();
-  await expect(intro.locator('a[href="/forme"]')).toBeVisible();
+  // Two paragraphs now: the fictional shops, and the tool that takes the
+  // visitor's own file. They make different promises, so they are separate.
+  const shops = page.locator(".works-operable").first();
+  await expect(shops).toContainText("実際の注文・予約・支払いは発生しません");
+  await expect(shops.locator("a")).toHaveCount(2);
+  await expect(shops.locator('a[href="/kissa"]')).toBeVisible();
+  await expect(shops.locator('a[href="/forme"]')).toBeVisible();
+
+  const tool = page.locator(".works-operable").last();
+  await expect(tool.locator('a[href="/report"]')).toBeVisible();
+  await expect(tool).toContainText("この端末から出ません");
 
   const working = page.locator("[data-working-version]");
   await expect(working).toHaveCount(OPERABLE.length);
@@ -57,7 +64,7 @@ test("/works names the operable shops and every card that has one offers it", as
   expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
 });
 
-test("the card's working link reaches a shop that actually works", async ({
+test("the card's working link reaches something that actually works", async ({
   page,
 }) => {
   await page.goto("/works");
@@ -72,6 +79,12 @@ test("the card's working link reaches a shop that actually works", async ({
   await page.locator('[data-working-version="ec"]').click();
   await expect(page).toHaveURL(/\/forme$/);
   await expect(page.locator("main")).toContainText("架空");
+
+  // REPORT FLOW is a tool, not a fictional shop: it opens ready for a file.
+  await page.goto("/works");
+  await page.locator('[data-working-version="csv"]').click();
+  await expect(page).toHaveURL(/\/report$/);
+  await expect(page.locator(".report-sources")).toBeVisible();
 });
 
 test("a category page carrying an operable demo offers it too", async ({
@@ -110,7 +123,8 @@ test("the case study sends a visitor to the working version, and only where one 
     expect((await new AxeBuilder({ page }).analyze()).violations).toEqual([]);
   }
 
-  for (const slug of ["inbox", "csv", "booking"]) {
+  // Demos with nothing behind them must not grow a panel that leads nowhere.
+  for (const slug of ["inbox", "booking", "admin"]) {
     await page.goto(`/projects/${slug}`);
     await expect(page.locator(".demo-live")).toHaveCount(0);
   }

@@ -1,0 +1,669 @@
+/* REPORT FLOW.
+ *
+ * The identity is the one the spec asks for: 差分と数字の読みやすさ. So the
+ * palette is quiet and the only saturated colour in the page belongs to a
+ * number that changed or a row that needs a decision. Tables become stacked
+ * cards on a phone rather than something to pinch and drag.
+ *
+ * Colours are stated, never inherited: this tool is reached from the portfolio
+ * shell, which repaints text colour for its own identity. */
+
+.report-page {
+  --paper: #f7f6f2;
+  --ink: #23262a;
+  --ink-soft: #5c6169;
+  --line: #ddd9d0;
+  --panel: #ffffff;
+  --accent: #2f5d50;
+  --accent-soft: #e6efe9;
+  --warn: #9a4a24;
+  --warn-soft: #fbeee6;
+  --tap: 44px;
+
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+.report-main {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: var(--space-7) var(--space-5) var(--space-9);
+}
+
+.report-hero h1 {
+  margin: 0 0 var(--space-3);
+  font: 700 var(--text-h2) / 1.3 var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+.report-hero p {
+  margin: 0 0 var(--space-4);
+  max-width: 62ch;
+  font-size: var(--text-body);
+  line-height: 1.95;
+  color: var(--ink-soft);
+}
+
+.report-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.report-nav a {
+  min-height: var(--tap);
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--ink);
+  font-size: var(--text-small);
+  font-weight: 600;
+}
+
+.report-nav a[aria-current="page"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+/* ---- steps ------------------------------------------------------------- */
+
+.report-steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: var(--space-2);
+  list-style: none;
+  margin: 0 0 var(--space-6);
+  padding: 0;
+}
+
+.report-steps button {
+  width: 100%;
+  min-height: 64px;
+  display: grid;
+  gap: 2px;
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.report-steps button:disabled {
+  cursor: default;
+}
+
+.report-steps li[data-state="current"] button {
+  border-color: var(--accent);
+  box-shadow: inset 0 0 0 1px var(--accent);
+}
+
+.report-steps li[data-state="done"] button {
+  background: var(--accent-soft);
+}
+
+.report-steps li[data-state="todo"] button:disabled {
+  color: var(--ink-soft);
+  opacity: 0.85;
+}
+
+.report-step-no {
+  font: 700 var(--text-caption) / 1 var(--font-display);
+  color: var(--accent);
+}
+
+.report-step-label {
+  font-weight: 700;
+  font-size: var(--text-small);
+}
+
+.report-step-hint {
+  font-size: var(--text-caption);
+  color: var(--ink-soft);
+}
+
+/* ---- panels ------------------------------------------------------------ */
+
+.report-panel {
+  margin: 0 0 var(--space-5);
+  padding: var(--space-6);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--panel);
+}
+
+.report-panel h2 {
+  margin: 0 0 var(--space-3);
+  font: 700 var(--text-h3) / 1.4 var(--font-display);
+}
+
+.report-panel h3 {
+  margin: var(--space-4) 0 var(--space-2);
+  font-size: var(--text-body);
+  font-weight: 700;
+}
+
+.report-panel-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.report-panel-head h2 {
+  margin-bottom: var(--space-1);
+}
+
+.report-lead,
+.report-panel p {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-small);
+  line-height: 1.95;
+  color: var(--ink-soft);
+}
+
+.report-provenance,
+.report-basis,
+.report-fineprint {
+  font-size: var(--text-caption);
+  line-height: 1.85;
+  color: var(--ink-soft);
+}
+
+.report-basis {
+  padding: var(--space-3);
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  color: var(--ink);
+}
+
+.report-notice,
+.report-saved-note {
+  margin: 0 0 var(--space-5);
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--accent-soft);
+  font-size: var(--text-small);
+  line-height: 1.9;
+  color: var(--ink);
+}
+
+.report-loading,
+.report-empty-note {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-small);
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+
+.report-error-reason {
+  margin: 0 0 var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--warn);
+  background: var(--warn-soft);
+  color: var(--warn);
+  font-size: var(--text-small);
+  font-weight: 600;
+  line-height: 1.85;
+}
+
+.report-hints {
+  margin: 0 0 var(--space-4);
+  padding-left: 1.3em;
+  font-size: var(--text-small);
+  line-height: 1.95;
+  color: var(--ink-soft);
+}
+
+.report-tag {
+  display: inline-block;
+  margin-left: var(--space-2);
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--warn-soft);
+  color: var(--warn);
+  font-size: var(--text-label);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+/* ---- buttons and fields ------------------------------------------------- */
+
+.report-button {
+  min-height: var(--tap);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0 var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--text-small);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.report-button:hover:not(:disabled) {
+  border-color: var(--accent);
+}
+
+.report-button.primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.report-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.report-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  margin-top: var(--space-4);
+}
+
+.report-field {
+  display: grid;
+  gap: 4px;
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.report-field input,
+.report-field select {
+  min-height: var(--tap);
+  padding: 0 var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--panel);
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--text-small);
+  font-weight: 400;
+}
+
+.report-search {
+  min-width: min(100%, 18rem);
+}
+
+/* ---- sources ----------------------------------------------------------- */
+
+.report-sources {
+  display: grid;
+  gap: var(--space-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 22rem), 1fr));
+}
+
+.report-source {
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+}
+
+.report-samples {
+  list-style: none;
+  margin: var(--space-3) 0 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-4);
+}
+
+.report-samples li {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.report-samples span {
+  font-size: var(--text-caption);
+  line-height: 1.85;
+  color: var(--ink-soft);
+}
+
+/* ---- numbers ----------------------------------------------------------- */
+
+.report-totals {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 9rem), 1fr));
+  margin: 0 0 var(--space-3);
+}
+
+.report-totals > div {
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+}
+
+.report-totals > div.is-headline {
+  grid-column: 1 / -1;
+  background: var(--accent-soft);
+}
+
+.report-totals dt {
+  font-size: var(--text-caption);
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.report-totals dd {
+  margin: 4px 0 0;
+  font: 700 var(--text-h3) / 1.2 var(--font-display);
+  font-variant-numeric: tabular-nums;
+}
+
+.report-totals > div.is-headline dd {
+  font-size: clamp(26px, 4vw, 38px);
+}
+
+.report-facts {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+  margin: var(--space-3) 0;
+}
+
+.report-facts dt {
+  font-size: var(--text-caption);
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.report-facts dd {
+  margin: 2px 0 0;
+  font-size: var(--text-small);
+  line-height: 1.7;
+  word-break: break-word;
+}
+
+/* ---- tables ------------------------------------------------------------ */
+
+.report-table-scroll {
+  overflow-x: auto;
+  margin: var(--space-3) 0;
+}
+
+.report-table-scroll:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.report-map,
+.report-rows {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--text-small);
+}
+
+.report-map th,
+.report-map td,
+.report-rows th,
+.report-rows td {
+  padding: var(--space-3);
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: top;
+}
+
+.report-map thead th,
+.report-rows thead th {
+  font-size: var(--text-caption);
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+
+.report-rows .is-number {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.report-map tr[data-new="true"] th {
+  background: var(--warn-soft);
+}
+
+.report-map code,
+.report-fix-editor code {
+  font-size: var(--text-caption);
+  word-break: break-all;
+  white-space: pre-wrap;
+}
+
+.report-settings {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 14rem), 1fr));
+  margin-top: var(--space-4);
+}
+
+/* ---- changes, problems, log -------------------------------------------- */
+
+.report-changes,
+.report-problems,
+.report-log,
+.report-fixed ul,
+.report-recipe-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-3);
+}
+
+.report-changes li,
+.report-log li,
+.report-fixed li {
+  display: grid;
+  gap: 2px;
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--line);
+  background: var(--paper);
+  font-size: var(--text-small);
+  line-height: 1.85;
+}
+
+.report-changes li {
+  border-left-color: var(--warn);
+}
+
+.report-log li[data-kind="value_normalised"] {
+  border-left-color: var(--accent);
+}
+
+.report-changes b,
+.report-log b,
+.report-fixed b,
+.report-problem-head b {
+  font-weight: 700;
+}
+
+.report-changes span,
+.report-log span,
+.report-fixed span {
+  color: var(--ink-soft);
+}
+
+.report-problems > li {
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+}
+
+.report-problem-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+}
+
+.report-problem-head span {
+  flex: 1 1 14rem;
+  font-size: var(--text-small);
+  color: var(--warn);
+  font-weight: 600;
+}
+
+.report-fix-editor {
+  margin-top: var(--space-4);
+  padding-top: var(--space-4);
+  border-top: 1px dashed var(--line);
+}
+
+.report-fix-fields {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 12rem), 1fr));
+}
+
+.report-fixed li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  border-left-color: var(--accent);
+}
+
+.report-fixed li span {
+  flex: 1 1 12rem;
+}
+
+.report-summary {
+  display: grid;
+  gap: var(--space-5);
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 16rem), 1fr));
+}
+
+.report-summary ul {
+  margin: 0 0 var(--space-2);
+  padding-left: 1.3em;
+  font-size: var(--text-small);
+  line-height: 1.95;
+}
+
+.report-summary-text pre {
+  margin: var(--space-3) 0 0;
+  padding: var(--space-4);
+  border-radius: var(--radius-sm);
+  background: var(--paper);
+  font-size: var(--text-caption);
+  line-height: 1.85;
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+
+.report-confirm p {
+  flex: 1 1 100%;
+  color: var(--warn);
+  font-weight: 600;
+}
+
+.report-panel.is-clear {
+  border-color: var(--accent);
+}
+
+/* ---- phone ------------------------------------------------------------- */
+
+@media (max-width: 720px) {
+  .report-main {
+    padding: var(--space-6) var(--space-4) var(--space-8);
+  }
+
+  .report-steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* A six-column table is not something to drag sideways on a phone: each row
+     becomes a card whose cells carry their own label. */
+  .report-rows,
+  .report-rows thead,
+  .report-rows tbody,
+  .report-rows tr,
+  .report-rows th,
+  .report-rows td {
+    display: block;
+  }
+
+  .report-rows thead {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .report-rows tr {
+    margin-bottom: var(--space-3);
+    padding: var(--space-3);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-sm);
+    background: var(--paper);
+  }
+
+  .report-rows td,
+  .report-rows th {
+    border-bottom: none;
+    padding: 4px 0;
+  }
+
+  .report-rows td[data-label]::before {
+    content: attr(data-label) "：";
+    font-size: var(--text-caption);
+    font-weight: 700;
+    color: var(--ink-soft);
+  }
+
+  .report-rows .is-number {
+    text-align: left;
+  }
+
+  .report-table-scroll {
+    overflow-x: visible;
+  }
+
+  .report-actions .report-button,
+  .report-source .report-button,
+  .report-samples .report-button {
+    width: 100%;
+  }
+}
+
+/* A row that could not be counted still appears in the detail — hiding it
+   would make the table disagree with the problem list — so it is marked
+   instead of quietly sitting there looking counted. */
+.report-rows tr[data-counted="false"] {
+  background: var(--warn-soft);
+}
+
+.report-row-issue {
+  font-size: var(--text-caption);
+  font-weight: 600;
+  color: var(--warn);
+  white-space: normal;
+}
+
+/* The first paint reserves the space the real panel will take, so arriving at
+   the tool does not shove the page down. */
+.report-panel-placeholder {
+  min-height: 420px;
+}

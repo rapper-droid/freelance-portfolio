@@ -89,6 +89,8 @@ describe("no demo denies what it can do", () => {
       /再読み込み[^。]*初期化/,
       /カート[^。]*ありません/,
     ],
+    // CSV AUTOMATOR became REPORT FLOW: it saves rules and keeps a history.
+    csv: [/再読み込み[^。]*初期化/, /保存[^。]*できません/],
     // The operations record persists, and reaches the other two screens.
     inbox: [/再読み込み[^。]*初期化/],
     automation: [/再読み込み[^。]*初期化/],
@@ -111,8 +113,8 @@ describe("no demo denies what it can do", () => {
     expect(getProject("booking")!.limitation).toMatch(/初期化/);
   });
 
-  it("names the operable shops where a visitor is told what persists", () => {
-    for (const slug of ["cafe", "ec"]) {
+  it("names the operable experiences where a visitor is told what persists", () => {
+    for (const slug of ["cafe", "ec", "csv"]) {
       const p = getProject(slug)!;
       expect(p.limitation).toMatch(/ブラウザ|保存|発生しません/);
     }
