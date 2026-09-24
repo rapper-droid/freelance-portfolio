@@ -67,6 +67,9 @@ async function entitiesOn(origin, listing, prefix) {
  */
 const REPORT = ["/report/recipes", "/report/history"];
 
+/** DAYBOOK is a fictional studio, so it is noindex and out of the sitemap. */
+const DAYBOOK = ["/daybook", "/daybook/admin"];
+
 /** Requested to confirm the 404 boundary still answers 404. */
 const ERROR_PROBE = "/__inventory_probe_404";
 /** Endpoints whose correct answer to a GET is not 200. */
@@ -147,6 +150,7 @@ try {
   // inventoried here, or the whole shop is invisible to the ledger.
   const shopRoutes = [
     ...REPORT,
+    ...DAYBOOK,
     ...KISSA,
     ...(await entitiesOn(ORIGIN, "/kissa/menu", "/kissa/menu")),
     ...FORME,

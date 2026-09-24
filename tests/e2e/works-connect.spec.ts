@@ -11,7 +11,7 @@ import { liveRoutes } from "../../src/lib/working-versions";
  * the site was invisible.
  */
 
-const OPERABLE = Object.keys(liveRoutes).sort(); // cafe, csv, ec
+const OPERABLE = Object.keys(liveRoutes).sort(); // automation, booking, cafe, csv, ec
 
 test("/works names the operable shops and every card that has one offers it", async ({
   page,
@@ -124,7 +124,9 @@ test("the case study sends a visitor to the working version, and only where one 
   }
 
   // Demos with nothing behind them must not grow a panel that leads nowhere.
-  for (const slug of ["inbox", "booking", "admin"]) {
+  // DAYBOOK left this list when it got /daybook — which is what the check is
+  // for: the panel follows the registry, not a hand-kept list of slugs.
+  for (const slug of ["inbox", "admin"]) {
     await page.goto(`/projects/${slug}`);
     await expect(page.locator(".demo-live")).toHaveCount(0);
   }

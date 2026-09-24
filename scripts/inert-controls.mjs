@@ -46,6 +46,9 @@ const routes = [
   "/report",
   "/report/recipes",
   "/report/history",
+  // DAYBOOK: both sides read the same store, so both are swept.
+  "/daybook",
+  "/daybook/admin",
   "/kissa",
   "/kissa/menu",
   "/kissa/menu/latte",

@@ -95,6 +95,9 @@ describe("no demo denies what it can do", () => {
     inbox: [/再読み込み[^。]*初期化/],
     automation: [/再読み込み[^。]*初期化/],
     admin: [/再読み込み[^。]*初期化/],
+    // DAYBOOK keeps a booking now, and offers alternatives rather than
+    // stopping at a refusal.
+    booking: [/再読み込み[^。]*初期化/, /重複予約の防止/],
   };
 
   for (const [slug, patterns] of Object.entries(FORBIDDEN)) {
@@ -107,14 +110,12 @@ describe("no demo denies what it can do", () => {
     });
   }
 
-  it("DAYBOOK still states the reset, because DAYBOOK still resets", () => {
-    // The one demo that deliberately keeps nothing. Saying so is the honest
-    // claim here, so this is the inverse of the checks above.
-    expect(getProject("booking")!.limitation).toMatch(/初期化/);
-  });
-
   it("names the operable experiences where a visitor is told what persists", () => {
-    for (const slug of ["cafe", "ec", "csv"]) {
+    // DAYBOOK joined this list when it got a store. The test that used to
+    // pin its "再読み込みすると初期化されます" was right until the screen
+    // started keeping bookings, which is exactly the staleness it existed
+    // to catch — so it moved here rather than being deleted.
+    for (const slug of ["cafe", "ec", "csv", "booking"]) {
       const p = getProject(slug)!;
       expect(p.limitation).toMatch(/ブラウザ|保存|発生しません/);
     }

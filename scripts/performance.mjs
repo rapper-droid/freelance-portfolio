@@ -43,6 +43,7 @@ try {
     "/works/qa",
     "/report",
     "/automation",
+    "/daybook",
     // The two heaviest, most interactive routes on the site had never been
     // measured: they carry a catalogue, a provider and a sandbox read.
     "/kissa",
@@ -85,7 +86,9 @@ try {
    * reason, rather than silently lowering the number for everyone.
    */
   const noIndex = (route) =>
-    route.startsWith("/kissa") || route.startsWith("/forme");
+    route.startsWith("/kissa") ||
+    route.startsWith("/forme") ||
+    route.startsWith("/daybook");
 
   const failures = [];
   const requested = process.argv.slice(2);
@@ -176,7 +179,7 @@ try {
         note: "Local production build; Lighthouse mobile simulated throttling. Not field Core Web Vitals.",
         budget: BUDGET,
         seoExempt:
-          "/kissa/* and /forme/* are noindex on purpose; the SEO budget does not apply to them.",
+          "/kissa/*, /forme/* and /daybook/* are noindex on purpose; the SEO budget does not apply to them.",
         failures,
         results: summary,
       },

@@ -381,6 +381,45 @@ const CONTRACTS = [
     evidence: "automation-console.test.ts（17 件）/ automation.spec.ts（8 件）",
   }),
 
+  // ------------------------------------------------------------ DAYBOOK ----
+  c("/daybook", {
+    brand: "TETSU WORKS",
+    family: "form",
+    audience: "予約の希望を文章で送りたい人",
+    purpose:
+      "希望の時間が取れるか判定し、取れないときは実際に空いている候補まで出す",
+    inputs: "依頼の文章（例文4通りあり）、名前、連絡先、候補の選択、合意",
+    outputs:
+      "読み取れた日時と読み取れなかった項目、空き候補、仮押さえ、確定、変更の差分、依頼ごとの記録",
+    next: "/daybook/admin",
+    highlight:
+      "断って終わらせないこと。埋まっているときに、前後の準備時間まで踏まえた候補が出る",
+    reduces:
+      "空き時間を聞き直す往復／営業時間を調べる／仮押さえの期限を覚えておく／変更のたびに全部を確認し直す",
+    media: "なし（時刻と状態が主役）",
+    storage: "daybook sandbox（相談・仮押さえ・予約）+ 破損時の控え",
+    sideEffects: "なし。実際の予約は入らず、メールも送らない",
+    evidence: "daybook-flow.test.ts（16 件）/ daybook.spec.ts / qa:visual",
+  }),
+  c("/daybook/admin", {
+    brand: "TETSU WORKS",
+    family: "console",
+    audience: "予約を受ける側",
+    purpose: "承認が要るものと、承認すると何が変わるかを読んで決める",
+    inputs: "承認、取消",
+    outputs:
+      "予約者の合意とお店の承認の2つの記録、変更の旧→新、前後の準備時間を含む台帳、他システムの予定",
+    next: "/daybook",
+    highlight:
+      "片方の記録だけでは確定しないこと。承認を押しても、断られた理由が記録に残るだけ",
+    reduces:
+      "何を承認するのか探す／変更で何が変わるのか読み直す／自分の予定と他システムの予定を見分ける",
+    media: "なし",
+    storage: "daybook sandbox（お客さま側と同じ1つの記録）",
+    sideEffects: "なし。自分が作っていない予定は変更も削除もしない",
+    evidence: "daybook-flow.test.ts / daybook.spec.ts",
+  }),
+
   // -------------------------------------------------------- REPORT FLOW ----
   c("/report", {
     brand: "TETSU WORKS",
