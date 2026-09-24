@@ -1,6 +1,6 @@
 {
   "origin": "http://localhost:3000",
-  "checkedAtIso": "2026-09-24T03:09:28.375Z",
+  "checkedAtIso": "2026-09-24T11:28:12.356Z",
   "routes": [
     {
       "route": "/demos/cafe",
@@ -226,6 +226,66 @@
           "label": "注文 0"
         }
       ],
+      "errors": []
+    },
+    {
+      "route": "/automation",
+      "total": 7,
+      "findings": [],
+      "errors": []
+    },
+    {
+      "route": "/report",
+      "total": 5,
+      "findings": [
+        {
+          "route": "/report",
+          "index": 0,
+          "label": "ファイルを選ぶ"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/report/recipes",
+      "total": 3,
+      "findings": [
+        {
+          "route": "/report/recipes",
+          "index": 1,
+          "label": "書き出したファイルを読み込む"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/report/history",
+      "total": 3,
+      "findings": [
+        {
+          "route": "/report/history",
+          "index": 1,
+          "label": "書き出したファイルを読み込む"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/daybook",
+      "total": 7,
+      "findings": [
+        {
+          "route": "/daybook",
+          "index": 5,
+          "label": "書き出したファイルを読み込む"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/daybook/admin",
+      "total": 0,
+      "findings": [],
       "errors": []
     },
     {

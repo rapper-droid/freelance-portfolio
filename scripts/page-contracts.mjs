@@ -361,6 +361,118 @@ const CONTRACTS = [
     evidence: "contact.spec.ts / hq.spec.ts（導線）",
   }),
 
+  // ------------------------------------------------------- AUTOMATION ----
+  c("/automation", {
+    brand: "TETSU WORKS",
+    family: "demo",
+    audience: "実行モデルが妥当かを判断する人（開発者・情報システム）",
+    purpose: "RELAY の 1 回の実行を、業務の言葉ではなく契約の粒度で確認する",
+    inputs:
+      "同梱サンプルの選択、承認する操作の選択、相手先の挙動（成功・失敗・応答なし）",
+    outputs: "実行計画、承認の紐づけ、操作ごとの結果、実行ログ（JSON）",
+    next: "/demos/automation（業務側）・/demos/inbox（運用側）",
+    highlight:
+      "失敗と「結果が分からない」を分け、再実行で二重に実行しないことを実際に見せる",
+    reduces: "「本当に安全に再実行できるのか」を問い合わせて確認する手間",
+    media: "なし（識別子と状態が主役）",
+    storage: "なし（この画面は何も保存しない）",
+    sideEffects:
+      "なし。実行は端末内の模擬アダプター。任意コード実行・任意URL取得なし",
+    evidence: "automation-console.test.ts（17 件）/ automation.spec.ts（8 件）",
+  }),
+
+  // ------------------------------------------------------------ DAYBOOK ----
+  c("/daybook", {
+    brand: "TETSU WORKS",
+    family: "form",
+    audience: "予約の希望を文章で送りたい人",
+    purpose:
+      "希望の時間が取れるか判定し、取れないときは実際に空いている候補まで出す",
+    inputs: "依頼の文章（例文4通りあり）、名前、連絡先、候補の選択、合意",
+    outputs:
+      "読み取れた日時と読み取れなかった項目、空き候補、仮押さえ、確定、変更の差分、依頼ごとの記録",
+    next: "/daybook/admin",
+    highlight:
+      "断って終わらせないこと。埋まっているときに、前後の準備時間まで踏まえた候補が出る",
+    reduces:
+      "空き時間を聞き直す往復／営業時間を調べる／仮押さえの期限を覚えておく／変更のたびに全部を確認し直す",
+    media: "なし（時刻と状態が主役）",
+    storage: "daybook sandbox（相談・仮押さえ・予約）+ 破損時の控え",
+    sideEffects: "なし。実際の予約は入らず、メールも送らない",
+    evidence: "daybook-flow.test.ts（16 件）/ daybook.spec.ts / qa:visual",
+  }),
+  c("/daybook/admin", {
+    brand: "TETSU WORKS",
+    family: "console",
+    audience: "予約を受ける側",
+    purpose: "承認が要るものと、承認すると何が変わるかを読んで決める",
+    inputs: "承認、取消",
+    outputs:
+      "予約者の合意とお店の承認の2つの記録、変更の旧→新、前後の準備時間を含む台帳、他システムの予定",
+    next: "/daybook",
+    highlight:
+      "片方の記録だけでは確定しないこと。承認を押しても、断られた理由が記録に残るだけ",
+    reduces:
+      "何を承認するのか探す／変更で何が変わるのか読み直す／自分の予定と他システムの予定を見分ける",
+    media: "なし",
+    storage: "daybook sandbox（お客さま側と同じ1つの記録）",
+    sideEffects: "なし。自分が作っていない予定は変更も削除もしない",
+    evidence: "daybook-flow.test.ts / daybook.spec.ts",
+  }),
+
+  // -------------------------------------------------------- REPORT FLOW ----
+  c("/report", {
+    brand: "TETSU WORKS",
+    family: "form",
+    audience: "毎週・毎月、同じ形式のCSVを集計している人",
+    purpose: "列の意味を一度決めて保存し、二回目からは質問なしで集計する",
+    inputs:
+      "CSVファイル（手元のもの、またはサンプル3週分）、列の役割、通貨、重複条件、読み取れない行の修正",
+    outputs:
+      "合計と件数、前回との差、変更の記録、集計結果CSV、例外だけのCSV、報告文用の要約",
+    next: "/report/recipes・/report/history",
+    highlight:
+      "二回目に何も聞かないこと。聞くのは前になかった列と税区分のときだけ",
+    reduces:
+      "列の対応をやり直す／重複を目視で探す／集計し直す／前回と見比べる／読み取れない行を表計算で直す",
+    media: "なし（数字と差分が主役）",
+    storage: "report sandbox（ルール・履歴・作業中の下書き）+ 破損時の控え",
+    sideEffects: "なし。ファイルはサーバーへ送信しない",
+    evidence:
+      "report-flow.test.ts（30 件・三週フロー）/ report.spec.ts / qa:visual",
+  }),
+  c("/report/recipes", {
+    brand: "TETSU WORKS",
+    family: "catalogue",
+    audience: "保存したルールを確かめたい人",
+    purpose: "列の対応・通貨・重複条件・承認済みの税区分と版を読む",
+    inputs: "削除の確認",
+    outputs: "削除、書き出し／読み込み",
+    next: "/report",
+    highlight:
+      "版を上げても前の版を消さない（過去の集計が説明できなくなるため）",
+    reduces: "「前回どう決めたか」を思い出す手間",
+    media: "なし",
+    storage: "report sandbox",
+    sideEffects: "なし",
+    evidence: "report.spec.ts / report-flow.test.ts",
+  }),
+  c("/report/history", {
+    brand: "TETSU WORKS",
+    family: "catalogue",
+    audience: "先週の数字を確かめたい人",
+    purpose: "過去の処理の合計・件数・例外の数と、使ったルールの版を読む",
+    inputs: "なし",
+    outputs: "書き出し／読み込み",
+    next: "/report",
+    highlight: "合計と読み込み行数を分けて記録する。明細は保存しない",
+    reduces: "前回の報告を探し直す手間",
+    media: "なし",
+    storage: "report sandbox（最大 40 件）",
+    sideEffects: "なし",
+    evidence: "report.spec.ts / report-flow.test.ts",
+  }),
+
   // ------------------------------------------------------------- KISSA ----
   c("/kissa", {
     brand: "KISSA（架空店舗）",

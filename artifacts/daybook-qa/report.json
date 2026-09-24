@@ -1,0 +1,151 @@
+{
+  "origin": "http://127.0.0.1:3170",
+  "checkedAtIso": "2026-09-24T13:46:40.353Z",
+  "results": [
+    {
+      "name": "hydrate /daybook @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /daybook @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /daybook/admin @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /daybook/admin @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "console @390",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /daybook @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /daybook @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /daybook/admin @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /daybook/admin @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "console @768",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /daybook @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /daybook @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "hydrate /daybook/admin @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "layout /daybook/admin @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "console @1440",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "request id computed in this runtime",
+      "ok": true,
+      "detail": "REQ-0D1210"
+    },
+    {
+      "name": "alternatives offered for a taken slot",
+      "ok": true,
+      "detail": "3 slots"
+    },
+    {
+      "name": "the refusal names a reason",
+      "ok": true,
+      "detail": "この依頼の記録（1件）  受付"
+    },
+    {
+      "name": "slot held, not booked",
+      "ok": true,
+      "detail": "仮押さえ中 2026年9月28日（月） 12:15"
+    },
+    {
+      "name": "confirming without the requester's agreement is refused",
+      "ok": true,
+      "detail": "予約者の日程合意が記録されていません。管理者の承認だけでは確定しません。 閉じる"
+    },
+    {
+      "name": "and the booking is not confirmed",
+      "ok": true,
+      "detail": "合意待ち"
+    },
+    {
+      "name": "two signatures confirm it",
+      "ok": true,
+      "detail": "確定"
+    },
+    {
+      "name": "and it kept the time that was held",
+      "ok": true,
+      "detail": "2026年9月28日（月） 12:15 vs 2026年9月28日（月） 12:15"
+    },
+    {
+      "name": "the change shows old and new, and nothing else",
+      "ok": true,
+      "detail": "2026年9月28日（月） 12:15 -> 2026年9月25日（金） 10:15"
+    },
+    {
+      "name": "the old slot is still blocked while the change waits",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "somebody else's entry is read, not managed",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "the booking moved",
+      "ok": true,
+      "detail": "2026年9月25日（金） 10:15 (wanted 2026年9月25日（金） 10:15)"
+    },
+    {
+      "name": "and the release of the old slot is recorded",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "it survives a reload",
+      "ok": true,
+      "detail": "2026年9月25日（金） 10:15 vs 2026年9月25日（金） 10:15"
+    }
+  ]
+}

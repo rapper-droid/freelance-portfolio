@@ -40,6 +40,15 @@ const routes = [
   "/forme/cart",
   "/forme/my",
   "/forme/admin",
+  // REPORT FLOW: the record screens carry the sandbox panel, and the tool
+  // itself is measured after a file is loaded by the E2E suite.
+  "/automation",
+  "/report",
+  "/report/recipes",
+  "/report/history",
+  // DAYBOOK: both sides read the same store, so both are swept.
+  "/daybook",
+  "/daybook/admin",
   "/kissa",
   "/kissa/menu",
   "/kissa/menu/latte",

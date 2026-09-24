@@ -7,6 +7,7 @@ import type {
   ExecutionMode,
   MissingField,
   PlannedAction,
+  ProcessingKind,
   Run,
   Warning,
 } from "../types";
@@ -62,6 +63,17 @@ export type RelayResult = {
   payloads: Record<string, unknown>;
   /** Weak identity candidates for a person to resolve. Never auto-applied. */
   identityCandidates: Array<{ caseId: string; reason: string }>;
+  /**
+   * What the extractor read, and how. The business screens do not need this;
+   * the technical console shows each field beside the span of the source it
+   * came from, which is the only way to check a claim without re-reading the
+   * whole message (指示書 §17).
+   */
+  extraction: {
+    extractorVersion: string;
+    processing: ProcessingKind;
+    fields: Record<string, { value: unknown; evidenceIds: string[] }>;
+  };
 };
 
 export async function runRelay(
@@ -283,6 +295,16 @@ export async function runRelay(
       caseId,
       reason,
     })),
+    extraction: {
+      extractorVersion: extraction.extractorVersion,
+      processing,
+      fields: Object.fromEntries(
+        Object.entries(extraction.fields).map(([name, field]) => [
+          name,
+          { value: field.value, evidenceIds: field.evidenceIds },
+        ]),
+      ),
+    },
   };
 }
 

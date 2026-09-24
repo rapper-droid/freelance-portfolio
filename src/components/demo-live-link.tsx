@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { liveRoutes } from "@/lib/working-versions";
+import { DEFAULT_LIVE_NOTE, liveRoutes } from "@/lib/working-versions";
 import "./demo-live-link.css";
 
 /**
@@ -41,11 +41,7 @@ export function DemoLiveLink({ slug }: { slug: string }) {
             </li>
           ))}
         </ul>
-        <p className="demo-live-note">
-          {
-            "架空の店舗です。実際の注文・予約・支払いは発生せず、入力した内容はお使いのブラウザの中だけに保存されます。"
-          }
-        </p>
+        <p className="demo-live-note">{live.note ?? DEFAULT_LIVE_NOTE}</p>
       </div>
     </section>
   );

@@ -112,16 +112,38 @@ test("booking days retain 44px touch targets on narrow screens", async ({
   for (const width of [320, 390]) {
     await page.setViewportSize({ width, height: 844 });
     await page.goto("/demos/booking");
-    for (const day of await page.locator(".booking-week button").all()) {
-      const box = await day.boundingBox();
+    const days = page.locator(".booking-week button");
+    // The select is client-rendered, so its presence means React has taken
+    // over and the day buttons will not be replaced under us. Holding element
+    // handles across a hydration re-render made them detached, and a detached
+    // element reports no box at all — which read as a 0px touch target.
+    const daySelect = page.getByRole("combobox", {
+      name: "表示日",
+      exact: true,
+    });
+    await daySelect.waitFor({ timeout: 25000 });
+    const count = await days.count();
+    expect(count).toBeGreaterThan(0);
+    for (let i = 0; i < count; i++) {
+      const box = await days.nth(i).boundingBox();
+      expect(box, `day ${i} @${width}`).not.toBeNull();
       expect(box!.width).toBeGreaterThanOrEqual(44);
       expect(box!.height).toBeGreaterThanOrEqual(44);
     }
-    await page.getByRole("button", { name: "9月24日を表示" }).focus();
+    // The week starts today, so naming a date here would pass only on the day
+    // it was written. The second day is read off the page instead.
+    const second = days.nth(1);
+    const label = (await second.getAttribute("aria-label")) ?? "";
+    expect(label).toMatch(/を表示$/);
+    await second.focus();
     await page.keyboard.press("Enter");
-    await expect(
-      page.getByRole("combobox", { name: "表示日", exact: true }),
-    ).toHaveValue("2026-09-24");
+    await expect(daySelect).toHaveValue(
+      await page
+        .locator(".booking-toolbar option")
+        .nth(1)
+        .getAttribute("value")
+        .then((v) => v ?? ""),
+    );
     expect(
       await page.evaluate(
         () => document.documentElement.scrollWidth <= innerWidth,

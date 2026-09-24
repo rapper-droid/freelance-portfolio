@@ -10,14 +10,14 @@
 
 ## 1. Git の保存状況
 
-| 項目           | 値                                                           |
-| -------------- | ------------------------------------------------------------ |
-| worktree       | `C:/Users/tetsu/tanebi-works-ultimate`                       |
-| branch         | `claude/ultimate-experience-20260923`                        |
-| 分岐元         | `origin/tsudowa/cloudflare-workers-candidate`（= `cbaf575`） |
-| HEAD           | `git log --oneline -1` で確認（下の一覧の最上段）            |
-| 状態           | P1〜P3 は deploy 済み。**P4 は commit 済み・本番未反映**     |
-| 未コミット差分 | なし（このセッション分は全て commit 済み）                   |
+| 項目           | 値                                                                 |
+| -------------- | ------------------------------------------------------------------ |
+| worktree       | `C:/Users/tetsu/tanebi-works-ultimate`                             |
+| branch         | `claude/ultimate-experience-20260923`                              |
+| 分岐元         | `origin/tsudowa/cloudflare-workers-candidate`（= `cbaf575`）       |
+| HEAD           | `git log --oneline -1` で確認（下の一覧の最上段）                  |
+| 状態           | **P1〜P5 すべて tsudowa.com へ deploy 済み**（version `afee9cdf`） |
+| 未コミット差分 | なし（このセッション分は全て commit 済み）                         |
 
 ```
 （最新）この文書の更新
@@ -91,6 +91,13 @@ tetsuworks.com（Netlify、Codex 所有ブランチ）は所長の判断で対�
 | `/forme/my`                | 注文の状況・支払・取消、お気に入り                           |
 | `/forme/admin`             | 注文の進行・在庫の増減・取り扱い停止・売上。未払いは発送不可 |
 
+### 新規（DAYBOOK）
+
+| URL              | 何ができるか                                                               |
+| ---------------- | -------------------------------------------------------------------------- |
+| `/daybook`       | 文章で相談 → 候補 → 仮押さえ 10 分 → 合意 → 確定 → 変更依頼 → 差分 → 取消  |
+| `/daybook/admin` | 承認が要るものと、承認すると何が変わるか。台帳と、触らない他システムの予定 |
+
 ### 既存（このセッションで直したもの）
 
 | URL                 | 変更                                                                  |
@@ -98,7 +105,7 @@ tetsuworks.com（Netlify、Codex 所有ブランチ）は所長の判断で対�
 | `/demos/automation` | RELAY。確認済みにすると **実際に記録が作られ**、SMART INBOX に出る    |
 | `/demos/inbox`      | SMART INBOX。状態・担当・下書きが記録に残り、再読み込みしても消えない |
 | `/demos/admin`      | ADMIN。顧客と問い合わせを紐づけられ、問い合わせから顧客を作れる       |
-| `/demos/booking`    | 週が **今日から 7 日** になった（旧: 2026-09-18〜24 固定）            |
+| `/demos/booking`    | 紹介画面。`/daybook` への導線を置いた（週は今日から 7 日のまま）      |
 
 ---
 
@@ -171,10 +178,11 @@ SMART INBOX の問い合わせ主は顧客一覧に存在せず、ADMIN は自�
 
 ### 3-4. 変えなかったもの（削る判断）
 
-- **DAYBOOK は再読み込みでリセットされたまま。** 画面にそう書いてあり、E2E も
-  その挙動を検証している。意図的な設計なので、揃えるためだけに変えない。
 - **RELAY / INBOX と DAYBOOK は別の記録のまま。** スタジオの予約は問い合わせでは
   ない。1 つのモデルに押し込めば、どちらにも合わないものになる。
+- （このセッションで覆した判断）「DAYBOOK は保存しないのが意図的」と書いていたが、
+  保存しないことで**指示書が必須と呼ぶ流れの後半が一度も見られなかった**。
+  3-11 節。
 
 ### 3-5. FORME（架空のオンラインショップ / P3）
 
@@ -297,6 +305,126 @@ composite スコアは負荷で数点動くため、握るのは決定的な指�
 `src/lib/runtime/download.ts` に集約した。`flow-result.tsx` は `click()` の直後に
 `revokeObjectURL` していて、ブラウザによってはダウンロードが始まらない実装だった。
 
+### 3-9. REPORT FLOW（P2 の積み残し）
+
+**いちばん大きい発見は、ドメインが既にあって誰も使っていなかったこと。**
+`src/lib/runtime/report/` に 924 行（recipe / compute / workflow）と 38 件の
+テストがあり、**どの画面からも呼ばれていなかった**。作り直さず、この上に
+道具を載せた。
+
+**指示書 §15 が必須としている三連続フロー**を、実ブラウザで通した。
+
+| 週    | 何が起きるか                             | 実測                                         |
+| ----- | ---------------------------------------- | -------------------------------------------- |
+| 1週目 | 列の意味を決めてルールを保存             | 合計 ¥221,000／12 行中 8 件を集計／例外 3 件 |
+| 2週目 | 列の順番だけ違う → **質問ゼロ**          | 前回比を根拠つきで表示                       |
+| 3週目 | 知らない列と税区分 → **その2点だけ確認** | 版が 2 に上がり、前の版は残る                |
+
+**減らした手間**（依頼の6つ）。
+
+| 毎回やっていたこと | どう減らしたか                                                        |
+| ------------------ | --------------------------------------------------------------------- |
+| 読む               | 表より先に合計・件数・除外を出し、「合計は読み取れた N 件だけ」と併記 |
+| 探す               | 読み取れなかった行を最上部に、元ファイルの行番号つきで                |
+| 直す               | その場で直して再集計。**元ファイルは変更しない**（差分は overlay）    |
+| コピーする         | CSV 出力・例外だけの CSV・報告文用の要約をワンクリック                |
+| ルールを思い出す   | 列名が一致すれば順番が変わっても自動適用。使った版を画面に表示        |
+| 確認する           | 前回比は「何と何を比べたか」を先に書く。変更の記録を理由つきで        |
+
+**新しい画面**: `/report`（道具）、`/report/recipes`（ルールと版）、
+`/report/history`（処理履歴）。4 つ目の sandbox
+（`tsudowa-report-sandbox-v1`）で、P5 と同じ控え・書き出し・読み込みを持つ。
+
+**作り込んだ状態**: 不正CSV（5 種類を理由つきで拒否）、空（ルール0件・履歴0件）、
+大量データ（5,000 行を 121ms・表は 50 行ずつ）、再読込（下書きごと復帰）、
+保存容量不足（**下書きを先に捨ててルールを守る**）、修正の取り消し。
+
+**意図的にやらなかったこと**: XLSX / PDF 出力は、実際に開いて中身を検証できる
+形で出せないため選択肢に出していない（指示書 §15）。AI も使っていない。
+増減の理由は「可能性」として出し、断定しない。
+
+### 3-10. Automation／API の技術画面（P3 の積み残し）
+
+指示書 §17 の要求はほぼ否定形で書かれている — **「nodeを線でつなぐだけの
+フローチャートで終わらせない」**。線は、どの操作が取り消せないのか、承認が
+何に紐づいているのか、二度押したら何が起きるのかを教えない。そこで
+`/automation` は、技術者が実際に聞く 4 つの問いの順に組んだ。
+
+| 節                    | 何を見せるか                                                                                                                              |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. 入力               | 同梱サンプルのみ。URL を渡す入口も、式を受け取る入口もない                                                                                |
+| 2. スキーマと境界     | **やらないこと 4 件を先頭に**。閉じた集合 6 種は `runtime/types.ts` の定数から読み出し                                                    |
+| 3. マッピング         | 項目を押すと、その根拠が**原文のどこか**を反転表示。根拠のない項目は「規則から導出」と区別                                                |
+| 4. 実行計画           | runId・版・inputHash・policyVersion と、操作ごとの payloadHash / idempotencyKey。**計画の提案と、環境から計算し直した実際の可否を並べる** |
+| 5. 承認               | 真偽値ではなくハッシュに紐づく。外へ出る操作は既定で未選択                                                                                |
+| 6. 実行・失敗・再実行 | 相手先の挙動を「成功／失敗／応答が返らない」から選んで実行                                                                                |
+| 7. 出力とログ         | 操作ごとの結果と相手側ID。JSON で書き出せる                                                                                               |
+
+**実ブラウザで確認した核心の挙動。**
+
+```
+1回目  case.upsert 成功 ／ reply.draft 結果不明 ／ mail.send 実行せず
+2回目  すべて 実行せず
+ログ   「結果が確認できませんでした。相手先の記録と照合するまで再送しません。」
+       「実行済みのため再実行しません（sim-50c8e60d）」
+```
+
+失敗と「結果が分からない」を別の状態にしているのは、タイムアウトした送信は
+失敗した送信ではないから。再送すれば二重に届きうる。
+
+**共通基盤の再利用。** 新しい planner も新しい API も作っていない。
+`/api/flow` が返す同じ 1 回の実行を、業務向け（RELAY のデモ）と技術向け
+（この画面）の 2 つの粒度で返すだけ。`technical` キーを足し、`runRelay` が
+抽出結果（項目 → 根拠）を返すようにした 2 点だけが追加。
+
+**安全側の境界。** 実行できるのは `actionKinds` の 8 種類だけで、この一覧は
+コードの閉じた集合そのもの。実行先は端末内の模擬アダプター。sample モード
+なので `mail.send`・`calendar.confirm`・`calendar.update` は計画と承認まで。
+
+### 3-11. DAYBOOK（P2 の積み残し・架空スタジオの予約）
+
+判定の中身は前からあった。`runtime/rules/availability.ts`（348 行）と
+`runtime/daybook/workflow.ts`（488 行）に、営業時間・前後の準備時間・衝突検出・
+代替候補・期限つき仮押さえ・状態遷移・二者承認が書かれ、単体テストも通って
+いた。**なかったのは、予約を 2 回の画面表示のあいだ保持する場所だけ。**
+その 1 点が欠けているために、指示書が必須と呼ぶ流れの後半 —
+「確定 → 後から変更依頼 → 差分だけ確認」— は一度も画面に出たことがなかった。
+
+5 つ目の sandbox（`tsudowa-daybook-sandbox-v1`）を足し、2 つの画面を繋いだ。
+
+| URL              | 誰の画面か | 何ができるか                                                                 |
+| ---------------- | ---------- | ---------------------------------------------------------------------------- |
+| `/daybook`       | 予約する側 | 文章で相談 → 候補 → 仮押さえ → 合意 → 確定 → 変更依頼 → 取消。依頼ごとの記録 |
+| `/daybook/admin` | 受ける側   | 承認が要るものと、承認すると**何が変わるか**。台帳。他システムの予定         |
+
+**画面が保証している 2 つの規則。**
+
+1. **確定には 2 つの記録が要る。** 予約者の合意と運営の承認は別の事実として
+   保存する。片方だけで承認を押すと、**確定せず、断られた理由が記録に残る**。
+   ボタンを灰色にするのではなく押させて断るのは、灰色のボタンでは規則が
+   本当にあることを示せないから（E2E `daybook.spec.ts` がこれを検査する）。
+2. **変更は、合意するまで元の予約を消さない。** 変更依頼中の予約は
+   `RESCHEDULE_PENDING` で**元の時間を押さえたまま**。移動先は候補であって
+   押さえではないので、承認の瞬間に取り直す。埋まっていれば確定せず、
+   「元の予約はそのまま残っています」と出る。返事が来なければ予約は元のまま。
+
+**種データは「今」を基準に置く。** 先約 2 件は固定の日付ではなく、
+`seedBookings(nowIso)` が **次の営業日**に置く。日付を固定すると、その日を
+過ぎた瞬間にデモは存在理由（希望の枠が埋まっている）を静かに失う。
+`qa:kissa` で 3 回続けて踏んだ罠なので、最初からそうしていない。
+
+**他システムの予定（`EXT-0041`）は触らない。** 空き判定には使うが、
+`managedByUs: false` なので変更も削除もしない。台帳では破線で区別し、
+その行にボタンを置かない（指示書 B10・E2E で検査）。
+
+**制作例の記述も直した。** `portfolio.ts` の `booking` は
+「重複予約の防止」「再読み込みすると初期化されます」と書かれたままだった。
+両方とも今は誤り。`portfolio-claims.test.ts` に **DAYBOOK は初期化されると
+書いてあること**を固定する検査があり、それが落ちて気づいた。検査を消さずに
+「保存されるものが書かれている体験」の側へ移した。これがこの検査の役目。
+
+---
+
 ## 4. 未接続・やっていないこと
 
 | 項目           | 状態                                                                  |
@@ -315,13 +443,13 @@ composite スコアは負荷で数点動くため、握るのは決定的な指�
 | ------ | -------------------------------------------------------------------------------------- | ----------------------------- |
 | P1     | KISSA（メニュー・詳細・カート・注文・予約・変更・運営反映）                            | **完了**                      |
 | P2     | RELAY + SMART INBOX + ADMIN を 1 つの案件データで連動                                  | **完了**                      |
-| P2     | DAYBOOK（日付は修正済み。保存しないのは意図的 — 3-4 節）                               | 部分                          |
-| P2     | REPORT FLOW                                                                            | 未着手                        |
+| P2     | DAYBOOK（相談 → 候補 → 仮押さえ → 合意 → 承認 → 変更 → 差分 → 確定）                   | **完了**                      |
+| P2     | REPORT FLOW                                                                            | **完了**                      |
 | P3     | FORME / FLOWSTATE / REFINE / STILL / SHIP の作り込み                                   | **完了**                      |
-| P3     | Automation の技術画面（schema・mapping・retry・ログ）                                  | 未着手                        |
+| P3     | Automation の技術画面（schema・mapping・retry・ログ）                                  | **完了**                      |
 | P4     | TSUDOWA 全ページ・`/works` 全分類・`/services`・partners・rescue                       | **完了**                      |
 | P5     | 全 route / 状態の台帳、画像 coverage、公開デモ隔離、性能、migration、docs、review pack | **完了**                      |
-| P5     | 8 幅の visual baseline                                                                 | 部分（4 幅 + design QA 6 幅） |
+| P5     | 8 幅の visual baseline                                                                 | **完了**（320〜1440 の 8 幅） |
 | P5     | 許可された remote preview での検査                                                     | 未実施（本番未反映のため）    |
 
 P4 で `/services` の中身を変えなかったのは、公開中の 2 件（`web-fix`・
@@ -339,21 +467,21 @@ REFINE の説明文だけ、P3 で足した幅切替と読み順に合わせて�
 | ---------------- | ------------------------ | ------------------------------------------- |
 | lint             | `npm run lint`           | 0 errors, 0 warnings                        |
 | typecheck        | `npm run typecheck`      | pass                                        |
-| unit             | `npx vitest run`         | **629 passed** / 45 files                   |
+| unit             | `npx vitest run`         | **693 passed** / 48 files                   |
 | build            | `npm run build`          | success                                     |
-| E2E（3 幅）      | `npm run test:e2e`       | **378 passed**                              |
-| KISSA 通し       | `npm run qa:kissa`       | **56/56**（390 / 768 / 1440）               |
+| E2E（3 幅）      | `npm run test:e2e`       | **462 passed**                              |
+| KISSA 通し       | `npm run qa:kissa`       | **59/59**（390 / 768 / 1440）               |
 | FORME 通し       | `npm run qa:forme`       | **62/62**（390 / 768 / 1440）               |
-| 表示崩れ（4 幅） | `npm run qa:visual`      | PASS **47 ルート** × 320/390/768/1440       |
-| 操作系の実測     | `npm run qa:controls`    | **147 controls** / 動かないボタン 0         |
-| リンク           | `npm run qa:links`       | PASS 42 routes, **234 links**               |
+| 表示崩れ（8 幅） | `npm run qa:visual`      | PASS **53 ルート** × 320〜1440 の 8 幅      |
+| 操作系の実測     | `npm run qa:controls`    | **172 controls** / 動かないボタン 0         |
+| リンク           | `npm run qa:links`       | PASS 42 routes, **240 links**               |
 | SEO              | `npm run qa:seo`         | PASS 41 routes（要 `NEXT_PUBLIC_SITE_URL`） |
 | デザイン（6 幅） | `npm run qa:design`      | PASS 6 routes × 6 幅、axe/focus/runtime     |
-| ルート台帳       | `npm run qa:inventory`   | **97 entries**、想定外ステータス 0          |
+| ルート台帳       | `npm run qa:inventory`   | **103 entries**、想定外ステータス 0         |
 | 日本語の改行     | `npm run qa:text`        | PASS（verify に組み込み済み）               |
-| 性能（mobile）   | `npm run qa:performance` | **20 ルート、予算内**                       |
+| 性能（mobile）   | `npm run qa:performance` | **23 ルート、予算内**（/daybook は 96）     |
 | 画像 coverage    | `npm run qa:images`      | 必須 4 枠すべて 100%                        |
-| 画面契約         | `npm run qa:contracts`   | 29 テンプレート / 89 実体                   |
+| 画面契約         | `npm run qa:contracts`   | **35 テンプレート / 95 実体**               |
 
 ### 新しい検査が、本当に落ちることを確かめた
 
@@ -373,17 +501,25 @@ KISSA と FORME の各 7 ルート、および P3 の 4 デモで **axe 違反 0
 `showcase-p3.spec.ts` が CI で毎回検査する。
 
 `qa:visual` に `/history`・`/lab`・`/contact`・`/contact/general` を足した。
-この 4 つは今まで一度も幅検査を通っていなかった。
+この 4 つは今まで一度も幅検査を通っていなかった。DAYBOOK の 2 画面も
+`qa:visual`・`qa:controls`・`qa:inventory`・`qa:contracts` に入れた。
 
-### `qa:controls` の 19 件について
+幅は 4 → **8**（320 / 360 / 390 / 430 / 768 / 1024 / 1280 / 1440）。
+埋まっていた穴は 2 つ。360 は日本で最も多い Android の幅で、320 と 390 の
+あいだにあり、2 列が 1 列多い状態になりやすい。そして **1024〜1280 —
+実際にノートPCがある幅 — は一度も測っていなかった**。max-width と段組みの
+規則が切り替わるのはそこなので、768 と 1440 で通る配置が真ん中で崩れうる。
 
-147 個の操作を実際に押して、画面が変わらなかったものを報告する仕組み。
-19 件あるが、**死んだボタンは 1 つもない。** 内訳は 2 種類だけ。
+### `qa:controls` の 22 件について
+
+172 個の操作を実際に押して、画面が変わらなかったものを報告する仕組み。
+23 件あるが、**死んだボタンは 1 つもない。** 内訳は 2 種類だけ。
+Automation の技術画面（7 操作）は 0 件。
 
 | 種類                                       | 件数 | なぜ変わらないのが正しいか                      |
 | ------------------------------------------ | ---: | ----------------------------------------------- |
-| すでに選択されている選択肢・空の一覧のタブ |   17 | 「すべて」を選んだ状態で「すべて」を押している  |
-| 「書き出したファイルを読み込む」           |    2 | OS のファイル選択を開くだけで、DOM は変わらない |
+| すでに選択されている選択肢・空の一覧のタブ |   20 | 「すべて」を選んだ状態で「すべて」を押している  |
+| 「書き出したファイルを読み込む」           |    3 | OS のファイル選択を開くだけで、DOM は変わらない |
 
 後者は `sandbox.spec.ts` が `setInputFiles` で実際にファイルを渡して検査する。
 中身は `artifacts/inert-controls/report.json`。
@@ -394,10 +530,10 @@ KISSA と FORME の各 7 ルート、および P3 の 4 デモで **axe 違反 0
 
 **tsudowa.com は公開済みです。**
 
-| 配信先                                                         | 中身                                                       |
-| -------------------------------------------------------------- | ---------------------------------------------------------- |
-| **tsudowa.com**（Cloudflare Worker `tsudowa-production`）      | **P1〜P3 が反映済み**。version `46f3f849`。**P4 は未反映** |
-| **tetsuworks.com**（Netlify / `codex/portfolio-sales-hub-v2`） | 古いまま（`ce03541`）。所長の判断で今回は更新していません  |
+| 配信先                                                         | 中身                                                         |
+| -------------------------------------------------------------- | ------------------------------------------------------------ |
+| **tsudowa.com**（Cloudflare Worker `tsudowa-production`）      | **P1〜P5 が反映済み**。version `afee9cdf`。PR #8 / `6b0445d` |
+| **tetsuworks.com**（Netlify / `codex/portfolio-sales-hub-v2`） | 古いまま（`ce03541`）。所長の判断で今回は更新していません    |
 
 実測（デプロイ後）:
 
@@ -436,15 +572,19 @@ tetsuworks.com/forme      -> 404（未更新のため）
    `e4c7c66` を確認。
 2. `npm run dev` → **`http://localhost:3000/works`**（`127.0.0.1` は不可）。
    カードの「操作できる版」から店へ入れる。
-3. **P4 と日本語の改行修正は本番未反映。** 反映するなら PR →
-   `tsudowa/cloudflare-workers-candidate` →
+3. **P1〜P5 は本番反映済み**（2026-09-24、version `afee9cdf`）。
+   次に反映するときは PR → `tsudowa/cloudflare-workers-candidate` →
    `node scripts/workers-production.mjs deploy-candidate`（所長の承認が必要）。
-4. 続きを作るなら **P3 の残り（Automation の技術画面 — 入力 sample・schema・
-   mapping・実行計画・承認・各工程の状態・失敗・retry・出力とログ）** か、
-   **REPORT FLOW**、または 8 幅の visual baseline から。
+   デプロイ後は必ず `node scripts/post-deploy-check.mjs https://tsudowa.com` と
+   `QA_BASE_URL=https://tsudowa.com` での `qa:kissa` / `qa:forme` を通す。
+4. **指示書 P1〜P5 の実装は全て完了した。** Automation の技術画面・
+   REPORT FLOW・DAYBOOK・8 幅の visual baseline が最後の 4 件だった。
+   残っているのは所長の資格情報が必要なもの（実 AI・実決済・実メール送信）と、
+   本番反映後の remote preview 検査だけ。
    レビューする人には [REVIEW_PACK.md](REVIEW_PACK.md) を渡す。
-   共有記録の手本は 3 つ: `src/lib/shop/`（KISSA）、`src/lib/ops/`
-   （RELAY + INBOX + ADMIN）、`src/lib/forme/`（FORME）。同じ形 —
+   共有記録の手本は 5 つ: `src/lib/shop/`（KISSA）、`src/lib/ops/`
+   （RELAY + INBOX + ADMIN）、`src/lib/forme/`（FORME）、
+   `src/lib/report/`（REPORT FLOW）、`src/lib/daybook/`（DAYBOOK）。同じ形 —
    `schemaVersion` つきの localStorage、1 つの Context、判断は純粋関数。
    **provider の更新系は必ず ref から読むこと**（3-3 節の 1 番）。
 5. 触ってはいけない場所: `C:/Users/tetsu/freelance-portfolio`、
@@ -453,16 +593,25 @@ tetsuworks.com/forme      -> 404（未更新のため）
 ### 追加した npm scripts
 
 ```
-npm run qa:kissa      # KISSA を通しで操作して 56 項目を検査
+npm run qa:kissa      # KISSA を通しで操作して 59 項目を検査
 npm run qa:forme      # FORME を通しで操作して 62 項目を検査
 npm run qa:controls   # 全デモのボタンを押して、何も起きないものを報告
 npm run qa:text       # JSX の中で割れた日本語の文を検出（verify に組み込み済み）
 npm run qa:images     # 商品画像・プレビュー・参照ファイルの充足（verify に組み込み済み）
-npm run qa:inventory  # 全 97 route を実際に要求して台帳を作る
+npm run qa:inventory  # 全 103 route を実際に要求して台帳を作る
 npm run qa:contracts  # 画面契約。台帳と結合するので、契約のない画面は落ちる
 ```
 
-どちらも `localhost:3000` に対して実行する（`QA_BASE_URL` で変更可）。
+REPORT FLOW の検査は `tests/unit/report-flow.test.ts`（30 件・三週フロー）と
+`tests/e2e/report.spec.ts`（9 件 × 3 幅）。Automation の技術画面は
+`tests/unit/automation-console.test.ts`（17 件）と
+`tests/e2e/automation.spec.ts`（8 件 × 3 幅）。前者には、画面が説明する
+閉じた集合がコードの定数と一致しているかの検査が入っている。
+
+DAYBOOK は `tests/unit/daybook-flow.test.ts`（16 件・必須フローを 1 本の
+検査として順に走らせる）と `tests/e2e/daybook.spec.ts`（11 件 × 3 幅）。
+
+どれも `localhost:3000` に対して実行する（`QA_BASE_URL` で変更可）。
 
 ---
 
@@ -495,5 +644,24 @@ npm run qa:contracts  # 画面契約。台帳と結合するので、契約の�
   だった。別ポートを使うか、`Get-NetTCPConnection -LocalPort <port>` で落とす。
 - **PowerShell の `Set-Content -Encoding utf8` は日本語を壊すことがある。**
   日本語を含むファイルの書き換えは Python か Write ツールで行う。
+- **時刻に依存する検査は、ある時間から落ちる。しかも直し方を 3 回間違えた。**
+  `kissa-qa` の予約枠の選び方は、`nth(8)`（午後に 9 件未満で落ちる）→
+  「その日の最初の空き枠」（夕方にその日の枠が尽きて落ちる）→
+  「空きのある最初の日」（変更先が現在と同じ枠になり、移動していないのに
+  移動したことになる）と壊れ続けた。最終形は、**空きのある日を探し、現在の
+  時刻と違う枠を選ぶ**。固定の添字と「今日」を前提にした検査は、いつか必ず
+  落ちる。
+- **Playwright の `networkidle` は Turnstile のあるページで永久に来ない。**
+  `/works` は 599ms で描画されているのに待ち続ける。ウィジェットが接続を保つため。
+  待つなら要素で待つ。逆に店の画面は `domcontentloaded` では早すぎるので、
+  `qa:kissa` と同じ hydration の印（カートバッジの文言）を待つ。
+- **Playwright の element handle を hydration 越しに持つと、箱が消える。**
+  `await locator.all()` で 7 個の handle を取り、そのあと React が再描画すると
+  handle は detached になり、`boundingBox()` は `null` を返す。これが
+  `TypeError: Cannot read properties of null (reading 'width')` になり、
+  読み方を変えれば「タップ領域が 0px」にも見える。実際に `premium.spec.ts` で
+  起きた（DAYBOOK の導線パネルを `/demos/booking` の上に足して配置が動いた
+  ときに顕在化）。**毎回 `locator.nth(i)` で取り直し、client でしか出ない要素
+  （`select` など）を待ってから測る。**
 - **シェル経由で改行エスケープを含む JS を書くと潰れる。**
   正規表現や文字列に改行エスケープが要るときは Write ツールで書く。

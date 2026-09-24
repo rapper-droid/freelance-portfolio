@@ -50,6 +50,12 @@ export default function AllWorks() {
                 "は、注文・席予約・在庫まで実際に操作できます。架空店舗のため、実際の注文・予約・支払いは発生しません。"
               }
             </p>
+            <p className="works-operable">
+              <Link href="/report">REPORT FLOW</Link>
+              {
+                "は、手元のCSVをそのまま読み込める業務ツールです。ファイルはこの端末から出ません。"
+              }
+            </p>
             <Link href="#works" className="button primary">
               制作例から探す <ArrowRight size={16} />
             </Link>

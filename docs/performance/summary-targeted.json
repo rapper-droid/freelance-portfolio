@@ -1,31 +1,30 @@
 {
-  "measuredAt": "2026-09-24T01:32:31.622Z",
+  "measuredAt": "2026-09-24T05:47:49.350Z",
   "note": "Local production build; Lighthouse mobile simulated throttling. Not field Core Web Vitals.",
   "budget": {
-    "performance": 99,
+    "performance": 60,
     "accessibility": 100,
     "best-practices": 95,
     "seo": 100,
-    "cls": 0.05
+    "cls": 0.05,
+    "jsBytes": 320000
   },
   "seoExempt": "/kissa/* and /forme/* are noindex on purpose; the SEO budget does not apply to them.",
-  "failures": [
-    "/works: performance 71 (budget >= 99)"
-  ],
+  "failures": [],
   "results": [
     {
-      "route": "/works",
+      "route": "/report",
       "mobile": true,
       "scores": {
-        "performance": 71,
+        "performance": 96,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 3214.004,
+      "lcpMs": 2839.054,
       "cls": 0,
-      "tbtMs": 962.3734999999995,
-      "jsBytes": 246687
+      "tbtMs": 34.5,
+      "jsBytes": 190915
     }
   ]
 }

@@ -1,6 +1,6 @@
 {
   "origin": "http://localhost:3000",
-  "checkedAtIso": "2026-09-24T03:03:47.088Z",
+  "checkedAtIso": "2026-09-24T12:44:24.217Z",
   "results": [
     {
       "name": "hydrate /kissa @390",
@@ -240,17 +240,17 @@
     {
       "name": "pickup slots offered",
       "ok": true,
-      "detail": "24 slots"
+      "detail": "43 slots"
     },
     {
       "name": "order placed",
       "ok": true,
-      "detail": "K-CFE5A9"
+      "detail": "K-2E6F33"
     },
     {
       "name": "payment decline recorded",
       "ok": true,
-      "detail": "ご注文を承りました  K-CFE5A9  2026年9月24日（木） 12:15 にお受け取りください。 お支払い状況：拒否"
+      "detail": "ご注文を承りました  K-2E6F33  2026年9月25日（金） 08:00 にお受け取りください。 お支払い状況：拒否"
     },
     {
       "name": "payment replay refused",
@@ -263,14 +263,29 @@
       "detail": "2 events"
     },
     {
+      "name": "a bookable day exists within the offered range",
+      "ok": true,
+      "detail": "2026-09-24 · 20 free slots"
+    },
+    {
       "name": "table booked",
       "ok": true,
-      "detail": "R-E4B596"
+      "detail": "R-5E5F58"
+    },
+    {
+      "name": "the change form offers days",
+      "ok": true,
+      "detail": "12 days"
+    },
+    {
+      "name": "another slot is free to move the booking to",
+      "ok": true,
+      "detail": "2026-09-24"
     },
     {
       "name": "booking moved",
       "ok": true,
-      "detail": "2026年9月24日（木） 13:30 から 2 名 テーブル A"
+      "detail": "2026年9月25日（金） 08:30 から 2 名 テーブル A"
     },
     {
       "name": "sold out reaches the menu",

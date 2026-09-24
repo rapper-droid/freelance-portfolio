@@ -36,6 +36,12 @@ try {
     "/contact/general",
     "/works",
     "/flow",
+    "/report",
+    "/automation",
+    "/report/recipes",
+    "/report/history",
+    "/daybook",
+    "/daybook/admin",
     "/services",
     ...publishedOffers.map((o) => `/services/${o.slug}`),
     "/partners",
@@ -44,7 +50,21 @@ try {
     ...projects.flatMap((p) => [`/projects/${p.slug}`, `/demos/${p.slug}`]),
   ];
   const findings = [];
-  for (const width of [320, 390, 768, 1440]) {
+  /**
+   * Eight widths (指示書 §20), not four.
+   *
+   * The four this started with left two gaps that matter. 360 is the most
+   * common Android width in Japan and sits between 320 and 390, where a
+   * two-column grid is most likely to be one column too many. And everything
+   * between a tablet and a desktop — 1024 and 1280, where a laptop actually
+   * lives — was never measured at all: a layout that works at 768 and 1440
+   * can still break in the middle, because that is where max-widths and
+   * multi-column rules change hands.
+   *
+   * The original four are a subset, so nothing that passed before can fail
+   * now for a different reason than a real one.
+   */
+  for (const width of [320, 360, 390, 430, 768, 1024, 1280, 1440]) {
     const page = await browser.newPage({
       viewport: { width, height: 900 },
       reducedMotion: "reduce",

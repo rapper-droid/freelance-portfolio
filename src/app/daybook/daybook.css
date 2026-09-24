@@ -1,0 +1,661 @@
+/* DAYBOOK.
+ *
+ * The thing this screen has to make legible is a *state*: who has agreed, what
+ * is merely held, and what exactly changes if you approve. So the palette
+ * spends its only saturated colours on those — a held slot, a signature that
+ * is missing, a time that is being moved away from — and leaves everything
+ * else quiet.
+ *
+ * Colours are stated, never inherited: this experience is reached from the
+ * portfolio shell, which repaints text colour for its own identity. */
+
+.daybook-page {
+  --paper: #f6f4ef;
+  --ink: #232421;
+  --ink-soft: #5d6058;
+  --line: #ddd8cc;
+  --panel: #ffffff;
+  --accent: #35543f;
+  --accent-soft: #e6eee8;
+  --hold: #8a5a1c;
+  --hold-soft: #faf0e2;
+  --warn: #9a3f2c;
+  --warn-soft: #fbeae5;
+  --tap: 44px;
+
+  background: var(--paper);
+  color: var(--ink);
+  min-height: 100vh;
+}
+
+.daybook-main {
+  max-width: 1040px;
+  margin: 0 auto;
+  padding: var(--space-7) var(--space-5) var(--space-9);
+}
+
+.daybook-banner {
+  margin: 0 0 var(--space-5);
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 10px;
+  background: var(--panel);
+  font-size: var(--text-small);
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+
+.daybook-banner strong {
+  color: var(--ink);
+}
+
+.daybook-hero h1 {
+  margin: 0 0 var(--space-3);
+  font: 700 var(--text-h2) / 1.3 var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+.daybook-hero > p:last-child {
+  margin: 0 0 var(--space-4);
+  max-width: 62ch;
+  font-size: var(--text-body);
+  line-height: 1.95;
+  color: var(--ink-soft);
+}
+
+.daybook-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
+  padding-bottom: var(--space-4);
+  border-bottom: 1px solid var(--line);
+}
+
+.daybook-nav a {
+  min-height: var(--tap);
+  display: inline-flex;
+  align-items: center;
+  padding: 0 var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--ink-soft);
+  font-size: var(--text-small);
+  text-decoration: none;
+}
+
+.daybook-nav a[aria-current="page"] {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.daybook-desk {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.daybook-panel {
+  padding: var(--space-5);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--panel);
+}
+
+/* The tool is tall; reserving the height stops the shell shifting when the
+ * stored bookings arrive a frame after the first paint. */
+.daybook-placeholder {
+  min-height: 420px;
+  color: var(--ink-soft);
+}
+
+.daybook-panel h2 {
+  margin: 0 0 var(--space-3);
+  font: 700 var(--text-h4) / 1.4 var(--font-display);
+}
+
+.daybook-panel h3 {
+  margin: 0 0 var(--space-2);
+  font: 700 var(--text-small) / 1.5 var(--font-display);
+}
+
+.daybook-lede,
+.daybook-panel > p {
+  margin: 0 0 var(--space-4);
+  max-width: 64ch;
+  font-size: var(--text-small);
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+
+.daybook-label {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--ink-soft);
+}
+
+.daybook-fineprint {
+  margin: var(--space-3) 0 0;
+  font-size: var(--text-caption);
+  line-height: 1.85;
+  color: var(--ink-soft);
+}
+
+.daybook-empty {
+  margin: 0;
+  padding: var(--space-5);
+  border: 1px dashed var(--line);
+  border-radius: 10px;
+  font-size: var(--text-small);
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+
+.daybook-notice {
+  margin: 0;
+  padding: var(--space-4);
+  border: 1px solid var(--hold);
+  border-radius: 10px;
+  background: var(--hold-soft);
+  font-size: var(--text-small);
+  line-height: 1.85;
+  color: var(--ink);
+}
+
+/* Samples */
+
+.daybook-samples {
+  margin-bottom: var(--space-4);
+}
+
+.daybook-sample-row {
+  display: grid;
+  gap: var(--space-3);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.daybook-chip {
+  display: grid;
+  gap: 4px;
+  min-height: var(--tap);
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.daybook-chip strong {
+  font-size: var(--text-small);
+}
+
+.daybook-chip span {
+  font-size: var(--text-caption);
+  line-height: 1.7;
+  color: var(--ink-soft);
+}
+
+.daybook-chip:hover {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* Fields */
+
+.daybook-field {
+  display: grid;
+  gap: 6px;
+  margin-bottom: var(--space-4);
+}
+
+.daybook-field-row {
+  display: grid;
+  gap: var(--space-4);
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+}
+
+.daybook-field label {
+  font-size: var(--text-caption);
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.daybook-field input,
+.daybook-field textarea {
+  width: 100%;
+  min-height: var(--tap);
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--paper);
+  color: var(--ink);
+  font: inherit;
+  line-height: 1.8;
+}
+
+.daybook-field textarea {
+  resize: vertical;
+}
+
+.daybook-field input:focus-visible,
+.daybook-field textarea:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+
+/* Buttons */
+
+.daybook-button {
+  min-height: var(--tap);
+  padding: 0 var(--space-5);
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: var(--accent);
+  color: #ffffff;
+  font: 700 var(--text-small) / 1 var(--font-body);
+  cursor: pointer;
+}
+
+.daybook-button.is-quiet {
+  background: var(--panel);
+  color: var(--accent);
+}
+
+.daybook-button:disabled {
+  border-color: var(--line);
+  background: var(--paper);
+  color: var(--ink-soft);
+  cursor: not-allowed;
+}
+
+.daybook-link {
+  min-height: var(--tap);
+  padding: 0 var(--space-2);
+  border: 0;
+  background: none;
+  color: var(--accent);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.daybook-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+/* Records */
+
+.daybook-records {
+  display: grid;
+  gap: var(--space-4);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.daybook-record {
+  display: grid;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--paper);
+}
+
+.daybook-record-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.daybook-record-id {
+  margin: 0;
+  font-size: var(--text-caption);
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+
+.daybook-record-when {
+  margin: 4px 0 0;
+  font: 700 var(--text-body) / 1.5 var(--font-display);
+}
+
+.daybook-record-when s {
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.daybook-record-text {
+  margin: 0;
+  padding: var(--space-3);
+  border-left: 2px solid var(--line);
+  font-size: var(--text-small);
+  line-height: 1.9;
+  color: var(--ink-soft);
+  white-space: pre-wrap;
+}
+
+.daybook-badge {
+  align-self: flex-start;
+  padding: 4px var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: var(--text-caption);
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.daybook-badge.is-done {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.daybook-badge.is-hold,
+.daybook-badge.is-wait {
+  border-color: var(--hold);
+  background: var(--hold-soft);
+  color: var(--hold);
+}
+
+.daybook-badge.is-off {
+  color: var(--ink-soft);
+}
+
+.daybook-step {
+  display: grid;
+  gap: var(--space-3);
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--line);
+}
+
+.daybook-step > p {
+  margin: 0;
+  font-size: var(--text-small);
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+
+.daybook-wait {
+  margin: 0;
+  padding: var(--space-3);
+  border-radius: 8px;
+  background: var(--hold-soft);
+  font-size: var(--text-small);
+  line-height: 1.85;
+}
+
+/* The change, shown as only the part that changes. */
+.daybook-diff {
+  padding: var(--space-3);
+  border: 1px solid var(--hold);
+  border-radius: 8px;
+  background: var(--hold-soft);
+}
+
+.daybook-diff p {
+  margin: 0;
+  font-size: var(--text-small);
+  line-height: 1.85;
+}
+
+.daybook-diff s {
+  color: var(--ink-soft);
+}
+
+/* Slot picker */
+
+.daybook-picker {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+}
+
+.daybook-picker fieldset {
+  display: grid;
+  gap: var(--space-3);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.daybook-picker-date {
+  margin: 0 0 var(--space-2);
+  font-size: var(--text-caption);
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+
+.daybook-picker-times {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.daybook-slot {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0 var(--space-4);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--panel);
+  font-size: var(--text-small);
+  cursor: pointer;
+}
+
+.daybook-slot input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
+.daybook-slot:has(input:checked) {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.daybook-slot:has(input:focus-visible) {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Signatures */
+
+.daybook-signatures {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.daybook-signatures li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+  font-size: var(--text-small);
+}
+
+.daybook-signatures li.is-signed {
+  border-color: var(--accent);
+  background: var(--accent-soft);
+}
+
+.daybook-signatures li.is-missing {
+  border-color: var(--hold);
+  background: var(--hold-soft);
+}
+
+.daybook-sig-label {
+  font-weight: 700;
+  min-width: 8em;
+}
+
+.daybook-sig-value {
+  color: var(--ink-soft);
+}
+
+/* Calendar */
+
+.daybook-calendar {
+  display: grid;
+  gap: var(--space-4);
+}
+
+.daybook-day ul {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.daybook-entry {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--space-2) var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: 8px;
+  background: var(--paper);
+  font-size: var(--text-small);
+}
+
+.daybook-entry.is-external {
+  border-left-color: var(--ink-soft);
+  border-left-style: dashed;
+}
+
+.daybook-entry-time {
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.daybook-entry-id {
+  font-size: var(--text-caption);
+  letter-spacing: 0.05em;
+  color: var(--ink-soft);
+}
+
+.daybook-entry-note {
+  font-size: var(--text-caption);
+  color: var(--ink-soft);
+}
+
+/* Rules */
+
+.daybook-rules {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.daybook-rules li {
+  padding: var(--space-3);
+  border-left: 2px solid var(--line);
+  font-size: var(--text-small);
+  line-height: 1.9;
+  color: var(--ink-soft);
+}
+
+.daybook-rules strong {
+  display: block;
+  color: var(--ink);
+}
+
+/* Timeline */
+
+.daybook-timeline > summary {
+  min-height: var(--tap);
+  display: flex;
+  align-items: center;
+  font-size: var(--text-caption);
+  color: var(--ink-soft);
+  cursor: pointer;
+}
+
+.daybook-timeline ol {
+  display: grid;
+  gap: var(--space-3);
+  margin: var(--space-2) 0 0;
+  padding: 0 0 0 var(--space-4);
+  border-left: 1px solid var(--line);
+  list-style: none;
+}
+
+.daybook-timeline li p {
+  margin: 0;
+  font-size: var(--text-caption);
+  line-height: 1.85;
+  color: var(--ink-soft);
+}
+
+.daybook-timeline-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2) var(--space-3);
+}
+
+.daybook-timeline-event {
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.daybook-foot {
+  margin-top: var(--space-6);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--line);
+}
+
+/* Underlined, not merely recoloured: against the muted text around it the
+ * accent green only reaches 1.3:1, so colour alone would not mark it as a
+ * link for anyone who cannot tell the two greens apart. */
+.daybook-foot a {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .daybook-main {
+    padding: var(--space-5) var(--space-4) var(--space-8);
+  }
+
+  .daybook-panel {
+    padding: var(--space-4);
+  }
+
+  .daybook-button,
+  .daybook-picker .daybook-button {
+    width: 100%;
+  }
+
+  .daybook-sig-label {
+    min-width: 0;
+  }
+}
