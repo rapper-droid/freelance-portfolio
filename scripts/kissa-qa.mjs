@@ -182,7 +182,21 @@ async function walkTheShop(browser) {
   // A table, then moving it.
   await page.goto(`${origin}/kissa/reserve`);
   await hydrated(page);
-  await page.locator(".kissa-slot input:not(:disabled)").nth(8).click();
+  // A fixed index only worked while the day still had nine free slots: run
+  // this in the afternoon and it waited thirty seconds for a slot that had
+  // already passed. The first free one is as good, and the count is checked
+  // rather than assumed — the reservation is moved to another slot later, so
+  // one is not enough.
+  const freeSlots = page.locator(".kissa-slot input:not(:disabled)");
+  const freeCount = await freeSlots.count();
+  check(
+    "reservation slots available",
+    freeCount >= 2,
+    `${freeCount} free slots`,
+  );
+  if (freeCount < 2)
+    throw new Error("no bookable slot left today; the walk cannot continue");
+  await freeSlots.first().click();
   await page.locator(".kissa-seat-list button:not([disabled])").first().click();
   await page.locator('input[type="text"]').fill("テスト太郎");
   await page.getByRole("button", { name: "この内容で予約する" }).click();

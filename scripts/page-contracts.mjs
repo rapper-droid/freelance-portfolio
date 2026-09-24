@@ -361,6 +361,59 @@ const CONTRACTS = [
     evidence: "contact.spec.ts / hq.spec.ts（導線）",
   }),
 
+  // -------------------------------------------------------- REPORT FLOW ----
+  c("/report", {
+    brand: "TETSU WORKS",
+    family: "form",
+    audience: "毎週・毎月、同じ形式のCSVを集計している人",
+    purpose: "列の意味を一度決めて保存し、二回目からは質問なしで集計する",
+    inputs:
+      "CSVファイル（手元のもの、またはサンプル3週分）、列の役割、通貨、重複条件、読み取れない行の修正",
+    outputs:
+      "合計と件数、前回との差、変更の記録、集計結果CSV、例外だけのCSV、報告文用の要約",
+    next: "/report/recipes・/report/history",
+    highlight:
+      "二回目に何も聞かないこと。聞くのは前になかった列と税区分のときだけ",
+    reduces:
+      "列の対応をやり直す／重複を目視で探す／集計し直す／前回と見比べる／読み取れない行を表計算で直す",
+    media: "なし（数字と差分が主役）",
+    storage: "report sandbox（ルール・履歴・作業中の下書き）+ 破損時の控え",
+    sideEffects: "なし。ファイルはサーバーへ送信しない",
+    evidence:
+      "report-flow.test.ts（30 件・三週フロー）/ report.spec.ts / qa:visual",
+  }),
+  c("/report/recipes", {
+    brand: "TETSU WORKS",
+    family: "catalogue",
+    audience: "保存したルールを確かめたい人",
+    purpose: "列の対応・通貨・重複条件・承認済みの税区分と版を読む",
+    inputs: "削除の確認",
+    outputs: "削除、書き出し／読み込み",
+    next: "/report",
+    highlight:
+      "版を上げても前の版を消さない（過去の集計が説明できなくなるため）",
+    reduces: "「前回どう決めたか」を思い出す手間",
+    media: "なし",
+    storage: "report sandbox",
+    sideEffects: "なし",
+    evidence: "report.spec.ts / report-flow.test.ts",
+  }),
+  c("/report/history", {
+    brand: "TETSU WORKS",
+    family: "catalogue",
+    audience: "先週の数字を確かめたい人",
+    purpose: "過去の処理の合計・件数・例外の数と、使ったルールの版を読む",
+    inputs: "なし",
+    outputs: "書き出し／読み込み",
+    next: "/report",
+    highlight: "合計と読み込み行数を分けて記録する。明細は保存しない",
+    reduces: "前回の報告を探し直す手間",
+    media: "なし",
+    storage: "report sandbox（最大 40 件）",
+    sideEffects: "なし",
+    evidence: "report.spec.ts / report-flow.test.ts",
+  }),
+
   // ------------------------------------------------------------- KISSA ----
   c("/kissa", {
     brand: "KISSA（架空店舗）",

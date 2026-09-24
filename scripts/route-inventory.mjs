@@ -60,6 +60,13 @@ async function entitiesOn(origin, listing, prefix) {
     throw new Error(`no entities found under ${prefix} — parser out of date`);
   return routes;
 }
+/**
+ * REPORT FLOW's record screens. The tool itself is in the sitemap; these two
+ * are per-visitor and would be indexed empty, so they are listed here instead
+ * of being advertised — but they are still routes, and still inventoried.
+ */
+const REPORT = ["/report/recipes", "/report/history"];
+
 /** Requested to confirm the 404 boundary still answers 404. */
 const ERROR_PROBE = "/__inventory_probe_404";
 /** Endpoints whose correct answer to a GET is not 200. */
@@ -139,6 +146,7 @@ try {
   // real one — so it never reaches the sitemap. The routes exist and are
   // inventoried here, or the whole shop is invisible to the ledger.
   const shopRoutes = [
+    ...REPORT,
     ...KISSA,
     ...(await entitiesOn(ORIGIN, "/kissa/menu", "/kissa/menu")),
     ...FORME,
@@ -154,7 +162,9 @@ try {
       entity: templateOf(route) === route ? null : route.split("/").pop(),
       status: response.status,
       inSitemap: false,
-      noindex: true,
+      // The shops are noindex by design; REPORT FLOW's record screens are
+      // simply not advertised, which is a different thing and recorded as one.
+      noindex: !route.startsWith("/report"),
     });
   }
 
