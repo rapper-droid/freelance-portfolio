@@ -39,6 +39,18 @@ by name only.
 | Turnstile widget                                       | live on `/works`                               |
 | Runtime page errors                                    | none                                           |
 
+### Not on production yet
+
+REPORT FLOW (`/report`, `/report/recipes`, `/report/history`) is committed and
+**has not been deployed**. It is the P2 item that was never started: the domain
+for it — recipes, computation, period comparison — had existed for a while with
+thirty-eight tests and no screen had ever rendered it.
+
+Releasing it needs the owner's approval, then the usual path: PR into
+`tsudowa/cloudflare-workers-candidate`, then
+`node scripts/workers-production.mjs deploy-candidate`, then
+`scripts/post-deploy-check.mjs` and the walkthroughs.
+
 ### One thing seen and explained
 
 The first FORME walkthrough after deployment reported three console 503s and

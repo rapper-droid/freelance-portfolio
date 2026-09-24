@@ -22,9 +22,11 @@ npm run dev          # http://localhost:3000（127.0.0.1 は hydration しない
 | 在庫のある店                | `/forme`             | 色 × サイズの在庫、注文、取消で戻る在庫 |
 | ひとつの記録で繋がる 3 画面 | `/demos/automation`  | 確認 → SMART INBOX → ADMIN              |
 | 自分のデータを持ち出す      | `/kissa/my` の一番下 | 書き出し・読み込み・控え・初期化        |
+| 毎週のCSVを処理する         | `/report`            | ルール保存・前回比・例外の修正・履歴    |
 | 検証の記録                  | `/demos/qa`          | 実行済みの検査と、未実施の理由          |
 
-**本番（tsudowa.com）に P1〜P5 すべて反映済み**（2026-09-24、Worker version
+**REPORT FLOW は本番未反映**（commit 済み・OWNER 承認待ち）。それ以外の
+**P1〜P5 は本番反映済み**（2026-09-24、Worker version
 `afee9cdf`）。デプロイ後の検証は 12/12 + 11/11 + qa:kissa 56/56 + qa:forme 62/62。
 ロールバック先は `46f3f849-ae09-4d57-a36d-e4c158f89ffd`。
 
@@ -133,8 +135,8 @@ Lighthouse の performance スコアは負荷で数点動く。20 ルートを�
 | メール送信              | `/contact` のみ実送信。デモからは出ない                            |
 | 複数端末の共有          | しない（意図的）。**書き出し / 読み込みで移せる**                  |
 | Remote preview での検査 | 未実施（P4・P5 は本番未反映のため）                                |
-| Automation の技術画面   | 未着手（schema・mapping・retry・ログ）                             |
-| REPORT FLOW             | 未着手                                                             |
+| Automation の技術画面   | 未着手（schema・mapping・retry・ログ）— **次はここ**               |
+| REPORT FLOW             | **完了**（`/report`。三週フローを実ブラウザで検証済み）            |
 | 8 幅の visual baseline  | 4 幅（320/390/768/1440）+ design QA 6 幅。8 幅の baseline は未整備 |
 | 追加支出                | **0 円**。新しい SaaS・API・アセットを導入していない               |
 

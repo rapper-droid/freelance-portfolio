@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-24T03:12:30.834Z",
+  "generatedAt": "2026-09-24T06:20:17.620Z",
   "counts": {
-    "page": 89,
+    "page": 92,
     "api": 3,
     "asset": 4,
     "error": 1
@@ -17,12 +17,15 @@
     "/partners": 1,
     "/privacy": 1,
     "/projects/[slug]": 11,
+    "/report": 1,
     "/rescue": 1,
     "/services": 1,
     "/services/[slug]": 2,
     "/works": 1,
     "/works/[category]": 12,
     "/experience/[slug]": 11,
+    "/report/recipes": 1,
+    "/report/history": 1,
     "/kissa": 1,
     "/kissa/menu": 1,
     "/kissa/reserve": 1,
@@ -289,6 +292,14 @@
     },
     {
       "kind": "page",
+      "template": "/report",
+      "route": "/report",
+      "entity": null,
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
       "template": "/rescue",
       "route": "/rescue",
       "entity": null,
@@ -510,6 +521,24 @@
       "entity": "saas",
       "status": 200,
       "inSitemap": false
+    },
+    {
+      "kind": "page",
+      "template": "/report/recipes",
+      "route": "/report/recipes",
+      "entity": null,
+      "status": 200,
+      "inSitemap": false,
+      "noindex": false
+    },
+    {
+      "kind": "page",
+      "template": "/report/history",
+      "route": "/report/history",
+      "entity": null,
+      "status": 200,
+      "inSitemap": false,
+      "noindex": false
     },
     {
       "kind": "page",

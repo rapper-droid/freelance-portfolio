@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-09-24T03:12:31.654Z",
-  "inventoryGeneratedAt": "2026-09-24T03:12:30.834Z",
+  "checkedAt": "2026-09-24T06:20:18.475Z",
+  "inventoryGeneratedAt": "2026-09-24T06:20:17.620Z",
   "states": [
     "初期",
     "入力中",
@@ -27,8 +27,8 @@
     "再訪"
   ],
   "counts": {
-    "templates": 29,
-    "entities": 89
+    "templates": 32,
+    "entities": 92
   },
   "contracts": [
     {
@@ -1104,6 +1104,103 @@
       }
     },
     {
+      "id": "report",
+      "template": "/report",
+      "brand": "TETSU WORKS",
+      "family": "form",
+      "audience": "毎週・毎月、同じ形式のCSVを集計している人",
+      "purpose": "列の意味を一度決めて保存し、二回目からは質問なしで集計する",
+      "inputs": "CSVファイル（手元のもの、またはサンプル3週分）、列の役割、通貨、重複条件、読み取れない行の修正",
+      "outputs": "合計と件数、前回との差、変更の記録、集計結果CSV、例外だけのCSV、報告文用の要約",
+      "next": "/report/recipes・/report/history",
+      "highlight": "二回目に何も聞かないこと。聞くのは前になかった列と税区分のときだけ",
+      "reduces": "列の対応をやり直す／重複を目視で探す／集計し直す／前回と見比べる／読み取れない行を表計算で直す",
+      "media": "なし（数字と差分が主役）",
+      "storage": "report sandbox（ルール・履歴・作業中の下書き）+ 破損時の控え",
+      "sideEffects": "なし。ファイルはサーバーへ送信しない",
+      "evidence": "report-flow.test.ts（30 件・三週フロー）/ report.spec.ts / qa:visual",
+      "entities": [
+        "/report"
+      ],
+      "entityCount": 1,
+      "noindex": false,
+      "inSitemap": true,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": true
+        },
+        "offline": {
+          "applies": true
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": false,
+          "reason": "同じ相談を二人が編集しない"
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": false,
+          "reason": "送信前は編集、送信後は取り消せないと明記"
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
       "id": "rescue",
       "template": "/rescue",
       "brand": "TETSU WORKS",
@@ -1720,6 +1817,214 @@
         },
         "undo": {
           "applies": true
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "report_recipes",
+      "template": "/report/recipes",
+      "brand": "TETSU WORKS",
+      "family": "catalogue",
+      "audience": "保存したルールを確かめたい人",
+      "purpose": "列の対応・通貨・重複条件・承認済みの税区分と版を読む",
+      "inputs": "削除の確認",
+      "outputs": "削除、書き出し／読み込み",
+      "next": "/report",
+      "highlight": "版を上げても前の版を消さない（過去の集計が説明できなくなるため）",
+      "reduces": "「前回どう決めたか」を思い出す手間",
+      "media": "なし",
+      "storage": "report sandbox",
+      "sideEffects": "なし",
+      "evidence": "report.spec.ts / report-flow.test.ts",
+      "entities": [
+        "/report/recipes"
+      ],
+      "entityCount": 1,
+      "noindex": false,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": false,
+          "reason": "一覧は静的生成で、絞り込みは同期処理"
+        },
+        "進行": {
+          "applies": false,
+          "reason": "複数段階の処理がない"
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "リクエストを出さない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "初回表示後は追加取得がない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": false,
+          "reason": "期限を持つデータがない"
+        },
+        "競合": {
+          "applies": false,
+          "reason": "他者と共有する状態がない"
+        },
+        "部分成功": {
+          "applies": false,
+          "reason": "分割される処理がない"
+        },
+        "retry": {
+          "applies": false,
+          "reason": "失敗しうる処理がない"
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": false,
+          "reason": "絞り込みは解除で戻る"
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "report_history",
+      "template": "/report/history",
+      "brand": "TETSU WORKS",
+      "family": "catalogue",
+      "audience": "先週の数字を確かめたい人",
+      "purpose": "過去の処理の合計・件数・例外の数と、使ったルールの版を読む",
+      "inputs": "なし",
+      "outputs": "書き出し／読み込み",
+      "next": "/report",
+      "highlight": "合計と読み込み行数を分けて記録する。明細は保存しない",
+      "reduces": "前回の報告を探し直す手間",
+      "media": "なし",
+      "storage": "report sandbox（最大 40 件）",
+      "sideEffects": "なし",
+      "evidence": "report.spec.ts / report-flow.test.ts",
+      "entities": [
+        "/report/history"
+      ],
+      "entityCount": 1,
+      "noindex": false,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": false,
+          "reason": "一覧は静的生成で、絞り込みは同期処理"
+        },
+        "進行": {
+          "applies": false,
+          "reason": "複数段階の処理がない"
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "リクエストを出さない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "初回表示後は追加取得がない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": false,
+          "reason": "期限を持つデータがない"
+        },
+        "競合": {
+          "applies": false,
+          "reason": "他者と共有する状態がない"
+        },
+        "部分成功": {
+          "applies": false,
+          "reason": "分割される処理がない"
+        },
+        "retry": {
+          "applies": false,
+          "reason": "失敗しうる処理がない"
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": false,
+          "reason": "絞り込みは解除で戻る"
         },
         "disabled": {
           "applies": true

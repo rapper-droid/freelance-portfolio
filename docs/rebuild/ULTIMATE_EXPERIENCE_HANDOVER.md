@@ -297,6 +297,44 @@ composite スコアは負荷で数点動くため、握るのは決定的な指�
 `src/lib/runtime/download.ts` に集約した。`flow-result.tsx` は `click()` の直後に
 `revokeObjectURL` していて、ブラウザによってはダウンロードが始まらない実装だった。
 
+### 3-9. REPORT FLOW（P2 の積み残し）
+
+**いちばん大きい発見は、ドメインが既にあって誰も使っていなかったこと。**
+`src/lib/runtime/report/` に 924 行（recipe / compute / workflow）と 38 件の
+テストがあり、**どの画面からも呼ばれていなかった**。作り直さず、この上に
+道具を載せた。
+
+**指示書 §15 が必須としている三連続フロー**を、実ブラウザで通した。
+
+| 週    | 何が起きるか                             | 実測                                         |
+| ----- | ---------------------------------------- | -------------------------------------------- |
+| 1週目 | 列の意味を決めてルールを保存             | 合計 ¥221,000／12 行中 8 件を集計／例外 3 件 |
+| 2週目 | 列の順番だけ違う → **質問ゼロ**          | 前回比を根拠つきで表示                       |
+| 3週目 | 知らない列と税区分 → **その2点だけ確認** | 版が 2 に上がり、前の版は残る                |
+
+**減らした手間**（依頼の6つ）。
+
+| 毎回やっていたこと | どう減らしたか                                                        |
+| ------------------ | --------------------------------------------------------------------- |
+| 読む               | 表より先に合計・件数・除外を出し、「合計は読み取れた N 件だけ」と併記 |
+| 探す               | 読み取れなかった行を最上部に、元ファイルの行番号つきで                |
+| 直す               | その場で直して再集計。**元ファイルは変更しない**（差分は overlay）    |
+| コピーする         | CSV 出力・例外だけの CSV・報告文用の要約をワンクリック                |
+| ルールを思い出す   | 列名が一致すれば順番が変わっても自動適用。使った版を画面に表示        |
+| 確認する           | 前回比は「何と何を比べたか」を先に書く。変更の記録を理由つきで        |
+
+**新しい画面**: `/report`（道具）、`/report/recipes`（ルールと版）、
+`/report/history`（処理履歴）。4 つ目の sandbox
+（`tsudowa-report-sandbox-v1`）で、P5 と同じ控え・書き出し・読み込みを持つ。
+
+**作り込んだ状態**: 不正CSV（5 種類を理由つきで拒否）、空（ルール0件・履歴0件）、
+大量データ（5,000 行を 121ms・表は 50 行ずつ）、再読込（下書きごと復帰）、
+保存容量不足（**下書きを先に捨ててルールを守る**）、修正の取り消し。
+
+**意図的にやらなかったこと**: XLSX / PDF 出力は、実際に開いて中身を検証できる
+形で出せないため選択肢に出していない（指示書 §15）。AI も使っていない。
+増減の理由は「可能性」として出し、断定しない。
+
 ## 4. 未接続・やっていないこと
 
 | 項目           | 状態                                                                  |
@@ -316,7 +354,7 @@ composite スコアは負荷で数点動くため、握るのは決定的な指�
 | P1     | KISSA（メニュー・詳細・カート・注文・予約・変更・運営反映）                            | **完了**                      |
 | P2     | RELAY + SMART INBOX + ADMIN を 1 つの案件データで連動                                  | **完了**                      |
 | P2     | DAYBOOK（日付は修正済み。保存しないのは意図的 — 3-4 節）                               | 部分                          |
-| P2     | REPORT FLOW                                                                            | 未着手                        |
+| P2     | REPORT FLOW                                                                            | **完了**                      |
 | P3     | FORME / FLOWSTATE / REFINE / STILL / SHIP の作り込み                                   | **完了**                      |
 | P3     | Automation の技術画面（schema・mapping・retry・ログ）                                  | 未着手                        |
 | P4     | TSUDOWA 全ページ・`/works` 全分類・`/services`・partners・rescue                       | **完了**                      |
@@ -339,21 +377,21 @@ REFINE の説明文だけ、P3 で足した幅切替と読み順に合わせて�
 | ---------------- | ------------------------ | ------------------------------------------- |
 | lint             | `npm run lint`           | 0 errors, 0 warnings                        |
 | typecheck        | `npm run typecheck`      | pass                                        |
-| unit             | `npx vitest run`         | **629 passed** / 45 files                   |
+| unit             | `npx vitest run`         | **660 passed** / 46 files                   |
 | build            | `npm run build`          | success                                     |
-| E2E（3 幅）      | `npm run test:e2e`       | **378 passed**                              |
-| KISSA 通し       | `npm run qa:kissa`       | **56/56**（390 / 768 / 1440）               |
+| E2E（3 幅）      | `npm run test:e2e`       | **405 passed**                              |
+| KISSA 通し       | `npm run qa:kissa`       | **57/57**（390 / 768 / 1440）               |
 | FORME 通し       | `npm run qa:forme`       | **62/62**（390 / 768 / 1440）               |
-| 表示崩れ（4 幅） | `npm run qa:visual`      | PASS **47 ルート** × 320/390/768/1440       |
-| 操作系の実測     | `npm run qa:controls`    | **147 controls** / 動かないボタン 0         |
-| リンク           | `npm run qa:links`       | PASS 42 routes, **234 links**               |
+| 表示崩れ（4 幅） | `npm run qa:visual`      | PASS **50 ルート** × 320/390/768/1440       |
+| 操作系の実測     | `npm run qa:controls`    | **158 controls** / 動かないボタン 0         |
+| リンク           | `npm run qa:links`       | PASS 42 routes, **237 links**               |
 | SEO              | `npm run qa:seo`         | PASS 41 routes（要 `NEXT_PUBLIC_SITE_URL`） |
 | デザイン（6 幅） | `npm run qa:design`      | PASS 6 routes × 6 幅、axe/focus/runtime     |
-| ルート台帳       | `npm run qa:inventory`   | **97 entries**、想定外ステータス 0          |
+| ルート台帳       | `npm run qa:inventory`   | **100 entries**、想定外ステータス 0         |
 | 日本語の改行     | `npm run qa:text`        | PASS（verify に組み込み済み）               |
 | 性能（mobile）   | `npm run qa:performance` | **20 ルート、予算内**                       |
 | 画像 coverage    | `npm run qa:images`      | 必須 4 枠すべて 100%                        |
-| 画面契約         | `npm run qa:contracts`   | 29 テンプレート / 89 実体                   |
+| 画面契約         | `npm run qa:contracts`   | **32 テンプレート / 92 実体**               |
 
 ### 新しい検査が、本当に落ちることを確かめた
 
@@ -464,6 +502,9 @@ npm run qa:inventory  # 全 97 route を実際に要求して台帳を作る
 npm run qa:contracts  # 画面契約。台帳と結合するので、契約のない画面は落ちる
 ```
 
+REPORT FLOW の検査は `tests/unit/report-flow.test.ts`（30 件・三週フロー）と
+`tests/e2e/report.spec.ts`（9 件 × 3 幅）。
+
 どちらも `localhost:3000` に対して実行する（`QA_BASE_URL` で変更可）。
 
 ---
@@ -497,6 +538,9 @@ npm run qa:contracts  # 画面契約。台帳と結合するので、契約の�
   だった。別ポートを使うか、`Get-NetTCPConnection -LocalPort <port>` で落とす。
 - **PowerShell の `Set-Content -Encoding utf8` は日本語を壊すことがある。**
   日本語を含むファイルの書き換えは Python か Write ツールで行う。
+- **時刻に依存する検査は、ある時間から落ちる。** `kissa-qa` は予約枠を
+  `nth(8)` で選んでいて、午後になると残り枠が 9 件未満になり 30 秒待って落ちた。
+  固定の添字ではなく「空いている最初の枠」を選び、件数を検査するように直した。
 - **Playwright の `networkidle` は Turnstile のあるページで永久に来ない。**
   `/works` は 599ms で描画されているのに待ち続ける。ウィジェットが接続を保つため。
   待つなら要素で待つ。逆に店の画面は `domcontentloaded` では早すぎるので、
