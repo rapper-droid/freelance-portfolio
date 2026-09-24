@@ -345,7 +345,7 @@ REFINE の説明文だけ、P3 で足した幅切替と読み順に合わせて�
 | KISSA 通し       | `npm run qa:kissa`       | **56/56**（390 / 768 / 1440）               |
 | FORME 通し       | `npm run qa:forme`       | **62/62**（390 / 768 / 1440）               |
 | 表示崩れ（4 幅） | `npm run qa:visual`      | PASS **47 ルート** × 320/390/768/1440       |
-| 操作系の実測     | `npm run qa:controls`    | 140 controls / **動かないボタン 0**         |
+| 操作系の実測     | `npm run qa:controls`    | **147 controls** / 動かないボタン 0         |
 | リンク           | `npm run qa:links`       | PASS 42 routes, **234 links**               |
 | SEO              | `npm run qa:seo`         | PASS 41 routes（要 `NEXT_PUBLIC_SITE_URL`） |
 | デザイン（6 幅） | `npm run qa:design`      | PASS 6 routes × 6 幅、axe/focus/runtime     |
@@ -375,10 +375,18 @@ KISSA と FORME の各 7 ルート、および P3 の 4 デモで **axe 違反 0
 `qa:visual` に `/history`・`/lab`・`/contact`・`/contact/general` を足した。
 この 4 つは今まで一度も幅検査を通っていなかった。
 
-### `qa:controls` の 13 件について
+### `qa:controls` の 19 件について
 
-全て「すでに選択されている選択肢」を押した場合で、変化しないのが正しい挙動。
-中身は `artifacts/inert-controls/report.json`。**死んだボタンは 1 つもない。**
+147 個の操作を実際に押して、画面が変わらなかったものを報告する仕組み。
+19 件あるが、**死んだボタンは 1 つもない。** 内訳は 2 種類だけ。
+
+| 種類                                       | 件数 | なぜ変わらないのが正しいか                      |
+| ------------------------------------------ | ---: | ----------------------------------------------- |
+| すでに選択されている選択肢・空の一覧のタブ |   17 | 「すべて」を選んだ状態で「すべて」を押している  |
+| 「書き出したファイルを読み込む」           |    2 | OS のファイル選択を開くだけで、DOM は変わらない |
+
+後者は `sandbox.spec.ts` が `setInputFiles` で実際にファイルを渡して検査する。
+中身は `artifacts/inert-controls/report.json`。
 
 ---
 

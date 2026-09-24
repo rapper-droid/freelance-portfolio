@@ -1,6 +1,6 @@
 {
   "origin": "http://localhost:3000",
-  "checkedAtIso": "2026-09-23T19:36:50.497Z",
+  "checkedAtIso": "2026-09-24T03:03:47.088Z",
   "results": [
     {
       "name": "hydrate /kissa @390",
@@ -240,17 +240,17 @@
     {
       "name": "pickup slots offered",
       "ok": true,
-      "detail": "11 slots"
+      "detail": "24 slots"
     },
     {
       "name": "order placed",
       "ok": true,
-      "detail": "K-4A4A6D"
+      "detail": "K-CFE5A9"
     },
     {
       "name": "payment decline recorded",
       "ok": true,
-      "detail": "ご注文を承りました  K-4A4A6D  2026年9月24日（木） 08:00 にお受け取りください。 お支払い状況：拒否"
+      "detail": "ご注文を承りました  K-CFE5A9  2026年9月24日（木） 12:15 にお受け取りください。 お支払い状況：拒否"
     },
     {
       "name": "payment replay refused",
@@ -265,12 +265,12 @@
     {
       "name": "table booked",
       "ok": true,
-      "detail": "R-A20156"
+      "detail": "R-E4B596"
     },
     {
       "name": "booking moved",
       "ok": true,
-      "detail": "2026年9月24日（木） 09:00 から 2 名 テーブル A"
+      "detail": "2026年9月24日（木） 13:30 から 2 名 テーブル A"
     },
     {
       "name": "sold out reaches the menu",

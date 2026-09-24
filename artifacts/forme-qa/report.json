@@ -1,6 +1,6 @@
 {
   "origin": "http://localhost:3000",
-  "checkedAtIso": "2026-09-23T19:37:19.360Z",
+  "checkedAtIso": "2026-09-24T03:04:11.854Z",
   "results": [
     {
       "name": "hydrate /forme @390",
@@ -270,7 +270,7 @@
     {
       "name": "order placed",
       "ok": true,
-      "detail": "F-6FFF6D"
+      "detail": "F-5F5635"
     },
     {
       "name": "buying the last two empties the shelf",

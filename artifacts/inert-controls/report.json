@@ -1,6 +1,6 @@
 {
   "origin": "http://localhost:3000",
-  "checkedAtIso": "2026-09-23T19:46:59.890Z",
+  "checkedAtIso": "2026-09-24T03:09:28.375Z",
   "routes": [
     {
       "route": "/demos/cafe",
@@ -88,7 +88,7 @@
     },
     {
       "route": "/demos/inbox",
-      "total": 12,
+      "total": 15,
       "findings": [
         {
           "route": "/demos/inbox",
@@ -201,12 +201,17 @@
     },
     {
       "route": "/forme/my",
-      "total": 3,
+      "total": 5,
       "findings": [
         {
           "route": "/forme/my",
           "index": 0,
           "label": "注文 0"
+        },
+        {
+          "route": "/forme/my",
+          "index": 3,
+          "label": "書き出したファイルを読み込む"
         }
       ],
       "errors": []
@@ -261,12 +266,17 @@
     },
     {
       "route": "/kissa/my",
-      "total": 3,
+      "total": 5,
       "findings": [
         {
           "route": "/kissa/my",
           "index": 0,
           "label": "注文 0"
+        },
+        {
+          "route": "/kissa/my",
+          "index": 3,
+          "label": "書き出したファイルを読み込む"
         }
       ],
       "errors": []
