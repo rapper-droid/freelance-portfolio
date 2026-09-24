@@ -418,7 +418,7 @@ REFINE の説明文だけ、P3 で足した幅切替と読み順に合わせて�
 | unit             | `npx vitest run`         | **677 passed** / 47 files                   |
 | build            | `npm run build`          | success                                     |
 | E2E（3 幅）      | `npm run test:e2e`       | **429 passed**                              |
-| KISSA 通し       | `npm run qa:kissa`       | **57/57**（390 / 768 / 1440）               |
+| KISSA 通し       | `npm run qa:kissa`       | **59/59**（390 / 768 / 1440）               |
 | FORME 通し       | `npm run qa:forme`       | **62/62**（390 / 768 / 1440）               |
 | 表示崩れ（4 幅） | `npm run qa:visual`      | PASS **51 ルート** × 320/390/768/1440       |
 | 操作系の実測     | `npm run qa:controls`    | **165 controls** / 動かないボタン 0         |
@@ -580,9 +580,13 @@ REPORT FLOW の検査は `tests/unit/report-flow.test.ts`（30 件・三週フ�
   だった。別ポートを使うか、`Get-NetTCPConnection -LocalPort <port>` で落とす。
 - **PowerShell の `Set-Content -Encoding utf8` は日本語を壊すことがある。**
   日本語を含むファイルの書き換えは Python か Write ツールで行う。
-- **時刻に依存する検査は、ある時間から落ちる。** `kissa-qa` は予約枠を
-  `nth(8)` で選んでいて、午後になると残り枠が 9 件未満になり 30 秒待って落ちた。
-  固定の添字ではなく「空いている最初の枠」を選び、件数を検査するように直した。
+- **時刻に依存する検査は、ある時間から落ちる。しかも直し方を 3 回間違えた。**
+  `kissa-qa` の予約枠の選び方は、`nth(8)`（午後に 9 件未満で落ちる）→
+  「その日の最初の空き枠」（夕方にその日の枠が尽きて落ちる）→
+  「空きのある最初の日」（変更先が現在と同じ枠になり、移動していないのに
+  移動したことになる）と壊れ続けた。最終形は、**空きのある日を探し、現在の
+  時刻と違う枠を選ぶ**。固定の添字と「今日」を前提にした検査は、いつか必ず
+  落ちる。
 - **Playwright の `networkidle` は Turnstile のあるページで永久に来ない。**
   `/works` は 599ms で描画されているのに待ち続ける。ウィジェットが接続を保つため。
   待つなら要素で待つ。逆に店の画面は `domcontentloaded` では早すぎるので、

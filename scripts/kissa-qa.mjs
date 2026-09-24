@@ -182,20 +182,39 @@ async function walkTheShop(browser) {
   // A table, then moving it.
   await page.goto(`${origin}/kissa/reserve`);
   await hydrated(page);
-  // A fixed index only worked while the day still had nine free slots: run
-  // this in the afternoon and it waited thirty seconds for a slot that had
-  // already passed. The first free one is as good, and the count is checked
-  // rather than assumed — the reservation is moved to another slot later, so
-  // one is not enough.
+  // The day matters, and picking one by index does not survive the clock.
+  // A fixed `nth(8)` broke in the afternoon when fewer than nine slots were
+  // left; taking the first free slot on the default day then broke in the
+  // evening when the day had none at all. So the walk finds the first day
+  // that can actually take a booking — which is what a visitor would do, and
+  // the only version that works at any hour.
   const freeSlots = page.locator(".kissa-slot input:not(:disabled)");
-  const freeCount = await freeSlots.count();
+  const dayPicker = page.getByLabel("ご利用日");
+  const dayValues = await dayPicker
+    .locator("option:not([disabled])")
+    .evaluateAll((options) => options.map((o) => o.value));
+
+  let chosenDay = "";
+  let freeCount = 0;
+  for (const value of dayValues) {
+    await dayPicker.selectOption(value);
+    freeCount = await freeSlots.count();
+    // Two, not one: the booking is moved to another slot further down.
+    if (freeCount >= 2) {
+      chosenDay = value;
+      break;
+    }
+  }
+
   check(
-    "reservation slots available",
-    freeCount >= 2,
-    `${freeCount} free slots`,
+    "a bookable day exists within the offered range",
+    !!chosenDay,
+    chosenDay ? `${chosenDay.slice(0, 10)} · ${freeCount} free slots` : "none",
   );
-  if (freeCount < 2)
-    throw new Error("no bookable slot left today; the walk cannot continue");
+  if (!chosenDay)
+    throw new Error(
+      "no day on offer has two free slots; the walk cannot continue",
+    );
   await freeSlots.first().click();
   await page.locator(".kissa-seat-list button:not([disabled])").first().click();
   await page.locator('input[type="text"]').fill("テスト太郎");
@@ -208,7 +227,55 @@ async function walkTheShop(browser) {
   await page.getByRole("tab", { name: /予約/ }).click();
   const before = await page.locator(".kissa-record-head p").first().innerText();
   await page.getByRole("button", { name: "日時を変更する" }).click();
-  await page.locator(".kissa-slot input:not(:disabled)").nth(2).click();
+  // Another fixed index, and the same failure waiting to happen. What the
+  // move needs is any free slot that is not the one already held — and late
+  // in the day that will be on a different date, so the day is searched too.
+  const otherSlots = page.locator(
+    ".kissa-slot input:not(:disabled):not(:checked)",
+  );
+  // Scoped to the change panel by structure: 「日」 as an accessible name is
+  // both too short to be safe and too easy to collide with 「ご利用日」.
+  const changeDay = page.locator(".kissa-change select").first();
+  await changeDay.waitFor({ timeout: 20000 });
+  const changeDays = await changeDay
+    .locator("option:not([disabled])")
+    .evaluateAll((options) => options.map((o) => o.value));
+  check(
+    "the change form offers days",
+    changeDays.length > 0,
+    `${changeDays.length} days`,
+  );
+
+  // Changing the day clears the selection, so `:not(:checked)` stops excluding
+  // the slot this booking already holds — and that slot is free *to this
+  // reservation*, so it would be picked and the "move" would move nothing.
+  // The current time is read off the record and excluded by hand.
+  const currentTime = /(\d{1,2}:\d{2})/.exec(before)?.[1] ?? "";
+  let movedTo = "";
+  for (const value of changeDays) {
+    await changeDay.selectOption(value);
+    const free = await otherSlots.count();
+    if (free >= 2 || (free === 1 && !value.includes(currentTime))) {
+      movedTo = value;
+      break;
+    }
+  }
+  check(
+    "another slot is free to move the booking to",
+    !!movedTo,
+    movedTo ? movedTo.slice(0, 10) : "none in the offered range",
+  );
+  if (!movedTo)
+    throw new Error("nowhere to move the booking to; the walk cannot continue");
+  // Skip the slot that matches the current time: moving to it is not a move.
+  const target = currentTime
+    ? page
+        .locator(".kissa-slot")
+        .filter({ hasNot: page.locator(`text=${currentTime}`) })
+        .locator("input:not(:disabled)")
+        .first()
+    : otherSlots.first();
+  await target.click();
   await page.locator(".kissa-seat-list button:not([disabled])").first().click();
   await page.getByRole("button", { name: "この内容に変更する" }).click();
   const after = await page.locator(".kissa-record-head p").first().innerText();

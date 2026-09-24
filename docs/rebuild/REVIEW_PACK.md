@@ -105,7 +105,7 @@ Lighthouse の performance スコアは負荷で数点動く。20 ルートを�
 | E2E（3 幅）      | `npm run test:e2e`       | **429 passed**                         |
 | 表示崩れ（4 幅） | `npm run qa:visual`      | **51 ルート** × 320/390/768/1440       |
 | デザイン（6 幅） | `npm run qa:design`      | 6 ルート × 6 幅、axe/focus/runtime     |
-| KISSA / FORME    | `qa:kissa` / `qa:forme`  | 56/56 / 62/62                          |
+| KISSA / FORME    | `qa:kissa` / `qa:forme`  | 59/59 · 62/62                          |
 | 操作系           | `npm run qa:controls`    | 165 controls / 動かないボタン 0        |
 | リンク           | `npm run qa:links`       | 42 routes / 238 links                  |
 | SEO              | `npm run qa:seo`         | 41 routes（要 `NEXT_PUBLIC_SITE_URL`） |
