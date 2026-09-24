@@ -21,9 +21,10 @@ by name only.
 
 `e4c7c66` (P4 — the catalogue's descriptions, the routes into the shops from
 /works, /works/<category>, /projects/<slug>, partners and rescue, the dated
-build records, and `portfolio_working_version_click`) is committed on
-`claude/ultimate-experience-20260923` and **has not been deployed**. Releasing
-it needs the owner's approval, then the usual path: PR into
+build records, and `portfolio_working_version_click`) and `755ad93` (61
+Japanese sentences that rendered with a space in the middle) are committed on
+`claude/ultimate-experience-20260923` and **have not been deployed**. Releasing
+them needs the owner's approval, then the usual path: PR into
 `tsudowa/cloudflare-workers-candidate`, then
 `node scripts/workers-production.mjs deploy-candidate`.
 

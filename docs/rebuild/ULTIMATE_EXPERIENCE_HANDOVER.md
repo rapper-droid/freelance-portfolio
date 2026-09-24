@@ -294,6 +294,8 @@ REFINE の説明文だけ、P3 で足した幅切替と読み順に合わせて�
 | SEO              | `npm run qa:seo`                   | PASS 41 routes（要 `NEXT_PUBLIC_SITE_URL`） |
 | デザイン（6 幅） | `npm run qa:design`                | PASS 6 routes × 6 幅、axe/focus/runtime     |
 | ルート台帳       | `node scripts/route-inventory.mjs` | **81 entries**、想定外ステータス 0          |
+| 日本語の改行     | `npm run qa:text`                  | PASS（verify に組み込み済み）               |
+| 性能（mobile）   | `npm run qa:performance`           | 18 ルート / 最小 92 / CLS 0                 |
 
 ### アクセシビリティ
 
@@ -357,8 +359,9 @@ tetsuworks.com/forme      -> 404（未更新のため）
    `e4c7c66` を確認。
 2. `npm run dev` → **`http://localhost:3000/works`**（`127.0.0.1` は不可）。
    カードの「操作できる版」から店へ入れる。
-3. **P4 は本番未反映。** 反映するなら PR → `tsudowa/cloudflare-workers-candidate`
-   → `node scripts/workers-production.mjs deploy-candidate`（所長の承認が必要）。
+3. **P4 と日本語の改行修正は本番未反映。** 反映するなら PR →
+   `tsudowa/cloudflare-workers-candidate` →
+   `node scripts/workers-production.mjs deploy-candidate`（所長の承認が必要）。
 4. 続きを作るなら **P5（全 route の最終 QA・画像 coverage・性能・docs）** か、
    P3 の残り（Automation の技術画面）から。
    共有記録の手本は 3 つ: `src/lib/shop/`（KISSA）、`src/lib/ops/`
@@ -374,6 +377,7 @@ tetsuworks.com/forme      -> 404（未更新のため）
 npm run qa:kissa      # KISSA を通しで操作して 56 項目を検査
 npm run qa:forme      # FORME を通しで操作して 62 項目を検査
 npm run qa:controls   # 全デモのボタンを押して、何も起きないものを報告
+npm run qa:text       # JSX の中で割れた日本語の文を検出（verify に組み込み済み）
 ```
 
 どちらも `localhost:3000` に対して実行する（`QA_BASE_URL` で変更可）。
@@ -401,6 +405,8 @@ npm run qa:controls   # 全デモのボタンを押して、何も起きない�
   半角スペース 1 つに潰すので、`架空店舗のため、` で改行して次の行を
   `実際の注文…` から始めると、読み手には「架空店舗のため、 実際の注文」と
   見える。Prettier は印字幅で勝手に折るので、行を繋いでも元に戻される。
-  文を `{"…"}` に入れると折られない。**`src/` 全体に 70 か所ある**（P5 で掃除）。
+  文を `{"…"}` に入れると折られない。**61 か所を `755ad93` で直し、
+  `npm run qa:text` が verify の中で検査する。** 手で直す必要はない
+  （`node scripts/jsx-text-breaks.mjs --fix` → prettier）。
 - **シェル経由で改行エスケープを含む JS を書くと潰れる。**
   正規表現や文字列に改行エスケープが要るときは Write ツールで書く。
