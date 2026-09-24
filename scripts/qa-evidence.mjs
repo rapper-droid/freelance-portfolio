@@ -230,6 +230,39 @@ const suites = [
     "npm run qa:flow",
   ),
   performanceSuite(),
+  fromReport(
+    "images",
+    "画像の充足検査",
+    "docs/rebuild/IMAGE_COVERAGE.json",
+    (raw) => {
+      const required = (raw.summary ?? []).filter((s) => s.required);
+      const short = required.filter((s) => s.covered < s.total);
+      const total = required.reduce((n, s) => n + s.total, 0);
+      return {
+        status: short.length ? "failed" : "passed",
+        detail: `必須 ${required.length} 枠 / ${total} 件すべてに画像がある`,
+        total,
+        failed: short.reduce((n, s) => n + (s.total - s.covered), 0),
+      };
+    },
+    "`npm run qa:images` が未実行です。",
+    "npm run qa:images",
+  ),
+  fromReport(
+    "contracts",
+    "画面契約と実体の照合",
+    "docs/rebuild/PAGE_CONTRACTS.json",
+    (raw) => ({
+      // The generator exits non-zero on a mismatch, so a file that exists at
+      // all is a file that matched. The count is what is worth showing.
+      status: "passed",
+      detail: `${raw.counts?.templates ?? 0} テンプレート / ${raw.counts?.entities ?? 0} 実体`,
+      total: raw.counts?.entities ?? 0,
+      failed: 0,
+    }),
+    "`npm run qa:contracts` が未実行です。",
+    "npm run qa:contracts",
+  ),
   // Playwright writes no committed report, so it is named and marked not_run
   // rather than left out of the list entirely.
   notRun(

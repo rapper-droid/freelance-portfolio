@@ -30,6 +30,10 @@ jobs:
       - run: npm run qa:design
       - run: npm run qa:links
       - run: npm run qa:performance
+      # The ledgers are built by requesting the running site, so they
+      # come after the build and cannot drift from what is served.
+      - run: npm run qa:inventory
+      - run: npm run qa:contracts
       - uses: actions/upload-artifact@v7.0.1
         if: always()
         with:

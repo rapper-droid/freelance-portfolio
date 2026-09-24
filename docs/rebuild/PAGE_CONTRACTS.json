@@ -1,0 +1,3026 @@
+{
+  "checkedAt": "2026-09-24T02:20:32.294Z",
+  "inventoryGeneratedAt": "2026-09-24T01:45:24.314Z",
+  "states": [
+    "初期",
+    "入力中",
+    "hover",
+    "focus",
+    "pressed",
+    "選択",
+    "loading",
+    "進行",
+    "成功",
+    "空",
+    "検索0件",
+    "validation error",
+    "通信失敗",
+    "offline",
+    "権限不足",
+    "期限切れ",
+    "競合",
+    "部分成功",
+    "retry",
+    "cancel",
+    "undo",
+    "disabled",
+    "再訪"
+  ],
+  "counts": {
+    "templates": 29,
+    "entities": 89
+  },
+  "contracts": [
+    {
+      "id": "home",
+      "template": "/",
+      "brand": "TSUDOWA",
+      "family": "static",
+      "audience": "TSUDOWA を初めて見る人、どの窓口か探している人",
+      "purpose": "親ブランドの構造を理解し、制作（WORKS）か実験（LAB）へ進む",
+      "inputs": "なし（読むだけ）",
+      "outputs": "なし",
+      "next": "/works・/lab・/contact・/history",
+      "highlight": "二つの世界と、日付つきの制作記録",
+      "reduces": "「何をしている人か」を問い合わせで聞く手間",
+      "media": "KISSA の店舗写真、各デモの実画面プレビュー",
+      "storage": "なし",
+      "sideEffects": "PostHog の portfolio_visit（設定時のみ）",
+      "evidence": "hq.spec.ts / visual-qa 4 幅 / qa:performance",
+      "entities": [
+        "/"
+      ],
+      "entityCount": 1,
+      "noindex": false,
+      "inSitemap": true,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": false,
+          "reason": "入力欄がない"
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": false,
+          "reason": "選択状態を持つ操作がない"
+        },
+        "loading": {
+          "applies": false,
+          "reason": "サーバー取得なし（静的生成）"
+        },
+        "進行": {
+          "applies": false,
+          "reason": "複数段階の処理がない"
+        },
+        "成功": {
+          "applies": false,
+          "reason": "完了する操作がない"
+        },
+        "空": {
+          "applies": false,
+          "reason": "内容は静的で、空になりえない"
+        },
+        "検索0件": {
+          "applies": false,
+          "reason": "検索がない"
+        },
+        "validation error": {
+          "applies": false,
+          "reason": "入力がない"
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "リクエストを出さない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "初回表示後は追加取得がない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": false,
+          "reason": "期限を持つデータがない"
+        },
+        "競合": {
+          "applies": false,
+          "reason": "他者と共有する状態がない"
+        },
+        "部分成功": {
+          "applies": false,
+          "reason": "分割される処理がない"
+        },
+        "retry": {
+          "applies": false,
+          "reason": "失敗しうる処理がない"
+        },
+        "cancel": {
+          "applies": false,
+          "reason": "取り消す操作がない"
+        },
+        "undo": {
+          "applies": false,
+          "reason": "変更が残らない"
+        },
+        "disabled": {
+          "applies": false,
+          "reason": "無効化する操作がない"
+        },
+        "再訪": {
+          "applies": false,
+          "reason": "保存しないため初回と同じ"
+        }
+      }
+    },
+    {
+      "id": "contact",
+      "template": "/contact",
+      "brand": "TETSU WORKS",
+      "family": "form",
+      "audience": "制作を相談したい人",
+      "purpose": "相談内容を送り、受付番号を受け取る",
+      "inputs": "種別・内容・連絡先（必須は最小限）",
+      "outputs": "受付番号、確認メール",
+      "next": "完了表示",
+      "highlight": "曖昧な段階でも送れる。送信前に内容を確認できる",
+      "reduces": "問い合わせ文を一から書く手間",
+      "media": "なし",
+      "storage": "Durable Object（CONTACT_STATE）。デモのデータは入らない",
+      "sideEffects": "実メール送信。portfolio_contact_submit / _success",
+      "evidence": "contact.spec.ts / contact のユニットテスト群 / abuse.test.ts",
+      "entities": [
+        "/contact"
+      ],
+      "entityCount": 1,
+      "noindex": false,
+      "inSitemap": true,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": true
+        },
+        "offline": {
+          "applies": true
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": false,
+          "reason": "同じ相談を二人が編集しない"
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": false,
+          "reason": "送信前は編集、送信後は取り消せないと明記"
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "contact_general",
+      "template": "/contact/general",
+      "brand": "TSUDOWA",
+      "family": "form",
+      "audience": "制作以外の用件がある人",
+      "purpose": "TSUDOWA 全体への問い合わせを送る",
+      "inputs": "内容・連絡先",
+      "outputs": "受付番号、確認メール",
+      "next": "完了表示・/contact（制作の相談）",
+      "highlight": "制作窓口と混ざらないよう入口を分ける",
+      "reduces": "宛先を迷う手間",
+      "media": "なし",
+      "storage": "CONTACT_STATE",
+      "sideEffects": "実メール送信",
+      "evidence": "contact.spec.ts / hq.spec.ts（導線）",
+      "entities": [
+        "/contact/general"
+      ],
+      "entityCount": 1,
+      "noindex": false,
+      "inSitemap": true,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": true
+        },
+        "offline": {
+          "applies": true
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": false,
+          "reason": "同じ相談を二人が編集しない"
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": false,
+          "reason": "送信前は編集、送信後は取り消せないと明記"
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "demos__slug",
+      "template": "/demos/[slug]",
+      "brand": "TETSU WORKS",
+      "family": "demo",
+      "audience": "動かして確かめたい人",
+      "purpose": "制作例を実際に操作する",
+      "inputs": "デモごと（選択・入力・チェック）",
+      "outputs": "デモごと（書き出し・記録・表示）",
+      "next": "/experience/<slug>・操作できる版・/contact",
+      "highlight": "見せかけを置かない。固定表示は固定表示と書く",
+      "reduces": "打ち合わせでの画面説明",
+      "media": "デモ内の作図・実画面",
+      "storage": "RELAY / INBOX / ADMIN のみ ops sandbox",
+      "sideEffects": "portfolio_live_demo_click",
+      "evidence": "portfolio.spec.ts / ops.spec.ts / showcase-p3.spec.ts / qa:controls",
+      "entities": [
+        "/demos/admin",
+        "/demos/automation",
+        "/demos/booking",
+        "/demos/cafe",
+        "/demos/creative",
+        "/demos/csv",
+        "/demos/ec",
+        "/demos/improvement",
+        "/demos/inbox",
+        "/demos/qa",
+        "/demos/saas"
+      ],
+      "entityCount": 11,
+      "noindex": false,
+      "inSitemap": true,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "サーバーへ出ない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "サーバーへ出ない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": false,
+          "reason": "期限を持つデータがない"
+        },
+        "競合": {
+          "applies": true
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": true
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "flow",
+      "template": "/flow",
+      "brand": "TETSU WORKS",
+      "family": "demo",
+      "audience": "自動化で何が減るのか知りたい人",
+      "purpose": "受付→整理→出力までを実際に流す",
+      "inputs": "サンプル入力（本文・ファイル）",
+      "outputs": "案件記録・下書き・集計 CSV",
+      "next": "/works・/contact",
+      "highlight": "通常処理と AI と未接続を別々に表示する",
+      "reduces": "転記・集計・下書き",
+      "media": "工程図と実出力",
+      "storage": "なし（画面内）",
+      "sideEffects": "scenario_started ほかサンプル funnel",
+      "evidence": "flow.spec.ts / qa:flow（3 トラック 7 工程 / axe）",
+      "entities": [
+        "/flow"
+      ],
+      "entityCount": 1,
+      "noindex": false,
+      "inSitemap": true,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "サーバーへ出ない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "サーバーへ出ない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": false,
+          "reason": "期限を持つデータがない"
+        },
+        "競合": {
+          "applies": true
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": true
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "history",
+      "template": "/history",
+      "brand": "TSUDOWA",
+      "family": "static",
+      "audience": "実際に何が作られたか確かめたい人",
+      "purpose": "年ごとの制作事実を、コミット参照つきで読む",
+      "inputs": "なし",
+      "outputs": "なし",
+      "next": "各記録の関連ページ",
+      "highlight": "手動更新であることと、確認日を明記した一覧",
+      "reduces": "「本当に動いているのか」を聞く手間",
+      "media": "なし（文字のみ）",
+      "storage": "なし",
+      "sideEffects": "なし",
+      "evidence": "hq.spec.ts（件数と日付形式）/ unit hq.test.ts",
+      "entities": [
+        "/history"
+      ],
+      "entityCount": 1,
+      "noindex": false,
+      "inSitemap": true,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": false,
+          "reason": "入力欄がない"
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": false,
+          "reason": "選択状態を持つ操作がない"
+        },
+        "loading": {
+          "applies": false,
+          "reason": "サーバー取得なし（静的生成）"
+        },
+        "進行": {
+          "applies": false,
+          "reason": "複数段階の処理がない"
+        },
+        "成功": {
+          "applies": false,
+          "reason": "完了する操作がない"
+        },
+        "空": {
+          "applies": false,
+          "reason": "内容は静的で、空になりえない"
+        },
+        "検索0件": {
+          "applies": false,
+          "reason": "検索がない"
+        },
+        "validation error": {
+          "applies": false,
+          "reason": "入力がない"
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "リクエストを出さない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "初回表示後は追加取得がない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": false,
+          "reason": "期限を持つデータがない"
+        },
+        "競合": {
+          "applies": false,
+          "reason": "他者と共有する状態がない"
+        },
+        "部分成功": {
+          "applies": false,
+          "reason": "分割される処理がない"
+        },
+        "retry": {
+          "applies": false,
+          "reason": "失敗しうる処理がない"
+        },
+        "cancel": {
+          "applies": false,
+          "reason": "取り消す操作がない"
+        },
+        "undo": {
+          "applies": false,
+          "reason": "変更が残らない"
+        },
+        "disabled": {
+          "applies": false,
+          "reason": "無効化する操作がない"
+        },
+        "再訪": {
+          "applies": false,
+          "reason": "保存しないため初回と同じ"
+        }
+      }
+    },
+    {
+      "id": "lab",
+      "template": "/lab",
+      "brand": "TSUKUTTA LAB",
+      "family": "static",
+      "audience": "プロダクト・実験に関心がある人",
+      "purpose": "LAB が独立した活動であることを知る",
+      "inputs": "なし",
+      "outputs": "なし",
+      "next": "/・/contact",
+      "highlight": "公開 URL が未確認であることを、書かずに済ませない",
+      "reduces": "存在しないリンクを踏む手間",
+      "media": "LAB のコンセプト面",
+      "storage": "なし",
+      "sideEffects": "なし",
+      "evidence": "hq.spec.ts（tsukuttalab へのリンクが 0 件）",
+      "entities": [
+        "/lab"
+      ],
+      "entityCount": 1,
+      "noindex": false,
+      "inSitemap": true,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": false,
+          "reason": "入力欄がない"
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": false,
+          "reason": "選択状態を持つ操作がない"
+        },
+        "loading": {
+          "applies": false,
+          "reason": "サーバー取得なし（静的生成）"
+        },
+        "進行": {
+          "applies": false,
+          "reason": "複数段階の処理がない"
+        },
+        "成功": {
+          "applies": false,
+          "reason": "完了する操作がない"
+        },
+        "空": {
+          "applies": false,
+          "reason": "内容は静的で、空になりえない"
+        },
+        "検索0件": {
+          "applies": false,
+          "reason": "検索がない"
+        },
+        "validation error": {
+          "applies": false,
+          "reason": "入力がない"
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "リクエストを出さない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "初回表示後は追加取得がない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": false,
+          "reason": "期限を持つデータがない"
+        },
+        "競合": {
+          "applies": false,
+          "reason": "他者と共有する状態がない"
+        },
+        "部分成功": {
+          "applies": false,
+          "reason": "分割される処理がない"
+        },
+        "retry": {
+          "applies": false,
+          "reason": "失敗しうる処理がない"
+        },
+        "cancel": {
+          "applies": false,
+          "reason": "取り消す操作がない"
+        },
+        "undo": {
+          "applies": false,
+          "reason": "変更が残らない"
+        },
+        "disabled": {
+          "applies": false,
+          "reason": "無効化する操作がない"
+        },
+        "再訪": {
+          "applies": false,
+          "reason": "保存しないため初回と同じ"
+        }
+      }
+    },
+    {
+      "id": "partners",
+      "template": "/partners",
+      "brand": "TETSU WORKS",
+      "family": "form",
+      "audience": "制作会社・デザイナー（実装の外注先を探す側）",
+      "purpose": "実装品質を確かめ、条件を整理して相談する",
+      "inputs": "相談文メーカー",
+      "outputs": "下書き",
+      "next": "/kissa・/forme・各デモ・/contact",
+      "highlight": "実装の証拠を screenshot ではなく動く店に置く",
+      "reduces": "スキル確認のやりとり",
+      "media": "各デモの実画面",
+      "storage": "なし",
+      "sideEffects": "brief_created",
+      "evidence": "link-qa / visual-qa 4 幅",
+      "entities": [
+        "/partners"
+      ],
+      "entityCount": 1,
+      "noindex": false,
+      "inSitemap": true,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": true
+        },
+        "offline": {
+          "applies": true
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": false,
+          "reason": "同じ相談を二人が編集しない"
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": false,
+          "reason": "送信前は編集、送信後は取り消せないと明記"
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "privacy",
+      "template": "/privacy",
+      "brand": "TSUDOWA",
+      "family": "static",
+      "audience": "問い合わせ前に取り扱いを確認したい人",
+      "purpose": "収集する項目・保管・第三者提供を確認する",
+      "inputs": "なし",
+      "outputs": "なし",
+      "next": "/contact",
+      "highlight": "実際に送信される項目だけを書く",
+      "reduces": "個別の確認メール",
+      "media": "なし",
+      "storage": "なし",
+      "sideEffects": "なし",
+      "evidence": "link-qa / visual-qa 4 幅",
+      "entities": [
+        "/privacy"
+      ],
+      "entityCount": 1,
+      "noindex": false,
+      "inSitemap": true,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": false,
+          "reason": "入力欄がない"
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": false,
+          "reason": "選択状態を持つ操作がない"
+        },
+        "loading": {
+          "applies": false,
+          "reason": "サーバー取得なし（静的生成）"
+        },
+        "進行": {
+          "applies": false,
+          "reason": "複数段階の処理がない"
+        },
+        "成功": {
+          "applies": false,
+          "reason": "完了する操作がない"
+        },
+        "空": {
+          "applies": false,
+          "reason": "内容は静的で、空になりえない"
+        },
+        "検索0件": {
+          "applies": false,
+          "reason": "検索がない"
+        },
+        "validation error": {
+          "applies": false,
+          "reason": "入力がない"
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "リクエストを出さない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "初回表示後は追加取得がない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": false,
+          "reason": "期限を持つデータがない"
+        },
+        "競合": {
+          "applies": false,
+          "reason": "他者と共有する状態がない"
+        },
+        "部分成功": {
+          "applies": false,
+          "reason": "分割される処理がない"
+        },
+        "retry": {
+          "applies": false,
+          "reason": "失敗しうる処理がない"
+        },
+        "cancel": {
+          "applies": false,
+          "reason": "取り消す操作がない"
+        },
+        "undo": {
+          "applies": false,
+          "reason": "変更が残らない"
+        },
+        "disabled": {
+          "applies": false,
+          "reason": "無効化する操作がない"
+        },
+        "再訪": {
+          "applies": false,
+          "reason": "保存しないため初回と同じ"
+        }
+      }
+    },
+    {
+      "id": "projects__slug",
+      "template": "/projects/[slug]",
+      "brand": "TETSU WORKS",
+      "family": "static",
+      "audience": "特定の制作例を詳しく見たい人",
+      "purpose": "背景・課題・実装・納品物・QA・限界を読む",
+      "inputs": "なし",
+      "outputs": "なし",
+      "next": "/demos/<slug>・操作できる版・関連サービス・/contact",
+      "highlight": "限界を価格の隣に書く。操作できる版はヒーロー直後",
+      "reduces": "実績の有無を確認する往復",
+      "media": "3 幅プレビュー + ビジュアルストーリー",
+      "storage": "なし",
+      "sideEffects": "portfolio_project_open / portfolio_price_view",
+      "evidence": "sales-hub.spec.ts（全 11 件を axe つきで巡回）",
+      "entities": [
+        "/projects/admin",
+        "/projects/automation",
+        "/projects/booking",
+        "/projects/cafe",
+        "/projects/creative",
+        "/projects/csv",
+        "/projects/ec",
+        "/projects/improvement",
+        "/projects/inbox",
+        "/projects/qa",
+        "/projects/saas"
+      ],
+      "entityCount": 11,
+      "noindex": false,
+      "inSitemap": true,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": false,
+          "reason": "入力欄がない"
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": false,
+          "reason": "選択状態を持つ操作がない"
+        },
+        "loading": {
+          "applies": false,
+          "reason": "サーバー取得なし（静的生成）"
+        },
+        "進行": {
+          "applies": false,
+          "reason": "複数段階の処理がない"
+        },
+        "成功": {
+          "applies": false,
+          "reason": "完了する操作がない"
+        },
+        "空": {
+          "applies": false,
+          "reason": "内容は静的で、空になりえない"
+        },
+        "検索0件": {
+          "applies": false,
+          "reason": "検索がない"
+        },
+        "validation error": {
+          "applies": false,
+          "reason": "入力がない"
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "リクエストを出さない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "初回表示後は追加取得がない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": false,
+          "reason": "期限を持つデータがない"
+        },
+        "競合": {
+          "applies": false,
+          "reason": "他者と共有する状態がない"
+        },
+        "部分成功": {
+          "applies": false,
+          "reason": "分割される処理がない"
+        },
+        "retry": {
+          "applies": false,
+          "reason": "失敗しうる処理がない"
+        },
+        "cancel": {
+          "applies": false,
+          "reason": "取り消す操作がない"
+        },
+        "undo": {
+          "applies": false,
+          "reason": "変更が残らない"
+        },
+        "disabled": {
+          "applies": false,
+          "reason": "無効化する操作がない"
+        },
+        "再訪": {
+          "applies": false,
+          "reason": "保存しないため初回と同じ"
+        }
+      }
+    },
+    {
+      "id": "rescue",
+      "template": "/rescue",
+      "brand": "TETSU WORKS",
+      "family": "form",
+      "audience": "何を頼めばよいか分からない人",
+      "purpose": "困りごとから相談文を組み立てる",
+      "inputs": "困りごとの選択と自由記述",
+      "outputs": "下書き",
+      "next": "/services・各デモ・/kissa・/contact",
+      "highlight": "専門用語を使わずに始められる",
+      "reduces": "要件が固まる前に相談できない停滞",
+      "media": "なし",
+      "storage": "なし",
+      "sideEffects": "brief_created",
+      "evidence": "link-qa / visual-qa 4 幅",
+      "entities": [
+        "/rescue"
+      ],
+      "entityCount": 1,
+      "noindex": false,
+      "inSitemap": true,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": true
+        },
+        "offline": {
+          "applies": true
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": false,
+          "reason": "同じ相談を二人が編集しない"
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": false,
+          "reason": "送信前は編集、送信後は取り消せないと明記"
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "services",
+      "template": "/services",
+      "brand": "TETSU WORKS",
+      "family": "catalogue",
+      "audience": "小さく頼める範囲を探している人",
+      "purpose": "範囲・価格・期間が決まったメニューを選ぶ",
+      "inputs": "なし",
+      "outputs": "なし",
+      "next": "/services/<slug>・/rescue",
+      "highlight": "公開しているメニューだけを並べる",
+      "reduces": "「いくらから頼めるか」の往復",
+      "media": "各メニューのデモ画面",
+      "storage": "なし",
+      "sideEffects": "service_view",
+      "evidence": "figma-sales.spec.ts / link-qa",
+      "entities": [
+        "/services"
+      ],
+      "entityCount": 1,
+      "noindex": false,
+      "inSitemap": true,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": false,
+          "reason": "一覧は静的生成で、絞り込みは同期処理"
+        },
+        "進行": {
+          "applies": false,
+          "reason": "複数段階の処理がない"
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "リクエストを出さない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "初回表示後は追加取得がない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": false,
+          "reason": "期限を持つデータがない"
+        },
+        "競合": {
+          "applies": false,
+          "reason": "他者と共有する状態がない"
+        },
+        "部分成功": {
+          "applies": false,
+          "reason": "分割される処理がない"
+        },
+        "retry": {
+          "applies": false,
+          "reason": "失敗しうる処理がない"
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": false,
+          "reason": "絞り込みは解除で戻る"
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "services__slug",
+      "template": "/services/[slug]",
+      "brand": "TETSU WORKS",
+      "family": "form",
+      "audience": "そのメニューを頼むか決める人",
+      "purpose": "範囲・進め方・検証済みの内容を読み、相談文を作る",
+      "inputs": "相談文メーカーの選択と自由記述",
+      "outputs": "下書き（コピー / フォームへ引き継ぎ）",
+      "next": "/contact（内容を引き継ぐ）",
+      "highlight": "検証した内容と、測っていない数字を分けて書く",
+      "reduces": "要件整理と最初の一通",
+      "media": "対応デモの実画面",
+      "storage": "なし（下書きは画面内）",
+      "sideEffects": "brief_created / consultation_cta_clicked",
+      "evidence": "offers のユニットテスト / e2e の下書き検査",
+      "entities": [
+        "/services/csv-routine",
+        "/services/web-fix"
+      ],
+      "entityCount": 2,
+      "noindex": false,
+      "inSitemap": true,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": true
+        },
+        "offline": {
+          "applies": true
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": false,
+          "reason": "同じ相談を二人が編集しない"
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": false,
+          "reason": "送信前は編集、送信後は取り消せないと明記"
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "works",
+      "template": "/works",
+      "brand": "TETSU WORKS",
+      "family": "catalogue",
+      "audience": "依頼を検討している人",
+      "purpose": "自分の仕事に近い制作例と参考価格を見つける",
+      "inputs": "カテゴリ絞り込み（12 分類）",
+      "outputs": "絞り込まれたカード一覧、カテゴリのパーマリンク",
+      "next": "/projects/*・/demos/*・/kissa・/forme・/contact",
+      "highlight": "操作できる 2 店を冒頭で名指しする",
+      "reduces": "「何ができるか」を一件ずつ聞く手間",
+      "media": "11 件 × desktop / mobile プレビュー",
+      "storage": "なし（絞り込みは URL とメモリ）",
+      "sideEffects": "portfolio_visit / portfolio_price_view / 操作できる版クリック",
+      "evidence": "works-connect.spec.ts / figma-sales.spec.ts / qa:images",
+      "entities": [
+        "/works"
+      ],
+      "entityCount": 1,
+      "noindex": false,
+      "inSitemap": true,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": false,
+          "reason": "一覧は静的生成で、絞り込みは同期処理"
+        },
+        "進行": {
+          "applies": false,
+          "reason": "複数段階の処理がない"
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "リクエストを出さない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "初回表示後は追加取得がない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": false,
+          "reason": "期限を持つデータがない"
+        },
+        "競合": {
+          "applies": false,
+          "reason": "他者と共有する状態がない"
+        },
+        "部分成功": {
+          "applies": false,
+          "reason": "分割される処理がない"
+        },
+        "retry": {
+          "applies": false,
+          "reason": "失敗しうる処理がない"
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": false,
+          "reason": "絞り込みは解除で戻る"
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "works__category",
+      "template": "/works/[category]",
+      "brand": "TETSU WORKS",
+      "family": "catalogue",
+      "audience": "依頼の種類が決まっている人",
+      "purpose": "その分類の制作例・範囲・必要な素材・参考価格を読む",
+      "inputs": "なし（URL が分類）",
+      "outputs": "なし",
+      "next": "/projects/*・/contact（分類を引き継ぐ）",
+      "highlight": "分類ごとの対応範囲と、事前に必要な素材",
+      "reduces": "見積もり前のやりとり",
+      "media": "その分類のカード群 + カテゴリ KV",
+      "storage": "なし",
+      "sideEffects": "portfolio_category_view",
+      "evidence": "sales-hub.spec.ts（12 分類の所属を完全一致で検査）",
+      "entities": [
+        "/works/api",
+        "/works/apps",
+        "/works/automation",
+        "/works/coding",
+        "/works/design",
+        "/works/ec",
+        "/works/improvement",
+        "/works/lp",
+        "/works/nextjs",
+        "/works/qa",
+        "/works/responsive",
+        "/works/web"
+      ],
+      "entityCount": 12,
+      "noindex": false,
+      "inSitemap": true,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": false,
+          "reason": "一覧は静的生成で、絞り込みは同期処理"
+        },
+        "進行": {
+          "applies": false,
+          "reason": "複数段階の処理がない"
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "リクエストを出さない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "初回表示後は追加取得がない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": false,
+          "reason": "期限を持つデータがない"
+        },
+        "競合": {
+          "applies": false,
+          "reason": "他者と共有する状態がない"
+        },
+        "部分成功": {
+          "applies": false,
+          "reason": "分割される処理がない"
+        },
+        "retry": {
+          "applies": false,
+          "reason": "失敗しうる処理がない"
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": false,
+          "reason": "絞り込みは解除で戻る"
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "experience__slug",
+      "template": "/experience/[slug]",
+      "brand": "TETSU WORKS",
+      "family": "demo",
+      "audience": "デモだけを画面いっぱいで見たい人",
+      "purpose": "ポートフォリオの枠なしで同じデモを操作する",
+      "inputs": "デモと同じ",
+      "outputs": "デモと同じ",
+      "next": "操作できる版・/projects/<slug>",
+      "highlight": "枠を外しても、架空であることの表示は外さない",
+      "reduces": "共有時に説明を足す手間",
+      "media": "デモと同じ",
+      "storage": "デモと同じ（同じ sandbox を共有）",
+      "sideEffects": "なし",
+      "evidence": "standalone.spec.ts（11 件すべて）",
+      "entities": [
+        "/experience/admin",
+        "/experience/automation",
+        "/experience/booking",
+        "/experience/cafe",
+        "/experience/creative",
+        "/experience/csv",
+        "/experience/ec",
+        "/experience/improvement",
+        "/experience/inbox",
+        "/experience/qa",
+        "/experience/saas"
+      ],
+      "entityCount": 11,
+      "noindex": false,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "サーバーへ出ない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "サーバーへ出ない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": false,
+          "reason": "期限を持つデータがない"
+        },
+        "競合": {
+          "applies": true
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": true
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "kissa",
+      "template": "/kissa",
+      "brand": "KISSA（架空店舗）",
+      "family": "shop",
+      "audience": "店を探している人（の役）",
+      "purpose": "店の雰囲気を見て、注文か予約へ進む",
+      "inputs": "なし",
+      "outputs": "なし",
+      "next": "/kissa/menu・/kissa/reserve",
+      "highlight": "架空であることを全ページのバナーで明示",
+      "reduces": "—（入口）",
+      "media": "店舗写真 5 点",
+      "storage": "kissa sandbox（読み取りのみ）",
+      "sideEffects": "なし。noindex, follow",
+      "evidence": "kissa.spec.ts / qa:kissa 56 項目 / qa:performance",
+      "entities": [
+        "/kissa"
+      ],
+      "entityCount": 1,
+      "noindex": true,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "サーバーへ出ない（支払いは内部シミュレーター）"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "サーバーへ出ないため、切断しても操作は続く"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "ログインのない架空店舗"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": true
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": true
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "kissa_menu",
+      "template": "/kissa/menu",
+      "brand": "KISSA（架空店舗）",
+      "family": "catalogue",
+      "audience": "注文する人",
+      "purpose": "14 品から選び、カートに入れる",
+      "inputs": "カテゴリ切替・商品選択",
+      "outputs": "カート（商品・数量）",
+      "next": "/kissa/menu/<id>・/kissa/order",
+      "highlight": "売り切れが運営画面と連動する",
+      "reduces": "店頭での確認",
+      "media": "14 品それぞれのイラスト（coverage 14/14）",
+      "storage": "kissa sandbox",
+      "sideEffects": "なし",
+      "evidence": "kissa.spec.ts / qa:images",
+      "entities": [
+        "/kissa/menu"
+      ],
+      "entityCount": 1,
+      "noindex": true,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": false,
+          "reason": "一覧は静的生成で、絞り込みは同期処理"
+        },
+        "進行": {
+          "applies": false,
+          "reason": "複数段階の処理がない"
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "リクエストを出さない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "初回表示後は追加取得がない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": false,
+          "reason": "期限を持つデータがない"
+        },
+        "競合": {
+          "applies": false,
+          "reason": "他者と共有する状態がない"
+        },
+        "部分成功": {
+          "applies": false,
+          "reason": "分割される処理がない"
+        },
+        "retry": {
+          "applies": false,
+          "reason": "失敗しうる処理がない"
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": false,
+          "reason": "絞り込みは解除で戻る"
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "kissa_reserve",
+      "template": "/kissa/reserve",
+      "brand": "KISSA（架空店舗）",
+      "family": "shop",
+      "audience": "席を取る人",
+      "purpose": "空席から選び、仮押さえして確定する",
+      "inputs": "日時・人数・席",
+      "outputs": "予約番号、予約記録",
+      "next": "/kissa/my（変更・取消）",
+      "highlight": "仮押さえの期限切れが自動で解放される",
+      "reduces": "電話・往復メール",
+      "media": "席の配置図",
+      "storage": "kissa sandbox",
+      "sideEffects": "なし",
+      "evidence": "shop-reservation のユニットテスト / kissa.spec.ts",
+      "entities": [
+        "/kissa/reserve"
+      ],
+      "entityCount": 1,
+      "noindex": true,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "サーバーへ出ない（支払いは内部シミュレーター）"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "サーバーへ出ないため、切断しても操作は続く"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "ログインのない架空店舗"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": true
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": true
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "kissa_order",
+      "template": "/kissa/order",
+      "brand": "KISSA（架空店舗）",
+      "family": "shop",
+      "audience": "注文を確定する人",
+      "purpose": "受取時間を決めて注文する",
+      "inputs": "受取時間・支払方法",
+      "outputs": "注文番号、注文記録",
+      "next": "/kissa/my",
+      "highlight": "調理時間と営業時間から受取枠を出す（7 日先まで繰り上げ）",
+      "reduces": "電話での時間調整",
+      "media": "カート内の商品イラスト",
+      "storage": "kissa sandbox",
+      "sideEffects": "なし（支払いは内部シミュレーター）",
+      "evidence": "shop-cart-order のユニットテスト / kissa.spec.ts",
+      "entities": [
+        "/kissa/order"
+      ],
+      "entityCount": 1,
+      "noindex": true,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "サーバーへ出ない（支払いは内部シミュレーター）"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "サーバーへ出ないため、切断しても操作は続く"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "ログインのない架空店舗"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": true
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": true
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "kissa_my",
+      "template": "/kissa/my",
+      "brand": "KISSA（架空店舗）",
+      "family": "shop",
+      "audience": "注文・予約した人",
+      "purpose": "状況を見て、変更・取消し、データを持ち出す",
+      "inputs": "変更内容、読み込むファイル",
+      "outputs": "更新された記録、書き出した JSON",
+      "next": "/kissa/menu・/kissa/reserve",
+      "highlight": "自分の予約は自分の枠を塞がない（変更できる）",
+      "reduces": "問い合わせての変更",
+      "media": "なし",
+      "storage": "kissa sandbox + 破損時の控え（--backup）",
+      "sideEffects": "なし",
+      "evidence": "sandbox.spec.ts（書出し・読込・控え・隔離）/ kissa.spec.ts",
+      "entities": [
+        "/kissa/my"
+      ],
+      "entityCount": 1,
+      "noindex": true,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "サーバーへ出ない（支払いは内部シミュレーター）"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "サーバーへ出ないため、切断しても操作は続く"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "ログインのない架空店舗"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": true
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": true
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "kissa_admin",
+      "template": "/kissa/admin",
+      "brand": "KISSA（架空店舗）",
+      "family": "console",
+      "audience": "店側（の役）",
+      "purpose": "注文を進め、売り切れを切り替え、売上を見る",
+      "inputs": "状態変更・販売状態の切替",
+      "outputs": "注文状態、在庫表示、集計",
+      "next": "—",
+      "highlight": "客側と同じ記録を店側から動かす",
+      "reduces": "二重台帳",
+      "media": "なし",
+      "storage": "kissa sandbox",
+      "sideEffects": "なし。認証はないと明記",
+      "evidence": "kissa.spec.ts / qa:controls",
+      "entities": [
+        "/kissa/admin"
+      ],
+      "entityCount": 1,
+      "noindex": true,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "サーバーへ出ない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "サーバーへ出ない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "運営画面を分けているが、認証は持たない（明記）"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": true
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": true
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "kissa_menu__productId",
+      "template": "/kissa/menu/[productId]",
+      "brand": "KISSA（架空店舗）",
+      "family": "shop",
+      "audience": "その商品を選ぶ人",
+      "purpose": "温度・サイズを選び、数量を決めてカートに入れる",
+      "inputs": "バリエーション・数量",
+      "outputs": "カート行",
+      "next": "/kissa/order・/kissa/menu",
+      "highlight": "売り切れの組み合わせは押せず、理由を書く",
+      "reduces": "店頭での質問",
+      "media": "商品イラスト（詳細サイズ）",
+      "storage": "kissa sandbox",
+      "sideEffects": "なし",
+      "evidence": "kissa.spec.ts（14 実体を巡回）",
+      "entities": [
+        "/kissa/menu/cheesecake",
+        "/kissa/menu/cold-brew",
+        "/kissa/menu/curry",
+        "/kissa/menu/drip-house",
+        "/kissa/menu/espresso",
+        "/kissa/menu/herbal-tea",
+        "/kissa/menu/hojicha-latte",
+        "/kissa/menu/latte",
+        "/kissa/menu/pudding",
+        "/kissa/menu/sandwich",
+        "/kissa/menu/seasonal-citrus",
+        "/kissa/menu/seasonal-mont-blanc",
+        "/kissa/menu/sencha",
+        "/kissa/menu/toast-set"
+      ],
+      "entityCount": 14,
+      "noindex": true,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "サーバーへ出ない（支払いは内部シミュレーター）"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "サーバーへ出ないため、切断しても操作は続く"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "ログインのない架空店舗"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": true
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": true
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "forme",
+      "template": "/forme",
+      "brand": "FORME（架空店舗）",
+      "family": "shop",
+      "audience": "商品を探している人（の役）",
+      "purpose": "店の世界観を見て、商品一覧へ進む",
+      "inputs": "なし",
+      "outputs": "なし",
+      "next": "/forme/items",
+      "highlight": "架空であることを全ページのバナーで明示",
+      "reduces": "—（入口）",
+      "media": "商品写真 3 点 + テクスチャ",
+      "storage": "forme sandbox（読み取りのみ）",
+      "sideEffects": "なし。noindex, follow",
+      "evidence": "forme.spec.ts / qa:forme 62 項目",
+      "entities": [
+        "/forme"
+      ],
+      "entityCount": 1,
+      "noindex": true,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "サーバーへ出ない（支払いは内部シミュレーター）"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "サーバーへ出ないため、切断しても操作は続く"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "ログインのない架空店舗"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": true
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": true
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "forme_items",
+      "template": "/forme/items",
+      "brand": "FORME（架空店舗）",
+      "family": "catalogue",
+      "audience": "商品を比べる人",
+      "purpose": "絞り込み・並び替え・3 点比較で候補を絞る",
+      "inputs": "絞り込み・並び替え・比較選択・お気に入り",
+      "outputs": "比較表、お気に入り",
+      "next": "/forme/items/<id>",
+      "highlight": "在庫が数として出る（売り切れを隠さない）",
+      "reduces": "問い合わせての在庫確認",
+      "media": "6 商品 × 色（写真 3 / 作図 8）",
+      "storage": "forme sandbox",
+      "sideEffects": "なし",
+      "evidence": "forme.spec.ts / qa:images（forme.colour.media）",
+      "entities": [
+        "/forme/items"
+      ],
+      "entityCount": 1,
+      "noindex": true,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": false,
+          "reason": "一覧は静的生成で、絞り込みは同期処理"
+        },
+        "進行": {
+          "applies": false,
+          "reason": "複数段階の処理がない"
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "リクエストを出さない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "初回表示後は追加取得がない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": false,
+          "reason": "期限を持つデータがない"
+        },
+        "競合": {
+          "applies": false,
+          "reason": "他者と共有する状態がない"
+        },
+        "部分成功": {
+          "applies": false,
+          "reason": "分割される処理がない"
+        },
+        "retry": {
+          "applies": false,
+          "reason": "失敗しうる処理がない"
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": false,
+          "reason": "絞り込みは解除で戻る"
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "forme_cart",
+      "template": "/forme/cart",
+      "brand": "FORME（架空店舗）",
+      "family": "shop",
+      "audience": "注文する人",
+      "purpose": "受け取り方法と地域を決め、送料込みで注文する",
+      "inputs": "配送/店頭、地域、支払方法",
+      "outputs": "注文番号、注文記録、在庫の減少",
+      "next": "/forme/my",
+      "highlight": "住所を取らずに送料を出す（地域だけ）",
+      "reduces": "送料の問い合わせ",
+      "media": "カート内の商品画像",
+      "storage": "forme sandbox",
+      "sideEffects": "なし（支払いは内部シミュレーター、再実行は冪等）",
+      "evidence": "forme-shop のユニットテスト / forme.spec.ts",
+      "entities": [
+        "/forme/cart"
+      ],
+      "entityCount": 1,
+      "noindex": true,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "サーバーへ出ない（支払いは内部シミュレーター）"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "サーバーへ出ないため、切断しても操作は続く"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "ログインのない架空店舗"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": true
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": true
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "forme_my",
+      "template": "/forme/my",
+      "brand": "FORME（架空店舗）",
+      "family": "shop",
+      "audience": "注文した人",
+      "purpose": "状況を見て、支払い・取消しをし、データを持ち出す",
+      "inputs": "支払い、取消し、読み込むファイル",
+      "outputs": "更新された注文、戻る在庫、書き出した JSON",
+      "next": "/forme/items",
+      "highlight": "タブを閉じたあとでも支払える（決済が注文カードにある）",
+      "reduces": "支払い方法の問い合わせ",
+      "media": "注文商品の画像",
+      "storage": "forme sandbox + 破損時の控え",
+      "sideEffects": "なし",
+      "evidence": "sandbox.spec.ts / forme.spec.ts",
+      "entities": [
+        "/forme/my"
+      ],
+      "entityCount": 1,
+      "noindex": true,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "サーバーへ出ない（支払いは内部シミュレーター）"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "サーバーへ出ないため、切断しても操作は続く"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "ログインのない架空店舗"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": true
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": true
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "forme_admin",
+      "template": "/forme/admin",
+      "brand": "FORME（架空店舗）",
+      "family": "console",
+      "audience": "店側（の役）",
+      "purpose": "在庫を動かし、取り扱いを止め、発送し、売上を見る",
+      "inputs": "在庫の増減、公開停止、発送",
+      "outputs": "在庫、注文状態、集計",
+      "next": "—",
+      "highlight": "未払いのまま発送できない",
+      "reduces": "二重台帳",
+      "media": "なし",
+      "storage": "forme sandbox（在庫は公開カタログからの差分）",
+      "sideEffects": "なし。認証はないと明記",
+      "evidence": "forme.spec.ts / qa:controls",
+      "entities": [
+        "/forme/admin"
+      ],
+      "entityCount": 1,
+      "noindex": true,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "サーバーへ出ない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "サーバーへ出ない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "運営画面を分けているが、認証は持たない（明記）"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": true
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": true
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "forme_items__productId",
+      "template": "/forme/items/[productId]",
+      "brand": "FORME（架空店舗）",
+      "family": "shop",
+      "audience": "その商品を選ぶ人",
+      "purpose": "色とサイズを選び、価格と在庫を確かめて入れる",
+      "inputs": "色・サイズ・数量",
+      "outputs": "カート行",
+      "next": "/forme/cart",
+      "highlight": "色を変えると写真・価格・在庫が同時に変わる",
+      "reduces": "組み合わせごとの問い合わせ",
+      "media": "色ごとの写真、なければ作図",
+      "storage": "forme sandbox",
+      "sideEffects": "なし",
+      "evidence": "forme.spec.ts（6 実体）/ forme-shop のユニットテスト",
+      "entities": [
+        "/forme/items/bottle",
+        "/forme/items/care-kit",
+        "/forme/items/lunch-box",
+        "/forme/items/mug",
+        "/forme/items/tote",
+        "/forme/items/tumbler"
+      ],
+      "entityCount": 6,
+      "noindex": true,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "サーバーへ出ない（支払いは内部シミュレーター）"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "サーバーへ出ないため、切断しても操作は続く"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "ログインのない架空店舗"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": true
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": true
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    }
+  ]
+}

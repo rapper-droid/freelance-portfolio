@@ -21,7 +21,7 @@
     "test:e2e": "playwright test",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "verify": "npm run lint && npm run qa:text && npm run typecheck && npm run test && npm run build",
+    "verify": "npm run lint && npm run qa:text && npm run qa:images && npm run typecheck && npm run test && npm run build",
     "screenshots": "node --experimental-strip-types scripts/portfolio-screenshots.mjs",
     "qa:visual": "node --experimental-strip-types scripts/visual-qa.mjs",
     "verify:all": "npm run verify && npm run format:check && npm run test:e2e && npm run screenshots && npm run qa:visual && npm run qa:links",
@@ -37,7 +37,10 @@
     "qa:kissa": "node scripts/kissa-qa.mjs",
     "qa:controls": "node scripts/inert-controls.mjs",
     "qa:forme": "node scripts/forme-qa.mjs",
-    "qa:text": "node scripts/jsx-text-breaks.mjs"
+    "qa:text": "node scripts/jsx-text-breaks.mjs",
+    "qa:images": "node scripts/image-coverage.mjs",
+    "qa:inventory": "node scripts/route-inventory.mjs",
+    "qa:contracts": "node scripts/page-contracts.mjs"
   },
   "keywords": [],
   "author": "",
