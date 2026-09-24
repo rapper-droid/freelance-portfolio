@@ -1,4 +1,4 @@
-# Production status — tsudowa.com on Cloudflare Workers, 2026-09-24 JST
+# Production status — tsudowa.com on Cloudflare Workers, 2026-09-24 JST (23:13)
 
 Current-state document. Earlier documents ([production candidate](cloudflare-production-candidate.md),
 [cutover simulation](cloudflare-cutover-simulation.md), [PRODUCTION.md](PRODUCTION.md)
@@ -8,29 +8,30 @@ by name only.
 
 ## What is live
 
-| Item     | Value                                                                                                                                                                               |
-| -------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| Origin   | `https://tsudowa.com` (apex 200; `www` 308 → apex; `http` 301 → `https`)                                                                                                            |
-| Worker   | `tsudowa-production`                                                                                                                                                                |
-| Version  | `afee9cdf-e2d6-4363-be2a-73599fc690f2`                                                                                                                                              |
-| Deployed | 2026-09-24 JST with `node scripts/workers-production.mjs deploy-candidate`                                                                                                          |
-| Source   | `tsudowa/cloudflare-workers-candidate` = `6b0445d` (merge of PR #8; tree `4a59afcc`, identical to `98d263c`)                                                                        |
-| Content  | **P1–P5.** The operable shops, the shared operations record, the rebuilt demos, the corrected catalogue and its routes into the shops, and the sandbox export / import / quarantine |
+| Item     | Value                                                                                                                                                                                                                                            |
+| -------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Origin   | `https://tsudowa.com` (apex 200; `www` 308 → apex; `http` 301 → `https`)                                                                                                                                                                         |
+| Worker   | `tsudowa-production`                                                                                                                                                                                                                             |
+| Version  | `edcf338d-3fa2-436d-b954-64485264ce58`                                                                                                                                                                                                           |
+| Deployed | 2026-09-24 JST with `node scripts/workers-production.mjs deploy-candidate`                                                                                                                                                                       |
+| Source   | `tsudowa/cloudflare-workers-candidate` = `6b0445d` (merge of PR #8; tree `4a59afcc`, identical to `98d263c`)                                                                                                                                     |
+| Content  | **指示書 P1–P5, complete.** The operable shops, the shared operations record, the rebuilt demos, the corrected catalogue, the sandbox export / import / quarantine, **REPORT FLOW**, the **Automation / API technical console**, and **DAYBOOK** |
 
 ### Verified after this deployment, against `https://tsudowa.com`
 
 | Check                                                  | Result                                         |
 | ------------------------------------------------------ | ---------------------------------------------- |
-| `scripts/post-deploy-check.mjs` (89 pages + contracts) | **12/12**, run twice                           |
-| `QA_BASE_URL=… qa:kissa`                               | **56/56**                                      |
+| `scripts/post-deploy-check.mjs` (95 pages + contracts) | **14/14**                                      |
+| `QA_BASE_URL=… qa:daybook`                             | **29/29**                                      |
+| `QA_BASE_URL=… qa:kissa`                               | **59/59**                                      |
 | `QA_BASE_URL=… qa:forme`                               | **62/62**                                      |
-| Production flow smoke (11 checks)                      | **11/11**                                      |
+| REPORT FLOW + Automation smoke on production           | **8/8**                                        |
 | RELAY → SMART INBOX → ADMIN                            | one record, visible on all three               |
 | Cart on the deployed bundle                            | works (this is what broke last release)        |
 | Sandbox export → clear storage → import                | the cart comes back                            |
 | FLOWSTATE download                                     | a real 1,328-byte file                         |
 | `/works` → 「操作できる版」 → `/kissa`                 | lands on the shop                              |
-| `/kissa`, `/forme`                                     | `noindex`; absent from the sitemap             |
+| `/kissa`, `/forme`, `/daybook`, `/daybook/admin`       | `noindex`; absent from the sitemap             |
 | `/works`                                               | indexed (so the check above cannot pass blind) |
 | `/api/analytics` on GET / cross-origin POST            | 405 / 403                                      |
 | `/api/contact`                                         | 200 (enabled; nothing was sent)                |
@@ -39,18 +40,29 @@ by name only.
 | Turnstile widget                                       | live on `/works`                               |
 | Runtime page errors                                    | none                                           |
 
-### Not on production yet
+### What this release added
 
-REPORT FLOW (`/report`, `/report/recipes`, `/report/history`) and the
-Automation / API technical console (`/automation`) are committed and **have not
-been deployed**. It is the P2 item that was never started: the domain
-for it — recipes, computation, period comparison — had existed for a while with
-thirty-eight tests and no screen had ever rendered it.
+Three experiences that existed only as a tested domain layer with no screen,
+plus the catalogue text that had gone stale around them.
 
-Releasing it needs the owner's approval, then the usual path: PR into
-`tsudowa/cloudflare-workers-candidate`, then
-`node scripts/workers-production.mjs deploy-candidate`, then
-`scripts/post-deploy-check.mjs` and the walkthroughs.
+| Route                         | What it now does on production                                                        |
+| ----------------------------- | ------------------------------------------------------------------------------------- |
+| `/report` + recipes, history  | Saves a column mapping as a rule and asks nothing on the second file of that shape    |
+| `/automation`                 | Plan, hashes, approval bound to payloads, and a timeout recorded as _outcome unknown_ |
+| `/daybook` + `/daybook/admin` | A booking that survives a reload, so a change can be asked for and refused            |
+
+Verified on production, not inferred: week two of REPORT FLOW ran with no
+questions and its saved rule was still there after a reload; the Automation
+console recorded 成功 / 結果不明 / 実行せず on one run and refused to resend on
+retry; DAYBOOK's full mandatory flow ran end to end, including the refusal to
+confirm without the requester's agreement.
+
+### Not on production
+
+Nothing from the spec remains undeployed. What is still unbuilt needs the
+owner's own credentials and a separate approval: real AI extraction, real
+payment capture, real mail delivery, and real calendar writes. Every screen
+says so where a visitor would otherwise assume otherwise.
 
 ### One thing seen and explained
 
@@ -74,11 +86,12 @@ build it was written for.
 ## Rollback
 
 1. **Primary:** roll the Worker back to the version this release replaced,
-   `46f3f849-ae09-4d57-a36d-e4c158f89ffd` — Workers & Pages >
-   tsudowa-production > Deployments > Rollback, or
-   `npx wrangler rollback 46f3f849-ae09-4d57-a36d-e4c158f89ffd --name tsudowa-production`.
+   `afee9cdf-e2d6-4363-be2a-73599fc690f2` (P1–P5, deployed earlier the same
+   day) — Workers & Pages > tsudowa-production > Deployments > Rollback, or
+   `npx wrangler rollback afee9cdf-e2d6-4363-be2a-73599fc690f2 --name tsudowa-production`.
    No DNS or mail change is involved. Earlier releases, oldest last:
-   `9aaaed9e`, `609058eb`, `cfb7abac`, `2bdd0b86`, `ab261d93`, `e41e0535`.
+   `46f3f849`, `9aaaed9e`, `609058eb`, `cfb7abac`, `2bdd0b86`, `ab261d93`,
+   `e41e0535`.
 2. **Last resort only** (a Worker rollback cannot restore service): the retained
    Netlify known-good deploy `6aabc4aec1247183915ad890`
    (`https://6aabc4aec1247183915ad890--tsudowa.netlify.app`, HTTP 200 on

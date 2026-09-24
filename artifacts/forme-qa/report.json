@@ -1,6 +1,6 @@
 {
-  "origin": "http://localhost:3000",
-  "checkedAtIso": "2026-09-24T12:44:55.398Z",
+  "origin": "https://tsudowa.com",
+  "checkedAtIso": "2026-09-24T14:18:12.176Z",
   "results": [
     {
       "name": "hydrate /forme @390",
@@ -270,7 +270,7 @@
     {
       "name": "order placed",
       "ok": true,
-      "detail": "F-9B9603"
+      "detail": "F-C68B27"
     },
     {
       "name": "buying the last two empties the shelf",
