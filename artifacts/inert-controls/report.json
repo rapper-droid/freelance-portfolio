@@ -1,6 +1,6 @@
 {
   "origin": "http://localhost:3000",
-  "checkedAtIso": "2026-09-24T09:50:05.418Z",
+  "checkedAtIso": "2026-09-24T11:28:12.356Z",
   "routes": [
     {
       "route": "/demos/cafe",
@@ -268,6 +268,24 @@
           "label": "書き出したファイルを読み込む"
         }
       ],
+      "errors": []
+    },
+    {
+      "route": "/daybook",
+      "total": 7,
+      "findings": [
+        {
+          "route": "/daybook",
+          "index": 5,
+          "label": "書き出したファイルを読み込む"
+        }
+      ],
+      "errors": []
+    },
+    {
+      "route": "/daybook/admin",
+      "total": 0,
+      "findings": [],
       "errors": []
     },
     {

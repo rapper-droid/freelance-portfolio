@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-09-24T09:21:53.549Z",
-  "inventoryGeneratedAt": "2026-09-24T09:21:51.893Z",
+  "checkedAt": "2026-09-24T11:12:11.842Z",
+  "inventoryGeneratedAt": "2026-09-24T11:12:00.494Z",
   "states": [
     "初期",
     "入力中",
@@ -27,8 +27,8 @@
     "再訪"
   ],
   "counts": {
-    "templates": 33,
-    "entities": 93
+    "templates": 35,
+    "entities": 95
   },
   "contracts": [
     {
@@ -2123,6 +2123,200 @@
         "undo": {
           "applies": false,
           "reason": "絞り込みは解除で戻る"
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "daybook",
+      "template": "/daybook",
+      "brand": "TETSU WORKS",
+      "family": "form",
+      "audience": "予約の希望を文章で送りたい人",
+      "purpose": "希望の時間が取れるか判定し、取れないときは実際に空いている候補まで出す",
+      "inputs": "依頼の文章（例文4通りあり）、名前、連絡先、候補の選択、合意",
+      "outputs": "読み取れた日時と読み取れなかった項目、空き候補、仮押さえ、確定、変更の差分、依頼ごとの記録",
+      "next": "/daybook/admin",
+      "highlight": "断って終わらせないこと。埋まっているときに、前後の準備時間まで踏まえた候補が出る",
+      "reduces": "空き時間を聞き直す往復／営業時間を調べる／仮押さえの期限を覚えておく／変更のたびに全部を確認し直す",
+      "media": "なし（時刻と状態が主役）",
+      "storage": "daybook sandbox（相談・仮押さえ・予約）+ 破損時の控え",
+      "sideEffects": "なし。実際の予約は入らず、メールも送らない",
+      "evidence": "daybook-flow.test.ts（16 件）/ daybook.spec.ts / qa:visual",
+      "entities": [
+        "/daybook"
+      ],
+      "entityCount": 1,
+      "noindex": true,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": true
+        },
+        "offline": {
+          "applies": true
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": false,
+          "reason": "同じ相談を二人が編集しない"
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": false,
+          "reason": "送信前は編集、送信後は取り消せないと明記"
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
+        }
+      }
+    },
+    {
+      "id": "daybook_admin",
+      "template": "/daybook/admin",
+      "brand": "TETSU WORKS",
+      "family": "console",
+      "audience": "予約を受ける側",
+      "purpose": "承認が要るものと、承認すると何が変わるかを読んで決める",
+      "inputs": "承認、取消",
+      "outputs": "予約者の合意とお店の承認の2つの記録、変更の旧→新、前後の準備時間を含む台帳、他システムの予定",
+      "next": "/daybook",
+      "highlight": "片方の記録だけでは確定しないこと。承認を押しても、断られた理由が記録に残るだけ",
+      "reduces": "何を承認するのか探す／変更で何が変わるのか読み直す／自分の予定と他システムの予定を見分ける",
+      "media": "なし",
+      "storage": "daybook sandbox（お客さま側と同じ1つの記録）",
+      "sideEffects": "なし。自分が作っていない予定は変更も削除もしない",
+      "evidence": "daybook-flow.test.ts / daybook.spec.ts",
+      "entities": [
+        "/daybook/admin"
+      ],
+      "entityCount": 1,
+      "noindex": true,
+      "inSitemap": false,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "サーバーへ出ない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "サーバーへ出ない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "運営画面を分けているが、認証は持たない（明記）"
+        },
+        "期限切れ": {
+          "applies": true
+        },
+        "競合": {
+          "applies": true
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": true
         },
         "disabled": {
           "applies": true

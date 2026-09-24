@@ -1,5 +1,5 @@
 {
-  "measuredAt": "2026-09-24T09:57:27.062Z",
+  "measuredAt": "2026-09-24T12:49:47.080Z",
   "note": "Local production build; Lighthouse mobile simulated throttling. Not field Core Web Vitals.",
   "budget": {
     "performance": 60,
@@ -9,120 +9,120 @@
     "cls": 0.05,
     "jsBytes": 320000
   },
-  "seoExempt": "/kissa/* and /forme/* are noindex on purpose; the SEO budget does not apply to them.",
+  "seoExempt": "/kissa/*, /forme/* and /daybook/* are noindex on purpose; the SEO budget does not apply to them.",
   "failures": [],
   "results": [
     {
       "route": "/",
       "mobile": true,
       "scores": {
-        "performance": 70,
+        "performance": 77,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 3090.6925,
+      "lcpMs": 2894.66475,
       "cls": 0,
-      "tbtMs": 1133.4175,
-      "jsBytes": 161850
+      "tbtMs": 763.5722499999999,
+      "jsBytes": 161805
     },
     {
       "route": "/works",
       "mobile": true,
       "scores": {
-        "performance": 68,
+        "performance": 82,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 2795.4144000000006,
+      "lcpMs": 2617.335275,
       "cls": 0,
-      "tbtMs": 1627.1463999999996,
-      "jsBytes": 261340
+      "tbtMs": 567.7613500000002,
+      "jsBytes": 263073
     },
     {
       "route": "/works/lp",
       "mobile": true,
       "scores": {
-        "performance": 73,
+        "performance": 93,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 3375.471875,
+      "lcpMs": 2932.0994,
       "cls": 0,
-      "tbtMs": 728.2937499999998,
-      "jsBytes": 187570
+      "tbtMs": 155.97160000000008,
+      "jsBytes": 187525
     },
     {
       "route": "/projects/cafe",
       "mobile": true,
       "scores": {
-        "performance": 78,
+        "performance": 91,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 2618.3034000000007,
+      "lcpMs": 3407.7960000000003,
       "cls": 0,
-      "tbtMs": 754.42415,
-      "jsBytes": 219867
+      "tbtMs": 83.00000000000023,
+      "jsBytes": 221660
     },
     {
       "route": "/projects/saas",
       "mobile": true,
       "scores": {
-        "performance": 72,
+        "performance": 92,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 2311.569,
+      "lcpMs": 2446.7445999999995,
       "cls": 0,
-      "tbtMs": 1374.977,
-      "jsBytes": 219867
+      "tbtMs": 248.96659999999952,
+      "jsBytes": 221660
     },
     {
       "route": "/projects/ec",
       "mobile": true,
       "scores": {
-        "performance": 90,
+        "performance": 91,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 3351.808000000001,
+      "lcpMs": 2657.00925,
       "cls": 0,
-      "tbtMs": 154.798,
-      "jsBytes": 219867
+      "tbtMs": 270.83025,
+      "jsBytes": 221660
     },
     {
       "route": "/projects/inbox",
       "mobile": true,
       "scores": {
-        "performance": 90,
+        "performance": 93,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 3357.6652,
+      "lcpMs": 2435.231875,
       "cls": 0,
-      "tbtMs": 158.3755500000002,
-      "jsBytes": 203365
+      "tbtMs": 234.43375000000037,
+      "jsBytes": 205147
     },
     {
       "route": "/demos/booking",
       "mobile": true,
       "scores": {
-        "performance": 94,
+        "performance": 90,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 2438.7129999999997,
+      "lcpMs": 2748.4809999999998,
       "cls": 0,
-      "tbtMs": 227,
-      "jsBytes": 219867
+      "tbtMs": 276.87974999999983,
+      "jsBytes": 256324
     },
     {
       "route": "/demos/cafe",
@@ -133,97 +133,27 @@
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 2755.027875,
+      "lcpMs": 2743.0255,
       "cls": 0,
-      "tbtMs": 81.99999999999977,
-      "jsBytes": 257457
+      "tbtMs": 86.5,
+      "jsBytes": 261007
     },
     {
       "route": "/demos/inbox",
       "mobile": true,
       "scores": {
-        "performance": 97,
+        "performance": 90,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 2283.3879,
+      "lcpMs": 2586.73355,
       "cls": 0,
-      "tbtMs": 99,
-      "jsBytes": 203365
+      "tbtMs": 294.5047000000002,
+      "jsBytes": 205147
     },
     {
       "route": "/demos/admin",
-      "mobile": true,
-      "scores": {
-        "performance": 96,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "lcpMs": 2583.9627,
-      "cls": 0,
-      "tbtMs": 85,
-      "jsBytes": 203933
-    },
-    {
-      "route": "/works/automation",
-      "mobile": true,
-      "scores": {
-        "performance": 93,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "lcpMs": 3174.7721,
-      "cls": 0,
-      "tbtMs": 45,
-      "jsBytes": 187570
-    },
-    {
-      "route": "/works/api",
-      "mobile": true,
-      "scores": {
-        "performance": 93,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "lcpMs": 3179.9309000000007,
-      "cls": 0,
-      "tbtMs": 52.5,
-      "jsBytes": 187570
-    },
-    {
-      "route": "/works/qa",
-      "mobile": true,
-      "scores": {
-        "performance": 94,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "lcpMs": 3043.4266,
-      "cls": 0,
-      "tbtMs": 56.5,
-      "jsBytes": 187570
-    },
-    {
-      "route": "/report",
-      "mobile": true,
-      "scores": {
-        "performance": 94,
-        "accessibility": 100,
-        "best-practices": 100,
-        "seo": 100
-      },
-      "lcpMs": 2814.327,
-      "cls": 0,
-      "tbtMs": 140.83650000000011,
-      "jsBytes": 190915
-    },
-    {
-      "route": "/automation",
       "mobile": true,
       "scores": {
         "performance": 91,
@@ -231,66 +161,150 @@
         "best-practices": 100,
         "seo": 100
       },
-      "lcpMs": 2789.4963000000002,
+      "lcpMs": 3062.53915,
       "cls": 0,
-      "tbtMs": 262.7518499999999,
-      "jsBytes": 235968
+      "tbtMs": 198.48694999999998,
+      "jsBytes": 205712
+    },
+    {
+      "route": "/works/automation",
+      "mobile": true,
+      "scores": {
+        "performance": 84,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 3082.13885,
+      "cls": 0,
+      "tbtMs": 394.2870499999999,
+      "jsBytes": 187525
+    },
+    {
+      "route": "/works/api",
+      "mobile": true,
+      "scores": {
+        "performance": 81,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 3187.3873000000003,
+      "cls": 0,
+      "tbtMs": 460.8709000000001,
+      "jsBytes": 187525
+    },
+    {
+      "route": "/works/qa",
+      "mobile": true,
+      "scores": {
+        "performance": 87,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 3185.7616000000003,
+      "cls": 0,
+      "tbtMs": 289.91279999999983,
+      "jsBytes": 187525
+    },
+    {
+      "route": "/report",
+      "mobile": true,
+      "scores": {
+        "performance": 86,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2833.2671,
+      "cls": 0,
+      "tbtMs": 384.5,
+      "jsBytes": 190891
+    },
+    {
+      "route": "/automation",
+      "mobile": true,
+      "scores": {
+        "performance": 86,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 100
+      },
+      "lcpMs": 2576.2317000000003,
+      "cls": 0,
+      "tbtMs": 446.88414999999986,
+      "jsBytes": 239739
+    },
+    {
+      "route": "/daybook",
+      "mobile": true,
+      "scores": {
+        "performance": 96,
+        "accessibility": 100,
+        "best-practices": 100,
+        "seo": 66
+      },
+      "lcpMs": 2121.7688000000003,
+      "cls": 0,
+      "tbtMs": 190.11559999999986,
+      "jsBytes": 186332
     },
     {
       "route": "/kissa",
       "mobile": true,
       "scores": {
-        "performance": 85,
+        "performance": 95,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 66
       },
-      "lcpMs": 2556.624,
+      "lcpMs": 2837.4147999999996,
       "cls": 0,
-      "tbtMs": 491.9999999999999,
-      "jsBytes": 242597
+      "tbtMs": 69.99999999999977,
+      "jsBytes": 246147
     },
     {
       "route": "/kissa/menu",
       "mobile": true,
       "scores": {
-        "performance": 96,
+        "performance": 95,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 66
       },
-      "lcpMs": 2806.2034000000003,
+      "lcpMs": 2852.7409000000002,
       "cls": 0,
-      "tbtMs": 62.49999999999977,
-      "jsBytes": 246211
+      "tbtMs": 84.99999999999955,
+      "jsBytes": 249761
     },
     {
       "route": "/kissa/menu/latte",
       "mobile": true,
       "scores": {
-        "performance": 96,
+        "performance": 95,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 66
       },
-      "lcpMs": 2789.4287,
+      "lcpMs": 2800.1963,
       "cls": 0,
-      "tbtMs": 57.5,
-      "jsBytes": 242597
+      "tbtMs": 127.40184999999997,
+      "jsBytes": 246147
     },
     {
       "route": "/forme",
       "mobile": true,
       "scores": {
-        "performance": 92,
+        "performance": 96,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 69
       },
-      "lcpMs": 2688.153625,
+      "lcpMs": 2810.6400999999996,
       "cls": 0,
-      "tbtMs": 248.93855000000008,
-      "jsBytes": 266741
+      "tbtMs": 55.5,
+      "jsBytes": 270291
     },
     {
       "route": "/forme/items",
@@ -301,24 +315,24 @@
         "best-practices": 100,
         "seo": 69
       },
-      "lcpMs": 2933.7835000000005,
+      "lcpMs": 2811.78225,
       "cls": 0,
-      "tbtMs": 45.99999999999977,
-      "jsBytes": 276919
+      "tbtMs": 82.99999999999955,
+      "jsBytes": 280469
     },
     {
       "route": "/forme/items/tumbler",
       "mobile": true,
       "scores": {
-        "performance": 94,
+        "performance": 95,
         "accessibility": 100,
         "best-practices": 100,
         "seo": 69
       },
-      "lcpMs": 2956.0451249999996,
+      "lcpMs": 2944.536374999999,
       "cls": 0,
-      "tbtMs": 77.58195,
-      "jsBytes": 266741
+      "tbtMs": 49.49999999999977,
+      "jsBytes": 270291
     }
   ]
 }

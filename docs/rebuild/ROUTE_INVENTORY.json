@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-24T09:21:51.893Z",
+  "generatedAt": "2026-09-24T11:12:00.494Z",
   "counts": {
-    "page": 93,
+    "page": 95,
     "api": 3,
     "asset": 4,
     "error": 1
@@ -27,6 +27,8 @@
     "/experience/[slug]": 11,
     "/report/recipes": 1,
     "/report/history": 1,
+    "/daybook": 1,
+    "/daybook/admin": 1,
     "/kissa": 1,
     "/kissa/menu": 1,
     "/kissa/reserve": 1,
@@ -548,6 +550,24 @@
       "status": 200,
       "inSitemap": false,
       "noindex": false
+    },
+    {
+      "kind": "page",
+      "template": "/daybook",
+      "route": "/daybook",
+      "entity": null,
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/daybook/admin",
+      "route": "/daybook/admin",
+      "entity": null,
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
     },
     {
       "kind": "page",

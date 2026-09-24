@@ -467,21 +467,21 @@ REFINE の説明文だけ、P3 で足した幅切替と読み順に合わせて�
 | ---------------- | ------------------------ | ------------------------------------------- |
 | lint             | `npm run lint`           | 0 errors, 0 warnings                        |
 | typecheck        | `npm run typecheck`      | pass                                        |
-| unit             | `npx vitest run`         | **677 passed** / 47 files                   |
+| unit             | `npx vitest run`         | **693 passed** / 48 files                   |
 | build            | `npm run build`          | success                                     |
-| E2E（3 幅）      | `npm run test:e2e`       | **429 passed**                              |
+| E2E（3 幅）      | `npm run test:e2e`       | **462 passed**                              |
 | KISSA 通し       | `npm run qa:kissa`       | **59/59**（390 / 768 / 1440）               |
 | FORME 通し       | `npm run qa:forme`       | **62/62**（390 / 768 / 1440）               |
-| 表示崩れ（4 幅） | `npm run qa:visual`      | PASS **51 ルート** × 320/390/768/1440       |
-| 操作系の実測     | `npm run qa:controls`    | **165 controls** / 動かないボタン 0         |
-| リンク           | `npm run qa:links`       | PASS 42 routes, **238 links**               |
+| 表示崩れ（8 幅） | `npm run qa:visual`      | PASS **53 ルート** × 320〜1440 の 8 幅      |
+| 操作系の実測     | `npm run qa:controls`    | **172 controls** / 動かないボタン 0         |
+| リンク           | `npm run qa:links`       | PASS 42 routes, **240 links**               |
 | SEO              | `npm run qa:seo`         | PASS 41 routes（要 `NEXT_PUBLIC_SITE_URL`） |
 | デザイン（6 幅） | `npm run qa:design`      | PASS 6 routes × 6 幅、axe/focus/runtime     |
-| ルート台帳       | `npm run qa:inventory`   | **101 entries**、想定外ステータス 0         |
+| ルート台帳       | `npm run qa:inventory`   | **103 entries**、想定外ステータス 0         |
 | 日本語の改行     | `npm run qa:text`        | PASS（verify に組み込み済み）               |
-| 性能（mobile）   | `npm run qa:performance` | **20 ルート、予算内**                       |
+| 性能（mobile）   | `npm run qa:performance` | **23 ルート、予算内**（/daybook は 96）     |
 | 画像 coverage    | `npm run qa:images`      | 必須 4 枠すべて 100%                        |
-| 画面契約         | `npm run qa:contracts`   | **33 テンプレート / 93 実体**               |
+| 画面契約         | `npm run qa:contracts`   | **35 テンプレート / 95 実体**               |
 
 ### 新しい検査が、本当に落ちることを確かめた
 
@@ -501,18 +501,25 @@ KISSA と FORME の各 7 ルート、および P3 の 4 デモで **axe 違反 0
 `showcase-p3.spec.ts` が CI で毎回検査する。
 
 `qa:visual` に `/history`・`/lab`・`/contact`・`/contact/general` を足した。
-この 4 つは今まで一度も幅検査を通っていなかった。
+この 4 つは今まで一度も幅検査を通っていなかった。DAYBOOK の 2 画面も
+`qa:visual`・`qa:controls`・`qa:inventory`・`qa:contracts` に入れた。
+
+幅は 4 → **8**（320 / 360 / 390 / 430 / 768 / 1024 / 1280 / 1440）。
+埋まっていた穴は 2 つ。360 は日本で最も多い Android の幅で、320 と 390 の
+あいだにあり、2 列が 1 列多い状態になりやすい。そして **1024〜1280 —
+実際にノートPCがある幅 — は一度も測っていなかった**。max-width と段組みの
+規則が切り替わるのはそこなので、768 と 1440 で通る配置が真ん中で崩れうる。
 
 ### `qa:controls` の 22 件について
 
-165 個の操作を実際に押して、画面が変わらなかったものを報告する仕組み。
-22 件あるが、**死んだボタンは 1 つもない。** 内訳は 2 種類だけ。
+172 個の操作を実際に押して、画面が変わらなかったものを報告する仕組み。
+23 件あるが、**死んだボタンは 1 つもない。** 内訳は 2 種類だけ。
 Automation の技術画面（7 操作）は 0 件。
 
 | 種類                                       | 件数 | なぜ変わらないのが正しいか                      |
 | ------------------------------------------ | ---: | ----------------------------------------------- |
-| すでに選択されている選択肢・空の一覧のタブ |   17 | 「すべて」を選んだ状態で「すべて」を押している  |
-| 「書き出したファイルを読み込む」           |    2 | OS のファイル選択を開くだけで、DOM は変わらない |
+| すでに選択されている選択肢・空の一覧のタブ |   20 | 「すべて」を選んだ状態で「すべて」を押している  |
+| 「書き出したファイルを読み込む」           |    3 | OS のファイル選択を開くだけで、DOM は変わらない |
 
 後者は `sandbox.spec.ts` が `setInputFiles` で実際にファイルを渡して検査する。
 中身は `artifacts/inert-controls/report.json`。
@@ -570,12 +577,14 @@ tetsuworks.com/forme      -> 404（未更新のため）
    `node scripts/workers-production.mjs deploy-candidate`（所長の承認が必要）。
    デプロイ後は必ず `node scripts/post-deploy-check.mjs https://tsudowa.com` と
    `QA_BASE_URL=https://tsudowa.com` での `qa:kissa` / `qa:forme` を通す。
-4. 続きを作るなら **P3 の残り（Automation の技術画面 — 入力 sample・schema・
-   mapping・実行計画・承認・各工程の状態・失敗・retry・出力とログ）** か、
-   **REPORT FLOW**、または 8 幅の visual baseline から。
+4. **指示書 P1〜P5 の実装は全て完了した。** Automation の技術画面・
+   REPORT FLOW・DAYBOOK・8 幅の visual baseline が最後の 4 件だった。
+   残っているのは所長の資格情報が必要なもの（実 AI・実決済・実メール送信）と、
+   本番反映後の remote preview 検査だけ。
    レビューする人には [REVIEW_PACK.md](REVIEW_PACK.md) を渡す。
-   共有記録の手本は 3 つ: `src/lib/shop/`（KISSA）、`src/lib/ops/`
-   （RELAY + INBOX + ADMIN）、`src/lib/forme/`（FORME）。同じ形 —
+   共有記録の手本は 5 つ: `src/lib/shop/`（KISSA）、`src/lib/ops/`
+   （RELAY + INBOX + ADMIN）、`src/lib/forme/`（FORME）、
+   `src/lib/report/`（REPORT FLOW）、`src/lib/daybook/`（DAYBOOK）。同じ形 —
    `schemaVersion` つきの localStorage、1 つの Context、判断は純粋関数。
    **provider の更新系は必ず ref から読むこと**（3-3 節の 1 番）。
 5. 触ってはいけない場所: `C:/Users/tetsu/freelance-portfolio`、
@@ -584,12 +593,12 @@ tetsuworks.com/forme      -> 404（未更新のため）
 ### 追加した npm scripts
 
 ```
-npm run qa:kissa      # KISSA を通しで操作して 56 項目を検査
+npm run qa:kissa      # KISSA を通しで操作して 59 項目を検査
 npm run qa:forme      # FORME を通しで操作して 62 項目を検査
 npm run qa:controls   # 全デモのボタンを押して、何も起きないものを報告
 npm run qa:text       # JSX の中で割れた日本語の文を検出（verify に組み込み済み）
 npm run qa:images     # 商品画像・プレビュー・参照ファイルの充足（verify に組み込み済み）
-npm run qa:inventory  # 全 97 route を実際に要求して台帳を作る
+npm run qa:inventory  # 全 103 route を実際に要求して台帳を作る
 npm run qa:contracts  # 画面契約。台帳と結合するので、契約のない画面は落ちる
 ```
 
@@ -599,7 +608,10 @@ REPORT FLOW の検査は `tests/unit/report-flow.test.ts`（30 件・三週フ�
 `tests/e2e/automation.spec.ts`（8 件 × 3 幅）。前者には、画面が説明する
 閉じた集合がコードの定数と一致しているかの検査が入っている。
 
-どちらも `localhost:3000` に対して実行する（`QA_BASE_URL` で変更可）。
+DAYBOOK は `tests/unit/daybook-flow.test.ts`（16 件・必須フローを 1 本の
+検査として順に走らせる）と `tests/e2e/daybook.spec.ts`（11 件 × 3 幅）。
+
+どれも `localhost:3000` に対して実行する（`QA_BASE_URL` で変更可）。
 
 ---
 
@@ -643,5 +655,13 @@ REPORT FLOW の検査は `tests/unit/report-flow.test.ts`（30 件・三週フ�
   `/works` は 599ms で描画されているのに待ち続ける。ウィジェットが接続を保つため。
   待つなら要素で待つ。逆に店の画面は `domcontentloaded` では早すぎるので、
   `qa:kissa` と同じ hydration の印（カートバッジの文言）を待つ。
+- **Playwright の element handle を hydration 越しに持つと、箱が消える。**
+  `await locator.all()` で 7 個の handle を取り、そのあと React が再描画すると
+  handle は detached になり、`boundingBox()` は `null` を返す。これが
+  `TypeError: Cannot read properties of null (reading 'width')` になり、
+  読み方を変えれば「タップ領域が 0px」にも見える。実際に `premium.spec.ts` で
+  起きた（DAYBOOK の導線パネルを `/demos/booking` の上に足して配置が動いた
+  ときに顕在化）。**毎回 `locator.nth(i)` で取り直し、client でしか出ない要素
+  （`select` など）を待ってから測る。**
 - **シェル経由で改行エスケープを含む JS を書くと潰れる。**
   正規表現や文字列に改行エスケープが要るときは Write ツールで書く。
