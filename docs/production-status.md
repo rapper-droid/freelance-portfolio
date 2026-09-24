@@ -83,6 +83,36 @@ smoke opens the real shop. Both were run against the _current_ production
 before this deploy, so neither is a check that has only ever passed on the
 build it was written for.
 
+## tetsuworks.com
+
+Not a stale deploy: every path answers **301 to `https://tsudowa.com/works`**
+(`www` via the apex, Server: Netlify), so what a visitor sees there is this
+release. Measured after the deploy: DAYBOOK ×7, REPORT FLOW ×2, links to
+`/daybook` and `/report`, 20 「操作できる版」 entries.
+
+The redirect is **not in this repository** — `netlify.toml` is identical on
+`codex/portfolio-sales-hub-v2` and on the branch this release came from, and
+neither has `[[redirects]]` or a `_redirects` file. It is configured at the
+Netlify site/domain level.
+
+Consequences, recorded so the next session does not push for nothing:
+
+- Pushing to `codex/portfolio-sales-hub-v2` would change nothing a visitor
+  sees. Codex has 0 commits of its own there (`ce03541` is an ancestor of this
+  release), so there is no conflict — only a build no domain serves.
+- `scripts/check-production.mjs` refuses any `NEXT_PUBLIC_SITE_URL` whose host
+  is not `tsudowa.com`. If that Netlify site's environment names
+  tetsuworks.com, the only result of a push is a failed build.
+
+`docs/rebuild/REBUILD_BASELINE.md` recorded tetsuworks.com as `200 / 1.91s`
+serving its own content. It is a 301 now, so the redirect was added after that
+baseline. `~/.claude/CLAUDE.md` and the registry still describe the domain as
+built from `codex/portfolio-sales-hub-v2`; that is stale, and is the owner's
+file to correct.
+
+Owner's decision on 2026-09-24: **leave the redirect as it is.** Neither
+path-preserving redirection nor independent serving on tetsuworks.com was done.
+
 ## Rollback
 
 1. **Primary:** roll the Worker back to the version this release replaced,
