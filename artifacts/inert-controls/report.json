@@ -1,6 +1,6 @@
 {
   "origin": "http://localhost:3000",
-  "checkedAtIso": "2026-09-24T05:54:59.206Z",
+  "checkedAtIso": "2026-09-24T09:50:05.418Z",
   "routes": [
     {
       "route": "/demos/cafe",
@@ -226,6 +226,12 @@
           "label": "注文 0"
         }
       ],
+      "errors": []
+    },
+    {
+      "route": "/automation",
+      "total": 7,
+      "findings": [],
       "errors": []
     },
     {

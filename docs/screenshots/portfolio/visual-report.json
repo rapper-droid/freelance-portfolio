@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-24T05:35:29.727Z",
+  "checkedAt": "2026-09-24T09:41:47.467Z",
   "findings": [
     {
       "width": 320,
@@ -66,6 +66,13 @@
     },
     {
       "width": 320,
+      "route": "/automation",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 320,
       "route": "/report/recipes",
       "status": 200,
       "overflow": false,
@@ -416,6 +423,13 @@
     },
     {
       "width": 390,
+      "route": "/automation",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 390,
       "route": "/report/recipes",
       "status": 200,
       "overflow": false,
@@ -766,6 +780,13 @@
     },
     {
       "width": 768,
+      "route": "/automation",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 768,
       "route": "/report/recipes",
       "status": 200,
       "overflow": false,
@@ -1110,6 +1131,13 @@
     {
       "width": 1440,
       "route": "/report",
+      "status": 200,
+      "overflow": false,
+      "brokenImages": 0
+    },
+    {
+      "width": 1440,
+      "route": "/automation",
       "status": 200,
       "overflow": false,
       "brokenImages": 0

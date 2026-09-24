@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-09-24T06:20:28.238Z",
+  "checkedAt": "2026-09-24T09:42:07.646Z",
   "routes": 42,
   "links": [
     {
@@ -188,6 +188,10 @@
     },
     {
       "path": "/demos/automation",
+      "status": 200
+    },
+    {
+      "path": "/automation",
       "status": 200
     },
     {
