@@ -1,5 +1,15 @@
 import { describe, it, expect } from "vitest";
 import { spawnSync } from "node:child_process";
+
+/**
+ * Each case spawns a real `node scripts/check-production.mjs`, which is the
+ * point — the guard is a process that exits non-zero, not a function we can
+ * call. Eight spawns do not fit vitest's 5s default on a machine that is also
+ * running a browser suite, and it failed exactly that way. The assertions are
+ * unchanged; only the time allowed for starting processes is.
+ */
+const SPAWN_TIMEOUT = 30_000;
+
 const settings = {
   ...process.env,
   NEXT_PUBLIC_SITE_URL: "https://tsudowa.com",
@@ -21,18 +31,23 @@ const run = (env: NodeJS.ProcessEnv) =>
     env,
     encoding: "utf8",
   });
-describe("native production configuration validation", () => {
-  it("permits native storage without external Redis credentials", () =>
-    expect(run(settings).status).toBe(0));
-  it("still requires Redis for Netlify", () =>
-    expect(run({ ...settings, HOSTING_PLATFORM: "netlify" }).status).not.toBe(
-      0,
-    ));
-  it("still rejects missing secrets or unapproved mail sender", () => {
-    expect(run({ ...settings, TURNSTILE_SECRET: "" }).status).not.toBe(0);
-    expect(run({ ...settings, RATE_LIMIT_SALT: "short" }).status).not.toBe(0);
-    expect(
-      run({ ...settings, CONTACT_FROM_EMAIL: "wrong@example.test" }).status,
-    ).not.toBe(0);
-  });
-});
+// Same reason as production-config: these spawn real processes.
+describe(
+  "native production configuration validation",
+  () => {
+    it("permits native storage without external Redis credentials", () =>
+      expect(run(settings).status).toBe(0));
+    it("still requires Redis for Netlify", () =>
+      expect(run({ ...settings, HOSTING_PLATFORM: "netlify" }).status).not.toBe(
+        0,
+      ));
+    it("still rejects missing secrets or unapproved mail sender", () => {
+      expect(run({ ...settings, TURNSTILE_SECRET: "" }).status).not.toBe(0);
+      expect(run({ ...settings, RATE_LIMIT_SALT: "short" }).status).not.toBe(0);
+      expect(
+        run({ ...settings, CONTACT_FROM_EMAIL: "wrong@example.test" }).status,
+      ).not.toBe(0);
+    });
+  },
+  SPAWN_TIMEOUT,
+);

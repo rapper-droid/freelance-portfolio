@@ -6,7 +6,8 @@ import { projects, getProject } from "@/lib/portfolio";
 import { pageMetadata } from "@/lib/seo";
 import { DemoFrame, demoKicker } from "@/components/demo-frame";
 import { QaEvidencePanel } from "@/components/qa-evidence";
-import { DemoLiveLink, liveRoutes } from "@/components/demo-live-link";
+import { DemoLiveLink } from "@/components/demo-live-link";
+import { liveRoutes } from "@/lib/working-versions";
 import "@/components/qa-evidence.css";
 import {
   CafeDemo,

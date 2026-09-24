@@ -13,6 +13,7 @@ import { MessageOnly } from "@/components/sales-sections";
 import { caseLabels } from "@/lib/sales-ui";
 import { previewPath } from "@/lib/preview";
 import { ProjectVisualStory } from "@/components/project-visuals";
+import { DemoLiveLink } from "@/components/demo-live-link";
 import { Contact } from "@/components/contact";
 // Known paths are prerendered; unknown paths render the explicit notFound() boundary.
 export const generateStaticParams = () =>
@@ -106,6 +107,10 @@ export default async function ProjectPage({
             </div>
           </dl>
         </section>
+        {/* Before the visual story: for KISSA and FORME the working shop is
+            the case study's real evidence, and it should not sit below
+            three screenshots of itself. */}
+        <DemoLiveLink slug={p.slug} />
         <ProjectVisualStory slug={p.slug} />
         <section className="hub-section case-content">
           <div className="case-stories">
@@ -214,8 +219,9 @@ export default async function ProjectPage({
               </ul>
               <p className="honesty-note">
                 確認日 {offer.updatedAt}
-                。記載しているのは実際に行った検証だけで、
-                作業時間の削減や売上の変化は測定していません。
+                {
+                  "。記載しているのは実際に行った検証だけで、作業時間の削減や売上の変化は測定していません。"
+                }
               </p>
             </div>
           )}

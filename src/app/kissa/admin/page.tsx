@@ -26,8 +26,9 @@ export default function KissaAdmin() {
         <span className="kissa-eyebrow">ADMIN</span>
         <h1>運営画面</h1>
         <p>
-          客側の画面と同じ記録を操作します。ここで進めた注文はお客さまの確認画面に、
-          売り切れにした商品はメニューに、そのまま反映されます。
+          {
+            "客側の画面と同じ記録を操作します。ここで進めた注文はお客さまの確認画面に、売り切れにした商品はメニューに、そのまま反映されます。"
+          }
         </p>
         <p className="kissa-page-head-links">
           <Link href="/kissa/my">ご注文・ご予約</Link>

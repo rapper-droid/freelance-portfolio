@@ -120,8 +120,9 @@ export function WorksBridge() {
           動く成果物へ。
         </h2>
         <p>
-          Web制作・AI業務自動化・業務ツールを担う、TSUDOWAの制作・受託部門です。
-          設計だけで終わらず、実装・テスト・納品まで責任を持ちます。
+          {
+            "Web制作・AI業務自動化・業務ツールを担う、TSUDOWAの制作・受託部門です。設計だけで終わらず、実装・テスト・納品まで責任を持ちます。"
+          }
         </p>
         <div className="hero-actions">
           <Link href="#services" className="button primary">

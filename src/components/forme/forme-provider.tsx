@@ -26,6 +26,8 @@ import {
 import { applyStock, setStock as setStockRule } from "@/lib/forme/stock";
 import {
   emptyFormeState,
+  exportFormeState,
+  importFormeState,
   loadFormeState,
   newSandboxId,
   resetFormeState,
@@ -89,6 +91,10 @@ type FormeContextValue = {
   setStock: (key: string, count: number) => void;
   togglePublished: (productId: string) => void;
   reset: () => void;
+  /** The visitor's own copy of this sandbox, to keep or carry. */
+  exportData: () => string;
+  /** Returns a message when the file was refused, null when taken. */
+  importData: (text: string) => string | null;
 };
 
 const OUTCOME_OF_STATE: Partial<Record<PaymentState, PaymentOutcome>> = {
@@ -334,6 +340,15 @@ export function FormeProvider({
         live.current = fresh;
         setState(fresh);
         setNotice("この端末の体験データを初期化しました。");
+      },
+
+      exportData: () => exportFormeState(live.current),
+      importData: (text: string) => {
+        const result = importFormeState(text, new Date().toISOString());
+        if (!result.ok) return result.reason;
+        commit(result.state);
+        setNotice(result.note ?? "");
+        return null;
       },
     };
   }, [state, ready, notice, nowIso, commit]);

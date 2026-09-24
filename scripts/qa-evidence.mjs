@@ -132,15 +132,14 @@ function fromReport(id, label, relative, read, hint, command) {
 }
 
 function performanceSuite() {
-  let files;
-  try {
-    files = fs
-      .readdirSync(path.join(ROOT, "docs/performance"))
-      .filter((f) => f.endsWith(".json"));
-  } catch {
-    files = [];
-  }
-  if (!files.length)
+  // `summary.json` is what the last full run measured, route by route.
+  // Counting files in the directory instead reported 24 routes for a 20-route
+  // run: two summaries and two reports left behind by a superseded capture
+  // were being counted, and their old scores were being published as the
+  // current worst.
+  const summary = readJson("docs/performance/summary.json");
+  const results = Array.isArray(summary?.results) ? summary.results : [];
+  if (!results.length)
     return notRun(
       "performance",
       "性能計測（Lighthouse）",
@@ -148,39 +147,28 @@ function performanceSuite() {
       "`npm run qa:performance` が未実行です。",
       "npm run qa:performance",
     );
-  // Raw Lighthouse reports: the score is categories.performance.score (0–1)
-  // and the timestamp is fetchTime. Starting `worst` at 100 and finding no
-  // score would have published 100 as if it were a measurement.
-  const scores = [];
-  let newest = 0;
-  for (const file of files) {
-    const raw = readJson("docs/performance/" + file);
-    const score = raw?.categories?.performance?.score;
-    if (typeof score === "number") scores.push(Math.round(score * 100));
-    const at = Date.parse(raw?.fetchTime ?? "");
-    if (Number.isFinite(at)) newest = Math.max(newest, at);
-  }
-  if (!scores.length)
-    return notRun(
-      "performance",
-      "性能計測（Lighthouse）",
-      "automated",
-      "計測ファイルからスコアを読み取れませんでした。",
-      "npm run qa:performance",
-    );
-  const worst = Math.min(...scores);
+
+  const scores = results
+    .map((r) => r?.scores?.performance)
+    .filter((n) => typeof n === "number");
+  const failures = Array.isArray(summary.failures) ? summary.failures : [];
+  const worst = scores.length ? Math.min(...scores) : null;
+
   return {
     id: "performance",
     label: "性能計測（Lighthouse）",
     scope: "automated",
     command: "npm run qa:performance",
-    source: "docs/performance/*.json",
-    // A score is a measurement, not a pass mark: report it, do not grade it.
-    status: "measured",
-    detail: `${files.length} ルート / performance スコア最小 ${worst}`,
-    checkedAt: newest ? new Date(newest).toISOString() : null,
-    total: files.length,
-    failed: null,
+    source: "docs/performance/summary.json",
+    // A score is a measurement, not a pass mark — but the budget beside it is
+    // a pass mark, so a breach is reported as a failure rather than a number.
+    status: failures.length ? "failed" : "measured",
+    detail: failures.length
+      ? `${results.length} ルート / 予算超過 ${failures.length} 件`
+      : `${results.length} ルート / 予算内 / performance スコア最小 ${worst}`,
+    checkedAt: summary.measuredAt ?? null,
+    total: results.length,
+    failed: failures.length,
   };
 }
 
@@ -230,6 +218,39 @@ const suites = [
     "npm run qa:flow",
   ),
   performanceSuite(),
+  fromReport(
+    "images",
+    "画像の充足検査",
+    "docs/rebuild/IMAGE_COVERAGE.json",
+    (raw) => {
+      const required = (raw.summary ?? []).filter((s) => s.required);
+      const short = required.filter((s) => s.covered < s.total);
+      const total = required.reduce((n, s) => n + s.total, 0);
+      return {
+        status: short.length ? "failed" : "passed",
+        detail: `必須 ${required.length} 枠 / ${total} 件すべてに画像がある`,
+        total,
+        failed: short.reduce((n, s) => n + (s.total - s.covered), 0),
+      };
+    },
+    "`npm run qa:images` が未実行です。",
+    "npm run qa:images",
+  ),
+  fromReport(
+    "contracts",
+    "画面契約と実体の照合",
+    "docs/rebuild/PAGE_CONTRACTS.json",
+    (raw) => ({
+      // The generator exits non-zero on a mismatch, so a file that exists at
+      // all is a file that matched. The count is what is worth showing.
+      status: "passed",
+      detail: `${raw.counts?.templates ?? 0} テンプレート / ${raw.counts?.entities ?? 0} 実体`,
+      total: raw.counts?.entities ?? 0,
+      failed: 0,
+    }),
+    "`npm run qa:contracts` が未実行です。",
+    "npm run qa:contracts",
+  ),
   // Playwright writes no committed report, so it is named and marked not_run
   // rather than left out of the list entirely.
   notRun(

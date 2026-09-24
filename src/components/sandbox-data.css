@@ -1,0 +1,76 @@
+/* The panel that lets a visitor take their sandbox with them.
+
+   It sits inside three different experiences, each of which repaints text
+   colour for its own identity, so this file states colours rather than
+   inheriting them — the same trap that put dark text on a dark panel twice
+   before. `currentColor` is used only where inheriting is the intent. */
+
+.sandbox-data {
+  margin-top: var(--space-7);
+  padding: var(--space-6);
+  border: 1px solid currentColor;
+  border-radius: var(--radius-md);
+  /* A hairline, not a box: this is housekeeping, not a headline. */
+  border-color: color-mix(in srgb, currentColor 18%, transparent);
+}
+
+.sandbox-data h2 {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-h3);
+  line-height: 1.4;
+}
+
+.sandbox-data-lead,
+.sandbox-data p {
+  margin: 0 0 var(--space-3);
+  font-size: var(--text-small);
+  line-height: 1.9;
+  color: color-mix(in srgb, currentColor 75%, transparent);
+}
+
+.sandbox-data-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+
+/* Every action here is at least a full finger target, at every width. */
+.sandbox-data-actions button {
+  min-height: 44px;
+}
+
+.sandbox-data-backup {
+  margin-top: var(--space-5);
+  padding: var(--space-5);
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, currentColor 7%, transparent);
+}
+
+.sandbox-data-backup-meta code {
+  font-size: var(--text-caption);
+  word-break: break-all;
+}
+
+.sandbox-data-message {
+  margin: var(--space-4) 0 0;
+  min-height: 1.9em;
+  font-size: var(--text-small);
+  line-height: 1.9;
+}
+
+.sandbox-data-message.is-error {
+  /* Stated, not inherited: these panels sit on three different backgrounds. */
+  color: #d2694f;
+  font-weight: 600;
+}
+
+@media (max-width: 560px) {
+  .sandbox-data-actions {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .sandbox-data-actions button {
+    width: 100%;
+  }
+}

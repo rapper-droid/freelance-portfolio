@@ -1,10 +1,10 @@
 {
   "schema": 1,
-  "commit": "b7de10a073b5e325d7e83bf152c22d1a9052b5c0",
-  "commitShort": "b7de10a",
-  "committedAt": "2026-09-23T23:21:32+09:00",
-  "generatedAt": "2026-09-23T15:27:45.088Z",
-  "dirty": true,
+  "commit": "32c3a231a7224f3f24584dc28e6cf8a7e9c13915",
+  "commitShort": "32c3a23",
+  "committedAt": "2026-09-24T12:15:29+09:00",
+  "generatedAt": "2026-09-24T03:15:37.465Z",
+  "dirty": false,
   "suites": [
     {
       "id": "unit",
@@ -12,9 +12,9 @@
       "scope": "automated",
       "command": "npx vitest run",
       "status": "passed",
-      "detail": "42 ファイル / 589 テスト",
-      "checkedAt": "2026-09-23T15:27:40.680Z",
-      "total": 589,
+      "detail": "45 ファイル / 629 テスト",
+      "checkedAt": "2026-09-24T03:15:31.359Z",
+      "total": 629,
       "failed": 0,
       "skipped": 0
     },
@@ -25,9 +25,9 @@
       "command": "npm run qa:links",
       "source": "docs/link-report.json",
       "status": "passed",
-      "detail": "42 ルート / 233 リンク",
-      "checkedAt": "2026-09-23T15:19:41.413Z",
-      "total": 233,
+      "detail": "42 ルート / 234 リンク",
+      "checkedAt": "2026-09-24T02:58:18.373Z",
+      "total": 234,
       "failed": 0
     },
     {
@@ -37,9 +37,9 @@
       "command": "npm run qa:visual",
       "source": "docs/screenshots/portfolio/visual-report.json",
       "status": "passed",
-      "detail": "172 件の確認 / 横溢れ・画像欠けなし",
-      "checkedAt": "2026-09-23T15:21:38.637Z",
-      "total": 172,
+      "detail": "188 件の確認 / 横溢れ・画像欠けなし",
+      "checkedAt": "2026-09-24T03:00:28.536Z",
+      "total": 188,
       "failed": 0
     },
     {
@@ -50,7 +50,7 @@
       "source": "artifacts/flow-qa/report.json",
       "status": "passed",
       "detail": "28 件の確認 / a11y 違反なし",
-      "checkedAt": "2026-09-22T16:18:40.583Z",
+      "checkedAt": "2026-09-24T03:03:14.911Z",
       "total": 28,
       "failed": 0
     },
@@ -59,12 +59,36 @@
       "label": "性能計測（Lighthouse）",
       "scope": "automated",
       "command": "npm run qa:performance",
-      "source": "docs/performance/*.json",
+      "source": "docs/performance/summary.json",
       "status": "measured",
-      "detail": "18 ルート / performance スコア最小 80",
-      "checkedAt": "2026-09-16T20:02:51.413Z",
-      "total": 18,
-      "failed": null
+      "detail": "20 ルート / 予算内 / performance スコア最小 93",
+      "checkedAt": "2026-09-24T03:12:24.319Z",
+      "total": 20,
+      "failed": 0
+    },
+    {
+      "id": "images",
+      "label": "画像の充足検査",
+      "scope": "automated",
+      "command": "npm run qa:images",
+      "source": "docs/rebuild/IMAGE_COVERAGE.json",
+      "status": "passed",
+      "detail": "必須 4 枠 / 273 件すべてに画像がある",
+      "checkedAt": "2026-09-24T03:12:32.537Z",
+      "total": 273,
+      "failed": 0
+    },
+    {
+      "id": "contracts",
+      "label": "画面契約と実体の照合",
+      "scope": "automated",
+      "command": "npm run qa:contracts",
+      "source": "docs/rebuild/PAGE_CONTRACTS.json",
+      "status": "passed",
+      "detail": "29 テンプレート / 89 実体",
+      "checkedAt": "2026-09-24T03:12:31.654Z",
+      "total": 89,
+      "failed": 0
     },
     {
       "id": "e2e",

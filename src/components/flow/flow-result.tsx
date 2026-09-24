@@ -1,5 +1,6 @@
 "use client";
 
+import { downloadText } from "@/lib/runtime/download";
 import { displayValue, fieldLabel } from "@/lib/runtime/display";
 import type { StageLabel } from "@/lib/runtime/present";
 import type { Evidence, MissingField, Warning } from "@/lib/runtime/types";
@@ -158,16 +159,9 @@ function DownloadButton({
   name: string;
   label: string;
 }) {
-  const save = () => {
-    const url = URL.createObjectURL(
-      new Blob([text], { type: "text/csv;charset=utf-8" }),
-    );
-    const link = document.createElement("a");
-    link.href = url;
-    link.download = name;
-    link.click();
-    URL.revokeObjectURL(url);
-  };
+  // The old version revoked the object URL on the very next line, before the
+  // browser had necessarily started the download.
+  const save = () => downloadText(text, name, "text/csv;charset=utf-8");
   return (
     <button type="button" className="flow-button secondary" onClick={save}>
       {label}

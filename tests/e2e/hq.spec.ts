@@ -1,5 +1,6 @@
 import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
+import { buildRecords } from "../../src/lib/hq";
 
 test("HQ explains the parent, exposes both worlds and curates honest work without a sales LP", async ({
   page,
@@ -109,18 +110,23 @@ test("LAB is an honest independent gateway and build records have real, stable d
   await expect(page.locator('a[href^="https://tsukuttalab"]')).toHaveCount(0);
   await expect(page.locator(".hq-lab-window")).toContainText("CONCEPT");
   await page.goto("/history");
-  await expect(page.locator(".hq-history-entry")).toHaveCount(3);
+  await expect(page.locator(".hq-history-entry")).toHaveCount(
+    buildRecords.length,
+  );
   for (const entry of await page.locator(".hq-history-entry").all()) {
     await expect(entry.locator("time")).toHaveAttribute(
       "datetime",
-      "2026-09-17",
+      /^\d{4}-\d{2}-\d{2}$/,
     );
     await expect(entry.locator("a")).toHaveAttribute("href", /^\//);
   }
   await page.goto("/#activity");
+  // The home page shows the newest few; whichever is first must still land on
+  // its own entry in the archive.
+  const newest = buildRecords[0].id;
   await page.locator(".hq-log-row").first().click();
-  await expect(page).toHaveURL(/\/history#independent-demos$/);
-  await expect(page.locator("#independent-demos")).toBeInViewport();
+  await expect(page).toHaveURL(new RegExp(`/history#${newest}$`));
+  await expect(page.locator(`#${newest}`)).toBeInViewport();
 });
 
 test("client navigation keeps HQ typography intact after loading portfolio CSS", async ({

@@ -1,4 +1,13 @@
 import { emptyOpsState } from "./cases";
+import {
+  backupNote,
+  exportText,
+  importSandbox,
+  keepBackup,
+  readRaw,
+  writeRaw,
+  type ImportResult,
+} from "../runtime/sandbox";
 import { OPS_SCHEMA_VERSION, type OpsState } from "./types";
 
 export { OPS_SCHEMA_VERSION };
@@ -32,11 +41,21 @@ export function migrateOps(raw: unknown, nowIso: string): OpsMigration {
   const version =
     typeof value.schemaVersion === "number" ? value.schemaVersion : 0;
 
-  if (version > OPS_SCHEMA_VERSION)
+  // Copied aside before a fresh sandbox starts writing over the key.
+  if (version > OPS_SCHEMA_VERSION) {
+    const kept = keepBackup(
+      OPS_STORAGE_KEY,
+      JSON.stringify(raw),
+      `schemaVersion ${version} > ${OPS_SCHEMA_VERSION}`,
+      nowIso,
+    );
     return {
       state: emptyOpsState(nowIso, newSandboxId()),
-      note: "新しい版で保存されたデータのため、この画面では読み込みませんでした。元のデータは変更していません。",
+      note:
+        "新しい版で保存されたデータのため、この画面では読み込みませんでした。" +
+        backupNote(kept),
     };
+  }
 
   const base = emptyOpsState(nowIso, value.sandboxId || newSandboxId());
   const state: OpsState = {
@@ -61,31 +80,53 @@ export function migrateOps(raw: unknown, nowIso: string): OpsMigration {
 }
 
 export function loadOpsState(nowIso: string): OpsMigration {
-  try {
-    const raw = localStorage.getItem(OPS_STORAGE_KEY);
-    if (!raw) return { state: emptyOpsState(nowIso, newSandboxId()) };
-    return migrateOps(JSON.parse(raw), nowIso);
-  } catch {
+  const read = readRaw(OPS_STORAGE_KEY);
+  if (read.ok)
+    return read.value === null
+      ? { state: emptyOpsState(nowIso, newSandboxId()) }
+      : migrateOps(read.value, nowIso);
+
+  if (read.fault === "unavailable")
     return {
       state: emptyOpsState(nowIso, newSandboxId()),
       note: "このブラウザでは保存が使えないため、このタブの間だけの体験になります。",
     };
-  }
+
+  const kept = keepBackup(
+    OPS_STORAGE_KEY,
+    read.text ?? "",
+    "unreadable",
+    nowIso,
+  );
+  return {
+    state: emptyOpsState(nowIso, newSandboxId()),
+    note: "保存されていた対応記録を読み込めませんでした。" + backupNote(kept),
+  };
 }
 
 export function saveOpsState(state: OpsState): boolean {
-  try {
-    localStorage.setItem(OPS_STORAGE_KEY, JSON.stringify(state));
-    return true;
-  } catch {
-    return false;
-  }
+  return writeRaw(OPS_STORAGE_KEY, state);
 }
 
 export function resetOpsState(nowIso: string): OpsState {
   const fresh = emptyOpsState(nowIso, newSandboxId());
   saveOpsState(fresh);
   return fresh;
+}
+
+export const exportOpsState = (state: OpsState) => exportText(state);
+
+/** Cases and dismissed seeds together belong to no other sandbox. */
+const looksLikeOps = (raw: unknown) => {
+  const value = raw as Partial<OpsState>;
+  return Array.isArray(value?.cases) && Array.isArray(value?.dismissedSeedIds);
+};
+
+export function importOpsState(
+  text: string,
+  nowIso: string,
+): ImportResult<OpsState> {
+  return importSandbox(text, nowIso, migrateOps, looksLikeOps);
 }
 
 export const OPS_STORAGE_DISCLOSURE =

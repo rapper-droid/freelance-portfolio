@@ -165,13 +165,16 @@
 }
 .project-actions {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-top: 20px;
 }
 .project-actions a {
   position: relative;
   display: flex;
-  flex: 1;
+  /* Two per row. KISSA and FORME carry a third action, which then takes the
+     full second row rather than squeezing three labels into one. */
+  flex: 1 1 calc(50% - 5px);
   align-items: center;
   justify-content: center;
   gap: 8px;
@@ -263,4 +266,16 @@
   .project-card:hover .preview-mobile {
     transform: none;
   }
+}
+
+/* The operable shop is not another way of looking at the demo — it is the
+   thing itself, so on those two cards it is the filled action. */
+.project-actions a.project-working {
+  border-color: var(--hub-accent);
+  background: var(--hub-accent);
+  color: var(--sales-on-accent);
+}
+.project-actions a.project-working:hover {
+  background: color-mix(in srgb, var(--hub-accent) 82%, #000);
+  border-color: color-mix(in srgb, var(--hub-accent) 82%, #000);
 }

@@ -1,3 +1,12 @@
+import {
+  backupNote,
+  exportText,
+  importSandbox,
+  keepBackup,
+  readRaw,
+  writeRaw,
+  type ImportResult,
+} from "../runtime/sandbox";
 import { emptyCart } from "./cart";
 import { FORME_SCHEMA_VERSION, type FormeState } from "./types";
 
@@ -55,11 +64,21 @@ export function migrateForme(raw: unknown, nowIso: string): FormeMigration {
   const version =
     typeof value.schemaVersion === "number" ? value.schemaVersion : 0;
 
-  if (version > FORME_SCHEMA_VERSION)
+  // Copied aside before a fresh sandbox starts writing over the key.
+  if (version > FORME_SCHEMA_VERSION) {
+    const kept = keepBackup(
+      FORME_STORAGE_KEY,
+      JSON.stringify(raw),
+      `schemaVersion ${version} > ${FORME_SCHEMA_VERSION}`,
+      nowIso,
+    );
     return {
       state: emptyFormeState(nowIso, newSandboxId()),
-      note: "新しい版で保存されたデータのため、この画面では読み込みませんでした。元のデータは変更していません。",
+      note:
+        "新しい版で保存されたデータのため、この画面では読み込みませんでした。" +
+        backupNote(kept),
     };
+  }
 
   const base = emptyFormeState(nowIso, value.sandboxId || newSandboxId());
   const state: FormeState = {
@@ -93,31 +112,57 @@ export function migrateForme(raw: unknown, nowIso: string): FormeMigration {
 }
 
 export function loadFormeState(nowIso: string): FormeMigration {
-  try {
-    const raw = localStorage.getItem(FORME_STORAGE_KEY);
-    if (!raw) return { state: emptyFormeState(nowIso, newSandboxId()) };
-    return migrateForme(JSON.parse(raw), nowIso);
-  } catch {
+  const read = readRaw(FORME_STORAGE_KEY);
+  if (read.ok)
+    return read.value === null
+      ? { state: emptyFormeState(nowIso, newSandboxId()) }
+      : migrateForme(read.value, nowIso);
+
+  if (read.fault === "unavailable")
     return {
       state: emptyFormeState(nowIso, newSandboxId()),
       note: "このブラウザでは保存が使えないため、このタブの間だけの体験になります。",
     };
-  }
+
+  const kept = keepBackup(
+    FORME_STORAGE_KEY,
+    read.text ?? "",
+    "unreadable",
+    nowIso,
+  );
+  return {
+    state: emptyFormeState(nowIso, newSandboxId()),
+    note: "保存されていたデータを読み込めませんでした。" + backupNote(kept),
+  };
 }
 
 export function saveFormeState(state: FormeState): boolean {
-  try {
-    localStorage.setItem(FORME_STORAGE_KEY, JSON.stringify(state));
-    return true;
-  } catch {
-    return false;
-  }
+  return writeRaw(FORME_STORAGE_KEY, state);
 }
 
 export function resetFormeState(nowIso: string): FormeState {
   const fresh = emptyFormeState(nowIso, newSandboxId());
   saveFormeState(fresh);
   return fresh;
+}
+
+export const exportFormeState = (state: FormeState) => exportText(state);
+
+/** A KISSA export also has `orders`, so favourites and stock decide it. */
+const looksLikeForme = (raw: unknown) => {
+  const value = raw as Partial<FormeState>;
+  return (
+    Array.isArray(value?.orders) &&
+    Array.isArray(value?.favourites) &&
+    !!value?.stockDeltas
+  );
+};
+
+export function importFormeState(
+  text: string,
+  nowIso: string,
+): ImportResult<FormeState> {
+  return importSandbox(text, nowIso, migrateForme, looksLikeForme);
 }
 
 export const FORME_STORAGE_DISCLOSURE =

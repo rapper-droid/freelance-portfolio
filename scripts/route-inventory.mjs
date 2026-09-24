@@ -24,12 +24,17 @@ const ORIGIN = `http://127.0.0.1:${PORT}`;
 const ASSETS = ["/sitemap.xml", "/robots.txt", "/icon.png", "/apple-icon.png"];
 const APIS = ["/api/contact", "/api/analytics", "/api/flow"];
 
-/** The two shop demos. Noindex by design, so the sitemap never mentions them. */
+/**
+ * The two shop demos. Noindex by design, so the sitemap never mentions them.
+ *
+ * The product pages are not listed: two of fourteen were, which made the
+ * ledger claim a template had two entities when it has fourteen. They are read
+ * off the live listing page instead, the same way the sitemap supplies every
+ * other dynamic entity (指示書 §04 — 全実体を含める).
+ */
 const FORME = [
   "/forme",
   "/forme/items",
-  "/forme/items/tumbler",
-  "/forme/items/care-kit",
   "/forme/cart",
   "/forme/my",
   "/forme/admin",
@@ -38,13 +43,23 @@ const FORME = [
 const KISSA = [
   "/kissa",
   "/kissa/menu",
-  "/kissa/menu/drip-house",
-  "/kissa/menu/latte",
   "/kissa/reserve",
   "/kissa/order",
   "/kissa/my",
   "/kissa/admin",
 ];
+
+/** Every product link the listing page actually renders. */
+async function entitiesOn(origin, listing, prefix) {
+  const html = await (await fetch(origin + listing)).text();
+  const found = [
+    ...html.matchAll(new RegExp(`href="(${prefix}/[a-z0-9-]+)"`, "g")),
+  ].map((m) => m[1]);
+  const routes = [...new Set(found)].sort();
+  if (routes.length === 0)
+    throw new Error(`no entities found under ${prefix} — parser out of date`);
+  return routes;
+}
 /** Requested to confirm the 404 boundary still answers 404. */
 const ERROR_PROBE = "/__inventory_probe_404";
 /** Endpoints whose correct answer to a GET is not 200. */
@@ -123,7 +138,14 @@ try {
   // KISSA is noindex by design — a fictional shop must not be indexed as a
   // real one — so it never reaches the sitemap. The routes exist and are
   // inventoried here, or the whole shop is invisible to the ledger.
-  for (const route of [...KISSA, ...FORME]) {
+  const shopRoutes = [
+    ...KISSA,
+    ...(await entitiesOn(ORIGIN, "/kissa/menu", "/kissa/menu")),
+    ...FORME,
+    ...(await entitiesOn(ORIGIN, "/forme/items", "/forme/items")),
+  ];
+
+  for (const route of shopRoutes) {
     const response = await fetch(ORIGIN + route, { redirect: "manual" });
     routes.push({
       kind: "page",

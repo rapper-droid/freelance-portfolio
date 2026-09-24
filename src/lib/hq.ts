@@ -1,7 +1,7 @@
 import { getProject } from "./portfolio";
 
 /** Editorial records, not a live feed. Add only dated, source-backed facts. */
-export const hqUpdatedAt = "2026-09-17";
+export const hqUpdatedAt = "2026-09-24";
 export const hqConcept = "集まり、つくり、次へ広がる。";
 export type HqBrand = {
   id: string;
@@ -54,9 +54,9 @@ export const hqSelections = [
     slug: "cafe",
     industry: "HOSPITALITY / BRAND WEB",
     headline: "一杯に会いに行きたくなる、入口を。",
-    problem: "お店の空気と、メニュー・アクセスの探しやすさを両立したい。",
-    solution: "写真、文字、余白を整え、来店までの情報を一本につなぐ。",
-    result: "メニューを切り替え、そのまま店舗情報へ進めるサイトに。",
+    problem: "お店の空気を保ったまま、注文と予約まで受けられるようにしたい。",
+    solution: "写真、文字、余白を整え、注文と予約を同じ記録の上につなぐ。",
+    result: "メニューから注文し、席を予約して、変更まで画面で終えられる。",
     visual: "photo",
   },
   {
@@ -65,7 +65,8 @@ export const hqSelections = [
     headline: "問い合わせの山に、次の一手を。",
     problem: "どの相談から対応し、誰へ渡すかを迷わず決めたい。",
     solution: "優先度、担当、対応状況を一画面に。返信案の編集までつなぐ。",
-    result: "絞り込みから状況更新、返信案のコピーまで操作できる。",
+    result:
+      "絞り込みから状況更新、返信の確認まで。記録は画面をまたいでも残る。",
     visual: "screen",
   },
   {
@@ -74,7 +75,7 @@ export const hqSelections = [
     headline: "自動で進める。判断は、置き去りにしない。",
     problem: "くり返す確認作業を減らしながら、実行前に内容を確かめたい。",
     solution: "入力、分類、人による確認、出力を順序のあるフローにする。",
-    result: "編集後の再確認を含めて、実行までの流れを試せる。",
+    result: "確認した案件が、そのまま問い合わせ管理に届くところまで試せる。",
     visual: "screen",
   },
 ] as const;
@@ -95,6 +96,50 @@ export type BuildRecord = {
   source: { kind: "git"; ref: string };
 };
 export const buildRecords: readonly BuildRecord[] = [
+  {
+    id: "kissa-shop",
+    date: "2026-09-24",
+    type: "Development",
+    brand: "tetsu-works",
+    title: "カフェのデモが、注文と予約を受ける店になりました。",
+    summary:
+      "メニューから注文し、受取時間を決め、席を予約して変更する。店側の運営画面から同じ記録を動かせます。架空店舗のため実際の注文・予約・支払いは発生しません。",
+    href: "/kissa",
+    source: { kind: "git", ref: "46bb2b69bd7235149acaea3c0d3fb429a7d9e8c2" },
+  },
+  {
+    id: "forme-shop",
+    date: "2026-09-24",
+    type: "Development",
+    brand: "tetsu-works",
+    title: "商品ページのデモに、在庫と注文を入れました。",
+    summary:
+      "色とサイズで写真・価格・在庫が連動し、注文で在庫が減り取消で戻る。未払いのまま発送できないことも運営画面で確かめられます。商品・価格は架空です。",
+    href: "/forme",
+    source: { kind: "git", ref: "b7de10a073b5e325d7e83bf152c22d1a9052b5c0" },
+  },
+  {
+    id: "one-record",
+    date: "2026-09-24",
+    type: "Update",
+    brand: "tetsu-works",
+    title: "自動化と問い合わせ管理と顧客台帳を、ひとつの記録に。",
+    summary:
+      "RELAYで確認した案件がSMART INBOXに届き、顧客台帳へ紐づけられます。承認した下書きを編集すると承認が外れます。メール送信とAI API接続は行いません。",
+    href: "/demos/automation",
+    source: { kind: "git", ref: "e2e422e70fa6510cdd618cb88a909d114352d816" },
+  },
+  {
+    id: "showcase-rebuild",
+    date: "2026-09-24",
+    type: "Update",
+    brand: "tetsu-works",
+    title: "見るだけだった4つのデモを、動かせる形に。",
+    summary:
+      "STILLは文字と比率を編集して書き出せ、FLOWSTATEは実際のファイルを出し、REFINEは読み順とフォーカス順を表示し、SHIPは実行済みの検査記録を並べます。",
+    href: "/works",
+    source: { kind: "git", ref: "7cce8613f5664ae9a22a4c44cf8942ffd8c4180d" },
+  },
   {
     id: "independent-demos",
     date: "2026-09-17",

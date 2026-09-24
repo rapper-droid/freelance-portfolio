@@ -1,0 +1,1528 @@
+{
+  "checkedAt": "2026-09-24T03:12:32.537Z",
+  "summary": [
+    {
+      "id": "kissa.menu.artwork",
+      "label": "KISSA の商品イラスト",
+      "required": true,
+      "kind": "drawn",
+      "total": 14,
+      "covered": 14
+    },
+    {
+      "id": "forme.product.artwork",
+      "label": "FORME の商品の作図",
+      "required": true,
+      "kind": "drawn",
+      "total": 6,
+      "covered": 6
+    },
+    {
+      "id": "forme.colour.media",
+      "label": "FORME の色ごとの見え方",
+      "required": false,
+      "kind": "mixed",
+      "total": 11,
+      "covered": 11
+    },
+    {
+      "id": "projects.previews",
+      "label": "制作例のプレビュー（3 幅）",
+      "required": true,
+      "kind": "file",
+      "total": 33,
+      "covered": 33
+    },
+    {
+      "id": "referenced.files",
+      "label": "コードが名前を書いている画像",
+      "required": true,
+      "kind": "file",
+      "total": 220,
+      "covered": 220
+    },
+    {
+      "id": "visuals.unused",
+      "label": "参照されていない /visuals",
+      "required": false,
+      "kind": "report",
+      "total": 0,
+      "covered": 0
+    }
+  ],
+  "slots": [
+    {
+      "id": "kissa.menu.artwork",
+      "label": "KISSA の商品イラスト",
+      "needs": "PALETTE + SHAPES",
+      "required": true,
+      "kind": "drawn",
+      "entities": [
+        {
+          "id": "drip-house",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "latte",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "espresso",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "cold-brew",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "hojicha-latte",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "sencha",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "herbal-tea",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "toast-set",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "sandwich",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "curry",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "cheesecake",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "pudding",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "seasonal-citrus",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "seasonal-mont-blanc",
+          "ok": true,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "forme.product.artwork",
+      "label": "FORME の商品の作図",
+      "needs": "SHAPES + GROUND",
+      "required": true,
+      "kind": "drawn",
+      "entities": [
+        {
+          "id": "tumbler",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "bottle",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "mug",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "lunch-box",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "tote",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "care-kit",
+          "ok": true,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "forme.colour.media",
+      "label": "FORME の色ごとの見え方",
+      "needs": "写真または作図",
+      "required": false,
+      "kind": "mixed",
+      "entities": [
+        {
+          "id": "tumbler/tumbler-sage",
+          "ok": true,
+          "detail": "photograph"
+        },
+        {
+          "id": "tumbler/tumbler-sand",
+          "ok": true,
+          "detail": "photograph"
+        },
+        {
+          "id": "tumbler/tumbler-charcoal",
+          "ok": true,
+          "detail": "photograph"
+        },
+        {
+          "id": "bottle/bottle-sage",
+          "ok": true,
+          "detail": "drawing"
+        },
+        {
+          "id": "bottle/bottle-charcoal",
+          "ok": true,
+          "detail": "drawing"
+        },
+        {
+          "id": "mug/mug-sand",
+          "ok": true,
+          "detail": "drawing"
+        },
+        {
+          "id": "mug/mug-charcoal",
+          "ok": true,
+          "detail": "drawing"
+        },
+        {
+          "id": "lunch-box/lunch-sage",
+          "ok": true,
+          "detail": "drawing"
+        },
+        {
+          "id": "lunch-box/lunch-sand",
+          "ok": true,
+          "detail": "drawing"
+        },
+        {
+          "id": "tote/tote-sand",
+          "ok": true,
+          "detail": "drawing"
+        },
+        {
+          "id": "tote/tote-charcoal",
+          "ok": true,
+          "detail": "drawing"
+        }
+      ]
+    },
+    {
+      "id": "projects.previews",
+      "label": "制作例のプレビュー（3 幅）",
+      "needs": "/previews/*-master-4.webp",
+      "required": true,
+      "kind": "file",
+      "entities": [
+        {
+          "id": "cafe/desktop",
+          "ok": true,
+          "detail": "public/previews/cafe-desktop-master-4.webp"
+        },
+        {
+          "id": "cafe/tablet",
+          "ok": true,
+          "detail": "public/previews/cafe-tablet-master-4.webp"
+        },
+        {
+          "id": "cafe/mobile",
+          "ok": true,
+          "detail": "public/previews/cafe-mobile-master-4.webp"
+        },
+        {
+          "id": "saas/desktop",
+          "ok": true,
+          "detail": "public/previews/saas-desktop-master-4.webp"
+        },
+        {
+          "id": "saas/tablet",
+          "ok": true,
+          "detail": "public/previews/saas-tablet-master-4.webp"
+        },
+        {
+          "id": "saas/mobile",
+          "ok": true,
+          "detail": "public/previews/saas-mobile-master-4.webp"
+        },
+        {
+          "id": "ec/desktop",
+          "ok": true,
+          "detail": "public/previews/ec-desktop-master-4.webp"
+        },
+        {
+          "id": "ec/tablet",
+          "ok": true,
+          "detail": "public/previews/ec-tablet-master-4.webp"
+        },
+        {
+          "id": "ec/mobile",
+          "ok": true,
+          "detail": "public/previews/ec-mobile-master-4.webp"
+        },
+        {
+          "id": "automation/desktop",
+          "ok": true,
+          "detail": "public/previews/automation-desktop-master-4.webp"
+        },
+        {
+          "id": "automation/tablet",
+          "ok": true,
+          "detail": "public/previews/automation-tablet-master-4.webp"
+        },
+        {
+          "id": "automation/mobile",
+          "ok": true,
+          "detail": "public/previews/automation-mobile-master-4.webp"
+        },
+        {
+          "id": "booking/desktop",
+          "ok": true,
+          "detail": "public/previews/booking-desktop-master-4.webp"
+        },
+        {
+          "id": "booking/tablet",
+          "ok": true,
+          "detail": "public/previews/booking-tablet-master-4.webp"
+        },
+        {
+          "id": "booking/mobile",
+          "ok": true,
+          "detail": "public/previews/booking-mobile-master-4.webp"
+        },
+        {
+          "id": "improvement/desktop",
+          "ok": true,
+          "detail": "public/previews/improvement-desktop-master-4.webp"
+        },
+        {
+          "id": "improvement/tablet",
+          "ok": true,
+          "detail": "public/previews/improvement-tablet-master-4.webp"
+        },
+        {
+          "id": "improvement/mobile",
+          "ok": true,
+          "detail": "public/previews/improvement-mobile-master-4.webp"
+        },
+        {
+          "id": "creative/desktop",
+          "ok": true,
+          "detail": "public/previews/creative-desktop-master-4.webp"
+        },
+        {
+          "id": "creative/tablet",
+          "ok": true,
+          "detail": "public/previews/creative-tablet-master-4.webp"
+        },
+        {
+          "id": "creative/mobile",
+          "ok": true,
+          "detail": "public/previews/creative-mobile-master-4.webp"
+        },
+        {
+          "id": "qa/desktop",
+          "ok": true,
+          "detail": "public/previews/qa-desktop-master-4.webp"
+        },
+        {
+          "id": "qa/tablet",
+          "ok": true,
+          "detail": "public/previews/qa-tablet-master-4.webp"
+        },
+        {
+          "id": "qa/mobile",
+          "ok": true,
+          "detail": "public/previews/qa-mobile-master-4.webp"
+        },
+        {
+          "id": "csv/desktop",
+          "ok": true,
+          "detail": "public/previews/csv-desktop-master-4.webp"
+        },
+        {
+          "id": "csv/tablet",
+          "ok": true,
+          "detail": "public/previews/csv-tablet-master-4.webp"
+        },
+        {
+          "id": "csv/mobile",
+          "ok": true,
+          "detail": "public/previews/csv-mobile-master-4.webp"
+        },
+        {
+          "id": "inbox/desktop",
+          "ok": true,
+          "detail": "public/previews/inbox-desktop-master-4.webp"
+        },
+        {
+          "id": "inbox/tablet",
+          "ok": true,
+          "detail": "public/previews/inbox-tablet-master-4.webp"
+        },
+        {
+          "id": "inbox/mobile",
+          "ok": true,
+          "detail": "public/previews/inbox-mobile-master-4.webp"
+        },
+        {
+          "id": "admin/desktop",
+          "ok": true,
+          "detail": "public/previews/admin-desktop-master-4.webp"
+        },
+        {
+          "id": "admin/tablet",
+          "ok": true,
+          "detail": "public/previews/admin-tablet-master-4.webp"
+        },
+        {
+          "id": "admin/mobile",
+          "ok": true,
+          "detail": "public/previews/admin-mobile-master-4.webp"
+        }
+      ]
+    },
+    {
+      "id": "referenced.files",
+      "label": "コードが名前を書いている画像",
+      "needs": "public/ に実在",
+      "required": true,
+      "kind": "file",
+      "entities": [
+        {
+          "id": "/previews/admin-desktop-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/admin-desktop-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/admin-desktop-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/admin-desktop-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/admin-desktop-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/admin-desktop.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/admin-mobile-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/admin-mobile-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/admin-mobile-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/admin-mobile-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/admin-mobile-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/admin-mobile.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/admin-tablet-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/admin-tablet-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/admin-tablet-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/admin-tablet-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/admin-tablet-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/admin-tablet.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-desktop-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-desktop-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-desktop-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-desktop-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-desktop-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-desktop.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-mobile-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-mobile-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-mobile-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-mobile-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-mobile-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-mobile.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-tablet-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-tablet-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-tablet-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-tablet-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-tablet-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/automation-tablet.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-desktop-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-desktop-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-desktop-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-desktop-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-desktop-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-desktop.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-mobile-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-mobile-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-mobile-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-mobile-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-mobile-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-mobile.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-tablet-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-tablet-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-tablet-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-tablet-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-tablet-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/booking-tablet.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-desktop-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-desktop-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-desktop-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-desktop-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-desktop-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-desktop.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-mobile-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-mobile-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-mobile-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-mobile-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-mobile-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-mobile.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-tablet-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-tablet-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-tablet-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-tablet-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-tablet-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/cafe-tablet.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-desktop-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-desktop-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-desktop-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-desktop-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-desktop-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-desktop.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-mobile-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-mobile-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-mobile-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-mobile-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-mobile-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-mobile.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-tablet-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-tablet-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-tablet-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-tablet-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-tablet-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/creative-tablet.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-desktop-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-desktop-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-desktop-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-desktop-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-desktop-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-desktop.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-mobile-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-mobile-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-mobile-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-mobile-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-mobile-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-mobile.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-tablet-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-tablet-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-tablet-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-tablet-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-tablet-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/csv-tablet.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-desktop-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-desktop-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-desktop-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-desktop-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-desktop-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-desktop.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-mobile-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-mobile-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-mobile-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-mobile-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-mobile-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-mobile.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-tablet-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-tablet-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-tablet-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-tablet-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-tablet-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/ec-tablet.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-desktop-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-desktop-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-desktop-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-desktop-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-desktop-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-desktop.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-mobile-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-mobile-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-mobile-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-mobile-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-mobile-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-mobile.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-tablet-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-tablet-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-tablet-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-tablet-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-tablet-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/improvement-tablet.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-desktop-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-desktop-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-desktop-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-desktop-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-desktop-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-desktop.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-mobile-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-mobile-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-mobile-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-mobile-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-mobile-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-mobile.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-tablet-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-tablet-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-tablet-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-tablet-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-tablet-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/inbox-tablet.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-desktop-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-desktop-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-desktop-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-desktop-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-desktop-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-desktop.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-mobile-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-mobile-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-mobile-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-mobile-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-mobile-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-mobile.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-tablet-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-tablet-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-tablet-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-tablet-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-tablet-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/qa-tablet.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-desktop-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-desktop-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-desktop-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-desktop-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-desktop-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-desktop.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-mobile-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-mobile-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-mobile-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-mobile-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-mobile-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-mobile.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-tablet-figma-sales-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-tablet-final-art-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-tablet-master-4.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-tablet-premium-3.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-tablet-visual-worlds-1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/previews/saas-tablet.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/forme-charcoal-v1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/forme-sage-v1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/forme-sand-v1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/forme-texture-v1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kissa-coffee-v1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kissa-drip-v2.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kissa-food-v2.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kissa-interior-v1.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kissa-ritual-v2.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kissa-space-v2.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kv-api.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kv-apps.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kv-automation.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kv-coding.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kv-design.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kv-ec.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kv-improvement.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kv-lp.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kv-nextjs.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kv-qa.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kv-responsive.webp",
+          "ok": true,
+          "detail": ""
+        },
+        {
+          "id": "/visuals/kv-web.webp",
+          "ok": true,
+          "detail": ""
+        }
+      ]
+    },
+    {
+      "id": "visuals.unused",
+      "label": "参照されていない /visuals",
+      "needs": "—",
+      "required": false,
+      "kind": "report",
+      "entities": []
+    }
+  ]
+}

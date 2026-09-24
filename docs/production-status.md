@@ -17,6 +17,19 @@ by name only.
 | Source   | `tsudowa/cloudflare-workers-candidate` = `6d2668f` (merge of PR #6, tree identical to `ec4422e`)                                                        |
 | Content  | The operable demos: KISSA and FORME, the shared operations record behind RELAY / SMART INBOX / ADMIN, and the rebuilt STILL, REFINE, SHIP and FLOWSTATE |
 
+### Not on production yet
+
+Three pieces of work are committed and not deployed: `e4c7c66` (P4 — the
+catalogue's descriptions, the routes into the shops from /works,
+/works/<category>, /projects/<slug>, partners and rescue, the dated build
+records, and `portfolio_working_version_click`), `755ad93` (61 Japanese
+sentences that rendered with a space in the middle), and P5 — the sandbox
+export/import and quarantine, the PAGE_CONTRACTS and image-coverage ledgers,
+performance budgets, and the shops added to the performance sweep. They sit on
+`claude/ultimate-experience-20260923`. Releasing them needs the owner's approval, then the usual path: PR into
+`tsudowa/cloudflare-workers-candidate`, then
+`node scripts/workers-production.mjs deploy-candidate`.
+
 ### Verified after this deployment, against `https://tsudowa.com`
 
 | Check                                      | Result                                     |

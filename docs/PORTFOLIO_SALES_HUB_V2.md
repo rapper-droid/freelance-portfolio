@@ -152,6 +152,8 @@ CTAは「ご利用中のクラウドソーシングサービスのメッセー�
 - `portfolio_category_view`
 - `portfolio_project_open`
 - `portfolio_live_demo_click`
+- `portfolio_working_version_click`（KISSA / FORME の操作できる版へ進んだ数。
+  showcase デモのクリックとは別に数える）
 - `portfolio_delivery_info_view`
 - `portfolio_copy_contact_message`
 

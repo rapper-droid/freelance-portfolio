@@ -246,8 +246,9 @@ export function CartFlow() {
               <small>
                 全国一律 {formatMoney(SHIPPING.flat)}、
                 {formatMoney(SHIPPING.freeAbove)} 以上で無料。
-                北海道・東北と九州・沖縄は 300 円を加算します。
-                住所は入力しません（地域だけで送料が決まる体験です）。
+                {
+                  "北海道・東北と九州・沖縄は 300 円を加算します。住所は入力しません（地域だけで送料が決まる体験です）。"
+                }
               </small>
             </label>
           ) : (

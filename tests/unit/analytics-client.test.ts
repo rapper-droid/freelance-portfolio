@@ -101,6 +101,32 @@ describe("sales funnel client visibility and privacy", () => {
       ["portfolio_project_open", "inbox"],
     ]);
   });
+  it("counts the showcase demo and the working shop as different clicks", () => {
+    // The card for KISSA carries both links. Folding them into one event would
+    // hide the only number that says whether anyone reaches the real shop.
+    mount("/works");
+    const handler = (
+      document.addEventListener as unknown as {
+        mock: { calls: [string, (e: { target: unknown }) => void][] };
+      }
+    ).mock.calls.find(([type]) => type === "click")![1];
+
+    // A click whose nearest matching ancestor carries only this attribute.
+    const clicked = (attribute: string, slug: string) => ({
+      target: {
+        closest: (selector: string) =>
+          selector.includes(attribute) ? { getAttribute: () => slug } : null,
+      },
+    });
+
+    handler(clicked("data-live-demo", "cafe"));
+    handler(clicked("data-working-version", "cafe"));
+    expect(payloads().map((p) => [p.event, p.project])).toEqual([
+      ["portfolio_visit", undefined],
+      ["portfolio_live_demo_click", "cafe"],
+      ["portfolio_working_version_click", "cafe"],
+    ]);
+  });
   it.each(["disabled", "dnt", "gpc"])(
     "does not send or store when %s",
     (mode) => {

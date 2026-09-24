@@ -18,8 +18,9 @@ export default function FormeMy() {
         <span className="forme-eyebrow">MY</span>
         <h1>ご注文・お気に入り</h1>
         <p>
-          この端末から行った分を表示しています。ログインは不要で、他の端末とは
-          共有されません。
+          {
+            "この端末から行った分を表示しています。ログインは不要で、他の端末とは共有されません。"
+          }
         </p>
       </div>
       <MyOrders />

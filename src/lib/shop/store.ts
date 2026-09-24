@@ -1,4 +1,13 @@
 import { emptyCart } from "./cart";
+import {
+  backupNote,
+  exportText,
+  importSandbox,
+  keepBackup,
+  readRaw,
+  writeRaw,
+  type ImportResult,
+} from "../runtime/sandbox";
 import { SHOP_SCHEMA_VERSION, type ShopState } from "./types";
 
 // Re-exported so callers that work with stored state get the version from the
@@ -61,11 +70,23 @@ export function migrate(raw: unknown, nowIso: string): MigrationResult {
   const version =
     typeof value.schemaVersion === "number" ? value.schemaVersion : 0;
 
-  if (version > SHOP_SCHEMA_VERSION)
+  // Data from a newer build is not this one's to rewrite. It is copied aside
+  // before the fresh sandbox starts overwriting the key — the previous version
+  // promised the original was untouched and then overwrote it at the next edit.
+  if (version > SHOP_SCHEMA_VERSION) {
+    const kept = keepBackup(
+      STORAGE_KEY,
+      JSON.stringify(raw),
+      `schemaVersion ${version} > ${SHOP_SCHEMA_VERSION}`,
+      nowIso,
+    );
     return {
       state: emptyState(nowIso, newSandboxId()),
-      note: "新しい版で保存されたデータのため、この画面では読み込みませんでした。元のデータは変更していません。",
+      note:
+        "新しい版で保存されたデータのため、この画面では読み込みませんでした。" +
+        backupNote(kept),
     };
+  }
 
   const base = emptyState(nowIso, value.sandboxId || newSandboxId());
   const state: ShopState = {
@@ -106,28 +127,31 @@ function hasContent(value: Partial<ShopState>): boolean {
   );
 }
 
-/** Reads the sandbox, tolerating storage being unavailable or blocked. */
+/** Reads the sandbox, tolerating storage being unavailable, blocked or broken. */
 export function loadState(nowIso: string): MigrationResult {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return { state: emptyState(nowIso, newSandboxId()) };
-    return migrate(JSON.parse(raw), nowIso);
-  } catch {
+  const read = readRaw(STORAGE_KEY);
+  if (read.ok)
+    return read.value === null
+      ? { state: emptyState(nowIso, newSandboxId()) }
+      : migrate(read.value, nowIso);
+
+  if (read.fault === "unavailable")
     return {
       state: emptyState(nowIso, newSandboxId()),
       note: "このブラウザでは保存が使えないため、このタブの間だけの体験になります。",
     };
-  }
+
+  const kept = keepBackup(STORAGE_KEY, read.text ?? "", "unreadable", nowIso);
+  return {
+    state: emptyState(nowIso, newSandboxId()),
+    note: "保存されていたデータを読み込めませんでした。" + backupNote(kept),
+  };
 }
 
 export function saveState(state: ShopState): boolean {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
-    return true;
-  } catch {
-    // Quota or blocked storage. The screens keep working from memory.
-    return false;
-  }
+  // Quota or blocked storage returns false; the screens keep working from
+  // memory and say so rather than pretending the order was kept.
+  return writeRaw(STORAGE_KEY, state);
 }
 
 /** Clears this visitor's sandbox only. Nobody else's demo is affected. */
@@ -138,24 +162,19 @@ export function resetState(nowIso: string): ShopState {
 }
 
 /** Lets someone carry their sandbox between browsers, or keep a copy. */
-export const exportState = (state: ShopState) => JSON.stringify(state, null, 2);
+export const exportState = (state: ShopState) => exportText(state);
+
+/** A FORME export is also JSON with a schemaVersion, so the check is specific. */
+const looksLikeKissa = (raw: unknown) => {
+  const value = raw as Partial<ShopState>;
+  return Array.isArray(value?.orders) && Array.isArray(value?.reservations);
+};
 
 export function importState(
   text: string,
   nowIso: string,
-):
-  | { ok: true; state: ShopState; note?: string }
-  | { ok: false; reason: string } {
-  let parsed: unknown;
-  try {
-    parsed = JSON.parse(text);
-  } catch {
-    return { ok: false, reason: "読み込めない形式です。" };
-  }
-  const result = migrate(parsed, nowIso);
-  if (!Array.isArray((parsed as Partial<ShopState>)?.orders))
-    return { ok: false, reason: "この体験の保存データではないようです。" };
-  return { ok: true, state: result.state, note: result.note };
+): ImportResult<ShopState> {
+  return importSandbox(text, nowIso, migrate, looksLikeKissa);
 }
 
 export const STORAGE_DISCLOSURE =

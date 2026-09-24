@@ -1497,22 +1497,6 @@
   text-underline-offset: 3px;
 }
 
-.kissa-reset {
-  border-top: 1px solid var(--line);
-  padding-top: var(--space-6);
-}
-
-.kissa-reset > h2 {
-  /* A housekeeping control, not a section of the page. */
-  font-size: var(--text-h3);
-  margin-bottom: var(--space-2);
-}
-
-.kissa-reset .kissa-button.quiet {
-  margin-top: var(--space-3);
-  border: 1px solid var(--line);
-}
-
 /* A five-column booking list does not fit a phone. The wrapper scrolls —
    not the table itself — because the wrapper is what carries the tabindex
    that makes the region reachable with a keyboard. */

@@ -230,8 +230,9 @@ export function FlowExperience({ notice }: { notice: ModeNotice }) {
 
           <p className="flow-fineprint">
             {scenario.note}{" "}
-            入力した文章はこのリクエスト内で処理し、保存しません。
-            外部のAIには送信しません。実在の個人情報は入力しないでください。
+            {
+              "入力した文章はこのリクエスト内で処理し、保存しません。外部のAIには送信しません。実在の個人情報は入力しないでください。"
+            }
           </p>
         </>
       )}

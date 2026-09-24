@@ -1,7 +1,7 @@
 {
-  "generatedAt": "2026-09-23T15:27:47.635Z",
+  "generatedAt": "2026-09-24T03:12:30.834Z",
   "counts": {
-    "page": 73,
+    "page": 89,
     "api": 3,
     "asset": 4,
     "error": 1
@@ -25,17 +25,17 @@
     "/experience/[slug]": 11,
     "/kissa": 1,
     "/kissa/menu": 1,
-    "/kissa/menu/[productId]": 2,
     "/kissa/reserve": 1,
     "/kissa/order": 1,
     "/kissa/my": 1,
     "/kissa/admin": 1,
+    "/kissa/menu/[productId]": 14,
     "/forme": 1,
     "/forme/items": 1,
-    "/forme/items/[productId]": 2,
     "/forme/cart": 1,
     "/forme/my": 1,
     "/forme/admin": 1,
+    "/forme/items/[productId]": 6,
     "/api/contact": 1,
     "/api/analytics": 1,
     "/api/flow": 1,
@@ -531,24 +531,6 @@
     },
     {
       "kind": "page",
-      "template": "/kissa/menu/[productId]",
-      "route": "/kissa/menu/drip-house",
-      "entity": "drip-house",
-      "status": 200,
-      "inSitemap": false,
-      "noindex": true
-    },
-    {
-      "kind": "page",
-      "template": "/kissa/menu/[productId]",
-      "route": "/kissa/menu/latte",
-      "entity": "latte",
-      "status": 200,
-      "inSitemap": false,
-      "noindex": true
-    },
-    {
-      "kind": "page",
       "template": "/kissa/reserve",
       "route": "/kissa/reserve",
       "entity": null,
@@ -585,6 +567,132 @@
     },
     {
       "kind": "page",
+      "template": "/kissa/menu/[productId]",
+      "route": "/kissa/menu/cheesecake",
+      "entity": "cheesecake",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/menu/[productId]",
+      "route": "/kissa/menu/cold-brew",
+      "entity": "cold-brew",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/menu/[productId]",
+      "route": "/kissa/menu/curry",
+      "entity": "curry",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/menu/[productId]",
+      "route": "/kissa/menu/drip-house",
+      "entity": "drip-house",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/menu/[productId]",
+      "route": "/kissa/menu/espresso",
+      "entity": "espresso",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/menu/[productId]",
+      "route": "/kissa/menu/herbal-tea",
+      "entity": "herbal-tea",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/menu/[productId]",
+      "route": "/kissa/menu/hojicha-latte",
+      "entity": "hojicha-latte",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/menu/[productId]",
+      "route": "/kissa/menu/latte",
+      "entity": "latte",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/menu/[productId]",
+      "route": "/kissa/menu/pudding",
+      "entity": "pudding",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/menu/[productId]",
+      "route": "/kissa/menu/sandwich",
+      "entity": "sandwich",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/menu/[productId]",
+      "route": "/kissa/menu/seasonal-citrus",
+      "entity": "seasonal-citrus",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/menu/[productId]",
+      "route": "/kissa/menu/seasonal-mont-blanc",
+      "entity": "seasonal-mont-blanc",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/menu/[productId]",
+      "route": "/kissa/menu/sencha",
+      "entity": "sencha",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/kissa/menu/[productId]",
+      "route": "/kissa/menu/toast-set",
+      "entity": "toast-set",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
       "template": "/forme",
       "route": "/forme",
       "entity": null,
@@ -597,24 +705,6 @@
       "template": "/forme/items",
       "route": "/forme/items",
       "entity": null,
-      "status": 200,
-      "inSitemap": false,
-      "noindex": true
-    },
-    {
-      "kind": "page",
-      "template": "/forme/items/[productId]",
-      "route": "/forme/items/tumbler",
-      "entity": "tumbler",
-      "status": 200,
-      "inSitemap": false,
-      "noindex": true
-    },
-    {
-      "kind": "page",
-      "template": "/forme/items/[productId]",
-      "route": "/forme/items/care-kit",
-      "entity": "care-kit",
       "status": 200,
       "inSitemap": false,
       "noindex": true
@@ -642,6 +732,60 @@
       "template": "/forme/admin",
       "route": "/forme/admin",
       "entity": null,
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/forme/items/[productId]",
+      "route": "/forme/items/bottle",
+      "entity": "bottle",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/forme/items/[productId]",
+      "route": "/forme/items/care-kit",
+      "entity": "care-kit",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/forme/items/[productId]",
+      "route": "/forme/items/lunch-box",
+      "entity": "lunch-box",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/forme/items/[productId]",
+      "route": "/forme/items/mug",
+      "entity": "mug",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/forme/items/[productId]",
+      "route": "/forme/items/tote",
+      "entity": "tote",
+      "status": 200,
+      "inSitemap": false,
+      "noindex": true
+    },
+    {
+      "kind": "page",
+      "template": "/forme/items/[productId]",
+      "route": "/forme/items/tumbler",
+      "entity": "tumbler",
       "status": 200,
       "inSitemap": false,
       "noindex": true
