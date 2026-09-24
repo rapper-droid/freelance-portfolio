@@ -1,13 +1,14 @@
 {
-  "generatedAt": "2026-09-24T06:20:17.620Z",
+  "generatedAt": "2026-09-24T09:21:51.893Z",
   "counts": {
-    "page": 92,
+    "page": 93,
     "api": 3,
     "asset": 4,
     "error": 1
   },
   "byTemplate": {
     "/": 1,
+    "/automation": 1,
     "/contact": 1,
     "/contact/general": 1,
     "/demos/[slug]": 11,
@@ -54,6 +55,14 @@
       "kind": "page",
       "template": "/",
       "route": "/",
+      "entity": null,
+      "status": 200,
+      "inSitemap": true
+    },
+    {
+      "kind": "page",
+      "template": "/automation",
+      "route": "/automation",
       "entity": null,
       "status": 200,
       "inSitemap": true

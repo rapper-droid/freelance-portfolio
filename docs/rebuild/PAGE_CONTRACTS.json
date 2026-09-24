@@ -1,6 +1,6 @@
 {
-  "checkedAt": "2026-09-24T06:20:18.475Z",
-  "inventoryGeneratedAt": "2026-09-24T06:20:17.620Z",
+  "checkedAt": "2026-09-24T09:21:53.549Z",
+  "inventoryGeneratedAt": "2026-09-24T09:21:51.893Z",
   "states": [
     "初期",
     "入力中",
@@ -27,8 +27,8 @@
     "再訪"
   ],
   "counts": {
-    "templates": 32,
-    "entities": 92
+    "templates": 33,
+    "entities": 93
   },
   "contracts": [
     {
@@ -141,6 +141,104 @@
         "再訪": {
           "applies": false,
           "reason": "保存しないため初回と同じ"
+        }
+      }
+    },
+    {
+      "id": "automation",
+      "template": "/automation",
+      "brand": "TETSU WORKS",
+      "family": "demo",
+      "audience": "実行モデルが妥当かを判断する人（開発者・情報システム）",
+      "purpose": "RELAY の 1 回の実行を、業務の言葉ではなく契約の粒度で確認する",
+      "inputs": "同梱サンプルの選択、承認する操作の選択、相手先の挙動（成功・失敗・応答なし）",
+      "outputs": "実行計画、承認の紐づけ、操作ごとの結果、実行ログ（JSON）",
+      "next": "/demos/automation（業務側）・/demos/inbox（運用側）",
+      "highlight": "失敗と「結果が分からない」を分け、再実行で二重に実行しないことを実際に見せる",
+      "reduces": "「本当に安全に再実行できるのか」を問い合わせて確認する手間",
+      "media": "なし（識別子と状態が主役）",
+      "storage": "なし（この画面は何も保存しない）",
+      "sideEffects": "なし。実行は端末内の模擬アダプター。任意コード実行・任意URL取得なし",
+      "evidence": "automation-console.test.ts（17 件）/ automation.spec.ts（8 件）",
+      "entities": [
+        "/automation"
+      ],
+      "entityCount": 1,
+      "noindex": false,
+      "inSitemap": true,
+      "states": {
+        "初期": {
+          "applies": true
+        },
+        "入力中": {
+          "applies": true
+        },
+        "hover": {
+          "applies": true
+        },
+        "focus": {
+          "applies": true
+        },
+        "pressed": {
+          "applies": true
+        },
+        "選択": {
+          "applies": true
+        },
+        "loading": {
+          "applies": true
+        },
+        "進行": {
+          "applies": true
+        },
+        "成功": {
+          "applies": true
+        },
+        "空": {
+          "applies": true
+        },
+        "検索0件": {
+          "applies": true
+        },
+        "validation error": {
+          "applies": true
+        },
+        "通信失敗": {
+          "applies": false,
+          "reason": "サーバーへ出ない"
+        },
+        "offline": {
+          "applies": false,
+          "reason": "サーバーへ出ない"
+        },
+        "権限不足": {
+          "applies": false,
+          "reason": "アカウントの概念がない"
+        },
+        "期限切れ": {
+          "applies": false,
+          "reason": "期限を持つデータがない"
+        },
+        "競合": {
+          "applies": true
+        },
+        "部分成功": {
+          "applies": true
+        },
+        "retry": {
+          "applies": true
+        },
+        "cancel": {
+          "applies": true
+        },
+        "undo": {
+          "applies": true
+        },
+        "disabled": {
+          "applies": true
+        },
+        "再訪": {
+          "applies": true
         }
       }
     },

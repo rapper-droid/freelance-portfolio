@@ -37,6 +37,7 @@ try {
     "/works",
     "/flow",
     "/report",
+    "/automation",
     "/report/recipes",
     "/report/history",
     "/services",

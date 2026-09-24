@@ -335,6 +335,44 @@ composite スコアは負荷で数点動くため、握るのは決定的な指�
 形で出せないため選択肢に出していない（指示書 §15）。AI も使っていない。
 増減の理由は「可能性」として出し、断定しない。
 
+### 3-10. Automation／API の技術画面（P3 の積み残し）
+
+指示書 §17 の要求はほぼ否定形で書かれている — **「nodeを線でつなぐだけの
+フローチャートで終わらせない」**。線は、どの操作が取り消せないのか、承認が
+何に紐づいているのか、二度押したら何が起きるのかを教えない。そこで
+`/automation` は、技術者が実際に聞く 4 つの問いの順に組んだ。
+
+| 節                    | 何を見せるか                                                                                                                              |
+| --------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| 1. 入力               | 同梱サンプルのみ。URL を渡す入口も、式を受け取る入口もない                                                                                |
+| 2. スキーマと境界     | **やらないこと 4 件を先頭に**。閉じた集合 6 種は `runtime/types.ts` の定数から読み出し                                                    |
+| 3. マッピング         | 項目を押すと、その根拠が**原文のどこか**を反転表示。根拠のない項目は「規則から導出」と区別                                                |
+| 4. 実行計画           | runId・版・inputHash・policyVersion と、操作ごとの payloadHash / idempotencyKey。**計画の提案と、環境から計算し直した実際の可否を並べる** |
+| 5. 承認               | 真偽値ではなくハッシュに紐づく。外へ出る操作は既定で未選択                                                                                |
+| 6. 実行・失敗・再実行 | 相手先の挙動を「成功／失敗／応答が返らない」から選んで実行                                                                                |
+| 7. 出力とログ         | 操作ごとの結果と相手側ID。JSON で書き出せる                                                                                               |
+
+**実ブラウザで確認した核心の挙動。**
+
+```
+1回目  case.upsert 成功 ／ reply.draft 結果不明 ／ mail.send 実行せず
+2回目  すべて 実行せず
+ログ   「結果が確認できませんでした。相手先の記録と照合するまで再送しません。」
+       「実行済みのため再実行しません（sim-50c8e60d）」
+```
+
+失敗と「結果が分からない」を別の状態にしているのは、タイムアウトした送信は
+失敗した送信ではないから。再送すれば二重に届きうる。
+
+**共通基盤の再利用。** 新しい planner も新しい API も作っていない。
+`/api/flow` が返す同じ 1 回の実行を、業務向け（RELAY のデモ）と技術向け
+（この画面）の 2 つの粒度で返すだけ。`technical` キーを足し、`runRelay` が
+抽出結果（項目 → 根拠）を返すようにした 2 点だけが追加。
+
+**安全側の境界。** 実行できるのは `actionKinds` の 8 種類だけで、この一覧は
+コードの閉じた集合そのもの。実行先は端末内の模擬アダプター。sample モード
+なので `mail.send`・`calendar.confirm`・`calendar.update` は計画と承認まで。
+
 ## 4. 未接続・やっていないこと
 
 | 項目           | 状態                                                                  |
@@ -356,7 +394,7 @@ composite スコアは負荷で数点動くため、握るのは決定的な指�
 | P2     | DAYBOOK（日付は修正済み。保存しないのは意図的 — 3-4 節）                               | 部分                          |
 | P2     | REPORT FLOW                                                                            | **完了**                      |
 | P3     | FORME / FLOWSTATE / REFINE / STILL / SHIP の作り込み                                   | **完了**                      |
-| P3     | Automation の技術画面（schema・mapping・retry・ログ）                                  | 未着手                        |
+| P3     | Automation の技術画面（schema・mapping・retry・ログ）                                  | **完了**                      |
 | P4     | TSUDOWA 全ページ・`/works` 全分類・`/services`・partners・rescue                       | **完了**                      |
 | P5     | 全 route / 状態の台帳、画像 coverage、公開デモ隔離、性能、migration、docs、review pack | **完了**                      |
 | P5     | 8 幅の visual baseline                                                                 | 部分（4 幅 + design QA 6 幅） |
@@ -377,21 +415,21 @@ REFINE の説明文だけ、P3 で足した幅切替と読み順に合わせて�
 | ---------------- | ------------------------ | ------------------------------------------- |
 | lint             | `npm run lint`           | 0 errors, 0 warnings                        |
 | typecheck        | `npm run typecheck`      | pass                                        |
-| unit             | `npx vitest run`         | **660 passed** / 46 files                   |
+| unit             | `npx vitest run`         | **677 passed** / 47 files                   |
 | build            | `npm run build`          | success                                     |
-| E2E（3 幅）      | `npm run test:e2e`       | **405 passed**                              |
+| E2E（3 幅）      | `npm run test:e2e`       | **429 passed**                              |
 | KISSA 通し       | `npm run qa:kissa`       | **57/57**（390 / 768 / 1440）               |
 | FORME 通し       | `npm run qa:forme`       | **62/62**（390 / 768 / 1440）               |
-| 表示崩れ（4 幅） | `npm run qa:visual`      | PASS **50 ルート** × 320/390/768/1440       |
-| 操作系の実測     | `npm run qa:controls`    | **158 controls** / 動かないボタン 0         |
-| リンク           | `npm run qa:links`       | PASS 42 routes, **237 links**               |
+| 表示崩れ（4 幅） | `npm run qa:visual`      | PASS **51 ルート** × 320/390/768/1440       |
+| 操作系の実測     | `npm run qa:controls`    | **165 controls** / 動かないボタン 0         |
+| リンク           | `npm run qa:links`       | PASS 42 routes, **238 links**               |
 | SEO              | `npm run qa:seo`         | PASS 41 routes（要 `NEXT_PUBLIC_SITE_URL`） |
 | デザイン（6 幅） | `npm run qa:design`      | PASS 6 routes × 6 幅、axe/focus/runtime     |
-| ルート台帳       | `npm run qa:inventory`   | **100 entries**、想定外ステータス 0         |
+| ルート台帳       | `npm run qa:inventory`   | **101 entries**、想定外ステータス 0         |
 | 日本語の改行     | `npm run qa:text`        | PASS（verify に組み込み済み）               |
 | 性能（mobile）   | `npm run qa:performance` | **20 ルート、予算内**                       |
 | 画像 coverage    | `npm run qa:images`      | 必須 4 枠すべて 100%                        |
-| 画面契約         | `npm run qa:contracts`   | **32 テンプレート / 92 実体**               |
+| 画面契約         | `npm run qa:contracts`   | **33 テンプレート / 93 実体**               |
 
 ### 新しい検査が、本当に落ちることを確かめた
 
@@ -413,10 +451,11 @@ KISSA と FORME の各 7 ルート、および P3 の 4 デモで **axe 違反 0
 `qa:visual` に `/history`・`/lab`・`/contact`・`/contact/general` を足した。
 この 4 つは今まで一度も幅検査を通っていなかった。
 
-### `qa:controls` の 19 件について
+### `qa:controls` の 22 件について
 
-147 個の操作を実際に押して、画面が変わらなかったものを報告する仕組み。
-19 件あるが、**死んだボタンは 1 つもない。** 内訳は 2 種類だけ。
+165 個の操作を実際に押して、画面が変わらなかったものを報告する仕組み。
+22 件あるが、**死んだボタンは 1 つもない。** 内訳は 2 種類だけ。
+Automation の技術画面（7 操作）は 0 件。
 
 | 種類                                       | 件数 | なぜ変わらないのが正しいか                      |
 | ------------------------------------------ | ---: | ----------------------------------------------- |
@@ -503,7 +542,10 @@ npm run qa:contracts  # 画面契約。台帳と結合するので、契約の�
 ```
 
 REPORT FLOW の検査は `tests/unit/report-flow.test.ts`（30 件・三週フロー）と
-`tests/e2e/report.spec.ts`（9 件 × 3 幅）。
+`tests/e2e/report.spec.ts`（9 件 × 3 幅）。Automation の技術画面は
+`tests/unit/automation-console.test.ts`（17 件）と
+`tests/e2e/automation.spec.ts`（8 件 × 3 幅）。前者には、画面が説明する
+閉じた集合がコードの定数と一致しているかの検査が入っている。
 
 どちらも `localhost:3000` に対して実行する（`QA_BASE_URL` で変更可）。
 

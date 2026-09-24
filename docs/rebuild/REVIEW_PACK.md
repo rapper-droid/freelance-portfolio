@@ -16,16 +16,18 @@ cd C:/Users/tetsu/tanebi-works-ultimate
 npm run dev          # http://localhost:3000（127.0.0.1 は hydration しない）
 ```
 
-| 見るもの                    | URL                  | 何が確かめられるか                      |
-| --------------------------- | -------------------- | --------------------------------------- |
-| 注文と席予約ができる店      | `/kissa`             | 注文・受取時間・席予約・変更・運営画面  |
-| 在庫のある店                | `/forme`             | 色 × サイズの在庫、注文、取消で戻る在庫 |
-| ひとつの記録で繋がる 3 画面 | `/demos/automation`  | 確認 → SMART INBOX → ADMIN              |
-| 自分のデータを持ち出す      | `/kissa/my` の一番下 | 書き出し・読み込み・控え・初期化        |
-| 毎週のCSVを処理する         | `/report`            | ルール保存・前回比・例外の修正・履歴    |
-| 検証の記録                  | `/demos/qa`          | 実行済みの検査と、未実施の理由          |
+| 見るもの                    | URL                  | 何が確かめられるか                       |
+| --------------------------- | -------------------- | ---------------------------------------- |
+| 注文と席予約ができる店      | `/kissa`             | 注文・受取時間・席予約・変更・運営画面   |
+| 在庫のある店                | `/forme`             | 色 × サイズの在庫、注文、取消で戻る在庫  |
+| ひとつの記録で繋がる 3 画面 | `/demos/automation`  | 確認 → SMART INBOX → ADMIN               |
+| 自分のデータを持ち出す      | `/kissa/my` の一番下 | 書き出し・読み込み・控え・初期化         |
+| 毎週のCSVを処理する         | `/report`            | ルール保存・前回比・例外の修正・履歴     |
+| 実行モデルを検分する        | `/automation`        | 計画・承認の紐づけ・冪等性・失敗・再実行 |
+| 検証の記録                  | `/demos/qa`          | 実行済みの検査と、未実施の理由           |
 
-**REPORT FLOW は本番未反映**（commit 済み・OWNER 承認待ち）。それ以外の
+**REPORT FLOW と Automation の技術画面は本番未反映**（commit 済み・OWNER 承認
+待ち）。それ以外の
 **P1〜P5 は本番反映済み**（2026-09-24、Worker version
 `afee9cdf`）。デプロイ後の検証は 12/12 + 11/11 + qa:kissa 56/56 + qa:forme 62/62。
 ロールバック先は `46f3f849-ae09-4d57-a36d-e4c158f89ffd`。
@@ -98,18 +100,18 @@ Lighthouse の performance スコアは負荷で数点動く。20 ルートを�
 | 日本語の改行     | `npm run qa:text`        | PASS                                   |
 | 画像 coverage    | `npm run qa:images`      | 必須 4 枠すべて 100%                   |
 | typecheck        | `npm run typecheck`      | pass                                   |
-| unit             | `npx vitest run`         | **629 passed** / 45 files              |
+| unit             | `npx vitest run`         | **677 passed** / 47 files              |
 | build            | `npm run build`          | success                                |
-| E2E（3 幅）      | `npm run test:e2e`       | **378 passed**                         |
-| 表示崩れ（4 幅） | `npm run qa:visual`      | 47 ルート × 320/390/768/1440           |
+| E2E（3 幅）      | `npm run test:e2e`       | **429 passed**                         |
+| 表示崩れ（4 幅） | `npm run qa:visual`      | **51 ルート** × 320/390/768/1440       |
 | デザイン（6 幅） | `npm run qa:design`      | 6 ルート × 6 幅、axe/focus/runtime     |
 | KISSA / FORME    | `qa:kissa` / `qa:forme`  | 56/56 / 62/62                          |
-| 操作系           | `npm run qa:controls`    | 147 controls / 動かないボタン 0        |
-| リンク           | `npm run qa:links`       | 42 routes / 234 links                  |
+| 操作系           | `npm run qa:controls`    | 165 controls / 動かないボタン 0        |
+| リンク           | `npm run qa:links`       | 42 routes / 238 links                  |
 | SEO              | `npm run qa:seo`         | 41 routes（要 `NEXT_PUBLIC_SITE_URL`） |
 | 性能（mobile）   | `npm run qa:performance` | **20 ルート、予算内**                  |
-| ルート台帳       | `npm run qa:inventory`   | 97 entries / 想定外ステータス 0        |
-| 画面契約         | `npm run qa:contracts`   | 29 テンプレート / 89 実体              |
+| ルート台帳       | `npm run qa:inventory`   | 101 entries / 想定外ステータス 0       |
+| 画面契約         | `npm run qa:contracts`   | 33 テンプレート / 93 実体              |
 
 ### 検査が本当に落ちることを確かめた
 
@@ -127,18 +129,18 @@ Lighthouse の performance スコアは負荷で数点動く。20 ルートを�
 
 ## 4. 未検証・未接続（ここが「まだ」の全部）
 
-| 項目                    | 状態                                                               |
-| ----------------------- | ------------------------------------------------------------------ |
-| 実決済                  | 内部シミュレーターのみ。外部サービス未接続                         |
-| 実注文・実予約・実配送  | 発生しない。全画面で架空店舗と明示                                 |
-| 実 AI                   | 未稼働。ルール処理の結果を AI の成果として表示しない               |
-| メール送信              | `/contact` のみ実送信。デモからは出ない                            |
-| 複数端末の共有          | しない（意図的）。**書き出し / 読み込みで移せる**                  |
-| Remote preview での検査 | 未実施（P4・P5 は本番未反映のため）                                |
-| Automation の技術画面   | 未着手（schema・mapping・retry・ログ）— **次はここ**               |
-| REPORT FLOW             | **完了**（`/report`。三週フローを実ブラウザで検証済み）            |
-| 8 幅の visual baseline  | 4 幅（320/390/768/1440）+ design QA 6 幅。8 幅の baseline は未整備 |
-| 追加支出                | **0 円**。新しい SaaS・API・アセットを導入していない               |
+| 項目                    | 状態                                                                |
+| ----------------------- | ------------------------------------------------------------------- |
+| 実決済                  | 内部シミュレーターのみ。外部サービス未接続                          |
+| 実注文・実予約・実配送  | 発生しない。全画面で架空店舗と明示                                  |
+| 実 AI                   | 未稼働。ルール処理の結果を AI の成果として表示しない                |
+| メール送信              | `/contact` のみ実送信。デモからは出ない                             |
+| 複数端末の共有          | しない（意図的）。**書き出し / 読み込みで移せる**                   |
+| Remote preview での検査 | 未実施（P4・P5 は本番未反映のため）                                 |
+| Automation の技術画面   | **完了**（`/automation`。再実行で二重実行しないことを実画面で検証） |
+| REPORT FLOW             | **完了**（`/report`。三週フローを実ブラウザで検証済み）             |
+| 8 幅の visual baseline  | 4 幅（320/390/768/1440）+ design QA 6 幅。8 幅の baseline は未整備  |
+| 追加支出                | **0 円**。新しい SaaS・API・アセットを導入していない                |
 
 ---
 

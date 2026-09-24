@@ -361,6 +361,26 @@ const CONTRACTS = [
     evidence: "contact.spec.ts / hq.spec.ts（導線）",
   }),
 
+  // ------------------------------------------------------- AUTOMATION ----
+  c("/automation", {
+    brand: "TETSU WORKS",
+    family: "demo",
+    audience: "実行モデルが妥当かを判断する人（開発者・情報システム）",
+    purpose: "RELAY の 1 回の実行を、業務の言葉ではなく契約の粒度で確認する",
+    inputs:
+      "同梱サンプルの選択、承認する操作の選択、相手先の挙動（成功・失敗・応答なし）",
+    outputs: "実行計画、承認の紐づけ、操作ごとの結果、実行ログ（JSON）",
+    next: "/demos/automation（業務側）・/demos/inbox（運用側）",
+    highlight:
+      "失敗と「結果が分からない」を分け、再実行で二重に実行しないことを実際に見せる",
+    reduces: "「本当に安全に再実行できるのか」を問い合わせて確認する手間",
+    media: "なし（識別子と状態が主役）",
+    storage: "なし（この画面は何も保存しない）",
+    sideEffects:
+      "なし。実行は端末内の模擬アダプター。任意コード実行・任意URL取得なし",
+    evidence: "automation-console.test.ts（17 件）/ automation.spec.ts（8 件）",
+  }),
+
   // -------------------------------------------------------- REPORT FLOW ----
   c("/report", {
     brand: "TETSU WORKS",

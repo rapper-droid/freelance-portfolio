@@ -42,6 +42,7 @@ const routes = [
   "/forme/admin",
   // REPORT FLOW: the record screens carry the sandbox panel, and the tool
   // itself is measured after a file is loaded by the E2E suite.
+  "/automation",
   "/report",
   "/report/recipes",
   "/report/history",

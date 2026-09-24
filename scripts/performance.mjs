@@ -42,6 +42,7 @@ try {
     "/works/api",
     "/works/qa",
     "/report",
+    "/automation",
     // The two heaviest, most interactive routes on the site had never been
     // measured: they carry a catalogue, a provider and a sandbox read.
     "/kissa",

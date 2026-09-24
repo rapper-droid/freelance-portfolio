@@ -41,8 +41,9 @@ by name only.
 
 ### Not on production yet
 
-REPORT FLOW (`/report`, `/report/recipes`, `/report/history`) is committed and
-**has not been deployed**. It is the P2 item that was never started: the domain
+REPORT FLOW (`/report`, `/report/recipes`, `/report/history`) and the
+Automation / API technical console (`/automation`) are committed and **have not
+been deployed**. It is the P2 item that was never started: the domain
 for it — recipes, computation, period comparison — had existed for a while with
 thirty-eight tests and no screen had ever rendered it.
 
