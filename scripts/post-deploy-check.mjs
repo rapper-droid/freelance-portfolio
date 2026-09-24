@@ -68,7 +68,7 @@ check(
 
 // ---- the public demos stay out of the index --------------------------------
 const sitemap = await get("/sitemap.xml");
-const shopsInSitemap = ["/kissa", "/forme"].filter((p) =>
+const shopsInSitemap = ["/kissa", "/forme", "/daybook"].filter((p) =>
   sitemap.text.includes(`${origin}${p}`),
 );
 check(
@@ -77,7 +77,14 @@ check(
   shopsInSitemap.join(", "),
 );
 
-for (const route of ["/kissa", "/kissa/menu", "/forme", "/forme/items"]) {
+for (const route of [
+  "/kissa",
+  "/kissa/menu",
+  "/forme",
+  "/forme/items",
+  "/daybook",
+  "/daybook/admin",
+]) {
   const { text } = await get(route);
   const noindex = /<meta name="robots" content="noindex/.test(text);
   check(`${route} が noindex`, noindex);

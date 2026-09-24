@@ -37,6 +37,7 @@
     "qa:kissa": "node scripts/kissa-qa.mjs",
     "qa:controls": "node scripts/inert-controls.mjs",
     "qa:forme": "node scripts/forme-qa.mjs",
+    "qa:daybook": "node scripts/daybook-qa.mjs",
     "qa:text": "node scripts/jsx-text-breaks.mjs",
     "qa:images": "node scripts/image-coverage.mjs",
     "qa:inventory": "node scripts/route-inventory.mjs",
