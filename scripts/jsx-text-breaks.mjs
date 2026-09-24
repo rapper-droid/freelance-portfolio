@@ -39,7 +39,8 @@ function isPlainText(line) {
   const t = line.trim();
   if (!t) return false;
   if (/[<>{}]/.test(t)) return false;
-  if (t.startsWith("//") || t.startsWith("*") || t.startsWith("/*")) return false;
+  if (t.startsWith("//") || t.startsWith("*") || t.startsWith("/*"))
+    return false;
   // Inside a string, an object or an import — anything that is not JSX body.
   if (/["'`]/.test(t)) return false;
   if (t.endsWith(",") || t.endsWith(";") || t.endsWith(":")) return false;
@@ -64,7 +65,7 @@ for (const file of walk(path.join(ROOT, "src"))) {
   const output = [];
   let changed = false;
 
-  for (let i = 0; i < lines.length; ) {
+  for (let i = 0; i < lines.length;) {
     if (!isPlainText(lines[i])) {
       output.push(lines[i]);
       i += 1;
