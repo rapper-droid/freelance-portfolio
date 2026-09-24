@@ -450,7 +450,7 @@ composite スコアは負荷で数点動くため、握るのは決定的な指�
 | P4     | TSUDOWA 全ページ・`/works` 全分類・`/services`・partners・rescue                       | **完了**                      |
 | P5     | 全 route / 状態の台帳、画像 coverage、公開デモ隔離、性能、migration、docs、review pack | **完了**                      |
 | P5     | 8 幅の visual baseline                                                                 | **完了**（320〜1440 の 8 幅） |
-| P5     | 許可された remote preview での検査                                                     | 未実施（本番未反映のため）    |
+| P5     | 許可された remote preview での検査                                                     | **完了**（本番に対して実行）  |
 
 P4 で `/services` の中身を変えなかったのは、公開中の 2 件（`web-fix`・
 `csv-routine`）が参照するデモが REFINE と CSV AUTOMATOR で、店ではないため。
@@ -530,26 +530,57 @@ Automation の技術画面（7 操作）は 0 件。
 
 **tsudowa.com は公開済みです。**
 
-| 配信先                                                         | 中身                                                         |
-| -------------------------------------------------------------- | ------------------------------------------------------------ |
-| **tsudowa.com**（Cloudflare Worker `tsudowa-production`）      | **P1〜P5 が反映済み**。version `afee9cdf`。PR #8 / `6b0445d` |
-| **tetsuworks.com**（Netlify / `codex/portfolio-sales-hub-v2`） | 古いまま（`ce03541`）。所長の判断で今回は更新していません    |
+| 配信先                                                    | 中身                                                                     |
+| --------------------------------------------------------- | ------------------------------------------------------------------------ |
+| **tsudowa.com**（Cloudflare Worker `tsudowa-production`） | **指示書 P1〜P5 すべて反映済み**。version `edcf338d`。PR #9 / `dcf80a5`  |
+| **tetsuworks.com**（Netlify）                             | **全パス 301 → `https://tsudowa.com/works`**。中身はこのリリースそのもの |
 
-実測（デプロイ後）:
+実測（2026-09-24 23:13 のデプロイ後・すべて本番 origin に対して実行）:
 
 ```
-tsudowa.com/kissa         -> 200   qa:kissa 56/56（本番に対して実行）
-tsudowa.com/forme         -> 200   qa:forme 62/62（本番に対して実行）
-tsudowa.com/demos/saas    -> 200   週次まとめの書き出しが本番で動作
-tsudowa.com/demos/automation -> RELAY で受け付けた案件が INBOX に 7 件
-33 ルート全て 200 / 実行時エラー 0 / sitemap に店舗は 0 件
-tetsuworks.com/forme      -> 404（未更新のため）
+post-deploy-check          14/14   台帳の 95 ページすべてが想定どおりの応答
+qa:daybook                 29/29   必須フローを通しで（仮押さえ→合意→承認→変更→差分→確定）
+qa:kissa                   59/59
+qa:forme                   62/62
+REPORT FLOW + Automation     8/8   2週目は無質問・保存したルールは再読込後も存在
+                                   結果不明と失敗が別・再実行で再送しない
+/daybook /daybook/admin    noindex かつ sitemap に不在
+実行時エラー 0
+tetsuworks.com/            301 -> tsudowa.com/works（中身は上記と同一。実測で確認）
 ```
 
 - **PR**: [#6](https://github.com/rapper-droid/freelance-portfolio/pull/6)（merge 済み）
 - **ロールバック先**: `9aaaed9e-1069-483c-aa64-01b2895d4e5c`
   （`npx wrangler rollback 9aaaed9e-1069-483c-aa64-01b2895d4e5c --name tsudowa-production`）
 - 詳細は [docs/production-status.md](../production-status.md)
+
+### tetsuworks.com について（2026-09-24 に実測して分かったこと）
+
+**tetsuworks.com は古いビルドを配信していません。全パスが 301 で
+`https://tsudowa.com/works` に飛びます**（`www` も apex 経由で同じ、Server は
+Netlify）。だから tetsuworks.com を開いた人が見るのは、このリリースで反映した
+ページそのものです。実測で DAYBOOK ×7・REPORT FLOW ×2・`/daybook`・`/report`
+へのリンク・「操作できる版」×20 を確認しました。
+
+このリダイレクトは**リポジトリの中にありません**。`netlify.toml` は
+`codex/portfolio-sales-hub-v2` と現在のブランチで同一で、`[[redirects]]` も
+`_redirects` も存在しません。Netlify のサイト／ドメイン設定側です。つまり:
+
+- `codex/portfolio-sales-hub-v2` へ push しても、**訪問者が見るものは変わりません**。
+  Codex 独自のコミットは 0 件（`ce03541` は現在のブランチの祖先）なので競合は
+  ありませんが、走るのは誰も配信していないビルドです。
+- しかも `scripts/check-production.mjs` は `NEXT_PUBLIC_SITE_URL` のホストが
+  `tsudowa.com` でなければビルドを落とします。そのサイトの環境変数が
+  tetsuworks.com なら、push の結果は赤いビルドだけです。
+
+`docs/rebuild/REBUILD_BASELINE.md` は tetsuworks.com を「200 / 1.91s・別配信」と
+記録しています。**現在は 301 なので、その後に誰かがリダイレクトを入れています。**
+`~/.claude/CLAUDE.md` と Registry の「tetsuworks.com 稼働中・本番ビルド元は
+`codex/portfolio-sales-hub-v2`」も、いまは実態とずれています（所長の資料なので
+こちらでは直していません）。
+
+所長の判断: **リダイレクトのまま**。パス保持への変更や独立配信への復帰は
+していません。
 
 ### デプロイして初めて分かった不具合（2 件）
 
@@ -572,7 +603,7 @@ tetsuworks.com/forme      -> 404（未更新のため）
    `e4c7c66` を確認。
 2. `npm run dev` → **`http://localhost:3000/works`**（`127.0.0.1` は不可）。
    カードの「操作できる版」から店へ入れる。
-3. **P1〜P5 は本番反映済み**（2026-09-24、version `afee9cdf`）。
+3. **指示書 P1〜P5 は全て本番反映済み**（2026-09-24 23:13、version `edcf338d`）。
    次に反映するときは PR → `tsudowa/cloudflare-workers-candidate` →
    `node scripts/workers-production.mjs deploy-candidate`（所長の承認が必要）。
    デプロイ後は必ず `node scripts/post-deploy-check.mjs https://tsudowa.com` と

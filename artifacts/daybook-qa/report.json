@@ -1,6 +1,6 @@
 {
-  "origin": "http://127.0.0.1:3170",
-  "checkedAtIso": "2026-09-24T13:46:40.353Z",
+  "origin": "https://tsudowa.com",
+  "checkedAtIso": "2026-09-24T14:15:32.302Z",
   "results": [
     {
       "name": "hydrate /daybook @390",
@@ -80,7 +80,7 @@
     {
       "name": "request id computed in this runtime",
       "ok": true,
-      "detail": "REQ-0D1210"
+      "detail": "REQ-9BBA30"
     },
     {
       "name": "alternatives offered for a taken slot",

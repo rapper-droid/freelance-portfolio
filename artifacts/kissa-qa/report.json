@@ -1,6 +1,6 @@
 {
-  "origin": "http://localhost:3000",
-  "checkedAtIso": "2026-09-24T12:44:24.217Z",
+  "origin": "https://tsudowa.com",
+  "checkedAtIso": "2026-09-24T14:16:41.698Z",
   "results": [
     {
       "name": "hydrate /kissa @390",
@@ -245,12 +245,12 @@
     {
       "name": "order placed",
       "ok": true,
-      "detail": "K-2E6F33"
+      "detail": "K-34BB70"
     },
     {
       "name": "payment decline recorded",
       "ok": true,
-      "detail": "ご注文を承りました  K-2E6F33  2026年9月25日（金） 08:00 にお受け取りください。 お支払い状況：拒否"
+      "detail": "ご注文を承りました  K-34BB70  2026年9月25日（金） 08:00 にお受け取りください。 お支払い状況：拒否"
     },
     {
       "name": "payment replay refused",
@@ -270,7 +270,7 @@
     {
       "name": "table booked",
       "ok": true,
-      "detail": "R-5E5F58"
+      "detail": "R-32B360"
     },
     {
       "name": "the change form offers days",
