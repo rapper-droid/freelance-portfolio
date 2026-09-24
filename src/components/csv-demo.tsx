@@ -1,4 +1,5 @@
 "use client";
+import { downloadText } from "@/lib/runtime/download";
 import { useRef, useState } from "react";
 import Link from "next/link";
 import {
@@ -282,15 +283,11 @@ export function CsvDemo() {
                 disabled={!result}
                 onClick={() => {
                   if (!result) return;
-                  const blob = new Blob([exportCsv(result)], {
-                    type: "text/csv;charset=utf-8;",
-                  });
-                  const url = URL.createObjectURL(blob);
-                  const a = document.createElement("a");
-                  a.href = url;
-                  a.download = "processed-data.csv";
-                  a.click();
-                  setTimeout(() => URL.revokeObjectURL(url), 1000);
+                  downloadText(
+                    exportCsv(result),
+                    "processed-data.csv",
+                    "text/csv;charset=utf-8;",
+                  );
                   setNotice("加工済みCSVをダウンロードしました。");
                   track("tool_completed", { project: "csv" });
                 }}

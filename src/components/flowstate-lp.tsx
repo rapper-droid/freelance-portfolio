@@ -1,5 +1,6 @@
 "use client";
 
+import { downloadText as download } from "@/lib/runtime/download";
 import { useState } from "react";
 import Link from "next/link";
 import { ArrowRight, Check, Download, X } from "lucide-react";
@@ -30,15 +31,6 @@ import {
  * The pricing stays fictional and says so twice: once beside the figures and
  * once in the questions.
  */
-
-function download(text: string, filename: string, type: string) {
-  const url = URL.createObjectURL(new Blob([text], { type }));
-  const link = document.createElement("a");
-  link.href = url;
-  link.download = filename;
-  link.click();
-  setTimeout(() => URL.revokeObjectURL(url), 1000);
-}
 
 const BEFORE_AFTER: Array<[string, string, string]> = [
   [

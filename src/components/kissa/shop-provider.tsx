@@ -31,6 +31,8 @@ import {
 } from "@/lib/shop/reservation";
 import {
   emptyState,
+  exportState,
+  importState,
   loadState,
   newSandboxId,
   resetState,
@@ -101,6 +103,10 @@ type ShopContextValue = {
   };
   setSaleState: (productId: string, state: SaleState) => void;
   reset: () => void;
+  /** The visitor's own copy of this sandbox, to keep or carry. */
+  exportData: () => string;
+  /** Returns a message when the file was refused, null when it was taken. */
+  importData: (text: string) => string | null;
 };
 
 /** The attempt that would have produced each recorded payment state. */
@@ -354,6 +360,15 @@ export function ShopProvider({ children }: { children: React.ReactNode }) {
         const fresh = resetState(new Date().toISOString());
         setState(fresh);
         setNotice("この端末の体験データを初期化しました。");
+      },
+
+      exportData: () => exportState(state),
+      importData: (text: string) => {
+        const result = importState(text, new Date().toISOString());
+        if (!result.ok) return result.reason;
+        commit(result.state);
+        setNotice(result.note ?? "");
+        return null;
       },
     };
   }, [state, ready, notice, nowIso, commit]);

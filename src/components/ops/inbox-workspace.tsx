@@ -1,5 +1,7 @@
 "use client";
 
+import { SandboxData } from "@/components/sandbox-data";
+import { OPS_STORAGE_KEY, OPS_STORAGE_DISCLOSURE } from "@/lib/ops/store";
 import { useState } from "react";
 import Link from "next/link";
 import { Inbox, Search, Sparkles, Copy, RotateCcw, Check } from "lucide-react";
@@ -369,6 +371,30 @@ export function InboxWorkspace() {
         見本データを合わせたものです。対応状況と担当は{" "}
         <Link href="/demos/admin">ADMIN</Link> の集計にもそのまま反映されます。
       </p>
+
+      {/* The record behind RELAY, this screen and ADMIN is one sandbox, so it
+          is exported, imported and reset in one place rather than three. */}
+      <SandboxData
+        name="tsudowa-ops"
+        storageKey={OPS_STORAGE_KEY}
+        label="対応記録"
+        theme="ops"
+        buttonClass="button secondary"
+        disclosure={OPS_STORAGE_DISCLOSURE}
+        onExport={ops.exportData}
+        onImport={ops.importData}
+        onReset={() => {
+          ops.reset();
+          clearFilters();
+          setSelected(null);
+        }}
+      >
+        <p>
+          {
+            "RELAY で受け付けた案件、ここでの対応状況と担当、ADMIN の紐づけは同じ記録です。書き出したファイルには、その全部が入ります。"
+          }
+        </p>
+      </SandboxData>
     </div>
   );
 }

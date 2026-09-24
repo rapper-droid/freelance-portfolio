@@ -1,5 +1,7 @@
 "use client";
 
+import { SandboxData } from "@/components/sandbox-data";
+import { STORAGE_KEY } from "@/lib/shop/store";
 import { useMemo, useState } from "react";
 import Link from "next/link";
 import { useShop } from "./shop-provider";
@@ -423,7 +425,7 @@ function ReservationCard({ reservation }: { reservation: Reservation }) {
 }
 
 export function MyPage() {
-  const { state, ready, notice, reset } = useShop();
+  const { state, ready, notice, reset, exportData, importData } = useShop();
   const [tab, setTab] = useState<"orders" | "reservations">("orders");
 
   if (!ready) return <p className="kissa-empty">読み込んでいます…</p>;
@@ -498,17 +500,19 @@ export function MyPage() {
           </ul>
         ))}
 
-      <section className="kissa-section kissa-reset">
-        <h2>この端末のデータ</h2>
-        <p className="kissa-fineprint">
-          {
-            "注文と予約は、このブラウザの中だけに保存されています。サーバーには送信されず、他の方には見えません。"
-          }
-        </p>
-        <button type="button" className="kissa-button quiet" onClick={reset}>
-          この端末の体験データを初期化する
-        </button>
-      </section>
+      <SandboxData
+        name="kissa"
+        storageKey={STORAGE_KEY}
+        label="注文と予約"
+        theme="kissa"
+        buttonClass="kissa-button secondary"
+        disclosure={
+          "注文と予約は、このブラウザの中だけに保存されています。サーバーには送信されず、他の方には見えません。"
+        }
+        onExport={exportData}
+        onImport={importData}
+        onReset={reset}
+      />
     </>
   );
 }

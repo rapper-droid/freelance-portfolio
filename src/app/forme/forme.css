@@ -1479,21 +1479,6 @@
 
 /* ---- reset section -------------------------------------------------- */
 
-.forme-reset {
-  padding-top: var(--space-6);
-  border-top: 1px solid var(--line);
-}
-
-.forme-reset > h2 {
-  margin-bottom: var(--space-2);
-  font-size: var(--text-h3);
-}
-
-.forme-reset .forme-button.quiet {
-  margin-top: var(--space-3);
-  border: 1px solid var(--line);
-}
-
 /* ---- footer --------------------------------------------------------- */
 
 .forme-footer {

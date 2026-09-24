@@ -23,6 +23,8 @@ import {
   type CaseTotals,
 } from "@/lib/ops/cases";
 import {
+  exportOpsState,
+  importOpsState,
   loadOpsState,
   resetOpsState,
   saveOpsState,
@@ -70,6 +72,10 @@ type OpsContextValue = {
   link: (caseId: string, customerId: string, customerName: string) => void;
   dismiss: (caseId: string) => void;
   reset: () => void;
+  /** The visitor's own copy of this sandbox, to keep or carry. */
+  exportData: () => string;
+  /** Returns a message when the file was refused, null when taken. */
+  importData: (text: string) => string | null;
 };
 
 const OpsContext = createContext<OpsContextValue | null>(null);
@@ -231,6 +237,15 @@ export function OpsProvider({
         live.current = fresh;
         setState(fresh);
         setNotice("この端末の対応記録を初期化しました。");
+      },
+
+      exportData: () => exportOpsState(live.current),
+      importData: (text: string) => {
+        const result = importOpsState(text, new Date().toISOString());
+        if (!result.ok) return result.reason;
+        commit(result.state);
+        setNotice(result.note ?? "");
+        return null;
       },
     };
   }, [state, ready, notice, nowIso, commit]);

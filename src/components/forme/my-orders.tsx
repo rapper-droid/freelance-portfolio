@@ -1,5 +1,7 @@
 "use client";
 
+import { SandboxData } from "@/components/sandbox-data";
+import { FORME_STORAGE_KEY } from "@/lib/forme/store";
 import { useState } from "react";
 import Link from "next/link";
 import { Heart } from "lucide-react";
@@ -216,7 +218,15 @@ function OrderCard({ order }: { order: FormeOrder }) {
 }
 
 export function MyOrders() {
-  const { state, ready, notice, reset, toggleFavourite } = useForme();
+  const {
+    state,
+    ready,
+    notice,
+    reset,
+    toggleFavourite,
+    exportData,
+    importData,
+  } = useForme();
   const [tab, setTab] = useState<"orders" | "favourites">("orders");
 
   if (!ready) return <p className="forme-empty">読み込んでいます…</p>;
@@ -311,17 +321,19 @@ export function MyOrders() {
           </ul>
         ))}
 
-      <section className="forme-section forme-reset">
-        <h2>この端末のデータ</h2>
-        <p className="forme-fineprint">
-          {
-            "注文・お気に入り・在庫の変更は、このブラウザの中だけに保存されています。サーバーには送信されず、他の方には見えません。"
-          }
-        </p>
-        <button type="button" className="forme-button quiet" onClick={reset}>
-          この端末の体験データを初期化する
-        </button>
-      </section>
+      <SandboxData
+        name="forme"
+        storageKey={FORME_STORAGE_KEY}
+        label="注文とお気に入り"
+        theme="forme"
+        buttonClass="forme-button secondary"
+        disclosure={
+          "注文・お気に入り・在庫の変更は、このブラウザの中だけに保存されています。サーバーには送信されず、他の方には見えません。"
+        }
+        onExport={exportData}
+        onImport={importData}
+        onReset={reset}
+      />
 
       <p className="forme-fineprint">
         お問い合わせの導線は <Link href="/demos/inbox">SMART INBOX</Link>{" "}
