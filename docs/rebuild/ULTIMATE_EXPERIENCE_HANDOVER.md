@@ -21,6 +21,13 @@
 
 ```
 （最新）この文書の更新
+（P5）  feat(sandbox) / chore(qa) / docs — 下の 3-8 節
+3a552ef  docs: 検証記録と引き継ぎ
+1db304c  chore(qa): 全ゲート再実行
+755ad93  fix: 日本語の文 61 か所
+7fcb533  chore(qa): 検証記録
+c1e34fa  chore(qa): ゲート再実行
+974df51  docs(rebuild): P4 の記録
 e4c7c66  feat(works): the catalogue leads to the shops, and stops denying them
 4409120  docs: record the release — tsudowa.com is live on this work
 ec4422e  fix: the cart was empty on the deployed build, 3 regions had no keyboard
@@ -243,6 +250,53 @@ FORME で見つけて直した不具合：**支払が checkout の中にしか�
 固定し、「できることを、できないと書く」文を落とす。書いた直後に 1 件捕まえた
 （SHIP の limitation から「自主制作」が消えていた）。
 
+### 3-8. 保存データと台帳（P5）
+
+**直した重大な 1 件。** 新しい版で保存されたデータを読んだとき、画面は
+「元のデータは変更していません」と書き、次の編集で `saveState` が上書きしていた。
+予約を持っている人が、失ったうえに「失っていない」と言われる状態だった。
+
+`src/lib/runtime/sandbox.ts` を共通化し、使えないデータは**必ず控えを取ってから**
+新しい sandbox を作る。
+
+| 事象             | 前                          | 後                                           |
+| ---------------- | --------------------------- | -------------------------------------------- |
+| 壊れたデータ     | 黙って破棄、次の保存で消滅  | `<key>--backup` へ控え、画面に理由を表示     |
+| 新しい版のデータ | 「変更していません」→上書き | 控えを取り、戻す / 書き出す / 削除ができる   |
+| 保存が使えない   | 同じ文言でまとめて表示      | 「使えない」と「読めない」を別の文言に分けた |
+
+**足した能力。** 3 つの sandbox すべてに書き出し / 読み込みを付けた
+（`src/components/sandbox-data.tsx`、`/kissa/my`・`/forme/my`・`/demos/inbox`）。
+端末をまたいで持ち運べる。他の体験のファイルは形で弾く（KISSA に FORME の
+ファイルを入れても半分だけ読み込まれない）。古い版の書き出しは migration を通す。
+
+**隔離の検査。** 3 つの sandbox は別キーで、片方の初期化が他に影響しないことを
+unit と E2E の両方で固定した。加えて `src/components/{kissa,forme,ops}` と
+`src/lib/{shop,forme,ops}` に `fetch(` / `/api/` / `CONTACT_STATE` が
+**1 つも無いこと**を構造として検査する（公開デモが本番へ出ない保証）。
+
+**台帳。** 指示書 §04 の PAGE_CONTRACTS を作った。
+
+| 台帳                | 中身                                    | コマンド               |
+| ------------------- | --------------------------------------- | ---------------------- |
+| PAGE_CONTRACTS.md   | 29 テンプレート / 89 実体 / 23 状態契約 | `npm run qa:contracts` |
+| ROUTE_INVENTORY     | **97 entries**（81 → 97）               | `npm run qa:inventory` |
+| IMAGE_COVERAGE.json | 必須 4 枠すべて 100%                    | `npm run qa:images`    |
+| REVIEW_PACK.md      | レビュー用の入口                        | 手動                   |
+
+ルート台帳は商品ページを 2 件しか数えていなかった（14 品と 6 品のうち）。
+一覧ページの HTML から実体を読むように変え、**全実体**が入るようにした。
+
+**性能。** `/kissa` と `/forme` は一度も測っていなかった。6 ルート足して 20 に。
+さらに `qa:performance` は**閾値を一つも持っていなかった**ので予算を付けた。
+composite スコアは負荷で数点動くため、握るのは決定的な指標
+（a11y=100 / best-practices≥95 / CLS≤0.05 / 転送 JS≤320KB / SEO=100）。
+`/kissa/*`・`/forme/*` は noindex なので SEO 予算から理由つきで除外する。
+
+**削ったもの。** ダウンロード処理の同一コピーが 5 か所にあったので
+`src/lib/runtime/download.ts` に集約した。`flow-result.tsx` は `click()` の直後に
+`revokeObjectURL` していて、ブラウザによってはダウンロードが始まらない実装だった。
+
 ## 4. 未接続・やっていないこと
 
 | 項目           | 状態                                                                  |
@@ -257,16 +311,18 @@ FORME で見つけて直した不具合：**支払が checkout の中にしか�
 
 ### 指示書のうち、着手していない範囲
 
-| 優先度 | 範囲                                                             | 状態     |
-| ------ | ---------------------------------------------------------------- | -------- |
-| P1     | KISSA（メニュー・詳細・カート・注文・予約・変更・運営反映）      | **完了** |
-| P2     | RELAY + SMART INBOX + ADMIN を 1 つの案件データで連動            | **完了** |
-| P2     | DAYBOOK（日付は修正済み。保存しないのは意図的 — 3-4 節）         | 部分     |
-| P2     | REPORT FLOW                                                      | 未着手   |
-| P3     | FORME / FLOWSTATE / REFINE / STILL / SHIP の作り込み             | **完了** |
-| P3     | Automation の技術画面（schema・mapping・retry・ログ）            | 未着手   |
-| P4     | TSUDOWA 全ページ・`/works` 全分類・`/services`・partners・rescue | **完了** |
-| P5     | 画像の棚卸し、PAGE_CONTRACTS 台帳、画像台帳、コスト台帳          | 未着手   |
+| 優先度 | 範囲                                                                                   | 状態                          |
+| ------ | -------------------------------------------------------------------------------------- | ----------------------------- |
+| P1     | KISSA（メニュー・詳細・カート・注文・予約・変更・運営反映）                            | **完了**                      |
+| P2     | RELAY + SMART INBOX + ADMIN を 1 つの案件データで連動                                  | **完了**                      |
+| P2     | DAYBOOK（日付は修正済み。保存しないのは意図的 — 3-4 節）                               | 部分                          |
+| P2     | REPORT FLOW                                                                            | 未着手                        |
+| P3     | FORME / FLOWSTATE / REFINE / STILL / SHIP の作り込み                                   | **完了**                      |
+| P3     | Automation の技術画面（schema・mapping・retry・ログ）                                  | 未着手                        |
+| P4     | TSUDOWA 全ページ・`/works` 全分類・`/services`・partners・rescue                       | **完了**                      |
+| P5     | 全 route / 状態の台帳、画像 coverage、公開デモ隔離、性能、migration、docs、review pack | **完了**                      |
+| P5     | 8 幅の visual baseline                                                                 | 部分（4 幅 + design QA 6 幅） |
+| P5     | 許可された remote preview での検査                                                     | 未実施（本番未反映のため）    |
 
 P4 で `/services` の中身を変えなかったのは、公開中の 2 件（`web-fix`・
 `csv-routine`）が参照するデモが REFINE と CSV AUTOMATOR で、店ではないため。
@@ -279,23 +335,36 @@ REFINE の説明文だけ、P3 で足した幅切替と読み順に合わせて�
 
 ## 5. 検証結果（すべて実行済み・数値は実測）
 
-| 検証             | コマンド                           | 結果                                        |
-| ---------------- | ---------------------------------- | ------------------------------------------- |
-| lint             | `npm run lint`                     | 0 errors, 0 warnings                        |
-| typecheck        | `npm run typecheck`                | pass                                        |
-| unit             | `npx vitest run`                   | **606 passed** / 44 files                   |
-| build            | `npm run build`                    | success                                     |
-| E2E（3 幅）      | `npm run test:e2e`                 | **348 passed**（7.3 分）                    |
-| KISSA 通し       | `npm run qa:kissa`                 | **56/56**（390 / 768 / 1440）               |
-| FORME 通し       | `npm run qa:forme`                 | **62/62**（390 / 768 / 1440）               |
-| 表示崩れ（4 幅） | `npm run qa:visual`                | PASS **47 ルート** × 320/390/768/1440       |
-| 操作系の実測     | `npm run qa:controls`              | 140 controls / **動かないボタン 0**         |
-| リンク           | `npm run qa:links`                 | PASS 42 routes, **234 links**               |
-| SEO              | `npm run qa:seo`                   | PASS 41 routes（要 `NEXT_PUBLIC_SITE_URL`） |
-| デザイン（6 幅） | `npm run qa:design`                | PASS 6 routes × 6 幅、axe/focus/runtime     |
-| ルート台帳       | `node scripts/route-inventory.mjs` | **81 entries**、想定外ステータス 0          |
-| 日本語の改行     | `npm run qa:text`                  | PASS（verify に組み込み済み）               |
-| 性能（mobile）   | `npm run qa:performance`           | 18 ルート / 最小 92 / CLS 0                 |
+| 検証             | コマンド                 | 結果                                        |
+| ---------------- | ------------------------ | ------------------------------------------- |
+| lint             | `npm run lint`           | 0 errors, 0 warnings                        |
+| typecheck        | `npm run typecheck`      | pass                                        |
+| unit             | `npx vitest run`         | **629 passed** / 45 files                   |
+| build            | `npm run build`          | success                                     |
+| E2E（3 幅）      | `npm run test:e2e`       | **378 passed**                              |
+| KISSA 通し       | `npm run qa:kissa`       | **56/56**（390 / 768 / 1440）               |
+| FORME 通し       | `npm run qa:forme`       | **62/62**（390 / 768 / 1440）               |
+| 表示崩れ（4 幅） | `npm run qa:visual`      | PASS **47 ルート** × 320/390/768/1440       |
+| 操作系の実測     | `npm run qa:controls`    | 140 controls / **動かないボタン 0**         |
+| リンク           | `npm run qa:links`       | PASS 42 routes, **234 links**               |
+| SEO              | `npm run qa:seo`         | PASS 41 routes（要 `NEXT_PUBLIC_SITE_URL`） |
+| デザイン（6 幅） | `npm run qa:design`      | PASS 6 routes × 6 幅、axe/focus/runtime     |
+| ルート台帳       | `npm run qa:inventory`   | **97 entries**、想定外ステータス 0          |
+| 日本語の改行     | `npm run qa:text`        | PASS（verify に組み込み済み）               |
+| 性能（mobile）   | `npm run qa:performance` | **20 ルート、予算内**                       |
+| 画像 coverage    | `npm run qa:images`      | 必須 4 枠すべて 100%                        |
+| 画面契約         | `npm run qa:contracts`   | 29 テンプレート / 89 実体                   |
+
+### 新しい検査が、本当に落ちることを確かめた
+
+緑になる検査ではなく赤くなる検査であることを、4 件とも故意に壊して確認した。
+
+| 検査             | 壊し方                       | 結果                     |
+| ---------------- | ---------------------------- | ------------------------ |
+| `qa:images`      | artId を存在しない値にする   | exit 1・id を表示        |
+| `qa:contracts`   | 契約のテンプレート名を変える | exit 1・不足と余剰を表示 |
+| `qa:performance` | 予算を 99 に上げる           | exit 1・route と数値     |
+| `qa:text`        | （P4 で 61 件検出）          | exit 1                   |
 
 ### アクセシビリティ
 
@@ -362,8 +431,10 @@ tetsuworks.com/forme      -> 404（未更新のため）
 3. **P4 と日本語の改行修正は本番未反映。** 反映するなら PR →
    `tsudowa/cloudflare-workers-candidate` →
    `node scripts/workers-production.mjs deploy-candidate`（所長の承認が必要）。
-4. 続きを作るなら **P5（全 route の最終 QA・画像 coverage・性能・docs）** か、
-   P3 の残り（Automation の技術画面）から。
+4. 続きを作るなら **P3 の残り（Automation の技術画面 — 入力 sample・schema・
+   mapping・実行計画・承認・各工程の状態・失敗・retry・出力とログ）** か、
+   **REPORT FLOW**、または 8 幅の visual baseline から。
+   レビューする人には [REVIEW_PACK.md](REVIEW_PACK.md) を渡す。
    共有記録の手本は 3 つ: `src/lib/shop/`（KISSA）、`src/lib/ops/`
    （RELAY + INBOX + ADMIN）、`src/lib/forme/`（FORME）。同じ形 —
    `schemaVersion` つきの localStorage、1 つの Context、判断は純粋関数。
@@ -378,6 +449,9 @@ npm run qa:kissa      # KISSA を通しで操作して 56 項目を検査
 npm run qa:forme      # FORME を通しで操作して 62 項目を検査
 npm run qa:controls   # 全デモのボタンを押して、何も起きないものを報告
 npm run qa:text       # JSX の中で割れた日本語の文を検出（verify に組み込み済み）
+npm run qa:images     # 商品画像・プレビュー・参照ファイルの充足（verify に組み込み済み）
+npm run qa:inventory  # 全 97 route を実際に要求して台帳を作る
+npm run qa:contracts  # 画面契約。台帳と結合するので、契約のない画面は落ちる
 ```
 
 どちらも `localhost:3000` に対して実行する（`QA_BASE_URL` で変更可）。
@@ -408,5 +482,10 @@ npm run qa:text       # JSX の中で割れた日本語の文を検出（verify 
   文を `{"…"}` に入れると折られない。**61 か所を `755ad93` で直し、
   `npm run qa:text` が verify の中で検査する。** 手で直す必要はない
   （`node scripts/jsx-text-breaks.mjs --fix` → prettier）。
+- **`next start` を止め忘れると、古いビルドを検査してしまう。** P5 で実際に起きた。
+  直したはずの文字列が画面に残り、原因は前のプロセスが同じポートを握っていたこと
+  だった。別ポートを使うか、`Get-NetTCPConnection -LocalPort <port>` で落とす。
+- **PowerShell の `Set-Content -Encoding utf8` は日本語を壊すことがある。**
+  日本語を含むファイルの書き換えは Python か Write ツールで行う。
 - **シェル経由で改行エスケープを含む JS を書くと潰れる。**
   正規表現や文字列に改行エスケープが要るときは Write ツールで書く。

@@ -1,6 +1,11 @@
 # COST_REPORT — この着手で発生した費用
 
-更新日: 2026-09-23（Asia/Tokyo）／branch `claude/real-utility-20260922`
+更新日: 2026-09-24（Asia/Tokyo）／branch `claude/ultimate-experience-20260923`
+
+> **P1〜P5 を終えた時点でも、追加支出は 0 円のまま。**
+> 新しい SaaS・API・有料アセット・クラウド資源のいずれも導入していない。
+> KISSA / FORME の商品画像はこのリポジトリ内で描いた SVG で、素材購入はない。
+> 本文の以降の記述（2026-09-23 時点）はそのまま有効。
 
 ## 実際に発生した費用
 
