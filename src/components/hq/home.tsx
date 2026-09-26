@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { HqHeader, HqFooter, HqContactHub, HqArrow } from "./shell";
-import { HqAssembly, LabWindow } from "./visuals";
+import { HqAssembly, LabWindow, MusicWindow } from "./visuals";
 import { HqMotion } from "./motion";
 import {
   hqBrands,
@@ -103,7 +103,9 @@ export function HqHome() {
                 </div>
                 <h3>{brand.name}</h3>
                 <div className="hq-world-visual">
-                  {brand.visual === "works" ? (
+                  {brand.visual === "music" ? (
+                    <MusicWindow />
+                  ) : brand.visual === "works" ? (
                     <div className="hq-works-window">
                       <div>
                         <span>FROM IDEA</span>
@@ -129,14 +131,25 @@ export function HqHome() {
                 <div className="hq-world-copy">
                   <h4>{brand.statement}</h4>
                   <p>{brand.description}</p>
-                  <Link
-                    className="hq-world-link"
-                    href={brand.href}
-                    prefetch={false}
-                  >
-                    {brand.cta}
-                    <HqArrow diagonal />
-                  </Link>
+                  {brand.external ? (
+                    <a
+                      className="hq-world-link"
+                      href={brand.href}
+                      rel="noopener"
+                    >
+                      {brand.cta}
+                      <HqArrow diagonal />
+                    </a>
+                  ) : (
+                    <Link
+                      className="hq-world-link"
+                      href={brand.href}
+                      prefetch={false}
+                    >
+                      {brand.cta}
+                      <HqArrow diagonal />
+                    </Link>
+                  )}
                 </div>
               </article>
             ))}

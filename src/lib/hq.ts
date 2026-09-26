@@ -12,7 +12,11 @@ export type HqBrand = {
   description: string;
   href: string;
   cta: string;
-  visual: "works" | "lab";
+  visual: "works" | "lab" | "music";
+  /** Set when href leaves this site, so the link is rendered as a plain external anchor. */
+  external?: boolean;
+  /** Small, honest stage marker shown on the card (e.g. Public Beta). */
+  stage?: string;
 };
 export const hqBrands: readonly HqBrand[] = [
   {
@@ -26,6 +30,20 @@ export const hqBrands: readonly HqBrand[] = [
     href: "/works",
     cta: "TETSU WORKSを見る",
     visual: "works",
+  },
+  {
+    id: "tsudowa-music",
+    name: "TSUDOWA MUSIC",
+    role: "MUSIC, PLAY & PIXEL WORLDS",
+    state: "Public Beta",
+    stage: "Public Beta",
+    statement: "気持ちを書く。曲になる。自由に鳴らす。",
+    description:
+      "指一本で音と夜の街が応えるJAM。6種類の音、6つのピクセル世界、景色の編集、端末への保存と再生。点数も失敗もありません。いまはFREE JAMを公開しています。",
+    href: "https://music.tsudowa.com",
+    cta: "自由に鳴らす",
+    visual: "music",
+    external: true,
   },
   {
     id: "tsukutta-lab",
@@ -89,13 +107,24 @@ export type BuildRecord = {
   id: string;
   date: string;
   type: "Brand" | "Update" | "Development";
-  brand: "tsudowa" | "tetsu-works" | "tsukutta-lab";
+  brand: "tsudowa" | "tetsu-works" | "tsukutta-lab" | "tsudowa-music";
   title: string;
   summary: string;
   href: string;
   source: { kind: "git"; ref: string };
 };
 export const buildRecords: readonly BuildRecord[] = [
+  {
+    id: "music-public-beta",
+    date: "2026-09-26",
+    type: "Brand",
+    brand: "tsudowa-music",
+    title: "TSUDOWA MUSIC を Public Beta で公開しました。",
+    summary:
+      "指一本で音と景色が応えるFREE JAMを公開しました。6種類の音、6つのピクセル世界、景色の編集、端末への保存と同じ演奏の再生まで、実際に遊べます。気持ちから歌をつくる機能は次の大型アップデートで公開予定です。",
+    href: "/#tsudowa-music",
+    source: { kind: "git", ref: "32d17ba" },
+  },
   {
     id: "kissa-shop",
     date: "2026-09-24",

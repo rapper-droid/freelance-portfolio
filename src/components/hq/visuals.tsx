@@ -58,6 +58,46 @@ export function LabWindow({ compact = false }: { compact?: boolean }) {
     </div>
   );
 }
+/**
+ * TSUDOWA MUSIC card visual: the Night City skyline of the JAM screen, drawn as pixels. Windows
+ * light up the way they do when someone taps, and the row of bars stands for the six sounds.
+ * Decorative only — the label carries the meaning for a screen reader.
+ */
+export function MusicWindow() {
+  return (
+    <div
+      className="hq-music-window"
+      role="img"
+      aria-label="夜の街のピクセル世界。タップに合わせて窓が灯り、6種類の音が並ぶTSUDOWA MUSICのJAM画面"
+    >
+      <div className="hq-music-window-top">
+        <span>TSUDOWA MUSIC</span>
+        <span>FREE JAM / NIGHT CITY</span>
+      </div>
+      <div className="hq-music-sky" aria-hidden="true">
+        <i className="hq-music-moon" />
+        <span className="hq-music-star" style={{ left: "14%", top: "18%" }} />
+        <span className="hq-music-star" style={{ left: "38%", top: "9%" }} />
+        <span className="hq-music-star" style={{ left: "72%", top: "22%" }} />
+        <div className="hq-music-city">
+          {[38, 62, 30, 78, 48, 88, 34, 56].map((h, i) => (
+            <b key={i} style={{ height: `${h}%` }}>
+              <em />
+              <em />
+              <em />
+            </b>
+          ))}
+        </div>
+      </div>
+      <div className="hq-music-keys" aria-hidden="true">
+        {["CHILL", "GROOVE", "BASS", "POP", "ROCK", "CINEMA"].map((name) => (
+          <span key={name}>{name}</span>
+        ))}
+      </div>
+      <p>叩いても、なぞっても、そのままでも。点数はありません。</p>
+    </div>
+  );
+}
 export function HqAssembly() {
   return (
     <div

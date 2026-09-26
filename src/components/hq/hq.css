@@ -497,8 +497,105 @@ a:hover .hq-arrow {
 .hq-world-lab {
   margin-top: 145px;
 }
+.hq-world-music {
+  margin-top: 145px;
+}
 .hq-world-visual {
   overflow: hidden;
+}
+/* TSUDOWA MUSIC: the Night City pixel world of the JAM screen, as a still card. */
+.hq-music-window {
+  width: 100%;
+  min-width: 0;
+  position: relative;
+  min-height: 340px;
+  aspect-ratio: 1.42;
+  background: linear-gradient(#0a0d24 0%, #141338 58%, #241a41 100%);
+  color: #e9e6ff;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  image-rendering: pixelated;
+}
+.hq-music-window-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 18px 20px 0;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  color: #b3accf;
+}
+.hq-music-sky {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+.hq-music-moon {
+  position: absolute;
+  right: 12%;
+  top: 14%;
+  width: 26px;
+  height: 26px;
+  background: #f4e9b8;
+  box-shadow: 0 0 22px #f4e9b855;
+}
+.hq-music-star {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: #cfd6ff;
+  opacity: 0.85;
+}
+.hq-music-city {
+  position: absolute;
+  inset: auto 0 0;
+  display: flex;
+  align-items: flex-end;
+  gap: 4px;
+  padding: 0 14px;
+  height: 78%;
+}
+.hq-music-city b {
+  position: relative;
+  flex: 1;
+  background: #0d1030;
+  border-top: 2px solid #2b2f63;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 5px;
+  padding: 6px 4px;
+}
+.hq-music-city em {
+  display: block;
+  height: 5px;
+  background: #3a3f7a;
+}
+.hq-music-city b:nth-child(2n) em:first-child,
+.hq-music-city b:nth-child(3n) em:last-child {
+  background: #ffd98a;
+  box-shadow: 0 0 9px #ffd98a80;
+}
+.hq-music-keys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  padding: 12px 18px 0;
+}
+.hq-music-keys span {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  padding: 4px 8px;
+  border: 1px solid #4a4a86;
+  border-radius: 999px;
+  color: #cfcaf5;
+}
+.hq-music-window p {
+  margin: 10px 18px 16px;
+  font-size: 12px;
+  color: #b3accf;
 }
 .hq-works-window {
   width: 100%;

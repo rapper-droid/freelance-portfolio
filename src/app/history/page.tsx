@@ -49,6 +49,7 @@ export default function HistoryPage() {
                           {
                             tsudowa: "TSUDOWA",
                             "tetsu-works": "TETSU WORKS",
+                            "tsudowa-music": "TSUDOWA MUSIC",
                             "tsukutta-lab": "TSUKUTTA LAB",
                           }[record.brand]
                         }
